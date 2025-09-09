@@ -1,0 +1,336 @@
+*, *::before, *::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+ul, ol {
+    list-style: none;
+}
+
+img, picture, video, canvas, svg {
+    display: block;
+    max-width: 100%;
+}
+
+input, button, textarea, select {
+    font: inherit;
+}
+
+:root {
+    --azul: #0c202d;
+    --turquesa: #0ec49f;
+    --verde: #00d084;
+    --negro: #0d0d0d;
+    --blanco: #cfd6dc;
+    --gris: #43494e;
+}
+
+@font-face {
+    font-family: 'Quantum';
+    src: url('../fonts/Quantum.otf') format('opentype');
+    font-weight: bold;
+}
+
+@font-face {
+    font-family: 'BankGothic';
+    src: url('../fonts/BankGothic-Medium.ttf') format('truetype');
+    font-weight: 600;
+}
+
+@font-face {
+    font-family: 'Roboto';
+    src: url('../fonts/Roboto-Regular.ttf') format('truetype');
+    font-weight: 400;
+}
+
+.font-quantum {
+    font-family: 'Quantum', sans-serif;
+}
+
+.font-bankgothic {
+    font-family: 'BankGothic', sans-serif;
+}
+
+html {
+    font-size: 100%;
+    line-height: 1.15;
+    background-color: rgb(225, 225, 225);
+    font-family: 'Roboto', sans-serif;
+    height: 100%;
+}
+
+body {
+    min-height: 100vh;
+    scroll-behavior: smooth;
+    text-rendering: optimizeSpeed;
+    background-color: rgb(225, 225, 225);
+    font-family: 'Roboto', sans-serif;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+main {
+    flex: 1 0 auto;
+}
+
+.text-turquesa {
+    color: var(--turquesa);
+}
+
+.text-gris {
+    color: var(--gris);
+}
+
+.text-blanco {
+    color: var(--blanco);
+}
+
+.text-negro {
+    color: var(--negro);
+}
+
+.bg-turquesa {
+    background-color: var(--turquesa);
+    color: var(--negro);
+}
+
+.bg-card-dark {
+    background: rgba(255, 255, 255, .2);
+}
+
+.bg-card-light {
+    background: rgba(89, 89, 89, .8);
+    color: #fff;
+}
+
+.bg-gradient-dark {
+    background: radial-gradient(1200px 600px at 10% -10%, rgba(0, 255, 204, .15), transparent 40%),
+    radial-gradient(1200px 600px at 90% 0%, rgba(2, 116, 190, .2), transparent 40%),
+    var(--negro);
+}
+
+.bg-azul {
+    background-color: var(--azul);
+    color: #fff;
+}
+
+.scroll-mt-navbar {
+    scroll-margin-top: 5rem;
+}
+
+.btn-turquesa {
+    font-family: 'BankGothic', sans-serif;
+    color: #000;
+    background-color: var(--turquesa);
+    border-color: var(--azul);
+}
+
+.btn-turquesa:hover {
+    background-color: #7ff5e3;
+    border-color: var(--azul);
+    color: #000;
+}
+
+.btn-turquesa:active {
+    background-color: #5feedd;
+}
+
+.btn-outline-turquesa {
+    color: var(--turquesa);
+    border: 1px solid var(--turquesa);
+    background-color: transparent;
+    transition: all .3s ease;
+    font-family: 'BankGothic', sans-serif;
+}
+
+.btn-outline-turquesa:hover,
+.btn-outline-turquesa:focus {
+    color: #000;
+    background-color: var(--turquesa);
+    border-color: var(--turquesa);
+}
+
+.btn-azul {
+    background-color: var(--azul);
+    color: #fff;
+}
+
+.navbar .nav-link.active,
+.navbar .nav-link:hover {
+    color: var(--turquesa) !important;
+    font-weight: 600;
+    text-decoration: underline;
+    text-underline-offset: 6px;
+}
+
+.tabs-underline {
+    gap: 1.5rem;
+    border-bottom: 1px solid rgba(255, 255, 255, .15);
+}
+
+.tabs-underline .nav-link {
+    color: #bbb;
+    border: none;
+    background: transparent;
+    border-radius: 0;
+    padding: .75rem .5rem;
+    position: relative;
+    transition: color .2s ease;
+}
+
+.tabs-underline .nav-link::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -1px;
+    height: 2px;
+    background: transparent;
+    transform: scaleX(0);
+    transition: transform .2s ease, background .2s ease;
+}
+
+.tabs-underline .nav-link:hover {
+    color: #fff;
+}
+
+.tabs-underline .nav-link:hover::after {
+    background: rgba(255, 255, 255, .35);
+    transform: scaleX(1);
+}
+
+.tabs-underline .nav-link.active {
+    color: var(--turquesa);
+    font-weight: 600;
+}
+
+.tabs-underline .nav-link.active::after {
+    background: var(--turquesa);
+    transform: scaleX(1);
+}
+
+.tabs-segment {
+    display: inline-flex;
+    gap: .5rem;
+    border: 1px solid rgba(255, 255, 255, .18);
+    backdrop-filter: saturate(120%);
+}
+
+.tabs-segment .nav-link {
+    color: #b8c2ca;
+    background: transparent;
+    border: 1px solid transparent;
+    border-radius: 999px;
+    padding: .5rem 1rem;
+    line-height: 1;
+}
+
+.tabs-segment .nav-link:hover {
+    color: #e7eef3;
+}
+
+.tabs-segment .nav-link.active {
+    color: #000;
+    background: var(--turquesa);
+    border-color: var(--turquesa);
+    font-weight: 600;
+    box-shadow: 0 0 0 .12rem rgba(14, 196, 159, .25);
+}
+
+.tabs-segment .tab-chip {
+    display: inline-block;
+    padding: .12rem .45rem;
+    border-radius: 999px;
+    background: rgba(14, 196, 159, .15);
+    color: var(--turquesa);
+    border: 1px solid var(--turquesa);
+    font-size: .75rem;
+    font-weight: 600;
+    letter-spacing: .2px;
+}
+
+.table-dark th, .table-dark td {
+    vertical-align: middle;
+}
+
+footer {
+    flex-shrink: 0;
+    color: #bbb;
+}
+
+footer a {
+    color: #fff;
+    text-decoration: none;
+}
+
+footer a:hover {
+    text-decoration: underline;
+    color: #00d1b2;
+}
+
+footer .text-accent {
+    color: #00d1b2;
+}
+
+.navbar-avatar {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 1px solid rgba(255, 255, 255, .25);
+}
+
+.admin-shell {
+    background: #111;
+    border: 1px solid rgba(255, 255, 255, .25);
+    border-radius: .75rem;
+}
+
+.toogler-color {
+    border-color: var(--turquesa);
+    color: var(--turquesa);
+}
+
+.procesos-container, .tecnologias-container {
+    padding: 2rem;
+    background: linear-gradient(135deg, #0c202d, #0d2a39);
+    border-radius: 10px;
+    color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, .2);
+    transition: transform .3s;
+}
+
+.procesos-container:hover, .tecnologias-container:hover {
+    transform: translateY(-5px);
+}
+
+.procesos-container h3, .tecnologias-container h3 {
+    font-family: 'BankGothic', sans-serif;
+    border-bottom: 2px solid var(--turquesa);
+    padding-bottom: .5rem;
+    margin-bottom: 1.5rem;
+}
+
+.service-card .card-img-top {
+    aspect-ratio: 16/9;
+    object-fit: cover;
+    border-bottom: 1px solid rgba(255, 255, 255, .2);
+    background: #0f0f0f;
+}
+
+.hero-servicios {
+    border-bottom: 1px solid rgba(255, 255, 255, .15);
+}
+
+.icono {
+    width: 56px;
+    height: 56px;
+}
+
+iframe {
+    width: 100%;
+    height: 280px;
+    border: 0;
+}
