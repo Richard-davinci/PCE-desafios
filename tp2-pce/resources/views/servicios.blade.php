@@ -1,6 +1,6 @@
 <x-layout>
-    <main>
-        <section class="py-5 bg-gradient-dark text-light border-bottom">
+    <main class="mt-5">
+        <section class="mt-3 py-5 bg-gradient-dark text-light">
             <div class="container">
                 <div class="row align-items-center g-4">
                     <div class="col-lg-8">
@@ -39,9 +39,9 @@
                                 <p class="mb-0 text-blanco">
                                     <i class="bi bi-cash-coin me-1"></i>Desde <strong>$29.990</strong>
                                 </p>
-                                <button class="btn btn-turquesa mt-3" data-bs-toggle="modal" data-bs-target="#modal">
-                                    Ver más
-                                </button>
+                                <a class="btn btn-turquesa mt-3" href="{{route('ver-servicio')}}">Ver
+                                    más
+                                </a>
                             </div>
                         </article>
                     </div>
@@ -58,9 +58,9 @@
                                     opcional.</p>
                                 <p class="mb-0 text-blanco"><i class="bi bi-cash-coin me-1"></i>Desde
                                     <strong>$149.990</strong></p>
-                                <button class="btn btn-turquesa mt-3" data-bs-toggle="modal" data-bs-target="#modal">Ver
+                                <a class="btn btn-turquesa mt-3" href="{{route('ver-servicio')}}">Ver
                                     más
-                                </button>
+                                </a>
                             </div>
                         </article>
                     </div>
@@ -77,9 +77,9 @@
                                     fricción.</p>
                                 <p class="mb-0 text-blanco"><i class="bi bi-cash-coin me-1"></i>Desde
                                     <strong>$119.990</strong></p>
-                                <button class="btn btn-turquesa mt-3" data-bs-toggle="modal" data-bs-target="#modal">Ver
+                                <a class="btn btn-turquesa mt-3" href="{{route('ver-servicio')}}">Ver
                                     más
-                                </button>
+                                </a>
                             </div>
                         </article>
                     </div>
@@ -113,9 +113,9 @@
                                     posicionar mejor.</p>
                                 <p class="mb-0 text-blanco"><i class="bi bi-cash-coin me-1"></i>Desde
                                     <strong>$59.990</strong></p>
-                                <button class="btn btn-turquesa mt-3" data-bs-toggle="modal" data-bs-target="#modal">Ver
+                                <a class="btn btn-turquesa mt-3" href="{{route('ver-servicio')}}">Ver
                                     más
-                                </button>
+                                </a>
                             </div>
                         </article>
                     </div>
@@ -130,9 +130,9 @@
                                 <p class="text-blanco">Actualizaciones, monitoreo básico y soporte con SLA acordado.</p>
                                 <p class="mb-0 text-blanco"><i class="bi bi-cash-coin me-1"></i>Desde
                                     <strong>$39.990</strong></p>
-                                <button class="btn btn-turquesa mt-3" data-bs-toggle="modal" data-bs-target="#modal">Ver
+                                <a class="btn btn-turquesa mt-3" href="{{route('ver-servicio')}}">Ver
                                     más
-                                </button>
+                                </a>
                             </div>
                         </article>
                     </div>

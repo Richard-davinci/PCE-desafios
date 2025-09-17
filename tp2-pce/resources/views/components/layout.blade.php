@@ -10,7 +10,7 @@
 </head>
 <body>
 <header>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-gradient-dark border-bottom">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-gradient-dark border-bottom fixed-top">
         <div class="container">
             <a class="navbar-brand d-flex justify-content-center justify-content-lg-start align-items-center m-auto"
                href="/">
@@ -63,7 +63,7 @@
         <div class="row g-4 align-items-center">
             <div class="col-12 col-lg-4">
                 <a class="navbar-brand d-flex justify-content-center justify-content-lg-start align-items-center m-auto"
-                   href="index.html">
+                   href="{{route('inicio')}}">
                     <img src="img/logo.png" alt="logo" class="img-fluid w-50">
                 </a>
             </div>
@@ -88,6 +88,7 @@
         </div>
     </div>
 </footer>
-
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        crossorigin="anonymous"></script>
 </body>
 </html>

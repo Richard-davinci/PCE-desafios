@@ -1,7 +1,7 @@
 <x-layout>
-    <main>
-        <section class="d-flex align-items-center bg-gradient-dark text-light">
-            <div class="container py-5">
+    <main class="mt-5">
+        <section class="mt-3 py-5 bg-gradient-dark text-light">
+            <div class="container">
                 <div class="d-flex flex-column flex-lg-row align-items-lg-center justify-content-between gap-3">
                     <div>
                         <h1 class="fs-1 fw-bold font-bankgothic mb-3">Hosting + Mantenimiento</h1>
@@ -96,7 +96,7 @@
             </div>
         </section>
 
-        <section class="bg-gradient-dark text-light">
+        <section class="py-5 bg-gradient-dark text-light">
             <div class="container">
                 <div class="row g-4">
                     <div class="col-12">

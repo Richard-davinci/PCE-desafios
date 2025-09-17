@@ -1,6 +1,8 @@
 <x-layout>
-    <main>
-        <section class="py-5 bg-gradient-dark text-light">
+    <x-slot:title>Nosotros</x-slot:title>
+
+    <main class="mt-5">
+        <section class="mt-3 py-5 bg-gradient-dark text-light">
             <div class="container">
                 <div class="align-items-center g-4">
                     <h1 class="font-bankgothic fw-bold mb-3">Construimos presencia digital que <span
@@ -188,8 +190,8 @@
                         <p class="text-blanco">Elegí un plan o escribinos y coordinamos el inicio.</p>
                     </div>
                     <div class="d-flex gap-2">
-                        <a class="btn btn-turquesa fs-6" href="servicios.html">Ver servicios</a>
-                        <a class="btn btn-outline-turquesa fs-6" href="contacto.html">Contacto</a>
+                        <a class="btn btn-turquesa fs-6" href="{{route('servicios')}}">Ver servicios</a>
+                        <a class="btn btn-outline-turquesa fs-6" href="{{route('contacto')}}">Contacto</a>
                     </div>
                 </div>
             </div>

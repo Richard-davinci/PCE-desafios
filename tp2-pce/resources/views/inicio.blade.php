@@ -1,7 +1,7 @@
 <x-layout>
     <x-slot:title>Pagina Principal</x-slot:title>
-    <main>
-        <section class="py-5 bg-gradient-dark text-light">
+    <main class="mt-5">
+        <section class="mt-3 py-5 bg-gradient-dark text-light">
             <div class="container">
                 <h1 class="font-bankgothic">Servicios web, <span
                         class="text-turquesa">rápidos y sin vueltas</span>.</h1>
@@ -28,7 +28,7 @@
                         title="Sitio institucional"
                         description="Páginas informativas (inicio, servicios, nosotros, contacto) y blog opcional."
                         price="$149.990"
-                        modal-id="mInst"
+                        link-id="{{route('ver-servicio')}}"
                     />
                     <x-service-card
                         image="img/servicios/producto2.png"
@@ -36,7 +36,7 @@
                         title="Landing / Maquetación"
                         description="Una página enfocada en conversión para campañas o lanzamientos."
                         price="$89.990"
-                        modal-id="mLanding"
+                        link-id="{{route('ver-servicio')}}"
                     />
                     <x-service-card
                         image="img/servicios/producto3.png"
@@ -44,7 +44,7 @@
                         title="Implementación CMS"
                         description="Montaje y ajustes de CMS para que edites tu contenido sin fricción."
                         price="$119.990"
-                        modal-id="mCMS"
+                        link-id="{{route('ver-servicio')}}"
                     />
 
                 </div>

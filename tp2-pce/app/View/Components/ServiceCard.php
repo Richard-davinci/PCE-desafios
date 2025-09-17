@@ -6,16 +6,16 @@ use Illuminate\View\Component;
 
 class ServiceCard extends Component
 {
-    public $image, $alt, $title, $description, $price, $modalId;
+    public $image, $alt, $title, $description, $price, $linkId;
 
-    public function __construct($image, $alt, $title, $description, $price, $modalId)
+    public function __construct($image, $alt, $title, $description, $price, $linkId)
     {
         $this->image = $image;
         $this->alt = $alt;
         $this->title = $title;
         $this->description = $description;
         $this->price = $price;
-        $this->modalId = $modalId;
+        $this->linkId = $linkId;
     }
 
     public function render()

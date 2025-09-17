@@ -7,8 +7,7 @@
             <h3 class="font-bankgothic fs-4">{{ $title }}</h3>
             <p class="text-blanco">{{ $description }}</p>
             <p class="mb-0 text-blanco"><i class="bi bi-cash-coin me-1"></i>Desde <strong>{{ $price }}</strong></p>
-            <button class="btn btn-turquesa mt-3" data-bs-toggle="modal" data-bs-target="#{{ $modalId }}">Ver más
-            </button>
+            <a class="btn btn-turquesa mt-3" href="{{ $linkId }}">Ver más </a>
         </div>
     </article>
 </div>
