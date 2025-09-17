@@ -8,11 +8,6 @@
             </div>
         </section>
         <section class=" py-5 container">
-            <div class="mb-4">
-                <h2 class="fs-2 font-bankgothic fw-bold">Contacto</h2>
-                <p>Contanos qué necesitás y te respondemos a la brevedad.</p>
-            </div>
-
             <div class="row g-4">
                 <div class="col-md-6">
                     <div class="card bg-azul text-light border-light h-100">

@@ -29,7 +29,15 @@ Route::get('/crear-usuario', [\App\Http\Controllers\CrearUsuarioController::clas
 Route::get('/admin', [\App\Http\Controllers\AdminController::class, 'admin'])
     ->name('admin.admin');
 
+Route::get('/perfil', [\App\Http\Controllers\MiPerfilController::class, 'perfil'])
+    ->name('usuario.mi-perfil');;
+
 Route::get('/iniciar-sesion', [\App\Http\Controllers\IniciarController::class, 'iniciar'])
     ->name('admin.iniciar-sesion');
+
+Route::get('/iniciar-usuario', [\App\Http\Controllers\IniciarUsuarioController::class, 'iniciarUsuario'])
+    ->name('usuario.iniciar-usuario');
+
+
 
 

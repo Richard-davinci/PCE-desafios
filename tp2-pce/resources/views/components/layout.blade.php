@@ -38,17 +38,37 @@
 
                     <!-- Acciones -->
                     <li class="nav-item text-center">
-                       {{-- <x-nav-link class="btn btn-outline-turquesa ms-0 ms-lg-2 w-100 w-lg-auto mt-2 mt-lg-0" route="contacto"><i class="bi bi-person"></i>Iniciar Sesión</x-nav-link>--}}
-                        {{--<a class="btn btn-outline-turquesa ms-0 ms-lg-2 w-100 w-lg-auto mt-2 mt-lg-0"
-                           href="{{route('iniciar-sesion')}}">
+                        <a class="btn btn-outline-turquesa ms-0 ms-lg-2 w-100 w-lg-auto mt-2 mt-lg-0"
+                           href="{{route('usuario.iniciar-usuario')}}">
                              Iniciar Sesión
-                        </a>--}}
+                        </a>
                     </li>
                     <li class="nav-item text-center">
                         <a class="btn btn-turquesa ms-0 ms-lg-2 w-100 w-lg-auto mt-2 mt-lg-0"
                            href="{{route('admin.iniciar-sesion')}}">
                             <i class="bi bi-speedometer2"></i> Admin
                         </a>
+                    </li>
+                    <!-- Usuario -->
+                    <li class="nav-item dropdown ms-lg-2">
+                        <a class="nav-link dropdown-toggle d-flex align-items-center gap-2 text-light justify-content-center"
+                           href="#" data-bs-toggle="dropdown">
+                            <img src="../img/ricardo.webp" alt="Avatar" class="navbar-avatar">
+                            <span id="navUserName">Mi cuenta</span>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end dropdown-menu-dark shadow border-light">
+                            <li>
+                                <a class="dropdown-item" href="{{route('usuario.mi-perfil')}}">
+                                    <i class="bi bi-person-circle me-2"></i> Ver perfil
+                                </a>
+                            </li>
+
+                            <li>
+                                <a class="dropdown-item text-danger" href="#" id="btnLogout">
+                                    <i class="bi bi-box-arrow-right me-2"></i> Cerrar sesión
+                                </a>
+                            </li>
+                        </ul>
                     </li>
                 </ul>
             </div>

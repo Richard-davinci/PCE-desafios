@@ -378,8 +378,7 @@
     <!-- Modal: Categorías -->
     <div class="modal fade" id="modalCategorias" tabindex="-1" aria-labelledby="modalCategoriasTitle"
          aria-hidden="true">
-        <div class="modal-dialog modal-lg
-">
+        <div class="modal-dialog modal-lg">
             <div class="modal-content border-light">
                 <div class="modal-header  bg-azul">
                     <h2 class="modal-title fs-3 font-bankgothic" id="modalCategoriasTitle">
@@ -439,6 +438,92 @@
                     <button class="btn btn-turquesa font-bankgothic" data-bs-dismiss="modal" type="button">Cancelar
                     </button>
                     <button class="btn btn-outline-turquesa font-bankgothic" type="button">Guardar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Ver usuario -->
+    <div class="modal fade" id="modalUsuarioView" tabindex="-1" aria-hidden="true"
+         aria-labelledby="modalUsuarioViewTitle">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content border-light">
+                <div class="modal-header bg-azul">
+                    <h2 class="modal-title fs-3 font-bankgothic" id="modalUsuarioViewTitle">
+                        <i class="bi bi-person-lines-fill me-1"></i>Usuario
+                    </h2>
+                    <button class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                </div>
+
+                <div class="modal-body  py-5">
+
+
+                    <div class="tab-content">
+                        <!-- TAB: Datos (solo lectura) -->
+                        <div class="tab-pane fade show active" id="u-datos" role="tabpanel" aria-labelledby="u-datos-tab">
+                            <div class="card bg-azul text-light border-light">
+                                <div class="card-body">
+                                    <div class="row g-4 align-items-center">
+                                        <div class="col-md-3 text-center">
+                                            <img src="../assets/img/ricardo.webp" class="img-fluid rounded-3 border border-secondary"
+                                                 alt="avatar">
+                                        </div>
+                                        <div class="col-md-9">
+                                            <div class="row g-3">
+                                                <div class="col-sm-6">
+                                                    <small class="text-turquesa d-block">Nombre</small>
+                                                    <div>Ricardo Rodolfo</div>
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    <small class="text-turquesa d-block">Apellido</small>
+                                                    <div>Garcia</div>
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    <small class="text-turquesa d-block">Email</small>
+                                                    <div>ricardo.garcia@davinci.edu.ar</div>
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    <small class="text-turquesa d-block">Teléfono</small>
+                                                    <div>+54 221 690-5085</div>
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    <small class="text-turquesa d-block">Ciudad</small>
+                                                    <div>La Plata</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal-footer bg-azul px-0">
+                    <button class="btn btn-dark font-bankgothic" data-bs-dismiss="modal" type="button">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Modal Eliminar usuario -->
+    <div class="modal fade" id="modalUsuarioDel" tabindex="-1" aria-hidden="true"
+         aria-labelledby="modalUsuarioDelTitle">
+        <div class="modal-dialog">
+            <div class="modal-content border-light">
+                <div class="modal-header">
+                    <h2 class="modal-title fs-3 font-bankgothic" id="modalUsuarioDelTitle">
+                        <i class="bi bi-exclamation-triangle me-1"></i>Eliminar usuario
+                    </h2>
+                    <button class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                </div>
+                <div class="modal-body bg-azul py-4">
+                    ¿Seguro que querés eliminar este usuario? Esta acción no se puede deshacer.
+                </div>
+                <div class="modal-footer px-0">
+                    <button class="btn btn-dark font-bankgothic" data-bs-dismiss="modal" type="button">Cancelar</button>
+                    <button class="btn btn-danger font-bankgothic" type="button">Eliminar</button>
                 </div>
             </div>
         </div>
