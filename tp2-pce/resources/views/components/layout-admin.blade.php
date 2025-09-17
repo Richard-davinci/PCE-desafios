@@ -25,30 +25,15 @@
             <div id="mainNav" class="collapse navbar-collapse">
                 <ul class="navbar-nav ms-auto font-bankgothic align-items-end align-items-lg-center gap-0 gap-lg-2">
                     <li class="nav-item text-center">
-                        <x-nav-link route="inicio">Inicio</x-nav-link>
+                        <x-nav-link route="admin.dashboard">Dashboard</x-nav-link>
                     <li class="nav-item text-center">
-                        <x-nav-link route="nosotros">Nosotros</x-nav-link>
+                        <x-nav-link route="admin.admin">Admin</x-nav-link>
                     </li>
                     <li class="nav-item text-center">
-                        <x-nav-link route="servicios">Servicios</x-nav-link>
+                        <x-nav-link route="admin.crear-servicio">Crear Servicio</x-nav-link>
                     </li>
                     <li class="nav-item text-center">
-                        <x-nav-link route="contacto">Contacto</x-nav-link>
-                    </li>
-
-                    <!-- Acciones -->
-                    <li class="nav-item text-center">
-                       {{-- <x-nav-link class="btn btn-outline-turquesa ms-0 ms-lg-2 w-100 w-lg-auto mt-2 mt-lg-0" route="contacto"><i class="bi bi-person"></i>Iniciar Sesión</x-nav-link>--}}
-                        {{--<a class="btn btn-outline-turquesa ms-0 ms-lg-2 w-100 w-lg-auto mt-2 mt-lg-0"
-                           href="{{route('iniciar-sesion')}}">
-                             Iniciar Sesión
-                        </a>--}}
-                    </li>
-                    <li class="nav-item text-center">
-                        <a class="btn btn-turquesa ms-0 ms-lg-2 w-100 w-lg-auto mt-2 mt-lg-0"
-                           href="{{route('admin.iniciar-sesion')}}">
-                            <i class="bi bi-speedometer2"></i> Admin
-                        </a>
+                        <x-nav-link route="admin.crear-usuario">Crear Usuario</x-nav-link>
                     </li>
                 </ul>
             </div>

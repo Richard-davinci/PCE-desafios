@@ -17,3 +17,19 @@ Route::get('/contacto', [\App\Http\Controllers\ContactoController::class, 'conta
 Route::get('/ver-servicio', [\App\Http\Controllers\VerServicioController::class, 'verServicio'])
     ->name('ver-servicio');
 
+Route::get('/dashboard', [\App\Http\Controllers\DashboardController::class, 'dashboard'])
+    ->name('admin.dashboard');
+
+Route::get('/crear-servicio', [\App\Http\Controllers\CrearServicioController::class, 'crearServicio'])
+    ->name('admin.crear-servicio');
+
+Route::get('/crear-usuario', [\App\Http\Controllers\CrearUsuarioController::class, 'crearUsuario'])
+    ->name('admin.crear-usuario');
+
+Route::get('/admin', [\App\Http\Controllers\AdminController::class, 'admin'])
+    ->name('admin.admin');
+
+Route::get('/iniciar-sesion', [\App\Http\Controllers\IniciarController::class, 'iniciar'])
+    ->name('admin.iniciar-sesion');
+
+

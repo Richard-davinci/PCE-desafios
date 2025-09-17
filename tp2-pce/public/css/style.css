@@ -283,7 +283,6 @@ footer .text-accent {
 }
 
 .admin-shell {
-    background: #111;
     border: 1px solid rgba(255, 255, 255, .25);
     border-radius: .75rem;
 }
@@ -334,3 +333,21 @@ iframe {
     height: 280px;
     border: 0;
 }
+
+.tabs-segment .enlace.active {
+    background: var(--azul) !important;
+    color: #fff !important;
+    border-color: var(--azul) !important;
+    font-weight: 600;
+    box-shadow: 0 0 0 .12rem rgba(12, 32, 45, .20);
+}
+
+.tabs-segment .enlace {
+    color: #000;
+    background: transparent;
+    border: 1px solid transparent;
+    border-radius: 16px 16px 0 0;
+    padding: .5rem 1rem;
+    line-height: 1;
+}
+
