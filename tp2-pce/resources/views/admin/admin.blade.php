@@ -39,7 +39,7 @@
                                         data-bs-target="#modalCategorias">
                                     <i class="bi bi-tags me-1"></i> Categorías
                                 </button>
-                                <a class="btn btn-turquesa" href="{{route('admin.crear-servicio')}}">
+                                <a class="btn btn-turquesa" href="{{route('admin.createService')}}">
                                     <i class="bi bi-plus-lg me-1"></i> Crear servicio
                                 </a>
                             </div>
@@ -185,7 +185,7 @@
                         <div
                             class="d-flex flex-column flex-md-row justify-content-between align-items-md-center gap-2 mb-3">
                             <h2 class="fs-3 font-bankgothic mb-0">Listado de usuarios</h2>
-                            <a class="btn btn-turquesa" href="{{route('admin.crear-usuario')}}">
+                            <a class="btn btn-turquesa" href="{{route('admin.createUser')}}">
                                 <i class="bi bi-plus-lg me-1"></i> Crear usuario
                             </a>
                         </div>

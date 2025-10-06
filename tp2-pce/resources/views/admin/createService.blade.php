@@ -124,8 +124,8 @@
                         <h2 id="listaPlanesTitle" class="fs-4 font-bankgothic text-turquesa mb-3">Planes del servicio</h2>
 
                         <div class="table-responsive">
-                            <table class="table table-dark table-striped align-middle mb-0">
-                                <thead>
+                            <table class="table table-striped align-middle mb-0">
+                                <thead class="table-dark ">
                                 <tr>
                                     <th>Nombre</th>
                                     <th>Precio</th>
@@ -154,17 +154,15 @@
                         </div>
                     </div>
                 </div>
+                <div class="mt-4 d-flex justify-content-end gap-2">
+                    <a href="admin.html" class="btn btn-dark font-bankgothic">Cancelar</a>
+                    <button class="btn btn-turquesa font-bankgothic" type="submit">Guardar</button>
+                </div>
             </div>
         </section>
 
 
 
-       <section class="container my-5">
-           <div class="mt-4 d-flex justify-content-end gap-2">
-               <a href="admin.html" class="btn btn-dark font-bankgothic">Cancelar</a>
-               <button class="btn btn-turquesa font-bankgothic" type="submit">Guardar</button>
-           </div>
-       </section>
 
 
     </main>

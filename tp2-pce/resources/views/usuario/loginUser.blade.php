@@ -25,7 +25,7 @@
 
             <div class="tab-content bg-azul text-light border border-light rounded p-4 shadow-sm">
                 <div class="tab-pane fade show active" id="login" role="tabpanel" aria-labelledby="login-tab">
-                    <form class="row g-3" action="{{route('usuario.mi-perfil')}}" method="get" id="loginForm">
+                    <form class="row g-3" action="{{route('usuario.myProfile')}}" method="get" id="loginForm">
                         <div class="col-12">
                             <label for="emailLogin" class="form-label">Email</label>
                             <input type="email" id="emailLogin" class="form-control">

@@ -25,27 +25,27 @@
             <div id="mainNav" class="collapse navbar-collapse">
                 <ul class="navbar-nav ms-auto font-bankgothic align-items-end align-items-lg-center gap-0 gap-lg-2">
                     <li class="nav-item text-center">
-                        <x-nav-link route="inicio">Inicio</x-nav-link>
+                        <x-nav-link route="home">Inicio</x-nav-link>
                     <li class="nav-item text-center">
-                        <x-nav-link route="nosotros">Nosotros</x-nav-link>
+                        <x-nav-link route="about">Nosotros</x-nav-link>
                     </li>
                     <li class="nav-item text-center">
-                        <x-nav-link route="servicios">Servicios</x-nav-link>
+                        <x-nav-link route="service">Servicios</x-nav-link>
                     </li>
                     <li class="nav-item text-center">
-                        <x-nav-link route="contacto">Contacto</x-nav-link>
+                        <x-nav-link route="contact">Contacto</x-nav-link>
                     </li>
 
                     <!-- Acciones -->
                     <li class="nav-item text-center">
                         <a class="btn btn-outline-turquesa ms-0 ms-lg-2 w-100 w-lg-auto mt-2 mt-lg-0"
-                           href="{{route('usuario.iniciar-usuario')}}">
+                           href="{{route('usuario.loginUser')}}">
                              Iniciar Sesión
                         </a>
                     </li>
                     <li class="nav-item text-center">
                         <a class="btn btn-turquesa ms-0 ms-lg-2 w-100 w-lg-auto mt-2 mt-lg-0"
-                           href="{{route('admin.iniciar-sesion')}}">
+                           href="{{route('admin.login')}}">
                             <i class="bi bi-speedometer2"></i> Admin
                         </a>
                     </li>
@@ -58,7 +58,7 @@
                         </a>
                         <ul class="dropdown-menu dropdown-menu-end dropdown-menu-dark shadow border-light">
                             <li>
-                                <a class="dropdown-item" href="{{route('usuario.mi-perfil')}}">
+                                <a class="dropdown-item" href="{{route('usuario.myProfile')}}">
                                     <i class="bi bi-person-circle me-2"></i> Ver perfil
                                 </a>
                             </li>
@@ -83,7 +83,7 @@
         <div class="row g-4 align-items-center">
             <div class="col-12 col-lg-4">
                 <a class="navbar-brand d-flex justify-content-center justify-content-lg-start align-items-center m-auto"
-                   href="{{route('inicio')}}">
+                   href="{{route('home')}}">
                     <img src="img/logo.png" alt="logo" class="img-fluid w-50">
                 </a>
             </div>

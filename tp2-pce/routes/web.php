@@ -1,42 +1,34 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\{
+    PageController,
+    ServiceController,
+    AuthController,
+    AdminController
+};
 
-Route::get('/', [\App\Http\Controllers\HomeController::class, 'inicio'])
-    ->name('inicio');
+// Páginas públicas
+Route::get('/',           [PageController::class, 'home'])                 ->name('home');
+Route::get('/nosotros',   [PageController::class, 'about'])                ->name('about');
+Route::get('/contacto',   [PageController::class, 'contact'])              ->name('contact');
 
-Route::get('/nosotros', [\App\Http\Controllers\NosotrosController::class, 'nosotros'])
-    ->name('nosotros');
+// Servicios
+Route::get('/servicio',     [ServiceController::class, 'service'])         ->name('service');
+Route::get('/ver-servicio', [ServiceController::class, 'viewService'])     ->name('viewService');
 
-Route::get('/servicios', [\App\Http\Controllers\ServiciosController::class, 'servicios'])
-    ->name('servicios');
+// Autenticación
+Route::get('/mi-perfil',     [AuthController::class, 'myProfile'])         ->name('usuario.myProfile');;
+Route::get('/login-admin',   [AuthController::class, 'login'])             ->name('admin.login');
+Route::get('/login-usuario', [AuthController::class, 'loginUser'])         ->name('usuario.loginUser');
 
-Route::get('/contacto', [\App\Http\Controllers\ContactoController::class, 'contacto'])
-    ->name('contacto');
+// Panel Admin
+Route::get('/tablero',        [AdminController::class, 'dashboard'])        ->name('admin.dashboard');
+Route::get('/crear-servicio', [AdminController::class, 'createService'])    ->name('admin.createService');
+Route::get('/crear-usuario',  [AdminController::class, 'createUser'])       ->name('admin.createUser');
+Route::get('/admin',          [AdminController::class, 'admin'])            ->name('admin.admin');
 
-Route::get('/ver-servicio', [\App\Http\Controllers\VerServicioController::class, 'verServicio'])
-    ->name('ver-servicio');
 
-Route::get('/dashboard', [\App\Http\Controllers\DashboardController::class, 'dashboard'])
-    ->name('admin.dashboard');
-
-Route::get('/crear-servicio', [\App\Http\Controllers\CrearServicioController::class, 'crearServicio'])
-    ->name('admin.crear-servicio');
-
-Route::get('/crear-usuario', [\App\Http\Controllers\CrearUsuarioController::class, 'crearUsuario'])
-    ->name('admin.crear-usuario');
-
-Route::get('/admin', [\App\Http\Controllers\AdminController::class, 'admin'])
-    ->name('admin.admin');
-
-Route::get('/perfil', [\App\Http\Controllers\MiPerfilController::class, 'perfil'])
-    ->name('usuario.mi-perfil');;
-
-Route::get('/iniciar-sesion', [\App\Http\Controllers\IniciarController::class, 'iniciar'])
-    ->name('admin.iniciar-sesion');
-
-Route::get('/iniciar-usuario', [\App\Http\Controllers\IniciarUsuarioController::class, 'iniciarUsuario'])
-    ->name('usuario.iniciar-usuario');
 
 
 

@@ -237,7 +237,7 @@
                                             <li>Horas de mantenimiento incluidas: 3 h/mes</li>
                                         </ul>
                                     </div>
-                                    <a class="btn btn-turquesa mt-3 mt-md-0" href="{{route('ver-servicio')}}">Ver
+                                    <a class="btn btn-turquesa mt-3 mt-md-0" href="{{route('viewService')}}">Ver
                                         servicio</a>
                                 </div>
                             </div>

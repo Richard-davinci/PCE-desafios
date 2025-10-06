@@ -30,10 +30,10 @@
                         <x-nav-link route="admin.admin">Admin</x-nav-link>
                     </li>
                     <li class="nav-item text-center">
-                        <x-nav-link route="admin.crear-servicio">Crear Servicio</x-nav-link>
+                        <x-nav-link route="admin.createService">Crear Servicio</x-nav-link>
                     </li>
                     <li class="nav-item text-center">
-                        <x-nav-link route="admin.crear-usuario">Crear Usuario</x-nav-link>
+                        <x-nav-link route="admin.createUser">Crear Usuario</x-nav-link>
                     </li>
                 </ul>
             </div>
@@ -48,7 +48,7 @@
         <div class="row g-4 align-items-center">
             <div class="col-12 col-lg-4">
                 <a class="navbar-brand d-flex justify-content-center justify-content-lg-start align-items-center m-auto"
-                   href="{{route('inicio')}}">
+                   href="{{route('home')}}">
                     <img src="img/logo.png" alt="logo" class="img-fluid w-50">
                 </a>
             </div>
