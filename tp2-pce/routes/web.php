@@ -1,12 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\{
-    PageController,
-    ServiceController,
-    AuthController,
-    AdminController
-};
+use App\Http\Controllers\{CategoryController, PageController, ServiceController, AuthController, AdminController};
 
 // Páginas públicas
 Route::get('/',             [PageController::class, 'home'])                ->name('home');
@@ -21,7 +16,7 @@ Route::get('/login-admin',   [AuthController::class, 'login'])             ->nam
 Route::get('/login-user',    [AuthController::class, 'loginUser'])         ->name('user.loginUser');
 
 //servicios
-route::resource('service', ServiceController::class);
+Route::resource('servicios', ServiceController::class);
 Route::get('/crear-servicio', [ServiceController::class, 'create'])    ->name('service.create');
 
 // Panel Admin

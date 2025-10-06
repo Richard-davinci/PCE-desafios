@@ -44,6 +44,7 @@ class CategoryController extends Controller
      */
     public function edit(category $category)
     {
+
         return view('category.edit');
     }
 

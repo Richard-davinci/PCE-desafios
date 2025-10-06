@@ -12,13 +12,18 @@ return new class extends Migration {
     {
         Schema::create('services', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('description')->nullable();
-            $table->string('image')->nullable();
-            $table->string('price', 10, 2);
-
+            $table->string('name', 100);
+            $table->string('category', 100);
+            $table->string('status', 20)->default('Activo');
+            $table->string('subtitle', 150)->nullable();
+            $table->text('description');
+            $table->json('conditions')->nullable();
+            $table->string('cover_image')->nullable();
+            $table->string('thumb_image')->nullable();
+            $table->json('plans')->nullable(); // cada plan: { "nombre": "...", "precio": "...", "detalles": "..." }
             $table->timestamps();
         });
+
     }
 
     /**
