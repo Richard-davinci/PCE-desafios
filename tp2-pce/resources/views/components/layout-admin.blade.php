@@ -30,7 +30,7 @@
                         <x-nav-link route="admin.admin">Admin</x-nav-link>
                     </li>
                     <li class="nav-item text-center">
-                        <x-nav-link route="admin.createService">Crear Servicio</x-nav-link>
+{{--                        <x-nav-link route="service.create">Crear Servicio</x-nav-link>--}}
                     </li>
                     <li class="nav-item text-center">
                         <x-nav-link route="admin.createUser">Crear Usuario</x-nav-link>

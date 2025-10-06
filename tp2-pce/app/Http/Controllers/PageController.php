@@ -21,4 +21,13 @@ class PageController extends Controller
         return view('contact');
     }
 
+    function service()
+    {
+        return view('service');
+    }
+    public function viewService()
+    {
+        return view('viewService');
+    }
+
 }

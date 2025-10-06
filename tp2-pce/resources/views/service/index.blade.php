@@ -9,22 +9,22 @@
         </section>
         <section class="py-5">
             <div class="container">
-                    <ul class="nav tabs-segment" id="adminTabs" role="tablist">
-                        <li class="nav-item" role="presentation">
-                            <button class="enlace active font-bankgothic fs-5 rounded-top-3 px-3"
-                                    id="tab-servicios" data-bs-toggle="tab" data-bs-target="#pane-servicios"
-                                    type="button" role="tab" aria-controls="pane-servicios" aria-selected="true">
-                                Servicios
-                            </button>
-                        </li>
-                        <li class="nav-item" role="presentation">
-                            <button class=" enlace font-bankgothic fs-5 rounded-top-3 px-3"
-                                    id="tab-usuarios" data-bs-toggle="tab" data-bs-target="#pane-usuarios"
-                                    type="button" role="tab" aria-controls="pane-usuarios" aria-selected="false">
-                                Usuarios
-                            </button>
-                        </li>
-                    </ul>
+                <ul class="nav tabs-segment" id="adminTabs" role="tablist">
+                    <li class="nav-item" role="presentation">
+                        <button class="enlace active font-bankgothic fs-5 rounded-top-3 px-3"
+                                id="tab-servicios" data-bs-toggle="tab" data-bs-target="#pane-servicios"
+                                type="button" role="tab" aria-controls="pane-servicios" aria-selected="true">
+                            Servicios
+                        </button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class=" enlace font-bankgothic fs-5 rounded-top-3 px-3"
+                                id="tab-usuarios" data-bs-toggle="tab" data-bs-target="#pane-usuarios"
+                                type="button" role="tab" aria-controls="pane-usuarios" aria-selected="false">
+                            Usuarios
+                        </button>
+                    </li>
+                </ul>
 
 
                 <div class="tab-content bg-azul rounded-2 text-light p-4 shadow-sm" id="adminTabsContent">
