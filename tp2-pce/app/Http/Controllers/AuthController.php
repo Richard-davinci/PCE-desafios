@@ -13,11 +13,11 @@ class AuthController extends Controller
 
     public function loginUser()
     {
-        return view('usuario.loginUser');
+        return view('user.loginUser');
     }
 
     public function myProfile()
     {
-        return view('usuario.myProfile');
+        return view('user.myProfile');
     }
 }

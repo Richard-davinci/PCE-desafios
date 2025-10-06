@@ -443,7 +443,7 @@
         </div>
     </div>
 
-    <!-- Modal Ver usuario -->
+    <!-- Modal Ver user -->
     <div class="modal fade" id="modalUsuarioView" tabindex="-1" aria-hidden="true"
          aria-labelledby="modalUsuarioViewTitle">
         <div class="modal-dialog modal-lg">
@@ -507,7 +507,7 @@
     </div>
 
 
-    <!-- Modal Eliminar usuario -->
+    <!-- Modal Eliminar user -->
     <div class="modal fade" id="modalUsuarioDel" tabindex="-1" aria-hidden="true"
          aria-labelledby="modalUsuarioDelTitle">
         <div class="modal-dialog">

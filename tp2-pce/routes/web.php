@@ -18,14 +18,14 @@ Route::get('/servicio',     [ServiceController::class, 'service'])         ->nam
 Route::get('/ver-servicio', [ServiceController::class, 'viewService'])     ->name('viewService');
 
 // Autenticación
-Route::get('/mi-perfil',     [AuthController::class, 'myProfile'])         ->name('usuario.myProfile');;
+Route::get('/mi-perfil',     [AuthController::class, 'myProfile'])         ->name('user.myProfile');
 Route::get('/login-admin',   [AuthController::class, 'login'])             ->name('admin.login');
-Route::get('/login-usuario', [AuthController::class, 'loginUser'])         ->name('usuario.loginUser');
+Route::get('/login-user', [AuthController::class, 'loginUser'])         ->name('user.loginUser');
 
 // Panel Admin
 Route::get('/tablero',        [AdminController::class, 'dashboard'])        ->name('admin.dashboard');
 Route::get('/crear-servicio', [AdminController::class, 'createService'])    ->name('admin.createService');
-Route::get('/crear-usuario',  [AdminController::class, 'createUser'])       ->name('admin.createUser');
+Route::get('/crear-user',  [AdminController::class, 'createUser'])       ->name('admin.createUser');
 Route::get('/admin',          [AdminController::class, 'admin'])            ->name('admin.admin');
 
 

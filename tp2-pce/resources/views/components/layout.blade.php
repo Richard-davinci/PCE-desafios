@@ -39,7 +39,7 @@
                     <!-- Acciones -->
                     <li class="nav-item text-center">
                         <a class="btn btn-outline-turquesa ms-0 ms-lg-2 w-100 w-lg-auto mt-2 mt-lg-0"
-                           href="{{route('usuario.loginUser')}}">
+                           href="{{route('user.loginUser')}}">
                              Iniciar Sesión
                         </a>
                     </li>
@@ -58,7 +58,7 @@
                         </a>
                         <ul class="dropdown-menu dropdown-menu-end dropdown-menu-dark shadow border-light">
                             <li>
-                                <a class="dropdown-item" href="{{route('usuario.myProfile')}}">
+                                <a class="dropdown-item" href="{{route('user.myProfile')}}">
                                     <i class="bi bi-person-circle me-2"></i> Ver perfil
                                 </a>
                             </li>
