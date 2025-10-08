@@ -7,25 +7,30 @@ use Illuminate\Database\Eloquent\Model;
 
 class service extends Model
 {
-  /** @use HasFactory<\Database\Factories\ServiceFactory> */
   use HasFactory;
 
   protected $table = 'services';
   protected $fillable = [
     'name',
-    'category',
+    'category_id',
     'status',
     'subtitle',
     'description',
     'conditions',
     'cover_image',
     'thumb_image',
-    ];
+  ];
 
   protected $casts = [
     'conditions' => 'array',
     'plans' => 'array',
   ];
+
+  public function category()
+  {
+    return $this->belongsTo(Category::class);
+  }
+
   public function plans()
   {
     return $this->hasMany(Plan::class);

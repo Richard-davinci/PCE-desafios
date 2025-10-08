@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Service;
+use App\Models\Category;
 use Illuminate\Http\Request;
 
 class ServiceController extends Controller
@@ -24,7 +25,9 @@ class ServiceController extends Controller
    */
   public function create()
   {
-    return view('services.create');
+    $categories = Category::orderBy('name')->get();
+    return view('services.create', compact('categories'));
+
   }
 
   /**
@@ -33,7 +36,7 @@ class ServiceController extends Controller
   public function store(Request $request)
   {
     $services = Service::create($request->only([
-      'name', 'category', 'status', 'subtitle', 'description', 'conditions', 'cover_image', 'thumb_image'
+      'name', 'category_id', 'status', 'subtitle', 'description', 'conditions', 'cover_image', 'thumb_image'
     ]));
 
     if ($request->has('plans')) {
@@ -49,7 +52,7 @@ class ServiceController extends Controller
       }
     }
 
-    return redirect()->route('service.index')->with('success', 'Servicio creado con éxito');
+    return redirect()->route('services.index')->with('success', 'Servicio creado con éxito');
   }
 
 

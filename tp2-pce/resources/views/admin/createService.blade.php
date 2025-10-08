@@ -1,7 +1,10 @@
-<x-layout-admin>
-    <x-slot:title>Contacto</x-slot:title>
-    <main class="mt-5">
-        <section class="mt-3 py-5 bg-gradient-dark text-light">
+@extends('layouts.admin')
+
+@section('title', 'Crear servicio')
+
+@section('content')
+
+  <section class="mt-3 py-5 bg-gradient-dark text-light">
             <div class="container mb-4">
                 <h1 id="pageTitle" class="fs-1 font-bankgothic fw-bold mb-1">Crear servicio</h1>
                 <p class="text-secondary mb-0">Completá los datos del servicio y agregá uno o más planes.</p>
@@ -165,5 +168,4 @@
 
 
 
-    </main>
-</x-layout-admin>
+@endsection

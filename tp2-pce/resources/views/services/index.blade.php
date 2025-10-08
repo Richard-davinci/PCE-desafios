@@ -68,7 +68,7 @@
 
                       <td class="fw-semibold">{{ $service->name }}</td>
 
-                      <td>{{ $service->category }}</td>
+                      <td>{{ $service->category?->name ?? 'Sin categoría' }}</td>
 
                       <td>
                         @switch($service->status)
@@ -103,7 +103,7 @@
                         @endif
                       </td>
 
-                      {{-- ⚙️ Acciones --}}
+                      {{-- Acciones --}}
                       <td class="text-center">
                         <a href="#" class="btn btn-dark rounded-2 mx-1">
                           <i class="bi bi-eye"></i> Ver
