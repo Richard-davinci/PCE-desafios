@@ -16,61 +16,101 @@
       @csrf
       <h2 id="datosTitle" class="fs-4 font-bankgothic text-turquesa mb-3">Datos</h2>
       <div class="row">
-      {{-- Nombre --}}
+        {{-- Nombre --}}
         <div class="col-sm-6 col-lg-4 mb-3">
-        <label for="name" class="form-label">Nombre del servicio</label>
-        <input type="text" name="name" id="name" class="form-control" required>
-      </div>
+          <label for="name" class="form-label">Nombre del servicio</label>
+          <input type="text" name="name" id="name" class="form-control" >
+          @error('name')
+          <div class="alert alert-danger mt-1">
+            {{$message}}
+          </div>
+          @enderror
+        </div>
 
-      {{-- Categoría --}}
+        {{-- Categoría --}}
         <div class="col-sm-6 col-lg-4 mb-3">
-        <label for="category_id" class="form-label">Categoría</label>
-        <select name="category_id" id="category_id" class="form-select" required>
-          <option value="">Seleccionar categoría...</option>
-          @foreach($categories as $category)
-            <option value="{{ $category->id }}">{{ $category->name }}</option>
-          @endforeach
-        </select>
-      </div>
+          <label for="category_id" class="form-label">Categoría</label>
+          <select name="category_id" id="category_id" class="form-select" >
+            <option value="">Seleccionar categoría...</option>
+            @foreach($categories as $category)
+              <option value="{{ $category->id }}">{{ $category->name }}</option>
+            @endforeach
+          </select>
+          @error('name')
+          <div class="alert alert-danger mt-1">
+            {{$message}}
+          </div>
+          @enderror
+        </div>
 
 
-      {{-- Estado --}}
+        {{-- Estado --}}
         <div class="col-sm-6 col-lg-4 mb-3">
-        <label for="status" class="form-label">Estado</label>
-        <select name="status" id="status" class="form-select" required>
-          <option value="Activo">Activo</option>
-          <option value="Pausado">Pausado</option>
-          <option value="Discontinuado">Discontinuado</option>
-        </select>
-      </div>
+          <label for="status" class="form-label">Estado</label>
+          <select name="status" id="status" class="form-select" >
+            <option value="Activo">Activo</option>
+            <option value="Pausado">Pausado</option>
+            <option value="Discontinuado">Discontinuado</option>
+          </select>
+          @error('name')
+          <div class="alert alert-danger mt-1">
+            {{$message}}
+          </div>
+          @enderror
+        </div>
 
-      {{-- Subtítulo --}}
+        {{-- Subtítulo --}}
         <div class="col-sm-6 col-lg-4 mb-3">
-        <label for="subtitle" class="form-label">Subtítulo</label>
-        <input type="text" name="subtitle" id="subtitle" class="form-control">
-      </div>
+          <label for="subtitle" class="form-label">Subtítulo</label>
+          <input type="text" name="subtitle" id="subtitle" class="form-control">
+          @error('name')
+          <div class="alert alert-danger mt-1">
+            {{$message}}
+          </div>
+          @enderror
+        </div>
 
-      {{-- Imágenes --}}
+        {{-- Imágenes --}}
 
         <div class="col-sm-6 col-sm-6 col-lg-4 mb-3">
           <label for="cover_image" class="form-label">Imagen principal</label>
           <input type="file" name="cover_image" id="cover_image" class="form-control">
+          @error('name')
+          <div class="alert alert-danger mt-1">
+            {{$message}}
+          </div>
+          @enderror
         </div>
         <div class="col-sm-6 col-lg-4 mb-3">
           <label for="thumb_image" class="form-label">Imagen miniatura</label>
           <input type="file" name="thumb_image" id="thumb_image" class="form-control">
+          @error('name')
+          <div class="alert alert-danger mt-1">
+            {{$message}}
+          </div>
+          @enderror
         </div>
       </div>
       {{-- Descripción --}}
-        <div class="col-12 mb-3">
+      <div class="col-12 mb-3">
         <label for="description" class="form-label">Descripción</label>
         <textarea name="description" id="description" rows="4" class="form-control"></textarea>
+        @error('name')
+        <div class="alert alert-danger mt-1">
+          {{$message}}
+        </div>
+        @enderror
       </div>
 
       {{-- Condiciones --}}
-        <div class="col-12 mb-3">
+      <div class="col-12 mb-3">
         <label for="conditions" class="form-label">Condiciones</label>
         <textarea name="conditions" id="conditions" rows="3" class="form-control"></textarea>
+        @error('name')
+        <div class="alert alert-danger mt-1">
+          {{$message}}
+        </div>
+        @enderror
       </div>
 
 
@@ -81,11 +121,21 @@
           <div class="row g-2">
             <div class="col-lg-4">
               <label class="form-label">Nombre del plan</label>
-              <input type="text" name="plans[0][name]" class="form-control" required>
+              <input type="text" name="plans[0][name]" class="form-control" >
+              @error('name')
+              <div class="alert alert-danger mt-1">
+                {{$message}}
+              </div>
+              @enderror
             </div>
             <div class="col-lg-3">
               <label class="form-label">Precio (AR$)</label>
-              <input type="number" name="plans[0][price]" class="form-control" step="0.01" required>
+              <input type="number" name="plans[0][price]" class="form-control" step="0.01" >
+              @error('name')
+              <div class="alert alert-danger mt-1">
+                {{$message}}
+              </div>
+              @enderror
             </div>
             <div class="col-lg-3">
               <label class="form-label">Tipo</label>
@@ -99,6 +149,11 @@
               <label class="form-label">Características (separadas por coma)</label>
               <input type="text" name="plans[0][features]" class="form-control"
                      placeholder="Hosting, Dominio, Soporte técnico">
+              @error('name')
+              <div class="alert alert-danger mt-1">
+                {{$message}}
+              </div>
+              @enderror
             </div>
           </div>
         </div>
@@ -139,11 +194,11 @@
       <div class="row g-2">
         <div class="col-lg-4">
           <label class="form-label">Nombre del plan</label>
-          <input type="text" name="plans[${planIndex}][name]" class="form-control" required>
+          <input type="text" name="plans[${planIndex}][name]" class="form-control" >
         </div>
         <div class="col-lg-3">
           <label class="form-label">Precio (AR$)</label>
-          <input type="number" name="plans[${planIndex}][price]" class="form-control" step="0.01" required>
+          <input type="number" name="plans[${planIndex}][price]" class="form-control" step="0.01" >
         </div>
         <div class="col-lg-3">
           <label class="form-label">Tipo</label>

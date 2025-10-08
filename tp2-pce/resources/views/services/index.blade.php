@@ -4,317 +4,325 @@
 
 @section('content')
 
-  <section class="mt-3 py-5 bg-gradient-dark text-light">
-      <div class="container">
-        <h1 class="font-bankgothic">Panel de administración</h1>
-        <p class="text-blanco"> ABM de servicios y usuarios </p>
-      </div>
+    <section class="mt-3 py-5 bg-gradient-dark text-light">
+        <div class="container">
+            <h1 class="font-bankgothic">Panel de administración</h1>
+            <p class="text-blanco"> ABM de servicios y usuarios </p>
+        </div>
     </section>
     <section class="py-5">
-      <div class="container">
-        {{--<ul class="nav tabs-segment" id="adminTabs" role="tablist">
-            <li class="nav-item" role="presentation">
-                <button class="enlace active font-bankgothic fs-5 rounded-top-3 px-3"
-                        id="tab-servicios" data-bs-toggle="tab" data-bs-target="#pane-servicios"
-                        type="button" role="tab" aria-controls="pane-servicios" aria-selected="true">
-                    Servicios
-                </button>
-            </li>
-            <li class="nav-item" role="presentation">
-                <button class=" enlace font-bankgothic fs-5 rounded-top-3 px-3"
-                        id="tab-usuarios" data-bs-toggle="tab" data-bs-target="#pane-usuarios"
-                        type="button" role="tab" aria-controls="pane-usuarios" aria-selected="false">
-                    Usuarios
-                </button>
-            </li>
-        </ul>--}}
+        <div class="container">
+            {{--<ul class="nav tabs-segment" id="adminTabs" role="tablist">
+                <li class="nav-item" role="presentation">
+                    <button class="enlace active font-bankgothic fs-5 rounded-top-3 px-3"
+                            id="tab-servicios" data-bs-toggle="tab" data-bs-target="#pane-servicios"
+                            type="button" role="tab" aria-controls="pane-servicios" aria-selected="true">
+                        Servicios
+                    </button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class=" enlace font-bankgothic fs-5 rounded-top-3 px-3"
+                            id="tab-usuarios" data-bs-toggle="tab" data-bs-target="#pane-usuarios"
+                            type="button" role="tab" aria-controls="pane-usuarios" aria-selected="false">
+                        Usuarios
+                    </button>
+                </li>
+            </ul>--}}
 
 
-        <div class="tab-content bg-azul rounded-2 text-light p-4 shadow-sm" id="adminTabsContent">
-          <!-- PANEL: SERVICIOS -->
-          <div class="tab-pane fade show active" id="pane-servicios" role="tabpanel"
-               aria-labelledby="tab-servicios">
-            <div
-              class="d-flex flex-column flex-md-row justify-content-between align-items-md-center gap-2 mb-3">
-              <h2 class="fs-3 font-bankgothic mb-0">Listado de servicios</h2>
-              <div class="d-flex gap-2">
-                <button class="btn btn-turquesa" data-bs-toggle="modal"
-                        data-bs-target="#modalCategorias">
-                  <i class="bi bi-tags me-1"></i> Categorías
-                </button>
-                <a class="btn btn-turquesa" href="{{route('services.create')}}">
-                  <i class="bi bi-plus-lg me-1"></i> Crear servicio
-                </a>
-              </div>
+            <div class="tab-content bg-azul rounded-2 text-light p-4 shadow-sm" id="adminTabsContent">
+                <!-- PANEL: SERVICIOS -->
+                <div class="tab-pane fade show active" id="pane-servicios" role="tabpanel"
+                     aria-labelledby="tab-servicios">
+                    <div
+                            class="d-flex flex-column flex-md-row justify-content-between align-items-md-center gap-2 mb-3">
+                        <h2 class="fs-3 font-bankgothic mb-0">Listado de servicios</h2>
+                        <div class="d-flex gap-2">
+                            <button class="btn btn-turquesa" data-bs-toggle="modal"
+                                    data-bs-target="#modalCategorias">
+                                <i class="bi bi-tags me-1"></i> Categorías
+                            </button>
+                            <a class="btn btn-turquesa" href="{{route('services.create')}}">
+                                <i class="bi bi-plus-lg me-1"></i> Crear servicio
+                            </a>
+                        </div>
+
+                    </div>
+                  <div class="container">
+                    @if(session('success'))
+                      <div class="alert alert-success">
+                        {{session('success')}}
+                      </div>
+                    @endif
+                  </div>
+                    <div class="card border-light border-2 shadow-sm rounded-2">
+                        <div class="table-responsive">
+                            <table class="table table-striped align-middle mb-0 rounded-lg">
+                                <thead class="table-dark rounded-top-3">
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Servicio</th>
+                                    <th>Categoría</th>
+                                    <th>Estado</th>
+                                    <th>Plan</th>
+                                    <th class="text-center">Acciones</th>
+                                </tr>
+                                </thead>
+                                <tbody id="tablaServicios">
+
+                                @forelse($services as $service)
+                                    <tr>
+                                        <td>{{ $service->id }}</td>
+
+                                        <td class="fw-semibold">{{ $service->name }}</td>
+
+                                        <td>{{ $service->category?->name ?? 'Sin categoría' }}</td>
+
+                                        <td>
+                                            @switch($service->status)
+                                                @case('Activo')
+                                                    <span class="badge text-bg-success">Activo</span>
+                                                    @break
+                                                @case('Pausado')
+                                                    <span class="badge text-bg-warning">Pausado</span>
+                                                    @break
+                                                @case('Discontinuado')
+                                                    <span class="badge text-bg-danger">Discontinuado</span>
+                                                    @break
+                                                @default
+                                                    <span
+                                                            class="badge text-bg-secondary">{{ $service->status }}</span>
+                                            @endswitch
+                                        </td>
+
+                                        {{-- Mostrar el primer plan (si existe) --}}
+                                        <td>
+                                            @if(!empty($service->plans) && is_array($service->plans))
+                                                @php
+                                                    $firstPlan = $service->plans[0] ?? null;
+                                                @endphp
+                                                @if($firstPlan)
+                                                    AR$ {{ number_format($firstPlan['price'], 0, ',', '.') }}
+                                                    <small
+                                                            class="text-muted">/ {{ isset($firstPlan['type']) ? $firstPlan['type'] : 'plan' }}</small>
+                                                @endif
+                                            @else
+                                                <span class="text-muted">Sin planes</span>
+                                            @endif
+                                        </td>
+
+                                        {{-- Acciones --}}
+                                        <td class="text-center">
+                                            <a href="#" class="btn btn-dark rounded-2 mx-1">
+                                                <i class="bi bi-eye"></i> Ver
+                                            </a>
+                                            <a href="#" class="btn btn-turquesa rounded-2 mx-1">
+                                                <i class="bi bi-pencil"></i> Editar
+                                            </a>
+                                            <form action="#" method="POST" class="d-inline">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="btn btn-danger rounded-2 mx-1"
+                                                        onclick="return confirm('¿Eliminar este servicio?')">
+                                                    <i class="bi bi-trash"></i> Eliminar
+                                                </button>
+                                            </form>
+                                        </td>
+                                    </tr>
+                                @empty
+                                    <tr>
+                                        <td colspan="6" class="text-center text-muted py-4">
+                                            No hay servicios registrados aún.
+                                        </td>
+                                    </tr>
+                                @endforelse
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+
+                <!-- PANe: USUARIOS -->
+                {{--   <div class="tab-pane fade show" id="pane-usuarios" role="tabpanel" aria-labelledby="tab-usuarios">
+                       <div
+                           class="d-flex flex-column flex-md-row justify-content-between align-items-md-center gap-2 mb-3">
+                           <h2 class="fs-3 font-bankgothic mb-0">Listado de usuarios</h2>
+                           <a class="btn btn-turquesa" href="{{route('admin.createUser')}}">
+                               <i class="bi bi-plus-lg me-1"></i> Crear usuario
+                           </a>
+                       </div>
+
+                       <div class="card border-light border-2 shadow-sm rounded-2">
+                           <div class="table-responsive">
+                               <table class="table table-striped align-middle mb-0 rounded-lg">
+                                   <thead class="table-dark rounded-top-3">
+                                   <tr>
+                                       <th>Id</th>
+                                       <th>Avatar</th>
+                                       <th>Nombre</th>
+                                       <th>Apellido</th>
+                                       <th>Email</th>
+                                       <th>Teléfono</th>
+                                       <th>Ciudad</th>
+                                       <th class="text-center">Acciones</th>
+                                   </tr>
+                                   </thead>
+                                   <tbody>
+                                   <tr>
+                                       <td>1</td>
+                                       <td><img src="../img/ricardo.webp" class="avatar-sm border border-secondary"
+                                                alt="avatar"
+                                                height="40" width="40">
+                                       </td>
+                                       <td>Ricardo</td>
+                                       <td>García</td>
+                                       <td>ricardo.garcia@davinci.edu.ar</td>
+                                       <td>+54 221 690-5085</td>
+                                       <td>La Plata</td>
+                                       <td class="text-center">
+                                           <div class="btn-group btn-group-sm">
+                                               <button class="btn btn-dark rounded-2 mx-2" data-bs-toggle="modal"
+                                                       data-bs-target="#modalUsuarioView">
+                                                   <i class="bi bi-eye"></i> Ver
+                                               </button>
+                                               <button class="btn btn-turquesa rounded-2 mx-2" data-bs-toggle="modal"
+                                                       data-bs-target="#modalUsuarioCU">
+                                                   <i class="bi bi-pencil"></i> Editar
+                                               </button>
+                                               <button class="btn btn-danger rounded-2 mx-2" data-bs-toggle="modal"
+                                                       data-bs-target="#modalUsuarioDel">
+                                                   <i class="bi bi-trash"></i> Eliminar
+                                               </button>
+                                           </div>
+                                       </td>
+                                   </tr>
+                                   <tr>
+                                       <td>2</td>
+                                       <td><img src="../img/ricardo.webp" class="avatar-sm border border-secondary"
+                                                alt="avatar"
+                                                height="40" width="40">
+                                       </td>
+                                       <td>María</td>
+                                       <td>López</td>
+                                       <td>maria.lopez@davinci.edu.ar</td>
+                                       <td>+54 11 2345-6789</td>
+                                       <td>Buenos Aires</td>
+                                       <td class="text-center">
+                                           <div class="btn-group btn-group-sm">
+                                               <button class="btn btn-dark rounded-2 mx-2" data-bs-toggle="modal"
+                                                       data-bs-target="#modalUsuarioView">
+                                                   <i class="bi bi-eye"></i> Ver
+                                               </button>
+                                               <button class="btn btn-turquesa rounded-2 mx-2" data-bs-toggle="modal"
+                                                       data-bs-target="#modalUsuarioCU">
+                                                   <i class="bi bi-pencil"></i> Editar
+                                               </button>
+                                               <button class="btn btn-danger rounded-2 mx-2" data-bs-toggle="modal"
+                                                       data-bs-target="#modalUsuarioDel">
+                                                   <i class="bi bi-trash"></i> Eliminar
+                                               </button>
+                                           </div>
+                                       </td>
+                                   </tr>
+                                   <tr>
+                                       <td>3</td>
+                                       <td><img src="../img/ricardo.webp" class="avatar-sm border border-secondary"
+                                                alt="avatar"
+                                                height="40" width="40">
+                                       </td>
+                                       <td>Juan</td>
+                                       <td>Pérez</td>
+                                       <td>juan.perez@davinci.edu.ar</td>
+                                       <td>+54 351 987-6543</td>
+                                       <td>Córdoba</td>
+                                       <td class="text-center">
+                                           <div class="btn-group btn-group-sm">
+                                               <button class="btn btn-dark rounded-2 mx-2" data-bs-toggle="modal"
+                                                       data-bs-target="#modalUsuarioView">
+                                                   <i class="bi bi-eye"></i> Ver
+                                               </button>
+                                               <button class="btn btn-turquesa rounded-2 mx-2" data-bs-toggle="modal"
+                                                       data-bs-target="#modalUsuarioCU">
+                                                   <i class="bi bi-pencil"></i> Editar
+                                               </button>
+                                               <button class="btn btn-danger rounded-2 mx-2" data-bs-toggle="modal"
+                                                       data-bs-target="#modalUsuarioDel">
+                                                   <i class="bi bi-trash"></i> Eliminar
+                                               </button>
+                                           </div>
+                                       </td>
+                                   </tr>
+                                   <tr>
+                                       <td>4</td>
+                                       <td><img src="../img/ricardo.webp" class="avatar-sm border border-secondary"
+                                                alt="avatar"
+                                                height="40" width="40">
+                                       </td>
+                                       <td>Ana</td>
+                                       <td>Martínez</td>
+                                       <td>ana.martinez@davinci.edu.ar</td>
+                                       <td>+54 341 234-5678</td>
+                                       <td>Rosario</td>
+                                       <td class="text-center">
+                                           <div class="btn-group btn-group-sm">
+                                               <button class="btn btn-dark rounded-2 mx-2" data-bs-toggle="modal"
+                                                       data-bs-target="#modalUsuarioView">
+                                                   <i class="bi bi-eye"></i> Ver
+                                               </button>
+                                               <button class="btn btn-turquesa rounded-2 mx-2" data-bs-toggle="modal"
+                                                       data-bs-target="#modalUsuarioCU">
+                                                   <i class="bi bi-pencil"></i> Editar
+                                               </button>
+                                               <button class="btn btn-danger rounded-2 mx-2" data-bs-toggle="modal"
+                                                       data-bs-target="#modalUsuarioDel">
+                                                   <i class="bi bi-trash"></i> Eliminar
+                                               </button>
+                                           </div>
+                                       </td>
+                                   </tr>
+                                   <tr>
+                                       <td>5</td>
+                                       <td><img src="../img/ricardo.webp" class="avatar-sm border border-secondary"
+                                                alt="avatar"
+                                                height="40" width="40">
+                                       </td>
+                                       <td>Carlos</td>
+                                       <td>González</td>
+                                       <td>carlos.gonzalez@davinci.edu.ar</td>
+                                       <td>+54 261 876-5432</td>
+                                       <td>Mendoza</td>
+                                       <td class="text-center">
+                                           <div class="btn-group btn-group-sm">
+                                               <button class="btn btn-dark rounded-2 mx-2" data-bs-toggle="modal"
+                                                       data-bs-target="#modalUsuarioView">
+                                                   <i class="bi bi-eye"></i> Ver
+                                               </button>
+                                               <button class="btn btn-turquesa rounded-2 mx-2" data-bs-toggle="modal"
+                                                       data-bs-target="#modalUsuarioCU">
+                                                   <i class="bi bi-pencil"></i> Editar
+                                               </button>
+                                               <button class="btn btn-danger rounded-2 mx-2" data-bs-toggle="modal"
+                                                       data-bs-target="#modalUsuarioDel">
+                                                   <i class="bi bi-trash"></i> Eliminar
+                                               </button>
+                                           </div>
+                                       </td>
+                                   </tr>
+                                   </tbody>
+                               </table>
+                           </div>
+                       </div>
+                   </div>--}}
             </div>
-            <div class="card border-light border-2 shadow-sm rounded-2">
-              <div class="table-responsive">
-                <table class="table table-striped align-middle mb-0 rounded-lg">
-                  <thead class="table-dark rounded-top-3">
-                  <tr>
-                    <th>ID</th>
-                    <th>Servicio</th>
-                    <th>Categoría</th>
-                    <th>Estado</th>
-                    <th>Plan</th>
-                    <th class="text-center">Acciones</th>
-                  </tr>
-                  </thead>
-                  <tbody id="tablaServicios">
-
-                  @forelse($services as $service)
-                    <tr>
-                      <td>{{ $service->id }}</td>
-
-                      <td class="fw-semibold">{{ $service->name }}</td>
-
-                      <td>{{ $service->category?->name ?? 'Sin categoría' }}</td>
-
-                      <td>
-                        @switch($service->status)
-                          @case('Activo')
-                            <span class="badge text-bg-success">Activo</span>
-                            @break
-                          @case('Pausado')
-                            <span class="badge text-bg-warning">Pausado</span>
-                            @break
-                          @case('Discontinuado')
-                            <span class="badge text-bg-danger">Discontinuado</span>
-                            @break
-                          @default
-                            <span
-                              class="badge text-bg-secondary">{{ $service->status }}</span>
-                        @endswitch
-                      </td>
-
-                      {{-- Mostrar el primer plan (si existe) --}}
-                      <td>
-                        @if(!empty($service->plans) && is_array($service->plans))
-                          @php
-                            $firstPlan = $service->plans[0] ?? null;
-                          @endphp
-                          @if($firstPlan)
-                            AR$ {{ number_format($firstPlan['price'], 0, ',', '.') }}
-                            <small
-                              class="text-muted">/ {{ isset($firstPlan['type']) ? $firstPlan['type'] : 'plan' }}</small>
-                          @endif
-                        @else
-                          <span class="text-muted">Sin planes</span>
-                        @endif
-                      </td>
-
-                      {{-- Acciones --}}
-                      <td class="text-center">
-                        <a href="#" class="btn btn-dark rounded-2 mx-1">
-                          <i class="bi bi-eye"></i> Ver
-                        </a>
-                        <a href="#" class="btn btn-turquesa rounded-2 mx-1">
-                          <i class="bi bi-pencil"></i> Editar
-                        </a>
-                        <form action="#" method="POST" class="d-inline">
-                          @csrf
-                          @method('DELETE')
-                          <button type="submit" class="btn btn-danger rounded-2 mx-1"
-                                  onclick="return confirm('¿Eliminar este servicio?')">
-                            <i class="bi bi-trash"></i> Eliminar
-                          </button>
-                        </form>
-                      </td>
-                    </tr>
-                  @empty
-                    <tr>
-                      <td colspan="6" class="text-center text-muted py-4">
-                        No hay servicios registrados aún.
-                      </td>
-                    </tr>
-                  @endforelse
-
-                  </tbody>
-                </table>
-              </div>
-            </div>
-          </div>
-
-
-          <!-- PANe: USUARIOS -->
-          {{--   <div class="tab-pane fade show" id="pane-usuarios" role="tabpanel" aria-labelledby="tab-usuarios">
-                 <div
-                     class="d-flex flex-column flex-md-row justify-content-between align-items-md-center gap-2 mb-3">
-                     <h2 class="fs-3 font-bankgothic mb-0">Listado de usuarios</h2>
-                     <a class="btn btn-turquesa" href="{{route('admin.createUser')}}">
-                         <i class="bi bi-plus-lg me-1"></i> Crear usuario
-                     </a>
-                 </div>
-
-                 <div class="card border-light border-2 shadow-sm rounded-2">
-                     <div class="table-responsive">
-                         <table class="table table-striped align-middle mb-0 rounded-lg">
-                             <thead class="table-dark rounded-top-3">
-                             <tr>
-                                 <th>Id</th>
-                                 <th>Avatar</th>
-                                 <th>Nombre</th>
-                                 <th>Apellido</th>
-                                 <th>Email</th>
-                                 <th>Teléfono</th>
-                                 <th>Ciudad</th>
-                                 <th class="text-center">Acciones</th>
-                             </tr>
-                             </thead>
-                             <tbody>
-                             <tr>
-                                 <td>1</td>
-                                 <td><img src="../img/ricardo.webp" class="avatar-sm border border-secondary"
-                                          alt="avatar"
-                                          height="40" width="40">
-                                 </td>
-                                 <td>Ricardo</td>
-                                 <td>García</td>
-                                 <td>ricardo.garcia@davinci.edu.ar</td>
-                                 <td>+54 221 690-5085</td>
-                                 <td>La Plata</td>
-                                 <td class="text-center">
-                                     <div class="btn-group btn-group-sm">
-                                         <button class="btn btn-dark rounded-2 mx-2" data-bs-toggle="modal"
-                                                 data-bs-target="#modalUsuarioView">
-                                             <i class="bi bi-eye"></i> Ver
-                                         </button>
-                                         <button class="btn btn-turquesa rounded-2 mx-2" data-bs-toggle="modal"
-                                                 data-bs-target="#modalUsuarioCU">
-                                             <i class="bi bi-pencil"></i> Editar
-                                         </button>
-                                         <button class="btn btn-danger rounded-2 mx-2" data-bs-toggle="modal"
-                                                 data-bs-target="#modalUsuarioDel">
-                                             <i class="bi bi-trash"></i> Eliminar
-                                         </button>
-                                     </div>
-                                 </td>
-                             </tr>
-                             <tr>
-                                 <td>2</td>
-                                 <td><img src="../img/ricardo.webp" class="avatar-sm border border-secondary"
-                                          alt="avatar"
-                                          height="40" width="40">
-                                 </td>
-                                 <td>María</td>
-                                 <td>López</td>
-                                 <td>maria.lopez@davinci.edu.ar</td>
-                                 <td>+54 11 2345-6789</td>
-                                 <td>Buenos Aires</td>
-                                 <td class="text-center">
-                                     <div class="btn-group btn-group-sm">
-                                         <button class="btn btn-dark rounded-2 mx-2" data-bs-toggle="modal"
-                                                 data-bs-target="#modalUsuarioView">
-                                             <i class="bi bi-eye"></i> Ver
-                                         </button>
-                                         <button class="btn btn-turquesa rounded-2 mx-2" data-bs-toggle="modal"
-                                                 data-bs-target="#modalUsuarioCU">
-                                             <i class="bi bi-pencil"></i> Editar
-                                         </button>
-                                         <button class="btn btn-danger rounded-2 mx-2" data-bs-toggle="modal"
-                                                 data-bs-target="#modalUsuarioDel">
-                                             <i class="bi bi-trash"></i> Eliminar
-                                         </button>
-                                     </div>
-                                 </td>
-                             </tr>
-                             <tr>
-                                 <td>3</td>
-                                 <td><img src="../img/ricardo.webp" class="avatar-sm border border-secondary"
-                                          alt="avatar"
-                                          height="40" width="40">
-                                 </td>
-                                 <td>Juan</td>
-                                 <td>Pérez</td>
-                                 <td>juan.perez@davinci.edu.ar</td>
-                                 <td>+54 351 987-6543</td>
-                                 <td>Córdoba</td>
-                                 <td class="text-center">
-                                     <div class="btn-group btn-group-sm">
-                                         <button class="btn btn-dark rounded-2 mx-2" data-bs-toggle="modal"
-                                                 data-bs-target="#modalUsuarioView">
-                                             <i class="bi bi-eye"></i> Ver
-                                         </button>
-                                         <button class="btn btn-turquesa rounded-2 mx-2" data-bs-toggle="modal"
-                                                 data-bs-target="#modalUsuarioCU">
-                                             <i class="bi bi-pencil"></i> Editar
-                                         </button>
-                                         <button class="btn btn-danger rounded-2 mx-2" data-bs-toggle="modal"
-                                                 data-bs-target="#modalUsuarioDel">
-                                             <i class="bi bi-trash"></i> Eliminar
-                                         </button>
-                                     </div>
-                                 </td>
-                             </tr>
-                             <tr>
-                                 <td>4</td>
-                                 <td><img src="../img/ricardo.webp" class="avatar-sm border border-secondary"
-                                          alt="avatar"
-                                          height="40" width="40">
-                                 </td>
-                                 <td>Ana</td>
-                                 <td>Martínez</td>
-                                 <td>ana.martinez@davinci.edu.ar</td>
-                                 <td>+54 341 234-5678</td>
-                                 <td>Rosario</td>
-                                 <td class="text-center">
-                                     <div class="btn-group btn-group-sm">
-                                         <button class="btn btn-dark rounded-2 mx-2" data-bs-toggle="modal"
-                                                 data-bs-target="#modalUsuarioView">
-                                             <i class="bi bi-eye"></i> Ver
-                                         </button>
-                                         <button class="btn btn-turquesa rounded-2 mx-2" data-bs-toggle="modal"
-                                                 data-bs-target="#modalUsuarioCU">
-                                             <i class="bi bi-pencil"></i> Editar
-                                         </button>
-                                         <button class="btn btn-danger rounded-2 mx-2" data-bs-toggle="modal"
-                                                 data-bs-target="#modalUsuarioDel">
-                                             <i class="bi bi-trash"></i> Eliminar
-                                         </button>
-                                     </div>
-                                 </td>
-                             </tr>
-                             <tr>
-                                 <td>5</td>
-                                 <td><img src="../img/ricardo.webp" class="avatar-sm border border-secondary"
-                                          alt="avatar"
-                                          height="40" width="40">
-                                 </td>
-                                 <td>Carlos</td>
-                                 <td>González</td>
-                                 <td>carlos.gonzalez@davinci.edu.ar</td>
-                                 <td>+54 261 876-5432</td>
-                                 <td>Mendoza</td>
-                                 <td class="text-center">
-                                     <div class="btn-group btn-group-sm">
-                                         <button class="btn btn-dark rounded-2 mx-2" data-bs-toggle="modal"
-                                                 data-bs-target="#modalUsuarioView">
-                                             <i class="bi bi-eye"></i> Ver
-                                         </button>
-                                         <button class="btn btn-turquesa rounded-2 mx-2" data-bs-toggle="modal"
-                                                 data-bs-target="#modalUsuarioCU">
-                                             <i class="bi bi-pencil"></i> Editar
-                                         </button>
-                                         <button class="btn btn-danger rounded-2 mx-2" data-bs-toggle="modal"
-                                                 data-bs-target="#modalUsuarioDel">
-                                             <i class="bi bi-trash"></i> Eliminar
-                                         </button>
-                                     </div>
-                                 </td>
-                             </tr>
-                             </tbody>
-                         </table>
-                     </div>
-                 </div>
-             </div>--}}
-        </div>
-        <div class="d-flex justify-content-between align-items-center mt-3">
-          <div>
-            Mostrando {{ $services->firstItem() }} a {{ $services->lastItem() }}
-            de {{ $services->total() }} resultados
-          </div>
-          <div>
-            {{ $services->links() }}
+            <div class="d-flex justify-content-between align-items-center mt-3">
+                <div>
+                    Mostrando {{ $services->firstItem() }} a {{ $services->lastItem() }}
+                    de {{ $services->total() }} resultados
+                </div>
+                <div>
+                    {{ $services->links() }}
           </div>
         </div>
 

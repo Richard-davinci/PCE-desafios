@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Service;
 use App\Models\Category;
+use App\Models\Service;
 use Illuminate\Http\Request;
 
 class ServiceController extends Controller
@@ -35,12 +35,49 @@ class ServiceController extends Controller
    */
   public function store(Request $request)
   {
-    $services = Service::create($request->only([
-      'name', 'category_id', 'status', 'subtitle', 'description', 'conditions', 'cover_image', 'thumb_image'
-    ]));
+    try {
+      // todo el código de guardado
 
-    if ($request->has('plans')) {
-      foreach ($request->plans as $planData) {
+
+      // 1. Validación de todos los campos
+      $camposValidados = $request->validate([
+        'name' => 'required|string|max:255',
+        'category_id' => 'required|integer|exists:categories,id',
+        'status' => 'required|string|max:50',
+        'subtitle' => 'required|string|max:255',
+        'description' => 'required|string',
+        'conditions' => 'nullable|string',
+        'cover_image' => 'required|image|mimes:webp,jpeg,png|max:2048',
+        'thumb_image' => 'required|image|mimes:webp,jpeg,png|max:2048',
+        'plans' => 'required|array|min:1',
+        'plans.*.name' => 'required|string|max:255',
+        'plans.*.price' => 'required|numeric|min:0',
+        'plans.*.type' => 'nullable|string|max:255',
+        'plans.*.features' => 'nullable|string|max:500',
+      ],
+        [
+          'name.required' => 'El campo nombre es obligatorio.',
+        ]
+      );
+
+      // 2. Guardar imágenes en /storage/app/public/img/servicios
+      $rutaCover = $request->file('cover_image')->store('img/servicios', 'public');
+      $rutaThumb = $request->file('thumb_image')->store('img/servicios', 'public');
+
+      // 3. Crear el servicio principal
+      $services = Service::create([
+        'name' => $camposValidados['name'],
+        'category_id' => $camposValidados['category_id'],
+        'status' => $camposValidados['status'],
+        'subtitle' => $camposValidados['subtitle'],
+        'description' => $camposValidados['description'],
+        'conditions' => $camposValidados['conditions'] ?? null,
+        'cover_image' => $rutaCover,
+        'thumb_image' => $rutaThumb,
+      ]);
+
+      // 4. Crear los planes asociados
+      foreach ($camposValidados['plans'] as $planData) {
         $services->plans()->create([
           'name' => $planData['name'],
           'price' => $planData['price'],
@@ -50,9 +87,14 @@ class ServiceController extends Controller
           ),
         ]);
       }
-    }
 
-    return redirect()->route('services.index')->with('success', 'Servicio creado con éxito');
+      // 5. Redirigir con mensaje de éxito
+      return redirect()
+        ->route('services.index')
+        ->with('success', 'Servicio y planes creados correctamente.');
+    } catch (\Throwable $e) {
+      dd($e->getMessage());
+    }
   }
 
 
