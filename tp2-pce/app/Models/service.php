@@ -20,11 +20,14 @@ class service extends Model
     'conditions',
     'cover_image',
     'thumb_image',
-    'plans',
-  ];
+    ];
 
   protected $casts = [
     'conditions' => 'array',
     'plans' => 'array',
   ];
+  public function plans()
+  {
+    return $this->hasMany(Plan::class);
+  }
 }

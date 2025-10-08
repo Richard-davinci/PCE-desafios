@@ -2,8 +2,8 @@
   <nav class="navbar navbar-expand-lg navbar-dark bg-gradient-dark border-bottom fixed-top">
     <div class="container">
       <a class="navbar-brand d-flex justify-content-center justify-content-lg-start align-items-center m-auto"
-         href="/">
-        <img src="img/logo.png" alt="logo" class="img-fluid w-75">
+         href="{{ route('pages.home') }}">
+        <img src="{{ asset('img/logo.png') }}" alt="logo Lili Studio" class="img-fluid w-75">
       </a>
 
       <button class="navbar-toggler toogler-color" type="button" data-bs-toggle="collapse"
@@ -15,6 +15,13 @@
         <ul class="navbar-nav ms-auto font-bankgothic align-items-end align-items-lg-center gap-0 gap-lg-2">
           <li class="nav-item text-center">
             <x-nav-link route="admin.dashboard">Dashboard</x-nav-link>
+          </li>
+          <li class="nav-item text-center">
+            <x-nav-link route="admin.admin">Usuarios</x-nav-link>
+          </li>
+          <li class="nav-item text-center">
+            <x-nav-link route="services.index">Servicios</x-nav-link>
+          </li>
         </ul>
       </div>
     </div>

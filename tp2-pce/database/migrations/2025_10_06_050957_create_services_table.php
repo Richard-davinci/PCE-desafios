@@ -20,7 +20,6 @@ return new class extends Migration {
             $table->json('conditions')->nullable();
             $table->string('cover_image')->nullable();
             $table->string('thumb_image')->nullable();
-            $table->json('plans')->nullable(); // cada plan: { "nombre": "...", "precio": "...", "detalles": "..." }
             $table->timestamps();
         });
 

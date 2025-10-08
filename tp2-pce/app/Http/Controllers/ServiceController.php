@@ -32,8 +32,26 @@ class ServiceController extends Controller
    */
   public function store(Request $request)
   {
-    //
+    $services = Service::create($request->only([
+      'name', 'category', 'status', 'subtitle', 'description', 'conditions', 'cover_image', 'thumb_image'
+    ]));
+
+    if ($request->has('plans')) {
+      foreach ($request->plans as $planData) {
+        $services->plans()->create([
+          'name' => $planData['name'],
+          'price' => $planData['price'],
+          'type' => $planData['type'] ?? null,
+          'features' => json_encode(
+            array_map('trim', explode(',', $planData['features'] ?? ''))
+          ),
+        ]);
+      }
+    }
+
+    return redirect()->route('service.index')->with('success', 'Servicio creado con éxito');
   }
+
 
   /**
    * Display the specified resource.

@@ -1,167 +1,163 @@
-@extends('layouts.app')
+@extends('layouts.admin')
 
-@section('title', 'Inicio')
+@section('title', 'Crear servicio')
 
 @section('content')
+  <div class="container py-5">
+    <h1 class="font-bankgothic text-turquesa mb-4">Crear nuevo servicio</h1>
 
-  <section class="py-5 bg-gradient-dark text-light">
-      <div class="container mb-4">
-        <h1 id="pageTitle" class="fs-1 font-bankgothic fw-bold mb-1">Crear servicio 2</h1>
-        <p class="text-secondary mb-0">Completá los datos del servicio y agregá uno o más planes.</p>
+    <form method="POST" action="{{ route('services.store') }}" enctype="multipart/form-data" class="bg-azul text-light p-4 rounded-3 shadow-sm">
+      @csrf
+
+      {{-- Nombre --}}
+      <div class="mb-3">
+        <label for="name" class="form-label">Nombre del servicio</label>
+        <input type="text" name="name" id="name" class="form-control" required>
       </div>
-    </section>
 
-    <!-- DATOS DEL SERVICIO -->
-    <section class="container mt-5 " aria-labelledby="datosTitle">
-      <div class="card bg-azul text-light border-light shadow-sm">
-        <div class="card-body">
-          <h2 id="datosTitle" class="fs-4 font-bankgothic text-turquesa mb-3">Datos</h2>
+      {{-- Categoría --}}
+      <div class="mb-3">
+        <label for="category" class="form-label">Categoría</label>
+        <input type="text" name="category" id="category" class="form-control" required>
+      </div>
 
-          <form class="needs-validation" novalidate method="post" enctype="multipart/form-data">
-            <div class="row g-3">
-              <div class="col-md-6">
-                <label class="form-label" for="srvNombre">Nombre</label>
-                <input id="srvNombre" name="srvNombre" class="form-control"
-                       placeholder="p.ej. Hosting + Mantenimiento" required>
-              </div>
+      {{-- Estado --}}
+      <div class="mb-3">
+        <label for="status" class="form-label">Estado</label>
+        <select name="status" id="status" class="form-select" required>
+          <option value="Activo">Activo</option>
+          <option value="Pausado">Pausado</option>
+          <option value="Discontinuado">Discontinuado</option>
+        </select>
+      </div>
 
-              <div class="col-md-3">
-                <label class="form-label" for="srvCategoria">Categoría</label>
-                <select id="srvCategoria" name="srvCategoria" class="form-select" required>
-                  <option value="">Elegí...</option>
-                  <option>Infraestructura</option>
-                  <option>Web</option>
-                  <option>Marketing</option>
-                </select>
-              </div>
+      {{-- Subtítulo --}}
+      <div class="mb-3">
+        <label for="subtitle" class="form-label">Subtítulo</label>
+        <input type="text" name="subtitle" id="subtitle" class="form-control">
+      </div>
 
-              <div class="col-md-3">
-                <label class="form-label" for="srvEstado">Estado</label>
-                <select id="srvEstado" name="srvEstado" class="form-select" required>
-                  <option value="">Elegí...</option>
-                  <option>Activo</option>
-                  <option>Pausado</option>
-                  <option>Discontinuado</option>
-                </select>
-              </div>
+      {{-- Descripción --}}
+      <div class="mb-3">
+        <label for="description" class="form-label">Descripción</label>
+        <textarea name="description" id="description" rows="4" class="form-control"></textarea>
+      </div>
 
-              <div class="col-12">
-                <label class="form-label" for="srvSubtitulo">Subtítulo</label>
-                <input id="srvSubtitulo" name="srvSubtitulo" class="form-control"
-                       placeholder="Bajada corta del servicio">
-              </div>
+      {{-- Condiciones (opcional) --}}
+      <div class="mb-3">
+        <label for="conditions" class="form-label">Condiciones</label>
+        <textarea name="conditions" id="conditions" rows="3" class="form-control"></textarea>
+      </div>
 
-              <div class="col-12">
-                <label class="form-label" for="srvDescripcion">Descripción</label>
-                <textarea id="srvDescripcion" name="srvDescripcion" class="form-control" rows="3"
-                          required></textarea>
-              </div>
-
-              <div class="col-12">
-                <label class="form-label" for="srvCondiciones">Condiciones (una por línea)</label>
-                <textarea id="srvCondiciones" name="srvCondiciones" class="form-control" rows="3"
-                          placeholder="Facturación mensual por adelantado&#10;Backups diarios (30 días)&#10;Cancelación al cierre de ciclo"></textarea>
-              </div>
-
-              <div class="col-md-6">
-                <label class="form-label" for="srvCover">Imagen cover (16:9)</label>
-                <input id="srvCover" name="srvCover" type="file" class="form-control" accept="image/*">
-                <div class="form-text text-secondary">Sugerido 1280×720px (o mayor) en JPG/PNG.</div>
-              </div>
-
-              <div class="col-md-6">
-                <label class="form-label" for="srvThumb">Imagen thumb (16:9)</label>
-                <input id="srvThumb" name="srvThumb" type="file" class="form-control" accept="image/*"
-                       required>
-                <div class="form-text text-secondary">Sugerido 800×450px. Campo requerido.</div>
-              </div>
-            </div>
-
-
-          </form>
+      {{-- Imágenes --}}
+      <div class="row">
+        <div class="col-md-6 mb-3">
+          <label for="cover_image" class="form-label">Imagen principal (cover)</label>
+          <input type="file" name="cover_image" id="cover_image" class="form-control">
+        </div>
+        <div class="col-md-6 mb-3">
+          <label for="thumb_image" class="form-label">Imagen miniatura (thumb)</label>
+          <input type="file" name="thumb_image" id="thumb_image" class="form-control">
         </div>
       </div>
-    </section>
 
-    <!-- AGREGAR PLAN -->
-    <section class="mt-4 bg-azul py-5" aria-labelledby="planesTitle">
-      <div class="container">
-        <div class="card bg-azul text-light border-light shadow-sm">
-          <div class="card-body">
-            <h2 id="planesTitle" class="fs-4 font-bankgothic text-turquesa mb-3">Agregar plan</h2>
-
-            <div class="row g-3">
-              <div class="col-md-4">
-                <label class="form-label" for="planNombre">Nombre del plan</label>
-                <input type="text" class="form-control" id="planNombre" placeholder="Clásico">
-              </div>
-              <div class="col-md-4">
-                <label class="form-label" for="planPrecio">Precio</label>
-                <input type="number" class="form-control" id="planPrecio" placeholder="8999" min="0"
-                       step="any"
-                       inputmode="decimal">
-              </div>
-              <div class="col-md-4">
-                <label class="form-label" for="planPeriodo">Periodo</label>
-                <select class="form-select" id="planPeriodo">
-                  <option>Mensual</option>
-                  <option>Anual</option>
-                  <option>Único</option>
-                </select>
-              </div>
-              <div class="col-12">
-                <label class="form-label" for="planFeatures">Características</label>
-                <textarea class="form-control" id="planFeatures" rows="3"
-                          placeholder="1 sitio web&#10;10 GB SSD&#10;SSL gratis"></textarea>
-              </div>
-              <div class="col-12 d-flex justify-content-end">
-                <button type="button" class="btn btn-turquesa font-bankgothic" id="btnAgregarPlan">
-                  <i class="bi bi-plus-lg me-1"></i>Agregar plan
-                </button>
-              </div>
+      {{-- Planes dinámicos --}}
+      <h4 class="font-bankgothic text-turquesa mt-5 mb-3">Planes del servicio</h4>
+      <div id="plans-container">
+        <div class="plan-item border rounded-3 p-3 mb-3">
+          <div class="row g-2">
+            <div class="col-md-4">
+              <label class="form-label">Nombre del plan</label>
+              <input type="text" name="plans[0][name]" class="form-control" required>
+            </div>
+            <div class="col-md-3">
+              <label class="form-label">Precio (AR$)</label>
+              <input type="number" name="plans[0][price]" class="form-control" step="0.01" required>
+            </div>
+            <div class="col-md-3">
+              <label class="form-label">Tipo</label>
+              <select name="plans[0][type]" class="form-select">
+                <option value="único">Único</option>
+                <option value="mensual">Mensual</option>
+                <option value="anual">Anual</option>
+              </select>
+            </div>
+            <div class="col-md-12 mt-2">
+              <label class="form-label">Características (separadas por coma)</label>
+              <input type="text" name="plans[0][features]" class="form-control" placeholder="Hosting, Dominio, Soporte técnico">
             </div>
           </div>
         </div>
-        <div class="mt-4 card bg-azul text-light border-light shadow-sm">
-          <div class="card-body">
-            <h2 id="listaPlanesTitle" class="fs-4 font-bankgothic text-turquesa mb-3">Planes del servicio</h2>
+      </div>
 
-            <div class="table-responsive">
-              <table class="table table-striped align-middle mb-0">
-                <thead class="table-dark ">
-                <tr>
-                  <th>Nombre</th>
-                  <th>Precio</th>
-                  <th>Periodo</th>
-                  <th>Características</th>
-                  <th class="text-end">Acciones</th>
-                </tr>
-                </thead>
-                <tbody id="tablaPlanes">
-                <tr>
-                  <td>Clásico</td>
-                  <td>AR$ 8.999</td>
-                  <td>Mensual</td>
-                  <td>1 sitio, 10 GB SSD, SSL gratis</td>
-                  <td class="text-end">
-                    <div class="btn-group btn-group-sm">
-                      <button class="btn btn-outline-turquesa"><i class="bi bi-pencil"></i> Editar
-                      </button>
-                      <button class="btn btn-outline-danger"><i class="bi bi-trash"></i> Eliminar
-                      </button>
-                    </div>
-                  </td>
-                </tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
+      {{-- Botón agregar plan --}}
+      <div class="d-flex justify-content-start mb-4">
+        <button type="button" id="addPlan" class="btn btn-outline-turquesa">
+          <i class="bi bi-plus-circle"></i> Agregar otro plan
+        </button>
+      </div>
+
+      {{-- Botones finales --}}
+      <div class="d-flex justify-content-end gap-2">
+        <a href="{{ route('services.index') }}" class="btn btn-outline-light">
+          <i class="bi bi-arrow-left"></i> Volver
+        </a>
+        <button type="submit" class="btn btn-turquesa">
+          <i class="bi bi-save"></i> Guardar servicio
+        </button>
+      </div>
+    </form>
+  </div>
+
+  {{-- Script para duplicar planes --}}
+  @push('scripts')
+    <script>
+      let planIndex = 1;
+
+      document.getElementById('addPlan').addEventListener('click', function() {
+        const container = document.getElementById('plans-container');
+
+        const newPlan = document.createElement('div');
+        newPlan.classList.add('plan-item', 'border', 'rounded-3', 'p-3', 'mb-3');
+
+        newPlan.innerHTML = `
+      <div class="row g-2">
+        <div class="col-md-4">
+          <label class="form-label">Nombre del plan</label>
+          <input type="text" name="plans[${planIndex}][name]" class="form-control" required>
         </div>
-        <div class="mt-4 d-flex justify-content-end gap-2">
-          <a href="admin.html" class="btn btn-dark font-bankgothic">Cancelar</a>
-          <button class="btn btn-turquesa font-bankgothic" type="submit">Guardar</button>
+        <div class="col-md-3">
+          <label class="form-label">Precio (AR$)</label>
+          <input type="number" name="plans[${planIndex}][price]" class="form-control" step="0.01" required>
+        </div>
+        <div class="col-md-3">
+          <label class="form-label">Tipo</label>
+          <select name="plans[${planIndex}][type]" class="form-select">
+            <option value="único">Único</option>
+            <option value="mensual">Mensual</option>
+            <option value="anual">Anual</option>
+          </select>
+        </div>
+        <div class="col-md-12 mt-2">
+          <label class="form-label">Características (separadas por coma)</label>
+          <input type="text" name="plans[${planIndex}][features]" class="form-control" placeholder="Hosting, Dominio, Soporte técnico">
         </div>
       </div>
-    </section>
+      <button type="button" class="btn btn-danger btn-sm mt-3 removePlan">
+        <i class="bi bi-trash"></i> Quitar plan
+      </button>
+    `;
 
+        container.appendChild(newPlan);
+        planIndex++;
+      });
+
+      // Quitar plan
+      document.addEventListener('click', function(e) {
+        if (e.target.closest('.removePlan')) {
+          e.target.closest('.plan-item').remove();
+        }
+      });
+    </script>
+  @endpush
 @endsection
