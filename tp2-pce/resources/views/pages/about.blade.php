@@ -190,8 +190,8 @@
                         <p class="text-blanco">Elegí un plan o escribinos y coordinamos el inicio.</p>
                     </div>
                     <div class="d-flex gap-2">
-                        <a class="btn btn-turquesa fs-6" href="{{route('service')}}">Ver servicios</a>
-                        <a class="btn btn-outline-turquesa fs-6" href="{{route('contact')}}">Contacto</a>
+                        <a class="btn btn-turquesa fs-6" href="{{route('pages.service')}}">Ver servicios</a>
+                        <a class="btn btn-outline-turquesa fs-6" href="{{route('pages.contact')}}">Contacto</a>
                     </div>
                 </div>
             </div>

@@ -5,10 +5,10 @@ use App\Http\Controllers\{CategoryController, PageController, ServiceController,
 
 // Páginas públicas
 Route::get('/',             [PageController::class, 'home'])                ->name('home');
-Route::get('/nosotros',     [PageController::class, 'about'])               ->name('about');
-Route::get('/contacto',     [PageController::class, 'contact'])             ->name('contact');
-Route::get('/servicio',     [PageController::class, 'service'])             ->name('service');
-Route::get('/ver-servicio', [PageController::class, 'viewService'])         ->name('viewService');
+Route::get('/nosotros',     [PageController::class, 'about'])               ->name('pages.about');
+Route::get('/contacto',     [PageController::class, 'contact'])             ->name('pages.contact');
+Route::get('/servicio',     [PageController::class, 'service'])             ->name('pages.service');
+Route::get('/ver-servicio', [PageController::class, 'viewService'])         ->name('pages.viewService');
 
 // Autenticación
 Route::get('/mi-perfil',     [AuthController::class, 'myProfile'])         ->name('user.myProfile');

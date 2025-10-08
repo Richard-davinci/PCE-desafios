@@ -13,21 +13,21 @@ class PageController extends Controller
 
     public function about()
     {
-        return view('about');
+        return view('pages.about');
     }
 
     public function contact()
     {
-        return view('contact');
+        return view('pages.contact');
     }
 
     function service()
     {
-        return view('service');
+        return view('pages.service');
     }
     public function viewService()
     {
-        return view('viewService');
+        return view('pages.viewService');
     }
 
 }

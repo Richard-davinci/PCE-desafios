@@ -44,140 +44,93 @@
                                 </a>
                             </div>
                         </div>
-
                         <div class="card border-light border-2 shadow-sm rounded-2">
                             <div class="table-responsive">
                                 <table class="table table-striped align-middle mb-0 rounded-lg">
                                     <thead class="table-dark rounded-top-3">
                                     <tr>
-                                        <th>Id</th>
+                                        <th>ID</th>
                                         <th>Servicio</th>
                                         <th>Categoría</th>
                                         <th>Estado</th>
-                                        <th>Desde</th>
+                                        <th>Plan</th>
                                         <th class="text-center">Acciones</th>
                                     </tr>
                                     </thead>
                                     <tbody id="tablaServicios">
-                                    <tr>
-                                        <td>15</td>
-                                        <td>Hosting + Mantenimiento</td>
-                                        <td>Infraestructura</td>
-                                        <td><span class="badge text-bg-success">Activo</span></td>
-                                        <td>AR$ 8.999 /mes</td>
-                                        <td class="text-center">
-                                            <div class="btn-group btn-group-sm">
-                                                <a href="../views/verServicios.html"
-                                                   class="btn btn-dark rounded-2 mx-2"><i
-                                                        class="bi bi-eye"></i> Ver</a>
-                                                <button class="btn btn-turquesa rounded-2 mx-2" data-bs-toggle="modal"
-                                                        data-bs-target="#modalServicio">
+
+                                    @forelse($services as $service)
+                                        <tr>
+                                            <td>{{ $service->id }}</td>
+
+                                            <td class="fw-semibold">{{ $service->name }}</td>
+
+                                            <td>{{ $service->category }}</td>
+
+                                            <td>
+                                                @switch($service->status)
+                                                    @case('Activo')
+                                                        <span class="badge text-bg-success">Activo</span>
+                                                        @break
+                                                    @case('Pausado')
+                                                        <span class="badge text-bg-warning">Pausado</span>
+                                                        @break
+                                                    @case('Discontinuado')
+                                                        <span class="badge text-bg-danger">Discontinuado</span>
+                                                        @break
+                                                    @default
+                                                        <span
+                                                            class="badge text-bg-secondary">{{ $service->status }}</span>
+                                                @endswitch
+                                            </td>
+
+                                            {{-- Mostrar el primer plan (si existe) --}}
+                                            <td>
+                                                @if(!empty($service->plans) && is_array($service->plans))
+                                                    @php
+                                                        $firstPlan = $service->plans[0] ?? null;
+                                                    @endphp
+                                                    @if($firstPlan)
+                                                        AR$ {{ number_format($firstPlan['price'], 0, ',', '.') }}
+                                                        <small
+                                                            class="text-muted">/ {{ isset($firstPlan['type']) ? $firstPlan['type'] : 'plan' }}</small>
+                                                    @endif
+                                                @else
+                                                    <span class="text-muted">Sin planes</span>
+                                                @endif
+                                            </td>
+
+                                            {{-- ⚙️ Acciones --}}
+                                            <td class="text-center">
+                                                <a href="#" class="btn btn-dark rounded-2 mx-1">
+                                                    <i class="bi bi-eye"></i> Ver
+                                                </a>
+                                                <a href="#" class="btn btn-turquesa rounded-2 mx-1">
                                                     <i class="bi bi-pencil"></i> Editar
-                                                </button>
-                                                <button class="btn btn-danger rounded-2 mx-2" data-bs-toggle="modal"
-                                                        data-bs-target="#modalEliminarServicio"><i
-                                                        class="bi bi-trash"></i>
-                                                    Eliminar
-                                                </button>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>23</td>
-                                        <td>Desarrollo Web</td>
-                                        <td>Web</td>
-                                        <td><span class="badge text-bg-warning">Pausado</span></td>
-                                        <td>AR$ 150.000 /único</td>
-                                        <td class="text-center">
-                                            <div class="btn-group btn-group-sm">
-                                                <a href="../views/verServicios.html"
-                                                   class="btn btn-dark rounded-2 mx-2"><i
-                                                        class="bi bi-eye"></i> Ver</a>
-                                                <button class="btn btn-turquesa rounded-2 mx-2" data-bs-toggle="modal"
-                                                        data-bs-target="#modalServicio">
-                                                    <i class="bi bi-pencil"></i> Editar
-                                                </button>
-                                                <button class="btn btn-danger rounded-2 mx-2" data-bs-toggle="modal"
-                                                        data-bs-target="#modalEliminarServicio"><i
-                                                        class="bi bi-trash"></i>
-                                                    Eliminar
-                                                </button>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>31</td>
-                                        <td>Marketing Digital</td>
-                                        <td>Marketing</td>
-                                        <td><span class="badge text-bg-success">Activo</span></td>
-                                        <td>AR$ 45.000 /mes</td>
-                                        <td class="text-center">
-                                            <div class="btn-group btn-group-sm">
-                                                <a href="../views/verServicios.html"
-                                                   class="btn btn-dark rounded-2 mx-2"><i
-                                                        class="bi bi-eye"></i> Ver</a>
-                                                <button class="btn btn-turquesa rounded-2 mx-2" data-bs-toggle="modal"
-                                                        data-bs-target="#modalServicio">
-                                                    <i class="bi bi-pencil"></i> Editar
-                                                </button>
-                                                <button class="btn btn-danger rounded-2 mx-2" data-bs-toggle="modal"
-                                                        data-bs-target="#modalEliminarServicio"><i
-                                                        class="bi bi-trash"></i>
-                                                    Eliminar
-                                                </button>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>42</td>
-                                        <td>Diseño UX/UI</td>
-                                        <td>Web</td>
-                                        <td><span class="badge text-bg-danger">Discontinuado</span></td>
-                                        <td>AR$ 95.000 /único</td>
-                                        <td class="text-center">
-                                            <div class="btn-group btn-group-sm">
-                                                <a href="../views/verServicios.html"
-                                                   class="btn btn-dark rounded-2 mx-2"><i
-                                                        class="bi bi-eye"></i> Ver</a>
-                                                <button class="btn btn-turquesa rounded-2 mx-2" data-bs-toggle="modal"
-                                                        data-bs-target="#modalServicio">
-                                                    <i class="bi bi-pencil"></i> Editar
-                                                </button>
-                                                <button class="btn btn-danger rounded-2 mx-2" data-bs-toggle="modal"
-                                                        data-bs-target="#modalEliminarServicio"><i
-                                                        class="bi bi-trash"></i>
-                                                    Eliminar
-                                                </button>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>55</td>
-                                        <td>Servidor VPS</td>
-                                        <td>Infraestructura</td>
-                                        <td><span class="badge text-bg-success">Activo</span></td>
-                                        <td>AR$ 12.500 /mes</td>
-                                        <td class="text-center">
-                                            <div class="btn-group btn-group-sm">
-                                                <a href="../views/verServicios.html"
-                                                   class="btn btn-dark rounded-2 mx-2"><i
-                                                        class="bi bi-eye"></i> Ver</a>
-                                                <button class="btn btn-turquesa rounded-2 mx-2" data-bs-toggle="modal"
-                                                        data-bs-target="#modalServicio">
-                                                    <i class="bi bi-pencil"></i> Editar
-                                                </button>
-                                                <button class="btn btn-danger rounded-2 mx-2" data-bs-toggle="modal"
-                                                        data-bs-target="#modalEliminarServicio"><i
-                                                        class="bi bi-trash"></i>
-                                                    Eliminar
-                                                </button>
-                                            </div>
-                                        </td>
-                                    </tr>
+                                                </a>
+                                                <form action="#" method="POST" class="d-inline">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit" class="btn btn-danger rounded-2 mx-1"
+                                                            onclick="return confirm('¿Eliminar este servicio?')">
+                                                        <i class="bi bi-trash"></i> Eliminar
+                                                    </button>
+                                                </form>
+                                            </td>
+                                        </tr>
+                                    @empty
+                                        <tr>
+                                            <td colspan="6" class="text-center text-muted py-4">
+                                                No hay servicios registrados aún.
+                                            </td>
+                                        </tr>
+                                    @endforelse
+
                                     </tbody>
                                 </table>
                             </div>
                         </div>
+
                     </div>
 
                     <!-- PANe: USUARIOS -->
@@ -460,12 +413,14 @@
 
                     <div class="tab-content">
                         <!-- TAB: Datos (solo lectura) -->
-                        <div class="tab-pane fade show active" id="u-datos" role="tabpanel" aria-labelledby="u-datos-tab">
+                        <div class="tab-pane fade show active" id="u-datos" role="tabpanel"
+                             aria-labelledby="u-datos-tab">
                             <div class="card bg-azul text-light border-light">
                                 <div class="card-body">
                                     <div class="row g-4 align-items-center">
                                         <div class="col-md-3 text-center">
-                                            <img src="../assets/img/ricardo.webp" class="img-fluid rounded-3 border border-secondary"
+                                            <img src="../assets/img/ricardo.webp"
+                                                 class="img-fluid rounded-3 border border-secondary"
                                                  alt="avatar">
                                         </div>
                                         <div class="col-md-9">

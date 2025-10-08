@@ -1,3 +1,9 @@
+@extends('layouts.app')
+
+@section('title', 'Inicio')
+
+@section('content')
+
 <x-layout>
     <x-slot:title>Pagina Principal</x-slot:title>
     <main class="mt-5">
@@ -10,7 +16,7 @@
                     medibles.
                 </p>
                 <div class="d-flex flex-wrap gap-3">
-                    <a class="btn btn-turquesa" href="{{route('service')}}">Ver servicios </a>
+                    <a class="btn btn-turquesa" href="{{route('pages.service')}}">Ver servicios </a>
                 </div>
             </div>
         </section>
@@ -28,7 +34,7 @@
                         title="Sitio institucional"
                         description="Páginas informativas (inicio, servicios, nosotros, contacto) y blog opcional."
                         price="$149.990"
-                        link-id="{{route('viewService')}}"
+                        link-id="{{route('pages.viewService')}}"
                     />
                     <x-service-card
                         image="img/servicios/producto2.png"
@@ -36,7 +42,7 @@
                         title="Landing / Maquetación"
                         description="Una página enfocada en conversión para campañas o lanzamientos."
                         price="$89.990"
-                        link-id="{{route('viewService')}}"
+                        link-id="{{route('pages.viewService')}}"
                     />
                     <x-service-card
                         image="img/servicios/producto3.png"
@@ -44,7 +50,7 @@
                         title="Implementación CMS"
                         description="Montaje y ajustes de CMS para que edites tu contenido sin fricción."
                         price="$119.990"
-                        link-id="{{route('viewService')}}"
+                        link-id="{{route('pages.viewService')}}"
                     />
 
                 </div>
@@ -103,7 +109,7 @@
                         </p>
                     </div>
                     <div class="col-lg-4 text-lg-end">
-                        <a class="btn btn-turquesa" href="{{ route('about') }}">
+                        <a class="btn btn-turquesa" href="{{ route('pages.about') }}">
                             Más información
                         </a>
                     </div>
@@ -121,7 +127,7 @@
                             reales.</p>
                     </div>
                     <div class="col-lg-4 text-lg-end">
-                        <a class="btn btn-turquesa" href="{{ route('contact') }}">
+                        <a class="btn btn-turquesa" href="{{ route('pages.contact') }}">
                             Contacto
                         </a>
                     </div>
@@ -130,3 +136,4 @@
         </section>
     </main>
 </x-layout>
+@endsection

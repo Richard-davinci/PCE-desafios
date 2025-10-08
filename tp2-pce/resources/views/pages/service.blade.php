@@ -39,7 +39,7 @@
                                 <p class="mb-0 text-blanco">
                                     <i class="bi bi-cash-coin me-1"></i>Desde <strong>$29.990</strong>
                                 </p>
-                                <a class="btn btn-turquesa mt-3" href="{{route('viewService')}}">Ver
+                                <a class="btn btn-turquesa mt-3" href="{{route('pages.viewService')}}">Ver
                                     más
                                 </a>
                             </div>
@@ -58,7 +58,7 @@
                                     opcional.</p>
                                 <p class="mb-0 text-blanco"><i class="bi bi-cash-coin me-1"></i>Desde
                                     <strong>$149.990</strong></p>
-                                <a class="btn btn-turquesa mt-3" href="{{route('viewService')}}">Ver
+                                <a class="btn btn-turquesa mt-3" href="{{route('pages.viewService')}}">Ver
                                     más
                                 </a>
                             </div>
@@ -77,7 +77,7 @@
                                     fricción.</p>
                                 <p class="mb-0 text-blanco"><i class="bi bi-cash-coin me-1"></i>Desde
                                     <strong>$119.990</strong></p>
-                                <a class="btn btn-turquesa mt-3" href="{{route('viewService')}}">Ver
+                                <a class="btn btn-turquesa mt-3" href="{{route('pages.viewService')}}">Ver
                                     más
                                 </a>
                             </div>
@@ -95,7 +95,7 @@
                                     básico.</p>
                                 <p class="mb-0 text-blanco"><i class="bi bi-cash-coin me-1"></i>Desde
                                     <strong>$49.990</strong></p>
-                                <a class="btn btn-turquesa mt-3" href="{{route('viewService')}}">Ver
+                                <a class="btn btn-turquesa mt-3" href="{{route('pages.viewService')}}">Ver
                                     más
                                 </a>
                             </div>
@@ -113,7 +113,7 @@
                                     posicionar mejor.</p>
                                 <p class="mb-0 text-blanco"><i class="bi bi-cash-coin me-1"></i>Desde
                                     <strong>$59.990</strong></p>
-                                <a class="btn btn-turquesa mt-3" href="{{route('viewService')}}">Ver
+                                <a class="btn btn-turquesa mt-3" href="{{route('pages.viewService')}}">Ver
                                     más
                                 </a>
                             </div>
@@ -130,7 +130,7 @@
                                 <p class="text-blanco">Actualizaciones, monitoreo básico y soporte con SLA acordado.</p>
                                 <p class="mb-0 text-blanco"><i class="bi bi-cash-coin me-1"></i>Desde
                                     <strong>$39.990</strong></p>
-                                <a class="btn btn-turquesa mt-3" href="{{route('viewService')}}">Ver
+                                <a class="btn btn-turquesa mt-3" href="{{route('pages.viewService')}}">Ver
                                     más
                                 </a>
                             </div>
