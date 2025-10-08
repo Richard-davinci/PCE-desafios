@@ -351,3 +351,47 @@ iframe {
     line-height: 1;
 }
 
+/* ================================
+   Paginación estilo oscuro - Lili Studio
+   ================================ */
+
+
+.page-item {
+  margin: 0 2px;
+}
+
+.page-link {
+  background-color: var(--azul);
+  color: var(--blanco);                      /* texto azul */
+  transition: all 0.2s ease-in-out;
+  border-radius: 6px;                  /* bordes suaves */
+  padding: .45rem .85rem;
+  font-weight: bold;
+}
+
+.page-link:hover {
+  background-color: var(--turquesa);           /* azul hover */
+  border-color: var(--azul);
+  color: var(--negro);
+  font-weight: 600;
+}
+
+.page-item.active .page-link {
+  background-color: var(--turquesa);   /* turquesa activo */
+  border-color: var(--azul);
+  color: var(--negro);
+  font-weight: 600;
+}
+
+.page-item.disabled .page-link {
+  background-color: var(--turquesa);           /* gris oscuro para desactivado */
+  color: var(--negro);
+  border-color: #333;
+  font-weight: bold;
+}
+
+nav .small {
+ color: #e1e1e1 !important;
+}
+
+
