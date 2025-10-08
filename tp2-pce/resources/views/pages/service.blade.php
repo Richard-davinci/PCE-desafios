@@ -1,5 +1,9 @@
-<x-layout>
-    <main class="mt-5">
+@extends('layouts.app')
+
+@section('title', 'Servicio')
+
+@section('content')
+
         <section class="mt-3 py-5 bg-gradient-dark text-light">
             <div class="container">
                 <div class="row align-items-center g-4">
@@ -139,5 +143,5 @@
                 </div>
             </div>
         </section>
-    </main>
-</x-layout>
+
+@endsection

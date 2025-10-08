@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\{CategoryController, PageController, ServiceController, AuthController, AdminController};
 
 // Páginas públicas
-Route::get('/',             [PageController::class, 'home'])                ->name('home');
+Route::get('/',             [PageController::class, 'home'])                ->name('pages.home');
 Route::get('/nosotros',     [PageController::class, 'about'])               ->name('pages.about');
 Route::get('/contacto',     [PageController::class, 'contact'])             ->name('pages.contact');
 Route::get('/servicio',     [PageController::class, 'service'])             ->name('pages.service');

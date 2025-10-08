@@ -1,12 +1,16 @@
-<x-layout>
-    <x-slot:title>Contacto</x-slot:title>
-    <main class="mt-5">
+@extends('layouts.app')
+
+@section('title', 'Contacto')
+
+@section('content')
+
         <section class="mt-3 py-5 bg-gradient-dark text-light">
             <div class="container">
                 <h1 class="fs-1 fw-bold font-bankgothic mb-3">Ponete en contacto</h1>
                 <p class="text-blanco">Estamos para ayudarte a hacer crecer tu proyecto digital.</p>
             </div>
         </section>
+
         <section class=" py-5 container">
             <div class="row g-4">
                 <div class="col-md-6">
@@ -68,5 +72,5 @@
                 </div>
             </div>
         </section>
-    </main>
-</x-layout>
+
+@endsection

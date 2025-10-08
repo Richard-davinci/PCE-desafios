@@ -4,7 +4,7 @@
 
             <div class="col-12 col-lg-4">
                 <a class="navbar-brand d-flex justify-content-center justify-content-lg-start align-items-center m-auto"
-                   href="{{ route('home') }}">
+                   href="{{ route('pages.home') }}">
                     <img src="{{ asset('img/logo.png') }}" alt="Logo Lili Studio" class="img-fluid w-50">
                 </a>
             </div>

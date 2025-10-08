@@ -1,5 +1,9 @@
-<x-layout>
-    <main class="mt-5">
+@extends('layouts.app')
+
+@section('title', 'Detalle del servicio')
+
+@section('content')
+
         <section class="mt-3 py-5 bg-gradient-dark text-light">
             <div class="container">
                 <div class="d-flex flex-column flex-lg-row align-items-lg-center justify-content-between gap-3">
@@ -245,11 +249,11 @@
                                             <!-- Premium-->
                                             <div class="col-md-4">
                                                 <div class="card rounded-3 h-100 p-3 position-relative">
-                          <span
-                              class="position-absolute top-0 start-50 translate-middle badge bg-turquesa rounded-pill px-3"
-                              style="transform: translate(-50%, -50%);">
-                            MÁS VENDIDO
-                          </span>
+                                                  <span
+                                                      class="position-absolute top-0 start-50 translate-middle badge bg-turquesa rounded-pill px-3"
+                                                      style="transform: translate(-50%, -50%);">
+                                                    MÁS VENDIDO
+                                                  </span>
                                                     <h3 class="fs-4 font-bankgothic text-turquesa fw-bold mb-1">
                                                         Premium</h3>
                                                     <p class="text-secondary small mb-2">Todo lo que necesitás para
@@ -300,7 +304,6 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <!-- /ANUAL -->
                                 </div>
                             </div>
                         </div>
@@ -308,5 +311,5 @@
                 </div>
             </div>
         </section>
-    </main>
-</x-layout>
+
+@endsection

@@ -7,7 +7,7 @@
 
 @include('partials.navbar')
 
-<main class="mt-5 pt-5">
+<main class="mt-5">
     {{ $slot ?? '' }}
     @yield('content')
 </main>

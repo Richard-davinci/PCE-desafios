@@ -48,7 +48,7 @@
         <div class="row g-4 align-items-center">
             <div class="col-12 col-lg-4">
                 <a class="navbar-brand d-flex justify-content-center justify-content-lg-start align-items-center m-auto"
-                   href="{{route('home')}}">
+                   href="{{route('pages.home')}}">
                     <img src="img/logo.png" alt="logo" class="img-fluid w-50">
                 </a>
             </div>

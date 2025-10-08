@@ -1,7 +1,9 @@
-<x-layout>
-    <x-slot:title>Nosotros</x-slot:title>
+@extends('layouts.app')
 
-    <main class="mt-5">
+@section('title', 'Nosotros')
+
+@section('content')
+
         <section class="mt-3 py-5 bg-gradient-dark text-light">
             <div class="container">
                 <div class="align-items-center g-4">
@@ -196,5 +198,4 @@
                 </div>
             </div>
         </section>
-    </main>
-</x-layout>
+    @endsection
