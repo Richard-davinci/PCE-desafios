@@ -1,6 +1,8 @@
-<x-layout-admin>
-    <x-slot:title>Contacto</x-slot:title>
-    <main class="mt-5">
+@extends('layouts.app')
+
+@section('title', 'Inicio')
+
+@section('content')
         <section
             class="mt-3 py-5 bg-gradient-dark text-light ">
             <div class="container d-flex flex-column flex-md-row align-items-md-center justify-content-between gap-2">
@@ -9,7 +11,8 @@
                     <p class="text-blanco mb-0">Resumen general del sitio.</p>
                 </div>
                 <div class="d-flex align-items-center gap-2">
-                    <a href="{{route('admin.admin')}}" class="btn btn-outline-light"><i class="bi bi-gear me-1"></i> Ir
+                    <a href="{{route('services.index')}}" class="btn btn-outline-light"><i class="bi bi-gear me-1"></i> Servicios</a>
+                  <a href="{{route('admin.admin')}}" class="btn btn-outline-light"><i class="bi bi-gear me-1"></i> Ir
                         al Admin</a>
                     <button class="btn btn-turquesa"><i class="bi bi-arrow-clockwise me-1"></i> Actualizar</button>
                 </div>
@@ -250,5 +253,4 @@
         </section>
 
         </div>
-    </main>
-</x-layout-admin>
+@endsection

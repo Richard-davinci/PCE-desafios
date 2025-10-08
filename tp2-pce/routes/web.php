@@ -16,9 +16,7 @@ Route::get('/login-admin',   [AuthController::class, 'login'])             ->nam
 Route::get('/login-user',    [AuthController::class, 'loginUser'])         ->name('user.loginUser');
 
 //servicios
-Route::resource('servicios', ServiceController::class);
-Route::get('/crear-servicio', [ServiceController::class, 'create'])    ->name('service.create');
-
+Route::resource('services', ServiceController::class);
 // Panel Admin
 Route::get('/tablero',        [AdminController::class, 'dashboard'])        ->name('admin.dashboard');
 Route::get('/crear-user',     [AdminController::class, 'createUser'])       ->name('admin.createUser');

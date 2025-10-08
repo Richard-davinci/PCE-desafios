@@ -1,6 +1,8 @@
-<x-layout-admin>
-    <x-slot:title>Admin</x-slot:title>
-    <main class="mt-5">
+@extends('layouts.app')
+
+@section('title', 'Inicio')
+
+@section('content')
         <section class="mt-3 py-5 bg-gradient-dark text-light">
             <div class="container">
                 <h1 class="font-bankgothic">Panel de administración</h1>
@@ -39,7 +41,7 @@
                                         data-bs-target="#modalCategorias">
                                     <i class="bi bi-tags me-1"></i> Categorías
                                 </button>
-                                <a class="btn btn-turquesa" href="{{route('service.create')}}">
+                                <a class="btn btn-turquesa" href="{{route('services.create')}}">
                                     <i class="bi bi-plus-lg me-1"></i> Crear servicio
                                 </a>
                             </div>
@@ -354,7 +356,7 @@
                 </div>
             </div>
         </section>
-    </main>
+
     <!-- Modal: Eliminar Servicio -->
     <div class="modal fade" id="modalEliminarServicio" tabindex="-1" aria-labelledby="modalEliminarServicioTitle"
          aria-hidden="true">
@@ -529,4 +531,4 @@
         </div>
     </div>
 
-</x-layout-admin>
+@endsection

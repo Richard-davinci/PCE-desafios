@@ -16,7 +16,7 @@ class ServiceController extends Controller
 
     $services = Service::paginate(3);
 
-    return view('service.index', compact('services'));
+    return view('services.index', compact('services'));
   }
 
   /**
@@ -24,7 +24,7 @@ class ServiceController extends Controller
    */
   public function create()
   {
-    return view('service.create');
+    return view('services.create');
   }
 
   /**
@@ -40,7 +40,7 @@ class ServiceController extends Controller
    */
   public function show(string $id)
   {
-    return view('service.show');
+    return view('services.show');
   }
 
   /**
@@ -48,7 +48,7 @@ class ServiceController extends Controller
    */
   public function edit(string $id)
   {
-    return view('service.edit');
+    return view('services.edit');
   }
 
   /**
