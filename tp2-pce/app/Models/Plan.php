@@ -15,8 +15,14 @@ class Plan extends Model
     'price',
     'type',
     'features',
+    'highlight',   // para marcar si es más vendido
   ];
 
+  protected $casts = [
+    'features' => 'array', // ✅ para que se maneje como array automáticamente
+  ];
+
+  // cada plan pertenece a un servicio
   public function service()
   {
     return $this->belongsTo(Service::class);

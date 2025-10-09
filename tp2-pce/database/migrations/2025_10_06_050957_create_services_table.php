@@ -18,8 +18,7 @@ return new class extends Migration {
       $table->foreignId('category_id')->constrained('categories');
       $table->string('status', 20)->default('Activo');
       $table->json('conditions')->nullable();
-      $table->string('cover_image', 255)->nullable();
-      $table->string('thumb_image', 255)->nullable();
+      $table->string('image', 255)->nullable();
       $table->timestamps();
     });
 

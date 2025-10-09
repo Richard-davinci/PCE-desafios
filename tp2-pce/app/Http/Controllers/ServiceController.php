@@ -4,129 +4,190 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use App\Models\Service;
+use App\Models\Plan;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class ServiceController extends Controller
 {
   /**
-   * Display a listing of the resource.
+   * Mostrar listado de servicios.
    */
   public function index()
   {
-//    $services = Service::all();
-
-    $services = Service::paginate(3);
-
+    $services = Service::with('category', 'plans')->paginate(6);
     return view('services.index', compact('services'));
   }
 
   /**
-   * Show the form for creating a new resource.
+   * Mostrar formulario de creación.
    */
   public function create()
   {
     $categories = Category::orderBy('name')->get();
     return view('services.create', compact('categories'));
-
   }
 
   /**
-   * Store a newly created resource in storage.
+   * Guardar un nuevo servicio.
    */
   public function store(Request $request)
   {
-    try {
-      // todo el código de guardado
+    $validated = $request->validate([
+      'name' => 'required|string|max:255',
+      'category_id' => 'required|integer|exists:categories,id',
+      'status' => 'nullable|string|max:50',
+      'subtitle' => 'required|string|max:255',
+      'description' => 'required|string',
+      'conditions' => 'nullable|string',
+      'image' => 'nullable|image|mimes:webp,jpeg,png|max:5120',
+      'plans' => 'required|array|min:1',
+      'plans.*.name' => 'required|string|max:255',
+      'plans.*.price' => 'required|numeric|min:0',
+      'plans.*.type' => 'nullable|string|max:255',
+      'plans.*.features' => 'nullable|string|max:500',
+    ]);
 
+    // Guardar imagen si se subió
+    if ($request->hasFile('image')) {
+      $path = $request->file('image')->store('img/servicios', 'public');
+      $validated['image'] = basename($path);
+    }
 
-      // 1. Validación de todos los campos
-      $camposValidados = $request->validate([
-        'name' => 'required|string|max:255',
-        'category_id' => 'required|integer|exists:categories,id',
-        'status' => 'required|string|max:50',
-        'subtitle' => 'required|string|max:255',
-        'description' => 'required|string',
-        'conditions' => 'nullable|string',
-        'cover_image' => 'required|image|mimes:webp,jpeg,png|max:2048',
-        'thumb_image' => 'required|image|mimes:webp,jpeg,png|max:2048',
-        'plans' => 'required|array|min:1',
-        'plans.*.name' => 'required|string|max:255',
-        'plans.*.price' => 'required|numeric|min:0',
-        'plans.*.type' => 'nullable|string|max:255',
-        'plans.*.features' => 'nullable|string|max:500',
-      ],
-        [
-          'name.required' => 'El campo nombre es obligatorio.',
-        ]
-      );
+    // Crear servicio
+    $service = Service::create([
+      'name' => $validated['name'],
+      'category_id' => $validated['category_id'],
+      'status' => $validated['status'] ?? 'Activo',
+      'subtitle' => $validated['subtitle'],
+      'description' => $validated['description'],
+      'conditions' => $validated['conditions'] ?? null,
+      'image' => $validated['image'] ?? null,
+    ]);
 
-      // 2. Guardar imágenes en /storage/app/public/img/servicios
-      $rutaCover = $request->file('cover_image')->store('img/servicios', 'public');
-      $rutaThumb = $request->file('thumb_image')->store('img/servicios', 'public');
-
-      // 3. Crear el servicio principal
-      $services = Service::create([
-        'name' => $camposValidados['name'],
-        'category_id' => $camposValidados['category_id'],
-        'status' => $camposValidados['status'],
-        'subtitle' => $camposValidados['subtitle'],
-        'description' => $camposValidados['description'],
-        'conditions' => $camposValidados['conditions'] ?? null,
-        'cover_image' => $rutaCover,
-        'thumb_image' => $rutaThumb,
+    // Crear planes asociados
+    foreach ($validated['plans'] as $planData) {
+      $service->plans()->create([
+        'name' => $planData['name'],
+        'price' => $planData['price'],
+        'type' => $planData['type'] ?? null,
+        'features' => json_encode(
+          array_map('trim', explode(',', $planData['features'] ?? ''))
+        ),
       ]);
+    }
 
-      // 4. Crear los planes asociados
-      foreach ($camposValidados['plans'] as $planData) {
-        $services->plans()->create([
+    return redirect()->route('services.index')->with('success', 'Servicio creado correctamente.');
+  }
+
+  /**
+   * Mostrar servicio individual.
+   */
+  public function show(Service $service)
+  {
+    $service->load('plans', 'category');
+    return view('services.show', compact('service'));
+  }
+
+  /**
+   * Mostrar formulario de edición.
+   */
+  public function edit(Service $service)
+  {
+    $categories = Category::orderBy('name')->get();
+    $service->load('plans');
+    return view('services.edit', compact('service', 'categories'));
+  }
+
+  /**
+   * Actualizar servicio existente.
+   */
+  public function update(Request $request, Service $service)
+  {
+    $validated = $request->validate([
+      'name' => 'required|string|max:255',
+      'category_id' => 'required|integer|exists:categories,id',
+      'status' => 'nullable|string|max:50',
+      'subtitle' => 'required|string|max:255',
+      'description' => 'required|string',
+      'conditions' => 'nullable|string',
+      'image' => 'nullable|image|mimes:webp,jpeg,png|max:5120',
+      'plans' => 'required|array|min:1',
+      'plans.*.id' => 'nullable|integer|exists:plans,id',
+      'plans.*.name' => 'required|string|max:255',
+      'plans.*.price' => 'required|numeric|min:0',
+      'plans.*.type' => 'nullable|string|max:255',
+      'plans.*.features' => 'nullable|string|max:500',
+    ]);
+
+    // Manejo de imagen (si se sube una nueva, borrar la anterior)
+    if ($request->hasFile('image')) {
+      if ($service->image && Storage::disk('public')->exists('img/servicios/' . $service->image)) {
+        Storage::disk('public')->delete('img/servicios/' . $service->image);
+      }
+      $path = $request->file('image')->store('img/servicios', 'public');
+      $validated['image'] = basename($path);
+    } else {
+      $validated['image'] = $service->image; // mantener la existente
+    }
+
+    // Actualizar servicio
+    $service->update([
+      'name' => $validated['name'],
+      'category_id' => $validated['category_id'],
+      'status' => $validated['status'] ?? 'Activo',
+      'subtitle' => $validated['subtitle'],
+      'description' => $validated['description'],
+      'conditions' => $validated['conditions'] ?? null,
+      'image' => $validated['image'],
+    ]);
+
+    // Actualizar o crear planes
+    $existingPlanIds = $service->plans()->pluck('id')->toArray();
+    $incomingPlanIds = [];
+
+    foreach ($validated['plans'] as $planData) {
+      if (!empty($planData['id'])) {
+        $plan = Plan::find($planData['id']);
+        if ($plan) {
+          $plan->update([
+            'name' => $planData['name'],
+            'price' => $planData['price'],
+            'type' => $planData['type'] ?? null,
+            'features' => json_encode(array_map('trim', explode(',', $planData['features'] ?? ''))),
+          ]);
+          $incomingPlanIds[] = $plan->id;
+        }
+      } else {
+        $newPlan = $service->plans()->create([
           'name' => $planData['name'],
           'price' => $planData['price'],
           'type' => $planData['type'] ?? null,
-          'features' => json_encode(
-            array_map('trim', explode(',', $planData['features'] ?? ''))
-          ),
+          'features' => json_encode(array_map('trim', explode(',', $planData['features'] ?? ''))),
         ]);
+        $incomingPlanIds[] = $newPlan->id;
       }
-
-      // 5. Redirigir con mensaje de éxito
-      return redirect()
-        ->route('services.index')
-        ->with('success', 'Servicio y planes creados correctamente.');
-    } catch (\Throwable $e) {
-      dd($e->getMessage());
     }
-  }
 
+    // Eliminar planes que no estén en el formulario
+    $toDelete = array_diff($existingPlanIds, $incomingPlanIds);
+    Plan::whereIn('id', $toDelete)->delete();
 
-  /**
-   * Display the specified resource.
-   */
-  public function show(string $id)
-  {
-    return view('services.show');
+    return redirect()->route('services.index')->with('success', 'Servicio actualizado correctamente.');
   }
 
   /**
-   * Show the form for editing the specified resource.
+   * Eliminar un servicio.
    */
-  public function edit(string $id)
+  public function destroy(Service $service)
   {
-    return view('services.edit');
-  }
+    if ($service->image && Storage::disk('public')->exists('img/servicios/' . $service->image)) {
+      Storage::disk('public')->delete('img/servicios/' . $service->image);
+    }
 
-  /**
-   * Update the specified resource in storage.
-   */
-  public function update(Request $request, string $id)
-  {
-    //
-  }
+    $service->plans()->delete();
+    $service->delete();
 
-  /**
-   * Remove the specified resource from storage.
-   */
-  public function destroy(string $id)
-  {
-    //
+    return redirect()->route('services.index')->with('success', 'Servicio eliminado correctamente.');
   }
 }
