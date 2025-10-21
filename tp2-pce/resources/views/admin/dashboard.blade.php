@@ -1,18 +1,19 @@
-@extends('layouts.app')
+@extends('layouts.admin')
 
 @section('title', 'Inicio')
 
 @section('content')
-        <section
+    <section
             class="mt-3 py-5 bg-gradient-dark text-light ">
-            <div class="container d-flex flex-column flex-md-row align-items-md-center justify-content-between gap-2">
-                <div class="mb-4">
-                    <h1 id="pageTitle" class="fs-1 font-bankgothic fw-bold mb-1">Dashboard</h1>
-                    <p class="text-blanco mb-0">Resumen general del sitio.</p>
-                </div>
-                <div class="d-flex align-items-center gap-2">
-                    <a href="{{route('services.index')}}" class="btn btn-outline-light"><i class="bi bi-gear me-1"></i> Servicios</a>
-                  <a href="{{route('admin.admin')}}" class="btn btn-outline-light"><i class="bi bi-gear me-1"></i> Ir
+        <div class="container d-flex flex-column flex-md-row align-items-md-center justify-content-between gap-2">
+            <div class="mb-4">
+                <h1 id="pageTitle" class="fs-1 font-bankgothic fw-bold mb-1">Dashboard de {{ Auth::user()->name }}</h1>
+                <p class="text-blanco mb-0">Resumen general del sitio.</p>
+            </div>
+            <div class="d-flex align-items-center gap-2">
+                <a href="{{route('services.index')}}" class="btn btn-outline-light"><i class="bi bi-gear me-1"></i>
+                    Servicios</a>
+                <a href="{{route('admin.admin')}}" class="btn btn-outline-light"><i class="bi bi-gear me-1"></i> Ir
                         al Admin</a>
                     <button class="btn btn-turquesa"><i class="bi bi-arrow-clockwise me-1"></i> Actualizar</button>
                 </div>

@@ -4,16 +4,13 @@
   @include('partials.head')
 </head>
 <body>
-<header>
-    @include('partials.navbar')
-</header>
 
-<main class="mt-5 ">
+
+<main class="bg-gradient-dark text-light">
   {{ $slot ?? '' }}
   @yield('content')
 </main>
 
-@include('partials.footer')
 
 @include('partials.scripts')
 

@@ -22,6 +22,14 @@
           <li class="nav-item text-center">
             <x-nav-link route="services.index">Servicios</x-nav-link>
           </li>
+          <li>
+            <form action="{{ route('logout') }}" type="post">
+              @csrf
+              <button type="submit" class="dropdown-item text-danger">
+                <i class="bi bi-box-arrow-right me-2"></i> Cerrar sesión
+              </button>
+            </form>
+          </li>
         </ul>
       </div>
     </div>

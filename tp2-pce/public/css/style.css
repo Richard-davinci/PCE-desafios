@@ -394,4 +394,10 @@ nav .small {
  color: #e1e1e1 !important;
 }
 
+.form-check-input:checked {
+  background-color: var(--turquesa);
+  border-color: var(--turquesa);
+  color: #0a
+}
+
 

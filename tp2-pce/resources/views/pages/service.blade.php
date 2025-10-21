@@ -31,10 +31,9 @@
 
                     <div class="col-md-6 col-lg-4">
                         <article class="card bg-azul text-light border-light shadow-sm service-card">
-                            <img src="../img/servicios/hosting.png"
-                                 class="card-img-top" alt="Servicio de hosting y mantenimiento web"
-                                 loading="lazy" decoding="async">
-                            <div class="card-body">
+                          <img src="img/servicios/hosting.webp" class="card-img-top" alt="Sitio ejemplo 1">
+
+                          <div class="card-body">
                                 <h3 class="font-bankgothic fs-4">Hosting + Mantenimiento</h3>
                                 <p class="text-blanco">
                                     Servicio completo de alojamiento web con monitoreo 24/7, backups diarios y soporte
@@ -52,10 +51,9 @@
 
                     <div class="col-md-6 col-lg-4">
                         <article class="card bg-azul text-light border-light shadow-sm service-card">
-                            <img src="../img/servicios/producto.png"
-                                 class="card-img-top" alt="Mockup de un sitio institucional"
-                                 loading="lazy" decoding="async">
-                            <div class="card-body">
+                          <img src="img/servicios/hosting.webp" class="card-img-top" alt="Sitio ejemplo 1">
+
+                          <div class="card-body">
                                 <h3 class="font-bankgothic fs-4">Sitio institucional</h3>
                                 <p class="text-blanco">Páginas informativas (inicio, servicios, nosotros, contacto) y
                                     blog
@@ -72,10 +70,9 @@
 
                     <div class="col-md-6 col-lg-4" id="cms">
                         <article class="card bg-azul text-light border-light shadow-sm service-card">
-                            <img src="../img/servicios/producto3.png"
-                                 class="card-img-top" alt="Panel de administración de un CMS moderno"
-                                 loading="lazy" decoding="async">
-                            <div class="card-body">
+                          <img src="img/servicios/hosting.webp" class="card-img-top" alt="Sitio ejemplo 1">
+
+                          <div class="card-body">
                                 <h3 class="font-bankgothic fs-4">Implementación CMS</h3>
                                 <p class="text-blanco">Montaje y ajustes de CMS para que edites tu contenido sin
                                     fricción.</p>
@@ -90,10 +87,9 @@
 
                     <div class="col-md-6 col-lg-4" id="form">
                         <article class="card bg-azul text-light border-light shadow-sm service-card">
-                            <img src="../img/servicios/formulario.jpg"
-                                 class="card-img-top" alt="Formulario web con validaciones"
-                                 loading="lazy" decoding="async">
-                            <div class="card-body">
+                          <img src="img/servicios/hosting.webp" class="card-img-top" alt="Sitio ejemplo 1">
+
+                          <div class="card-body">
                                 <h3 class="font-bankgothic fs-4">Formulario web</h3>
                                 <p class="text-blanco">Diseño y validación de formularios accesibles con envío
                                     básico.</p>
@@ -108,10 +104,9 @@
 
                     <div class="col-md-6 col-lg-4" id="seo">
                         <article class="card bg-azul text-light border-light shadow-sm service-card">
-                            <img src="../img/servicios/seo.jpg"
-                                 class="card-img-top" alt="Reportes y métricas de SEO on-page"
-                                 loading="lazy" decoding="async">
-                            <div class="card-body">
+                          <img src="img/servicios/hosting.webp" class="card-img-top" alt="Sitio ejemplo 1">
+
+                          <div class="card-body">
                                 <h3 class="font-bankgothic fs-4">SEO on-page</h3>
                                 <p class="text-blanco">Etiquetas, estructura, performance y accesibilidad para
                                     posicionar mejor.</p>
@@ -126,10 +121,9 @@
 
                     <div class="col-md-6 col-lg-4" id="mant">
                         <article class="card bg-azul text-light border-light shadow-sm service-card">
-                            <img src="../img/servicios/mantenimientoWeb.webp"
-                                 class="card-img-top" alt="Mantenimiento mensual de sitios"
-                                 loading="lazy" decoding="async">
-                            <div class="card-body">
+                          <img src="img/servicios/hosting.webp" class="card-img-top" alt="Sitio ejemplo 1">
+
+                          <div class="card-body">
                                 <h3 class="font-bankgothic fs-4">Mantenimiento mensual</h3>
                                 <p class="text-blanco">Actualizaciones, monitoreo básico y soporte con SLA acordado.</p>
                                 <p class="mb-0 text-blanco"><i class="bi bi-cash-coin me-1"></i>Desde

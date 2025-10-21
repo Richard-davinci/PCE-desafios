@@ -26,7 +26,7 @@
             </header>
             <div class="row g-4">
                 <x-service-card
-                    image="img/servicios/producto.png"
+                    image="img/servicios/institucional-cover.webp"
                     alt="Mockup de un sitio institucional"
                     title="Sitio institucional"
                     description="Páginas informativas (inicio, servicios, nosotros, contacto) y blog opcional."
@@ -34,7 +34,7 @@
                     link-id="{{route('pages.viewService')}}"
                 />
                 <x-service-card
-                    image="img/servicios/producto2.png"
+                    image="img/servicios/ecommerce-cover.webp"
                     alt="Landing page enfocada en conversión"
                     title="Landing / Maquetación"
                     description="Una página enfocada en conversión para campañas o lanzamientos."
@@ -42,7 +42,7 @@
                     link-id="{{route('pages.viewService')}}"
                 />
                 <x-service-card
-                    image="img/servicios/producto3.png"
+                    image="img/servicios/formulario.webp"
                     alt="Panel de administración de un CMS moderno"
                     title="Implementación CMS"
                     description="Montaje y ajustes de CMS para que edites tu contenido sin fricción."
@@ -65,7 +65,7 @@
                 <!-- Puedes reemplazar estos con un loop si tienes datos dinámicos -->
                 <div class="col-md-4">
                     <div class="card shadow-sm">
-                        <img src="img/servicios/hosting.png" class="card-img-top" alt="Sitio ejemplo 1">
+                        <img src="img/servicios/hosting.webp" class="card-img-top" alt="Sitio ejemplo 1">
                         <div class="card-body">
                             <h3 class="h6 font-bankgothic">Ejemplo PymeTech</h3>
                             <p class="text-gris mb-2">Sitio institucional moderno y responsive para tecnológica pyme
@@ -76,7 +76,7 @@
                 </div>
                 <div class="col-md-4">
                     <div class="card shadow-sm">
-                        <img src="img/servicios/hosting.png" class="card-img-top" alt="Sitio ejemplo 1">
+                        <img src="img/servicios/institucional-cover.webp" class="card-img-top" alt="Sitio ejemplo 1">
                         <div class="card-body">
                             <h3 class="h6 font-bankgothic">Landing ConverMax</h3>
                             <p class="text-gris mb-2">Landing de campaña con formulario de alta conversión.</p>
@@ -86,7 +86,7 @@
                 </div>
                 <div class="col-md-4">
                     <div class="card shadow-sm">
-                        <img src="img/servicios/hosting.png" class="card-img-top" alt="Sitio ejemplo 1">
+                        <img src="img/servicios/mantenimiento-cover.webp" class="card-img-top" alt="Sitio ejemplo 1">
                         <div class="card-body">
                             <h3 class="h6 font-bankgothic">Blog MiNegocio</h3>
                             <p class="text-gris mb-2">Implementación de CMS editable para emprendimiento personal.</p>
