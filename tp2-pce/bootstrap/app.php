@@ -1,9 +1,10 @@
 <?php
 
+use App\Http\Middleware\Autenticated;
+use App\Http\Middleware\RoleAuth;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
-use App\Http\Middleware\Autenticated;
 
 return Application::configure(basePath: dirname(__DIR__))
   ->withRouting(
@@ -12,7 +13,10 @@ return Application::configure(basePath: dirname(__DIR__))
     health: '/up',
   )
   ->withMiddleware(function (Middleware $middleware): void {
-    $middleware->alias(['protegida' => Autenticated::class]);
+    $middleware->alias([
+      'protegida' => Autenticated::class,
+      'admin.only' => RoleAuth::class,
+    ]);
   })
   ->withExceptions(function (Exceptions $exceptions): void {
     //

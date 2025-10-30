@@ -29,5 +29,9 @@ class PageController extends Controller
     {
         return view('pages.viewService');
     }
+    public function error404()
+    {
+      return view('pages.error404');
+    }
 
 }

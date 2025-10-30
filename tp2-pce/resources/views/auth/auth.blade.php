@@ -1,6 +1,6 @@
 @extends('layouts.auth')
 
-@section('title', 'Inicio')
+@section('title', 'Acceder')
 
 @section('content')
   <section class="mt-3 py-5 bg-gradient-dark text-light">

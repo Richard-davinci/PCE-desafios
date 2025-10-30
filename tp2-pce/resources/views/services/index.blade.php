@@ -5,20 +5,19 @@
 @section('content')
 
   <section class="mt-3 py-5 bg-gradient-dark text-light">
-    <div class="container mb-4">
+    <div class="container">
       <h1 class="fs-1 font-bankgothic fw-bold mb-1">Servicios</h1>
       <p class="text-secondary mb-0">Listado general de servicios registrados en el sistema.</p>
+      {{-- Botón crear nuevo --}}
+      <div class="d-flex justify-content-end ">
+        <a href="{{ route('services.create') }}" class="btn btn-turquesa">
+          <i class="bi bi-plus-circle me-2"></i>Nuevo servicio
+        </a>
+      </div>
     </div>
   </section>
 
   <section class="container py-5">
-    {{-- Botón crear nuevo --}}
-    <div class="d-flex justify-content-end mb-4">
-      <a href="{{ route('services.create') }}" class="btn btn-turquesa">
-        <i class="bi bi-plus-circle me-2"></i>Nuevo servicio
-      </a>
-    </div>
-
     {{-- Mensaje de éxito --}}
     @if(session('success'))
       <div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -29,8 +28,8 @@
 
     {{-- Tabla de servicios --}}
     <div class="table-responsive">
-      <table class="table table-dark table-striped align-middle border border-secondary shadow-sm">
-        <thead class="text-turquesa font-bankgothic">
+      <table class="table  table-striped align-middle border border-secondary shadow-sm">
+        <thead class="text-turquesa font-bankgothic table-dark">
         <tr>
           <th scope="col" class="text-center">#</th>
           <th scope="col">Imagen</th>
@@ -88,18 +87,18 @@
             <td class="text-center">
               <div class="d-flex justify-content-center gap-2">
                 {{-- Ver --}}
-                <a href="{{ route('services.show', $service->id) }}" class="btn btn-outline-light btn-sm" title="Ver">
+                <a href="{{ route('services.show', $service->id) }}" class="btn btn-dark btn-sm" title="Ver">
                   <i class="bi bi-eye"></i>
                 </a>
                 {{-- Editar --}}
-                <a href="{{ route('services.edit', $service->id) }}" class="btn btn-outline-turquesa btn-sm" title="Editar">
+                <a href="{{ route('services.edit', $service->id) }}" class="btn btn-turquesa btn-sm" title="Editar">
                   <i class="bi bi-pencil"></i>
                 </a>
                 {{-- Eliminar --}}
                 <form action="{{ route('services.destroy', $service->id) }}" method="POST" onsubmit="return confirm('¿Seguro que querés eliminar este servicio?')" style="display:inline-block;">
                   @csrf
                   @method('DELETE')
-                  <button type="submit" class="btn btn-outline-danger btn-sm" title="Eliminar">
+                  <button type="submit" class="btn btn-danger btn-sm" title="Eliminar">
                     <i class="bi bi-trash"></i>
                   </button>
                 </form>
