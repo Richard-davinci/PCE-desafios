@@ -17,7 +17,7 @@
             <x-nav-link route="admin.dashboard">Dashboard</x-nav-link>
           </li>
           <li class="nav-item text-center">
-            <x-nav-link route="admin.admin">Usuarios</x-nav-link>
+            <x-nav-link route="users.index">Usuarios</x-nav-link>
           </li>
           <li class="nav-item text-center">
             <x-nav-link route="services.index">Servicios</x-nav-link>

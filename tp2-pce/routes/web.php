@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\{AdminController, AuthController, CategoryController, PageController, ServiceController};
+use App\Http\Controllers\{AdminController, AuthController, CategoryController, PageController, ServiceController,UserController};
 use Illuminate\Support\Facades\Route;
 
 // Páginas públicas
@@ -51,6 +51,9 @@ Route::get('/crear-user', [AdminController::class, 'createUser'])
 Route::get('/admin', [AdminController::class, 'admin'])
   ->name('admin.admin')
   ->middleware('protegida', 'admin.only');
+// Índice de usuarios
+Route::get('/users', [UserController::class, 'index'])->name('users.index');
+
 
 Route::get('/unauthorized', [AdminController::class, 'unauthorized'])
   ->name('unauthorized');
