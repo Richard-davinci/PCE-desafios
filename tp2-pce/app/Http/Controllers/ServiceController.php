@@ -15,8 +15,9 @@ class ServiceController extends Controller
    */
   public function index()
   {
-    $services = Service::with('category', 'plans')->paginate(6);
-    return view('services.index', compact('services'));
+    $services = Service::with('category', 'plans')->orderBy('name')->paginate(6);
+    $categories = Category::withCount('services')->orderBy('name')->get();
+    return view('services.index', compact('services', 'categories'));
   }
 
   /**
@@ -128,7 +129,7 @@ class ServiceController extends Controller
       $path = $request->file('image')->store('img/servicios', 'public');
       $validated['image'] = basename($path);
     } else {
-      $validated['image'] = $service->image; // mantener la existente
+      $validated['image'] = $service->image;
     }
 
     // Actualizar servicio

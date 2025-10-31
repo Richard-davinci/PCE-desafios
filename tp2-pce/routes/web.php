@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\{AdminController, AuthController, PageController, ServiceController};
+use App\Http\Controllers\{AdminController, AuthController, CategoryController, PageController, ServiceController};
 use Illuminate\Support\Facades\Route;
 
 // Páginas públicas
@@ -34,6 +34,9 @@ Route::get('/logout', [AuthController::class, 'logout'])
   ->name('logout');
 
 //servicios
+
+// categorias
+Route::resource('categories', CategoryController::class)->except(['show']);
 
 // Panel Admin
 Route::resource('services', ServiceController::class)

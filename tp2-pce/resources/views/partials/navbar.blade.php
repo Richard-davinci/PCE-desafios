@@ -1,5 +1,5 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-gradient-dark border-bottom fixed-top">
-  <div class="container">
+  <div class="container-fluid">
     <a class="navbar-brand d-flex justify-content-center justify-content-lg-start align-items-center m-auto"
        href="{{ route('pages.home') }}">
       <img src="{{ asset('img/logo.png') }}" alt="logo Lili Studio" class="img-fluid w-75">

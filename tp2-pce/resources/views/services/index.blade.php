@@ -2,17 +2,21 @@
 
 @section('title', 'Listado de servicios')
 
-@section('content')
 
+@section('content')
   <section class="mt-3 py-5 bg-gradient-dark text-light">
     <div class="container">
       <h1 class="fs-1 font-bankgothic fw-bold mb-1">Servicios</h1>
-      <p class="text-secondary mb-0">Listado general de servicios registrados en el sistema.</p>
-      {{-- Botón crear nuevo --}}
-      <div class="d-flex justify-content-end ">
-        <a href="{{ route('services.create') }}" class="btn btn-turquesa">
-          <i class="bi bi-plus-circle me-2"></i>Nuevo servicio
-        </a>
+      <div class="my-2 d-flex flex-wrap justify-content-between align-items-center gap-2">
+        <p class="text-secondary mb-0">Listado general de servicios registrados en el sistema.</p>
+        <div class="d-flex gap-2">
+          <a href="{{ route('services.create') }}" class="btn btn-turquesa">
+            <i class="bi bi-plus-circle me-2"></i>Nuevo servicio
+          </a>
+          <a href="{{ route('categories.index') }}" class="btn btn-turquesa">
+            <i class="bi bi-tags me-1"></i> Categorías
+          </a>
+        </div>
       </div>
     </div>
   </section>
@@ -27,95 +31,89 @@
     @endif
 
     {{-- Tabla de servicios --}}
-    <div class="table-responsive">
-      <table class="table  table-striped align-middle border border-secondary shadow-sm">
-        <thead class="text-turquesa font-bankgothic table-dark">
-        <tr>
-          <th scope="col" class="text-center">#</th>
-          <th scope="col">Imagen</th>
-          <th scope="col">Nombre</th>
-          <th scope="col">Categoría</th>
-          <th scope="col">Subtítulo</th>
-          <th scope="col" class="text-center">Estado</th>
-          <th scope="col" class="text-center">Actualizado</th>
-          <th scope="col" class="text-center">Acciones</th>
-        </tr>
-        </thead>
-        <tbody>
-        @forelse($services as $service)
-          <tr>
-            <td class="text-center">{{ $service->id }}</td>
+    <div class="shadow-sm p-3 bg-azul  rounded-2">
+      <div class="card border-light border-2 shadow-sm">
+        <div class="table-responsive">
+          <table class="table table-striped align-middle mb-0 ">
+            <thead>
+            <tr class="table-dark font-bankgothic ">
+              <th scope="col" class="text-center rounded-rounded-tl-lg">#</th>
+              <th scope="col">Nombre</th>
+              <th scope="col">Categoría</th>
+              <th scope="col">Subtítulo</th>
+              <th scope="col" class="text-center">Estado</th>
+              <th scope="col" class="text-center">Actualizado</th>
+              <th scope="col" class="text-center rounded-tr-full">Acciones</th>
+            </tr>
+            </thead>
+            <tbody>
+            @forelse($services as $service)
+              <tr>
+                <td class="text-center">{{ $service->id }}</td>
 
-            {{-- Imagen --}}
-            <td>
-              @if($service->image)
-                <img src="{{ asset('storage/img/servicios/' . $service->image) }}"
-                     alt="{{ $service->name }}"
-                     class="img-thumbnail"
-                     style="width: 80px; height: 80px; object-fit: cover;">
-              @else
-                <span class="text-muted fst-italic">Sin imagen</span>
-              @endif
-            </td>
+                {{-- Nombre --}}
+                <td>{{ $service->name }}</td>
 
-            {{-- Nombre --}}
-            <td class="fw-semibold">{{ $service->name }}</td>
+                {{-- Categoría --}}
+                <td>{{ $service->category->name ?? 'Sin categoría' }}</td>
 
-            {{-- Categoría --}}
-            <td>{{ $service->category->name ?? 'Sin categoría' }}</td>
+                {{-- Subtítulo --}}
+                <td class="text-secondary">{{ Str::limit($service->subtitle, 45) }}</td>
 
-            {{-- Subtítulo --}}
-            <td class="text-secondary">{{ Str::limit($service->subtitle, 45) }}</td>
+                {{-- Estado --}}
+                <td class="text-center">
+                  @if($service->status === 'Activo')
+                    <span class="badge bg-success">{{ $service->status }}</span>
+                  @elseif($service->status === 'Pausado')
+                    <span class="badge bg-warning text-dark">{{ $service->status }}</span>
+                  @else
+                    <span class="badge bg-danger">{{ $service->status }}</span>
+                  @endif
+                </td>
 
-            {{-- Estado --}}
-            <td class="text-center">
-              @if($service->status === 'Activo')
-                <span class="badge bg-success">{{ $service->status }}</span>
-              @elseif($service->status === 'Pausado')
-                <span class="badge bg-warning text-dark">{{ $service->status }}</span>
-              @else
-                <span class="badge bg-danger">{{ $service->status }}</span>
-              @endif
-            </td>
+                {{-- Fecha actualización --}}
+                <td class="text-center small">
+                  {{ $service->updated_at->format('d/m/Y') }}
+                </td>
 
-            {{-- Fecha actualización --}}
-            <td class="text-center small">
-              {{ $service->updated_at->format('d/m/Y') }}
-            </td>
+                {{-- Acciones --}}
+                <td class="text-center">
+                  <div class="d-flex justify-content-center gap-2">
+                    {{-- Ver --}}
+                    <a href="{{ route('services.show', $service->id) }}" class="btn btn-dark " title="Ver">
+                      <i class="bi bi-eye"></i>
+                    </a>
+                    {{-- Editar --}}
+                    <a href="{{ route('services.edit', $service->id) }}" class="btn btn-turquesa " title="Editar">
+                      <i class="bi bi-pencil"></i>
+                    </a>
+                    {{-- Eliminar --}}
+                    <form action="{{ route('services.destroy', $service->id) }}" method="POST"
+                          onsubmit="return confirm('¿Seguro que querés eliminar este servicio?')"
+                          style="display:inline-block;">
+                      @csrf
+                      @method('DELETE')
+                      <button type="submit" class="btn btn-danger " title="Eliminar">
+                        <i class="bi bi-trash"></i>
+                      </button>
+                    </form>
+                  </div>
+                </td>
+              </tr>
+            @empty
+              <tr>
+                <td colspan="8" class="text-center text-secondary py-4">No hay servicios registrados.</td>
+              </tr>
+            @endforelse
+            </tbody>
+          </table>
+        </div>
 
-            {{-- Acciones --}}
-            <td class="text-center">
-              <div class="d-flex justify-content-center gap-2">
-                {{-- Ver --}}
-                <a href="{{ route('services.show', $service->id) }}" class="btn btn-dark btn-sm" title="Ver">
-                  <i class="bi bi-eye"></i>
-                </a>
-                {{-- Editar --}}
-                <a href="{{ route('services.edit', $service->id) }}" class="btn btn-turquesa btn-sm" title="Editar">
-                  <i class="bi bi-pencil"></i>
-                </a>
-                {{-- Eliminar --}}
-                <form action="{{ route('services.destroy', $service->id) }}" method="POST" onsubmit="return confirm('¿Seguro que querés eliminar este servicio?')" style="display:inline-block;">
-                  @csrf
-                  @method('DELETE')
-                  <button type="submit" class="btn btn-danger btn-sm" title="Eliminar">
-                    <i class="bi bi-trash"></i>
-                  </button>
-                </form>
-              </div>
-            </td>
-          </tr>
-        @empty
-          <tr>
-            <td colspan="8" class="text-center text-secondary py-4">No hay servicios registrados.</td>
-          </tr>
-        @endforelse
-        </tbody>
-      </table>
+      </div>
     </div>
 
     {{-- Paginación --}}
-    <div class="mt-4 d-flex justify-content-center">
+    <div class="mt-4 d-flex justify-content-end">
       {{ $services->links('pagination::bootstrap-5') }}
     </div>
   </section>

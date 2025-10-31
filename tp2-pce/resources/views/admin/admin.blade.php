@@ -28,7 +28,6 @@
                         </li>
                     </ul>
 
-
                 <div class="tab-content bg-azul rounded-2 text-light p-4 shadow-sm" id="adminTabsContent">
                     <!-- PANEL: SERVICIOS -->
                     <div class="tab-pane fade show active" id="pane-servicios" role="tabpanel"
