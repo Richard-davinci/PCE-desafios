@@ -31,15 +31,9 @@ class CategoryController extends Controller
     return redirect()->route('categories.index')->with('success', 'Categoría creada correctamente.');
   }
 
-  public function show(category $category)
+  public function edit(Category $category)
   {
-    return view('categories.show');
-  }
-
-  public function edit(category $category)
-  {
-
-    return view('categories.edit');
+    return view('categories.edit', compact('category'));
   }
 
   public function update(Request $request, Category $category)

@@ -12,6 +12,12 @@
           <button class="btn btn-turquesa" data-bs-toggle="modal" data-bs-target="#modalAgregarCategoria">
             <i class="bi bi-plus-circle me-2"></i>Agregar categoría
           </button>
+          <x-categoryModal
+            id="modalAgregarCategoria"
+            title="Agregar Categoría"
+            icon="bi-plus-circle"
+            :action="route('categories.store')"
+          />
         </div>
       </div>
     </div>
@@ -39,6 +45,7 @@
             <thead>
             <tr class="table-dark font-bankgothic">
               <th>#</th>
+              <th class="text-center">Actualización</th>
               <th>Nombre de la categoría</th>
               <th class="text-center">Servicios asociados</th>
               <th class="text-end">Acciones</th>
@@ -47,15 +54,24 @@
             <tbody>
             @forelse($categories as $category)
               <tr>
+                <!-- id -->
                 <td>{{ $category->id }}</td>
+                <!-- fecha de actualización -->
+                <td class="text-center">
+                  {{ $category->updated_at->format('d/m/Y H:i') }}
+                </td>
+                <!-- name -->
                 <td>{{ $category->name }}</td>
+                <!-- cantidad -->
                 <td class="text-center">
                     <span class="badge text-bg-secondary">
                       {{ $category->services_count ?? 0 }}
                     </span>
                 </td>
+                <!-- acciones -->
                 <td class="text-end">
-                  <button class="btn btn-turquesa btn-sm" data-bs-toggle="modal" data-bs-target="#modalEditarCategoria{{ $category->id }}">
+                  <button class="btn btn-turquesa btn-sm" data-bs-toggle="modal"
+                          data-bs-target="#modalEditarCategoria{{ $category->id }}">
                     <i class="bi bi-pencil"></i>
                   </button>
                   <form action="{{ route('categories.destroy', $category->id) }}" method="POST"
@@ -69,9 +85,18 @@
                   </form>
                 </td>
               </tr>
+              <!-- modal editar categoría -->
+              <x-categoryModal
+                :id="'modalEditarCategoria'.$category->id"
+                title="Editar Categoría"
+                icon="bi-pencil"
+                :action="route('categories.update', $category->id)"
+                method="PUT"
+                :name="$category->name"
+              />
             @empty
               <tr>
-                <td colspan="4" class="text-center text-secondary py-3">No hay categorías registradas.</td>
+                <td colspan="5" class="text-center text-secondary py-3">No hay categorías registradas.</td>
               </tr>
             @endforelse
             </tbody>
@@ -84,49 +109,35 @@
       {{ $categories->links('pagination::bootstrap-5') }}
     </div>
   </section>
-
-
-  <div class="modal fade" id="modalAgregarCategoria" tabindex="-1" aria-labelledby="modalAgregarCategoriaLabel"
-       aria-hidden="true">
-    <div class="modal-dialog">
-      <form action="{{ route('categories.store') }}" method="POST">
-        @csrf
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="modalAgregarCategoriaLabel">Nueva Categoría</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-          </div>
-          <div class="modal-body">
-            <input type="text" class="form-control" name="name" placeholder="Nombre de la categoría" required>
-          </div>
-          <div class="modal-footer">
-            <button type="submit" class="btn btn-turquesa">Guardar</button>
-          </div>
-        </div>
-      </form>
-    </div>
-  </div>
-
-  <!-- Ejemplo de modal por cada categoría -->
   <div class="modal fade" id="modalEditarCategoria{{ $category->id }}" tabindex="-1"
        aria-labelledby="modalEditarCategoriaLabel{{ $category->id }}" aria-hidden="true">
     <div class="modal-dialog">
-      <form action="{{ route('categories.update', $category->id) }}" method="POST">
-        @csrf
-        @method('PUT')
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="modalEditarCategoriaLabel{{ $category->id }}">Editar Categoría</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-          </div>
-          <div class="modal-body">
-            <input type="text" class="form-control" name="name" value="{{ $category->name }}" required>
-          </div>
-          <div class="modal-footer">
-            <button type="submit" class="btn btn-turquesa">Actualizar</button>
-          </div>
+      <div class="modal-content border-light">
+        <div class="modal-header bg-azul">
+          <h5 class="modal-title font-bankgothic" id="modalEditarCategoriaLabel{{ $category->id }}">
+            <i class="bi bi-pencil me-2"></i>Editar Categoría
+          </h5>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
         </div>
-      </form>
+        <form action="{{ route('categories.update', $category->id) }}" method="POST">
+          @csrf
+          @method('PUT')
+          <div class="modal-body ">
+            <div class="card shadow-sm rounded-2 bg-azul">
+              <div class="card-body">
+                <label class="form-label" for="categoriaEditar{{ $category->id }}">Nombre de la
+                  categoría</label>
+                <input type="text" class="form-control" id="categoriaEditar{{ $category->id }}"
+                       name="name" value="{{ $category->name }}" required>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer bg-azul">
+            <button type="submit" class="btn btn-turquesa font-bankgothic">Guardar</button>
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+          </div>
+        </form>
+      </div>
     </div>
   </div>
 
