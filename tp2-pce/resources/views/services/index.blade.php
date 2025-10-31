@@ -30,6 +30,49 @@
       </div>
     @endif
 
+
+    <div class="bg-azul rounded shadow-sm mb-3">
+      <button class="btn btn-azul w-100 text-start rounded-lg py-4" type="button" data-bs-toggle="collapse"
+              data-bs-target="#filtrosServicios" aria-expanded="false" aria-controls="filtrosServicios">
+        <i class="bi bi-funnel me-2"></i>Filtros de búsqueda
+      </button>
+      <div class="collapse" id="filtrosServicios">
+        <div class="p-3 border-top border-light">
+          <form method="GET" action="{{ route('services.index') }}" class="row g-2">
+            <div class="col-md-4 ">
+              <input type="text" name="name" class="form-control" placeholder="Nombre del servicio"
+                     value="{{ request('name') }}">
+            </div>
+            <div class="col-md-4">
+              <select name="category_id" class="form-select">
+                <option value="">Todas las categorías</option>
+                @foreach($categories as $category)
+                  <option value="{{ $category->id }}" {{ request('category_id') == $category->id ? 'selected' : '' }}>
+                    {{ $category->name }}
+                  </option>
+                @endforeach
+              </select>
+            </div>
+            <div class="col-md-4">
+              <select name="status" class="form-select">
+                <option value="">Todos los estados</option>
+                <option value="Activo" {{ request('status') == 'Activo' ? 'selected' : '' }}>Activo</option>
+                <option value="Pausado" {{ request('status') == 'Pausado' ? 'selected' : '' }}>Pausado</option>
+                <option value="Inactivo" {{ request('status') == 'Inactivo' ? 'selected' : '' }}>Inactivo</option>
+              </select>
+            </div>
+            <div class="col-md-12 ">
+              <div class="d-flex justify-content-end gap-2 mt-2">
+                <button type="submit" class="btn btn-turquesa"><i class="bi bi-filter"></i> Filtrar</button>
+                <a href="{{ route('services.index') }}" class="btn btn-turquesa"><i class="bi bi-x-circle"></i> Limpiar</a>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+
     {{-- Tabla de servicios --}}
     <div class="shadow-sm p-3 bg-azul  rounded-2">
       <div class="card border-light border-2 shadow-sm">

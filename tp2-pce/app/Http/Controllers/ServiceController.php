@@ -13,12 +13,25 @@ class ServiceController extends Controller
   /**
    * Mostrar listado de servicios.
    */
-  public function index()
+  public function index(Request $request)
   {
-    $services = Service::with('category', 'plans')->orderBy('name')->paginate(6);
+    $query = Service::query()->with('category', 'plans');
+
+    if ($request->filled('name')) {
+        $query->where('name', 'LIKE', '%' . $request->name . '%');
+    }
+    if ($request->filled('category_id')) {
+        $query->where('category_id', $request->category_id);
+    }
+    if ($request->filled('status')) {
+        $query->where('status', $request->status);
+    }
+
+    $services = $query->orderBy('name')->paginate(6);
     $categories = Category::withCount('services')->orderBy('name')->get();
+
     return view('services.index', compact('services', 'categories'));
-  }
+}
 
   /**
    * Mostrar formulario de creación.
