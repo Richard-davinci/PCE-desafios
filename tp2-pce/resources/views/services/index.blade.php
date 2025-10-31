@@ -31,13 +31,13 @@
     @endif
 
 
-    <div class="bg-azul rounded shadow-sm mb-3">
-      <button class="btn btn-azul w-100 text-start rounded-lg py-4" type="button" data-bs-toggle="collapse"
+    <div class="bg-gradient-dark rounded shadow-sm mb-3">
+      <button class="btn text-white w-100 text-start rounded-lg py-4" type="button" data-bs-toggle="collapse"
               data-bs-target="#filtrosServicios" aria-expanded="false" aria-controls="filtrosServicios">
         <i class="bi bi-funnel me-2"></i>Filtros de búsqueda
       </button>
       <div class="collapse" id="filtrosServicios">
-        <div class="p-3 border-top border-light">
+        <div class="p-3 border-top border-light bg-azul">
           <form method="GET" action="{{ route('services.index') }}" class="row g-2">
             <div class="col-md-4 ">
               <input type="text" name="name" class="form-control" placeholder="Nombre del servicio"
