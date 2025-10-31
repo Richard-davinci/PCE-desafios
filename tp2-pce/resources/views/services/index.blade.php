@@ -31,8 +31,8 @@
     @endif
 
 
-    <div class="bg-gradient-dark rounded shadow-sm mb-3">
-      <button class="btn text-white w-100 text-start rounded-lg py-4" type="button" data-bs-toggle="collapse"
+    <div class="bg-azul rounded shadow-sm mb-3">
+      <button class="btn btn-azul  text-white w-100 text-start rounded-lg py-4" type="button" data-bs-toggle="collapse"
               data-bs-target="#filtrosServicios" aria-expanded="false" aria-controls="filtrosServicios">
         <i class="bi bi-funnel me-2"></i>Filtros de búsqueda
       </button>
