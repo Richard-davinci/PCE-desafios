@@ -2,15 +2,21 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
+
 class AdminController extends Controller
 {
-
   public function dashboard()
   {
+    $rolesStats = User::getRolesStats(); //obtengo un array asociativo de roles
+    $users = User::all(); // todos los usuarios
+    $usersToday = User::today()->count(); // usuarios de hoy
+    $lastUsers = User::latestUsers(5)->get(); // Últimos 5 usuarios
 
+    return view('admin.dashboard', compact('rolesStats', 'users', 'usersToday', 'lastUsers'));
 
-    return view('admin.dashboard');
   }
+
 
   public function unauthorized()
   {
