@@ -43,8 +43,8 @@ Route::resource('services', ServiceController::class)
   ->middleware('protegida', 'admin.only');;
 
 Route::get('/dashboard', [AdminController::class, 'dashboard'])
-  ->name('admin.dashboard')
-  ->middleware('protegida', 'admin.only');
+  ->name('admin.dashboard');
+
 Route::get('/crear-user', [AdminController::class, 'createUser'])
   ->name('admin.createUser')
   ->middleware('protegida', 'admin.only');
