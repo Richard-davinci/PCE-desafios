@@ -10,6 +10,10 @@
       <p class="text-blanco">Consultá tus datos y editá lo que necesites.</p>
     </div>
   </section>
+  <section class="container">
+    <x-breadcrumb :items="[['label' => 'Inicio',   'route' => 'pages.index'],  ['label' => 'perfil']]"
+                  separator="›"/>
+  </section>
 
   <section class=" py-5 container">
     <div class="mb-4">

@@ -24,7 +24,7 @@ class AuthController extends Controller
       'email' => $data['email'],
       'password' => Hash::make($data['password']),
       'role' => 'user',
-      ]);
+    ]);
     return redirect()->route('login')->with('success', 'Usuario registrado correctamente. Por favor inicia sesión');
   }
 
@@ -58,11 +58,17 @@ class AuthController extends Controller
     Auth::logout();
     $request->session()->invalidate();
     $request->session()->regenerateToken();
-    return redirect()->route('login');
+    return redirect()->route('pages.index');
   }
 
-  function myProfile(){
-    return view('auth.myProfile');
+  public function myProfile()
+  {
+
+    if (Auth::user()->role === 'admin') {
+      return view('auth.myProfileAdmin');
+    } else {
+      return view('auth.myProfileUser');
+    }
   }
 
 }

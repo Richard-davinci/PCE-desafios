@@ -19,8 +19,12 @@
                 </div>
             </div>
         </section>
+        <section class="container">
+          <x-breadcrumb :items="[['label' => 'Inicio',   'route' => 'pages.index'],  ['label' => 'servicios']]"
+                        separator="›"/>
+        </section>
 
-        <section class="py-5">
+        <section class="py-4">
             <div class="container">
                 <div class="mb-4">
                     <h2 class="fs-2 font-bankgothic fw-bold">Servicios</h2>

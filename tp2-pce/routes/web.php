@@ -1,64 +1,33 @@
 <?php
 
-use App\Http\Controllers\{AdminController,
-  AuthController,
-  CategoryController,
-  PageController,
-  ServiceController,
-  UserController};
+use App\Http\Controllers\{AdminController,  AuthController,  CategoryController,  PageController,  ServicesController,  UserController};
 use Illuminate\Support\Facades\Route;
 
 // Páginas públicas
-Route::get('/', [PageController::class, 'home'])
-  ->name('pages.home');
-Route::get('/nosotros', [PageController::class, 'about'])
-  ->name('pages.about');
-Route::get('/contacto', [PageController::class, 'contact'])
-  ->name('pages.contact');
-Route::get('/servicio', [PageController::class, 'service'])
-  ->name('pages.service');
-Route::get('/ver-servicio', [PageController::class, 'viewService'])
-  ->name('pages.viewService');
-Route::get('/404', [PageController::class, 'error404'])
-  ->name('pages.error404');
+Route::get('/', [PageController::class, 'index'])                     ->name('pages.index');
+Route::get('/about', [PageController::class, 'about'])                ->name('pages.about');
+Route::get('/contact', [PageController::class, 'contact'])            ->name('pages.contact');
+Route::get('/servicios', [PageController::class, 'services'])         ->name('pages.services');
+Route::get('/viewService', [PageController::class, 'viewService'])    ->name('pages.viewService');
 
 // Autenticación
-Route::get('/mi-perfil', [AuthController::class, 'myProfile'])
-  ->name('user.myProfile');
-/*Route::get('/login-admin', [AuthController::class, 'login'])->name('admin.login');
-Route::get('/login-user', [AuthController::class, 'loginUser'])->name('user.loginUser');*/
-
-// Autenticación posta
-Route::get('/login', [AuthController::class, 'showLogin'])
-  ->name('login');
-Route::post('/register', [AuthController::class, 'register'])
-  ->name('register.store');
-Route::post('/login', [AuthController::class, 'login'])
-  ->name('login.store');
-Route::get('/logout', [AuthController::class, 'logout'])
-  ->name('logout');
-
-//servicios
+Route::get('/login', [AuthController::class, 'showLogin'])            ->name('login');
+Route::post('/register', [AuthController::class, 'register'])         ->name('register.store');
+Route::post('/login', [AuthController::class, 'login'])               ->name('login.store');
+Route::get('/logout', [AuthController::class, 'logout'])              ->name('logout');
+Route::get('/myProfile', [AuthController::class, 'myProfile'])        ->name('user.myProfile');
 
 // categorias
-Route::resource('categories', CategoryController::class)->except(['show']);
+Route::resource('admin/categories', CategoryController::class)   ->names('admin.categories') ->except(['show']);
 
 // Panel Admin
-Route::resource('services', ServiceController::class)
-  ->middleware('protegida', 'admin.only');
+Route::get('/admin/dashboard', [AdminController::class, 'dashboard'])       ->name('admin.dashboard');
 
-Route::get('/dashboard', [AdminController::class, 'dashboard'])
-  ->name('admin.dashboard');
+//servicios
+Route::resource('/admin/services', ServicesController::class)  ->names('admin.services') ->middleware('protegida', 'admin.only');
 
-Route::get('/crear-user', [AdminController::class, 'createUser'])
-  ->name('admin.createUser')
-  ->middleware('protegida', 'admin.only');
-Route::get('/admin', [AdminController::class, 'admin'])
-  ->name('admin.admin')
-  ->middleware('protegida', 'admin.only');
-// Índice de usuarios
-Route::resource('/users', UserController::class);
+// usuarios
+Route::resource('/admin/users', UserController::class)->names('admin.users');
 
-
-Route::get('/unauthorized', [AdminController::class, 'unauthorized'])
-  ->name('unauthorized');
+Route::get('/admin/unauthorized', [AdminController::class, 'unauthorized'])  ->name('unauthorized');
+Route::get('/404', [PageController::class, 'error404'])                ->name('pages.error404');

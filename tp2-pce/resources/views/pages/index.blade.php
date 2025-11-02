@@ -13,10 +13,11 @@
                 medibles.
             </p>
             <div class="d-flex flex-wrap gap-3">
-                <a class="btn btn-turquesa" href="{{route('pages.service')}}">Ver servicios </a>
+                <a class="btn btn-turquesa" href="{{route('pages.services')}}">Ver servicios </a>
             </div>
         </div>
     </section>
+
 
     <section class="py-5">
         <div class="container">

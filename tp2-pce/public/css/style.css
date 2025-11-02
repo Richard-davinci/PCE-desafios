@@ -91,6 +91,10 @@ main {
     color: var(--negro);
 }
 
+.text-azul {
+    color: var(--azul);
+}
+
 .bg-turquesa {
     background-color: var(--turquesa);
     color: var(--negro);

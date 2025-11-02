@@ -7,7 +7,7 @@ use App\Models\Service;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
-class ServiceController extends Controller
+class ServicesController extends Controller
 {
   /**
    * Mostrar listado de servicios.
@@ -30,7 +30,7 @@ class ServiceController extends Controller
 
     $categories = Category::withCount('services')->orderBy('updated_at')->get();
 
-    return view('services.index', compact('services', 'categories'));
+    return view('admin.services.index', compact('services', 'categories'));
   }
 
   /**
@@ -39,7 +39,7 @@ class ServiceController extends Controller
   public function create()
   {
     $categories = Category::orderBy('name')->get();
-    return view('services.create', compact('categories'));
+    return view('admin.services.create', compact('categories'));
   }
 
   /**
@@ -57,7 +57,7 @@ class ServiceController extends Controller
 
     $this->createPlans($service, $validated['plans']);
 
-    return redirect()->route('services.index')
+    return redirect()->route('admin.services.index')
       ->with('success', 'Servicio creado correctamente.');
   }
 
@@ -67,7 +67,7 @@ class ServiceController extends Controller
   public function show(Service $service)
   {
     $service->load('plans', 'category');
-    return view('services.show', compact('service'));
+    return view('admin.services.show', compact('service'));
   }
 
   /**
@@ -77,7 +77,7 @@ class ServiceController extends Controller
   {
     $categories = Category::orderBy('name')->get();
     $service->load('plans');
-    return view('services.edit', compact('service', 'categories'));
+    return view('admin.services.edit', compact('service', 'categories'));
   }
 
   /**
@@ -93,7 +93,7 @@ class ServiceController extends Controller
 
     $this->syncPlans($service, $validated['plans']);
 
-    return redirect()->route('services.index')->with('success', 'Servicio actualizado correctamente.');
+    return redirect()->route('admin.services.index')->with('success', 'Servicio actualizado correctamente.');
   }
 
   /**
@@ -108,7 +108,7 @@ class ServiceController extends Controller
     $service->plans()->delete();
     $service->delete();
 
-    return redirect()->route('services.index')->with('success', 'Servicio eliminado correctamente.');
+    return redirect()->route('admin.services.index')->with('success', 'Servicio eliminado correctamente.');
   }
 
   // --------- Métodos privados -------------

@@ -1,4 +1,4 @@
-@extends('layouts.admin')
+@extends('layouts.app')
 
 @section('title', 'Listado de servicios')
 
@@ -10,10 +10,10 @@
       <div class="my-2 d-flex flex-wrap justify-content-between align-items-center gap-2">
         <p class="text-secondary mb-0">Listado general de servicios registrados en el sistema.</p>
         <div class="d-flex gap-2">
-          <a href="{{ route('services.create') }}" class="btn btn-turquesa">
+          <a href="{{ route('admin.services.create') }}" class="btn btn-turquesa">
             <i class="bi bi-plus-circle me-2"></i>Nuevo servicio
           </a>
-          <a href="{{ route('categories.index') }}" class="btn btn-turquesa">
+          <a href="{{ route('admin.categories.index') }}" class="btn btn-turquesa">
             <i class="bi bi-tags me-1"></i> Categorías
           </a>
         </div>
@@ -38,7 +38,7 @@
       </button>
       <div class="collapse" id="filtrosServicios">
         <div class="p-3 border-top border-light bg-azul">
-          <form method="GET" action="{{ route('services.index') }}" class="row g-2">
+          <form method="GET" action="{{ route('admin.services.index') }}" class="row g-2">
             <div class="col-md-4 ">
               <input type="text" name="name" class="form-control" placeholder="Nombre del servicio"
                      value="{{ request('name') }}">
@@ -64,7 +64,7 @@
             <div class="col-md-12 ">
               <div class="d-flex justify-content-end gap-2 mt-2">
                 <button type="submit" class="btn btn-turquesa"><i class="bi bi-filter"></i> Filtrar</button>
-                <a href="{{ route('services.index') }}" class="btn btn-turquesa"><i class="bi bi-x-circle"></i> Limpiar</a>
+                <a href="{{ route('admin.services.index') }}" class="btn btn-turquesa"><i class="bi bi-x-circle"></i> Limpiar</a>
               </div>
             </div>
           </form>
@@ -123,15 +123,15 @@
                 <td class="text-center">
                   <div class="d-flex justify-content-center gap-2">
                     {{-- Ver --}}
-                    <a href="{{ route('services.show', $service->id) }}" class="btn btn-dark " title="Ver">
+                    <a href="{{ route('admin.services.show', $service->id) }}" class="btn btn-dark " title="Ver">
                       <i class="bi bi-eye"></i>
                     </a>
                     {{-- Editar --}}
-                    <a href="{{ route('services.edit', $service->id) }}" class="btn btn-turquesa " title="Editar">
+                    <a href="{{ route('admin.services.edit', $service->id) }}" class="btn btn-turquesa " title="Editar">
                       <i class="bi bi-pencil"></i>
                     </a>
                     {{-- Eliminar --}}
-                    <form action="{{ route('services.destroy', $service->id) }}" method="POST"
+                    <form action="{{ route('admin.services.destroy', $service->id) }}" method="POST"
                           onsubmit="return confirm('¿Seguro que querés eliminar este servicio?')"
                           style="display:inline-block;">
                       @csrf

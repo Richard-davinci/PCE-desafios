@@ -1,4 +1,4 @@
-@extends('layouts.admin')
+@extends('layouts.app')
 
 @section('title', 'Inicio')
 
@@ -23,7 +23,7 @@
           <div class="card-body">
             <div class="d-flex justify-content-between align-items-center mb-3">
               <h3 class="fs-5 font-bankgothic text-turquesa m-0">Últimos usuarios</h3>
-              <a href="{{ route('users.index') }}" class="btn btn-turquesa btn-sm">Ver todos</a>
+              <a href="{{ route('admin.users.index') }}" class="btn btn-turquesa btn-sm">Ver todos</a>
             </div>
             <ul class="list-group list-group-flush">
               @foreach($lastUsers as $user)
@@ -40,7 +40,7 @@
                     @else
                       <span class="text-blanco small me-2">{{ $user->created_at->diffForHumans() }}</span>
                     @endif
-                    <a href="{{ route('users.index', ['id' => $user->id]) }}"
+                    <a href="{{ route('admin.users.index', ['id' => $user->id]) }}"
                        class="btn btn-turquesa btn-sm" title="Ver {{ $user->name }}">
                       <i class="bi bi-eye"></i> {{-- O simplemente: 'Ver' --}}
                     </a>

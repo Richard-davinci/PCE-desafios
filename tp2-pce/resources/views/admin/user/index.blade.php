@@ -1,4 +1,4 @@
-@extends('layouts.admin')
+@extends('layouts.app')
 
 @section('title', 'Listado de usuarios')
 
@@ -87,13 +87,13 @@
                 <td class="text-center text-secondary small">{{ $user->created_at?->format('d/m/Y H:i') }}</td>
                 <td class="text-center">
                   <div class="d-flex justify-content-center gap-2">
-                    <a href="{{ route('users.show', $user) }}" class="btn btn-dark" title="Ver">
+                    <a href="{{ route('admin.users.show', $user) }}" class="btn btn-dark" title="Ver">
                       <i class="bi bi-eye"></i>
                     </a>
-                    <a href="{{ route('users.edit', $user) }}" class="btn btn-turquesa" title="Editar">
+                    <a href="{{ route('admin.users.edit', $user) }}" class="btn btn-turquesa" title="Editar">
                       <i class="bi bi-pencil"></i>
                     </a>
-                    <form method="POST" action="{{ route('users.destroy', $user) }}"
+                    <form method="POST" action="{{ route('admin.users.destroy', $user) }}"
                           onsubmit="return confirm('¿Eliminar este usuario?');" style="display:inline-block;">
                       @csrf
                       @method('DELETE')

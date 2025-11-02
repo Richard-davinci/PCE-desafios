@@ -10,12 +10,12 @@ class CategoryController extends Controller
   public function index()
   {
     $categories = Category::withCount('services')->paginate(6);
-    return view('categories.index', compact('categories'));
+    return view('admin.categories.index', compact('categories'));
   }
 
   public function create()
   {
-    return view('categories.create');
+    return view('admin.categories.create');
   }
 
   public function store(Request $request)
@@ -28,12 +28,12 @@ class CategoryController extends Controller
       'name' => $request->name,
     ]);
 
-    return redirect()->route('categories.index')->with('success', 'Categoría creada correctamente.');
+    return redirect()->route('admin.categories.index')->with('success', 'Categoría creada correctamente.');
   }
 
   public function edit(Category $category)
   {
-    return view('categories.edit', compact('category'));
+    return view('admin.categories.edit', compact('category'));
   }
 
   public function update(Request $request, Category $category)
@@ -46,13 +46,13 @@ class CategoryController extends Controller
       'name' => $request->name,
     ]);
 
-    return redirect()->route('categories.index')->with('success', 'Categoría actualizada correctamente.');
+    return redirect()->route('admin.categories.index')->with('success', 'Categoría actualizada correctamente.');
   }
 
   public function destroy(Category $category)
   {
     $category->delete();
 
-    return redirect()->route('categories.index')->with('success', 'Categoría eliminada correctamente.');
+    return redirect()->route('admin.categories.index')->with('success', 'Categoría eliminada correctamente.');
   }
 }

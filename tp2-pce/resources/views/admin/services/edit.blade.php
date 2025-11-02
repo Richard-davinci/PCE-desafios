@@ -1,4 +1,4 @@
-@extends('layouts.admin')
+@extends('layouts.app')
 
 @section('title', 'Editar servicio')
 
@@ -10,9 +10,13 @@
       <p class="text-secondary mb-0">Modificá los datos del servicio y gestioná sus planes.</p>
     </div>
   </section>
+  <section class="container">
+    <x-breadcrumb :items="[['label' => 'Servicios',   'route' => 'admin.services.index'],  ['label' => 'editar-servicio']]"
+                  separator="›"/>
+  </section>
 
-  <section class="mt-3 py-5 container">
-    <form method="POST" action="{{ route('services.update', $service->id) }}" enctype="multipart/form-data"
+  <section class="mt-3 py-4 container">
+    <form method="POST" action="{{ route('admin.services.update', $service->id) }}" enctype="multipart/form-data"
           class="bg-azul text-light p-4 rounded-3 shadow-sm">
       @csrf
       @method('PUT')
@@ -129,7 +133,7 @@
 
       {{-- Botones finales --}}
       <div class="d-flex justify-content-end gap-2">
-        <a href="{{ route('services.index') }}" class="btn btn-outline-light">
+        <a href="{{ route('admin.services.index') }}" class="btn btn-outline-light">
           <i class="bi bi-arrow-left"></i> Volver
         </a>
         <button type="submit" class="btn btn-turquesa">

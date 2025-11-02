@@ -10,8 +10,12 @@
                 <p class="text-blanco">Estamos para ayudarte a hacer crecer tu proyecto digital.</p>
             </div>
         </section>
+        <section class="container">
+          <x-breadcrumb :items="[['label' => 'Inicio',   'route' => 'pages.index'],  ['label' => 'contacto']]"
+                        separator="›"/>
+        </section>
 
-        <section class=" py-5 container">
+        <section class=" py-4 container">
             <div class="row g-4">
                 <div class="col-md-6">
                     <div class="card bg-azul text-light border-light h-100">

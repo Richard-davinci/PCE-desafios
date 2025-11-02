@@ -1,4 +1,4 @@
-@extends('layouts.admin')
+@extends('layouts.app')
 
 @section('title', $service->name)
 
@@ -14,6 +14,10 @@
           </div>
         </div>
       </div>
+    </section>
+    <section class="container">
+      <x-breadcrumb :items="[['label' => 'Servicios',   'route' => 'admin.services.index'], ['label' => $service->name]  ]"
+                    separator="›"/>
     </section>
 
     <!-- Descripción + Meta -->
@@ -42,7 +46,7 @@
                 </div>
               </div>
               <div class="d-grid mt-5">
-                <a href="{{ route('services.index') }}" class="btn btn-turquesa">
+                <a href="{{ route('admin.services.index') }}" class="btn btn-turquesa">
                   <i class="bi bi-arrow-left me-1"></i> Volver
                 </a>
               </div>

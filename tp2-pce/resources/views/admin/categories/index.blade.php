@@ -1,4 +1,4 @@
-@extends('layouts.admin')
+@extends('layouts.app')
 
 @section('title', 'Gestión de categorías')
 
@@ -16,7 +16,7 @@
             id="modalAgregarCategoria"
             title="Agregar Categoría"
             icon="bi-plus-circle"
-            :action="route('categories.store')"
+            :action="route('admin.categories.store')"
           />
         </div>
       </div>
@@ -64,23 +64,23 @@
                 <td>{{ $category->name }}</td>
                 <!-- cantidad -->
                 <td class="text-center">
-                    <span class="badge text-bg-secondary">
+                    <span class="badge bg-turquesa text-light">
                       {{ $category->services_count ?? 0 }}
                     </span>
                 </td>
                 <!-- acciones -->
                 <td class="text-end">
-                  <button class="btn btn-turquesa btn-sm" data-bs-toggle="modal"
+                  <button class="btn btn-turquesa  text-light" data-bs-toggle="modal"
                           data-bs-target="#modalEditarCategoria{{ $category->id }}">
                     <i class="bi bi-pencil"></i>
                   </button>
-                  <form action="{{ route('categories.destroy', $category->id) }}" method="POST"
+                  <form action="{{ route('admin.categories.destroy', $category->id) }}" method="POST"
                         style="display:inline-block;"
                         onsubmit="return confirm('¿Seguro que deseas eliminar esta categoría?')">
                     @csrf
                     @method('DELETE')
-                    <button type="submit" class="btn btn-danger btn-sm" title="Eliminar">
-                      <i class="bi bi-trash"></i>
+                    <button type="submit" class="btn btn-danger " title="Eliminar">
+                      <i class="bi bi-trash "></i>
                     </button>
                   </form>
                 </td>
@@ -90,7 +90,7 @@
                 :id="'modalEditarCategoria'.$category->id"
                 title="Editar Categoría"
                 icon="bi-pencil"
-                :action="route('categories.update', $category->id)"
+                :action="route('admin.categories.update', $category->id)"
                 method="PUT"
                 :name="$category->name"
               />
@@ -119,7 +119,7 @@
           </h5>
           <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
         </div>
-        <form action="{{ route('categories.update', $category->id) }}" method="POST">
+        <form action="{{ route('admin.categories.update', $category->id) }}" method="POST">
           @csrf
           @method('PUT')
           <div class="modal-body ">

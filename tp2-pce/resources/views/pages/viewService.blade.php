@@ -15,8 +15,12 @@
                 </div>
             </div>
         </section>
+        <section class="container">
+          <x-breadcrumb :items="[['label' => 'Inicio',   'route' => 'pages.index'],  ['label' => 'servicios', 'route' => 'pages.services'], ['label' => 'Hosting + Mantenimiento', 'route' => 'pages.viewService', 'active' => true]]"
+                        separator="›"/>
+        </section>
 
-        <section class="container py-5">
+        <section class="container py-4">
             <div class="row g-4">
                 <div class="col-lg-4">
                     <div class="card bg-azul text-light border-light shadow-sm h-100">
