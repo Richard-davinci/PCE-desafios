@@ -23,15 +23,15 @@ class Service extends Model
     'conditions' => 'array',
   ];
 
-  // 🔗 Relación con categorías
   public function category()
   {
     return $this->belongsTo(Category::class);
   }
 
-  // 🔗 Relación con planes
   public function plans()
   {
     return $this->hasMany(Plan::class);
   }
+
+
 }

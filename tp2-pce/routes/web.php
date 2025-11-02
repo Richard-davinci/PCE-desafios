@@ -1,6 +1,11 @@
 <?php
 
-use App\Http\Controllers\{AdminController, AuthController, CategoryController, PageController, ServiceController,UserController};
+use App\Http\Controllers\{AdminController,
+  AuthController,
+  CategoryController,
+  PageController,
+  ServiceController,
+  UserController};
 use Illuminate\Support\Facades\Route;
 
 // Páginas públicas
@@ -40,7 +45,7 @@ Route::resource('categories', CategoryController::class)->except(['show']);
 
 // Panel Admin
 Route::resource('services', ServiceController::class)
-  ->middleware('protegida', 'admin.only');;
+  ->middleware('protegida', 'admin.only');
 
 Route::get('/dashboard', [AdminController::class, 'dashboard'])
   ->name('admin.dashboard');
@@ -52,7 +57,7 @@ Route::get('/admin', [AdminController::class, 'admin'])
   ->name('admin.admin')
   ->middleware('protegida', 'admin.only');
 // Índice de usuarios
-Route::get('/users', [UserController::class, 'index'])->name('users.index');
+Route::resource('/users', UserController::class);
 
 
 Route::get('/unauthorized', [AdminController::class, 'unauthorized'])

@@ -15,11 +15,11 @@ class Plan extends Model
     'price',
     'type',
     'features',
-    'highlight',   // para marcar si es más vendido
+    'highlight',
   ];
 
   protected $casts = [
-    'features' => 'array', // ✅ para que se maneje como array automáticamente
+    'features' => 'array',
   ];
 
   // cada plan pertenece a un servicio

@@ -8,13 +8,11 @@
       <h1 class="fs-1 font-bankgothic fw-bold mb-1">Usuarios</h1>
       <div class="my-2 d-flex flex-wrap justify-content-between align-items-center gap-2">
         <p class="text-secondary mb-0">Listado general de usuarios registrados en el sistema.</p>
-        <div class="d-flex gap-2">
-          @if (Route::has('users.create'))
-            <a href="{{ route('users.create') }}" class="btn btn-turquesa">
-              <i class="bi bi-plus-circle me-2"></i>Nuevo usuario
-            </a>
-          @endif
-        </div>
+        {{-- <div class="d-flex gap-2">
+             <a href="{{ route('users.create') }}" class="btn btn-turquesa">
+               <i class="bi bi-plus-circle me-2"></i>Nuevo usuario
+             </a>
+         </div>--}}
       </div>
     </div>
   </section>
@@ -28,7 +26,7 @@
       </div>
     @endif
 
-    <div class="bg-azul rounded shadow-sm mb-3">
+    {{--<div class="bg-azul rounded shadow-sm mb-3">
       <button class="btn btn-azul text-white w-100 text-start rounded-lg py-4" type="button" data-bs-toggle="collapse"
               data-bs-target="#filtrosUsuarios" aria-expanded="false" aria-controls="filtrosUsuarios">
         <i class="bi bi-funnel me-2"></i>Filtros de búsqueda
@@ -59,7 +57,7 @@
           </form>
         </div>
       </div>
-    </div>
+    </div>--}}
 
     {{-- Tabla de usuarios --}}
     <div class="shadow-sm p-3 bg-azul rounded-2">
@@ -69,27 +67,9 @@
             <thead>
             <tr class="table-dark font-bankgothic">
               <th class="text-center">#</th>
-              <th>Nombre
-                <a class="text-light ms-1" href="{{ request()->fullUrlWithQuery(['sort' => 'name', 'dir' => ($sort === 'name' && $dir === 'asc') ? 'desc' : 'asc']) }}">
-                  @if ($sort === 'name')
-                    <i class="bi bi-caret-{{ $dir === 'asc' ? 'up' : 'down' }}-fill"></i>
-                  @endif
-                </a>
-              </th>
-              <th>Email
-                <a class="text-light ms-1" href="{{ request()->fullUrlWithQuery(['sort' => 'email', 'dir' => ($sort === 'email' && $dir === 'asc') ? 'desc' : 'asc']) }}">
-                  @if ($sort === 'email')
-                    <i class="bi bi-caret-{{ $dir === 'asc' ? 'up' : 'down' }}-fill"></i>
-                  @endif
-                </a>
-              </th>
-              <th>Rol
-                <a class="text-light ms-1" href="{{ request()->fullUrlWithQuery(['sort' => 'role', 'dir' => ($sort === 'role' && $dir === 'asc') ? 'desc' : 'asc']) }}">
-                  @if ($sort === 'role')
-                    <i class="bi bi-caret-{{ $dir === 'asc' ? 'up' : 'down' }}-fill"></i>
-                  @endif
-                </a>
-              </th>
+              <th>Nombre</th>
+              <th>Email</th>
+              <th>Rol</th>
               <th class="text-center">Creado</th>
               <th class="text-center">Acciones</th>
             </tr>
@@ -98,33 +78,29 @@
             @forelse ($users as $user)
               <tr>
                 <td class="text-center">{{ $user->id }}</td>
-                <td class="fw-semibold">{{ $user->name }}</td>
+                <td>{{ $user->name }}</td>
                 <td>{{ $user->email }}</td>
                 <td>
-                  <span class="badge bg-secondary text-uppercase">{{ $user->role }}</span>
+                  <span
+                    class="badge {{ $user->role === 'admin' ? 'bg-turquesa' : 'bg-azul' }} text-uppercase">{{ $user->role }}</span>
                 </td>
                 <td class="text-center text-secondary small">{{ $user->created_at?->format('d/m/Y H:i') }}</td>
                 <td class="text-center">
                   <div class="d-flex justify-content-center gap-2">
-                    @if (Route::has('users.show'))
-                      <a href="{{ route('users.show', $user) }}" class="btn btn-dark" title="Ver">
-                        <i class="bi bi-eye"></i>
-                      </a>
-                    @endif
-                    @if (Route::has('users.edit'))
-                      <a href="{{ route('users.edit', $user) }}" class="btn btn-turquesa" title="Editar">
-                        <i class="bi bi-pencil"></i>
-                      </a>
-                    @endif
-                    @if (Route::has('users.destroy'))
-                      <form method="POST" action="{{ route('users.destroy', $user) }}" onsubmit="return confirm('¿Eliminar este usuario?');" style="display:inline-block;">
-                        @csrf
-                        @method('DELETE')
-                        <button type="submit" class="btn btn-danger" title="Eliminar">
-                          <i class="bi bi-trash"></i>
-                        </button>
-                      </form>
-                    @endif
+                    <a href="{{ route('users.show', $user) }}" class="btn btn-dark" title="Ver">
+                      <i class="bi bi-eye"></i>
+                    </a>
+                    <a href="{{ route('users.edit', $user) }}" class="btn btn-turquesa" title="Editar">
+                      <i class="bi bi-pencil"></i>
+                    </a>
+                    <form method="POST" action="{{ route('users.destroy', $user) }}"
+                          onsubmit="return confirm('¿Eliminar este usuario?');" style="display:inline-block;">
+                      @csrf
+                      @method('DELETE')
+                      <button type="submit" class="btn btn-danger" title="Eliminar">
+                        <i class="bi bi-trash"></i>
+                      </button>
+                    </form>
                   </div>
                 </td>
               </tr>

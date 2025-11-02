@@ -2,45 +2,65 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
 use Illuminate\Http\Request;
+use App\Models\User;
 
 class UserController extends Controller
 {
     /**
-     * Listado de usuarios con filtros y orden.
+     * Display a listing of the resource.
      */
-    public function index(Request $request)
+    public function index()
     {
-        $query = User::query();
+      $users = User::paginate(5);
+      return view('user.index', compact('users'));
+    }
 
-        if ($request->filled('name')) {
-            $query->where('name', 'LIKE', '%' . $request->name . '%');
-        }
+    /**
+     * Show the form for creating a new resource.
+     */
+    public function create()
+    {
+        //
+    }
 
-        if ($request->filled('email')) {
-            $query->where('email', 'LIKE', '%' . $request->email . '%');
-        }
+    /**
+     * Store a newly created resource in storage.
+     */
+    public function store(Request $request)
+    {
+        //
+    }
 
-        if ($request->filled('role')) {
-            $query->where('role', $request->role);
-        }
+    /**
+     * Display the specified resource.
+     */
+    public function show(string $id)
+    {
+        //
+    }
 
-        $allowedSorts = ['name', 'email', 'role', 'created_at'];
-        $sort = in_array($request->input('sort'), $allowedSorts) ? $request->input('sort') : 'created_at';
-        $dir = strtolower($request->input('dir')) === 'asc' ? 'asc' : 'desc';
+    /**
+     * Show the form for editing the specified resource.
+     */
+    public function edit(string $id)
+    {
+        //
+    }
 
-        $users = $query->orderBy($sort, $dir)
-            ->paginate(10)
-            ->withQueryString();
+    /**
+     * Update the specified resource in storage.
+     */
+    public function update(Request $request, string $id)
+    {
+        //
+    }
 
-        $roles = User::query()->select('role')->distinct()->pluck('role');
-
-        return view('user.index', [
-            'users' => $users,
-            'roles' => $roles,
-            'sort' => $sort,
-            'dir' => $dir,
-        ]);
+    /**
+     * Remove the specified resource from storage.
+     */
+    public function destroy(string $id)
+    {
+        //
     }
 }
