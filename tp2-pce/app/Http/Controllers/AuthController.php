@@ -48,7 +48,7 @@ class AuthController extends Controller
       if ($user->role === 'admin') {
         return redirect()->route('admin.dashboard')->with('success', 'Bienvenido Administrador.');
       }
-      return redirect()->intended('mi-perfil')->with('success', 'Bienvenido de nuevo.');
+      return redirect()->intended('myProfile')->with('success', 'Bienvenido de nuevo.');
     }
     return back()->withErrors(['email' => 'Las credenciales no coinciden con nuestros registros.',])->onlyInput('email');
   }

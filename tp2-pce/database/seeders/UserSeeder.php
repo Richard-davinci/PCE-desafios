@@ -13,12 +13,15 @@ class UserSeeder extends Seeder
    */
   public function run(): void
   {
-    // ✅ 3 usuarios administradores
+    // 3 usuarios administradores
     User::create([
       'name' => 'Ricardo Garcia',
       'email' => 'admin1@example.com',
       'password' => Hash::make('admin'),
       'role' => 'admin',
+      'city' => 'Córdoba',
+      'phone' => '3511111111',
+      'profile_photo' => 'img/ricardo.webp',
     ]);
 
     User::create([
@@ -26,6 +29,9 @@ class UserSeeder extends Seeder
       'email' => 'admin2@example.com',
       'password' => Hash::make('admin'),
       'role' => 'admin',
+      'city' => 'Rosario',
+      'phone' => '3412222222',
+      'profile_photo' => 'img/ricardo.webp',
     ]);
 
     User::create([
@@ -33,14 +39,20 @@ class UserSeeder extends Seeder
       'email' => 'admin3@example.com',
       'password' => Hash::make('admin'),
       'role' => 'admin',
+      'city' => 'Buenos Aires',
+      'phone' => '1133333333',
+      'profile_photo' => 'img/ricardo.webp',
     ]);
 
-    // ✅ 5 usuarios normales
+    // 5 usuarios normales
     User::create([
       'name' => 'Juan Pérez',
       'email' => 'juan@example.com',
       'password' => Hash::make('user'),
       'role' => 'user',
+      'city' => 'Mendoza',
+      'phone' => '2614444444',
+      'profile_photo' => 'img/ricardo.webp',
     ]);
 
     User::create([
@@ -48,6 +60,9 @@ class UserSeeder extends Seeder
       'email' => 'laura@example.com',
       'password' => Hash::make('user'),
       'role' => 'user',
+      'city' => 'La Plata',
+      'phone' => '2215555555',
+      'profile_photo' => 'img/ricardo.webp',
     ]);
 
     User::create([
@@ -55,6 +70,9 @@ class UserSeeder extends Seeder
       'email' => 'marcos@example.com',
       'password' => Hash::make('user'),
       'role' => 'user',
+      'city' => 'Salta',
+      'phone' => '3876666666',
+      'profile_photo' => 'img/ricardo.webp',
     ]);
 
     User::create([
@@ -62,6 +80,9 @@ class UserSeeder extends Seeder
       'email' => 'sofia@example.com',
       'password' => Hash::make('user'),
       'role' => 'user',
+      'city' => 'San Juan',
+      'phone' => '2647777777',
+      'profile_photo' => 'img/ricardo.webp',
     ]);
 
     User::create([
@@ -69,6 +90,9 @@ class UserSeeder extends Seeder
       'email' => 'pedro@example.com',
       'password' => Hash::make('user'),
       'role' => 'user',
+      'city' => 'Santa Fe',
+      'phone' => '3428888888',
+      'profile_photo' => 'img/ricardo.webp',
     ]);
   }
 }

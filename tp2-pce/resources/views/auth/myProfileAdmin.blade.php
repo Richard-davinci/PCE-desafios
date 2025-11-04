@@ -4,24 +4,24 @@
 
 @section('content')
 
-  <section class="mt-3 py-5 bg-gradient-dark text-light">
-    <div class="container">
-      <h1 class="fs-1 fw-bold font-bankgothic mb-3">Mi perfil de administrador</h1>
-      <p class="text-blanco">Consultá tus datos y editá lo que necesites.</p>
-    </div>
-  </section>
-  <section class="container">
-    <x-breadcrumb :items="[['label' => 'Inicio',   'route' => 'pages.index'],  ['label' => 'perfil']]"
-                  separator="›"/>
-  </section>
+    <section class="mt-3 py-5 bg-gradient-dark text-light">
+        <div class="container">
+            <h1 class="fs-1 fw-bold font-bankgothic mb-3">Mi perfil de administrador</h1>
+            <p class="text-blanco">Consultá tus datos y editá lo que necesites.</p>
+        </div>
+    </section>
+    <section class="container">
+        <x-breadcrumb :items="[['label' => 'Inicio',   'route' => 'pages.index'],  ['label' => 'perfil']]"
+                      separator="›"/>
+    </section>
 
-  <section class=" py-5 container">
-    <div class="mb-4">
-      <div class="row g-4">
-        <div class="col-lg-4">
-          <div class="card bg-azul text-light border-light card-section mb-3">
-            <div class="card-body text-center">
-              <img src="img/ricardo.webp" alt="Tu avatar" height="169" width="169"
+    <section class=" py-5 container">
+        <div class="mb-4">
+            <div class="row g-4">
+                <div class="col-lg-4">
+                    <div class="card bg-azul text-light border-light card-section mb-3">
+                        <div class="card-body text-center">
+                            <img src="{{ asset(Auth::user()->profile_photo ?? 'img/default2.webp') }}" alt="Tu avatar" height="169" width="169"
                    class="avatar-lg mx-auto mb-3 border border-secondary">
               <div class="d-grid gap-2">
                 <label class="btn btn-turquesa mb-0">
@@ -75,24 +75,20 @@
                      aria-labelledby="ver-tab">
                   <div class="row g-3">
                     <div class="col-md-6">
-                      <small class="text-turquesa">Nombre</small>
-                      <div class="readonly-value">Ricardo Rodolfo</div>
+                      <small class="text-turquesa">Nombre y apellido</small>
+                      <div class="readonly-value">{{Auth::user()->name}}</div>
                     </div>
-                    <div class="col-md-6">
-                      <small class="text-turquesa">Apellido</small>
-                      <div class="readonly-value">Garcia</div>
-                    </div>
-                    <div class="col-md-6">
+                                       <div class="col-md-6">
                       <small class="text-turquesa">Email</small>
-                      <div class="readonly-value">ricardo.garcia@davinci.edu.ar</div>
+                      <div class="readonly-value">{{Auth::user()->email}}</div>
                     </div>
                     <div class="col-md-6">
                       <small class="text-turquesa">Teléfono</small>
-                      <div class="readonly-value">+54 221 690-5085</div>
+                      <div class="readonly-value">{{Auth::user()->phone}}</div>
                     </div>
                     <div class="col-md-6">
                       <small class="text-turquesa">Ciudad</small>
-                      <div class="readonly-value">La Plata</div>
+                      <div class="readonly-value">{{Auth::user()->city}}</div>
                     </div>
                   </div>
                 </div>

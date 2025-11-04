@@ -28,7 +28,7 @@ class ServiceSeeder extends Seeder
         'category_id' => 1, // Desarrollo Web
       ],
       [
-        'name' => 'Formularios Personalizados',
+        'name' => 'Formularios',
         'subtitle' => 'Automatizá tus procesos de contacto',
         'description' => 'Desarrollamos formularios dinámicos conectados a tu base de datos o correo para optimizar la captación de clientes.',
         'conditions' => ['Entrega en 5 dias', 'Hasta 3 campos personalizados', 'Integracion con correo'],
@@ -82,31 +82,6 @@ class ServiceSeeder extends Seeder
         'updated_at' => now(),
       ]);
 
-      // Crear planes para cada servicio
-      $plans = [
-        ['name' => 'Básico', 'price' => 15000],
-        ['name' => 'Pro', 'price' => 25000],
-        ['name' => 'Premium', 'price' => 40000],
-      ];
-
-
-      foreach ($plans as $plan) {
-        // Plan mensual
-        $serviceModel->plans()->create([
-          'name' => $plan['name'],
-          'price' => $plan['price'],
-          'type' => 'mensual',
-          'features' => ['Soporte basico', 'Actualizaciones automaticas', 'Panel de control intuitivo'],
-        ]);
-
-        // Plan anual con 30% de descuento
-        $serviceModel->plans()->create([
-          'name' => $plan['name'],
-          'price' => $plan['price'] * 12 * 0.7,
-          'type' => 'anual',
-          'features' => ['Soporte prioritario', 'Backups semanales', 'Descuento exclusivo'],
-        ]);
-      }
     }
   }
 }

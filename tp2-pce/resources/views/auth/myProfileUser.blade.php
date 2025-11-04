@@ -75,24 +75,20 @@
                      aria-labelledby="ver-tab">
                   <div class="row g-3">
                     <div class="col-md-6">
-                      <small class="text-turquesa">Nombre</small>
-                      <div class="readonly-value">Ricardo Rodolfo</div>
-                    </div>
-                    <div class="col-md-6">
-                      <small class="text-turquesa">Apellido</small>
-                      <div class="readonly-value">Garcia</div>
+                      <small class="text-turquesa">Nombre y apellido</small>
+                      <div class="readonly-value">{{Auth::user()->name}}</div>
                     </div>
                     <div class="col-md-6">
                       <small class="text-turquesa">Email</small>
-                      <div class="readonly-value">ricardo.garcia@davinci.edu.ar</div>
+                      <div class="readonly-value">{{Auth::user()->email}}</div>
                     </div>
                     <div class="col-md-6">
                       <small class="text-turquesa">Teléfono</small>
-                      <div class="readonly-value">+54 221 690-5085</div>
+                      <div class="readonly-value">{{Auth::user()->phone}}</div>
                     </div>
                     <div class="col-md-6">
                       <small class="text-turquesa">Ciudad</small>
-                      <div class="readonly-value">La Plata</div>
+                      <div class="readonly-value">{{Auth::user()->city}}</div>
                     </div>
                   </div>
                 </div>

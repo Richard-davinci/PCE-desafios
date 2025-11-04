@@ -5,7 +5,7 @@
 @section('content')
   <section class="mt-3 py-5 bg-gradient-dark text-light">
     <div class="container">
-      <h1 class="fs-1 font-bankgothic fw-bold mb-1">Usuarios</h1>
+      <h1 class="fs-1 font-bankgothic fw-bold mb-1">Listado de Usuarios</h1>
       <div class="my-2 d-flex flex-wrap justify-content-between align-items-center gap-2">
         <p class="text-secondary mb-0">Listado general de usuarios registrados en el sistema.</p>
         {{-- <div class="d-flex gap-2">
