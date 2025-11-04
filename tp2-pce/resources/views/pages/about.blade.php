@@ -16,10 +16,6 @@
 
     </div>
   </section>
-  <section class="container">
-    <x-breadcrumb :items="[['label' => 'Inicio',   'route' => 'pages.index'],  ['label' => 'Nosotros']]"
-                  separator="›"/>
-  </section>
 
 
   <section class="py-4">
