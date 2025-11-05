@@ -11,14 +11,14 @@
     </div>
   </section>
   <section class="container">
-    <x-breadcrumb :items="[['label' => 'Servicios',   'route' => 'admin.services.index'],  ['label' => 'crear-servicio']]"
-                  separator="›"/>
+    <x-breadcrumb
+      :items="[['label' => 'Servicios',   'route' => 'admin.services.index'],  ['label' => 'crear-servicio']]"
+      separator="›"/>
   </section>
-  <section class="mt-3 py-4 container">
-    <form method="POST" action="{{ route('admin.services.store') }}" enctype="multipart/form-data"
-          class="bg-azul text-light p-4 rounded-3 shadow-sm">
-      @csrf
-
+  <form method="POST" action="{{ route('admin.services.store') }}" enctype="multipart/form-data"
+        class="">
+    @csrf
+    <section class="my-3 py-4 container bg-azul text-light p-4 rounded-3 shadow-sm">
       <h2 id="datosTitle" class="fs-4 font-bankgothic text-turquesa mb-3">Datos del servicio</h2>
       <div class="row">
         {{-- Nombre --}}
@@ -88,110 +88,23 @@
       {{-- Condiciones --}}
       <div class="col-12 mb-3">
         <label for="conditions" class="form-label">Condiciones</label>
-        <textarea name="conditions" id="conditions" rows="3" class="form-control" placeholder="Ej: Soporte técnico, Renovación automática, Cancelación gratuita"></textarea>
+        <textarea name="conditions" id="conditions" rows="3" class="form-control"
+                  placeholder="Ej: Soporte técnico, Renovación automática, Cancelación gratuita"></textarea>
         <small class="text-secondary">Separá cada condición con una coma.</small>
         @error('conditions')
         <div class="alert alert-danger mt-1">{{ $message }}</div>
         @enderror
       </div>
 
-      {{-- Planes dinámicos --}}
-      <h4 class="font-bankgothic text-turquesa mt-5 mb-3">Planes del servicio</h4>
-      <div id="plans-container">
-        <div class="plan-item border rounded-3 p-3 mb-3">
-          <div class="row g-2">
-            <div class="col-lg-4">
-              <label class="form-label">Nombre del plan</label>
-              <input type="text" name="plans[0][name]" class="form-control" required>
-            </div>
-            <div class="col-lg-3">
-              <label class="form-label">Precio (AR$)</label>
-              <input type="number" name="plans[0][price]" class="form-control" step="0.01" required>
-            </div>
-            <div class="col-lg-3">
-              <label class="form-label">Tipo</label>
-              <select name="plans[0][type]" class="form-select">
-                <option value="único">Único</option>
-                <option value="mensual">Mensual</option>
-                <option value="anual">Anual</option>
-              </select>
-            </div>
-            <div class="col-lg-12 mt-2">
-              <label class="form-label">Características (separadas por coma)</label>
-              <input type="text" name="plans[0][features]" class="form-control" placeholder="Hosting, Dominio, Soporte técnico">
-              <small class="text-secondary">Separá cada característica con una coma.</small>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {{-- Botón agregar plan --}}
-      <div class="d-flex justify-content-start mb-4">
-        <button type="button" id="addPlan" class="btn btn-outline-turquesa">
-          <i class="bi bi-plus-circle"></i> Agregar otro plan
-        </button>
-      </div>
-
-      {{-- Botones finales --}}
-      <div class="d-flex justify-content-end gap-2">
-        <a href="{{ route('admin.services.index') }}" class="btn btn-outline-light">
+      <div class="d-flex justify-content-end gap-2 w-auto">
+        <a href="{{ route('admin.services.index') }}" class="btn btn-outline-turquesa">
           <i class="bi bi-arrow-left"></i> Volver
         </a>
         <button type="submit" class="btn btn-turquesa">
           <i class="bi bi-save"></i> Guardar servicio
         </button>
       </div>
-    </form>
-  </section>
+    </section>
+  </form>
 
-  {{-- Script duplicar planes --}}
-  @push('scripts')
-    <script>
-      let planIndex = 1;
-
-      document.getElementById('addPlan').addEventListener('click', function () {
-        const container = document.getElementById('plans-container');
-        const newPlan = document.createElement('div');
-        newPlan.classList.add('plan-item', 'border', 'rounded-3', 'p-3', 'mb-3');
-
-        newPlan.innerHTML = `
-      <div class="row g-2">
-        <div class="col-lg-4">
-          <label class="form-label">Nombre del plan</label>
-          <input type="text" name="plans[${planIndex}][name]" class="form-control" required>
-        </div>
-        <div class="col-lg-3">
-          <label class="form-label">Precio (AR$)</label>
-          <input type="number" name="plans[${planIndex}][price]" class="form-control" step="0.01" required>
-        </div>
-        <div class="col-lg-3">
-          <label class="form-label">Tipo</label>
-          <select name="plans[${planIndex}][type]" class="form-select">
-            <option value="único">Único</option>
-            <option value="mensual">Mensual</option>
-            <option value="anual">Anual</option>
-          </select>
-        </div>
-        <div class="col-lg-12 mt-2">
-          <label class="form-label">Características (separadas por coma)</label>
-          <input type="text" name="plans[${planIndex}][features]" class="form-control" placeholder="Hosting, Dominio, Soporte técnico">
-        </div>
-      </div>
-      <button type="button" class="btn btn-danger btn-sm mt-3 removePlan">
-        <i class="bi bi-trash"></i> Quitar plan
-      </button>
-    `;
-
-        container.appendChild(newPlan);
-        planIndex++;
-      });
-
-      // Eliminar plan dinámico
-      document.addEventListener('click', function (e) {
-        if (e.target.closest('.removePlan')) {
-          e.target.closest('.plan-item').remove();
-        }
-      });
-    </script>
-  @endpush
 @endsection

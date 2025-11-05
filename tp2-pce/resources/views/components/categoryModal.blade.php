@@ -24,7 +24,7 @@
         @if(strtoupper($method) === 'PUT')
           @method('PUT')
         @endif
-        <div class="modal-body">
+        <div class="modal-body my-3">
           <div class="card shadow-sm rounded-2 bg-azul">
             <div class="card-body">
               <label class="form-label" for="categoriaInput{{ $id }}">Nombre de la categoría</label>
@@ -39,8 +39,8 @@
           </div>
         </div>
         <div class="modal-footer bg-azul">
+          <button type="button" class="btn btn-outline-turquesa" data-bs-dismiss="modal">Cancelar</button>
           <button type="submit" class="btn btn-turquesa font-bankgothic">Guardar</button>
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
         </div>
       </form>
     </div>

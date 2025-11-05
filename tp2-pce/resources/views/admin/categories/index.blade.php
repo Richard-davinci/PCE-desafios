@@ -9,6 +9,9 @@
       <div class="my-2 d-flex flex-wrap justify-content-between align-items-center gap-2">
         <p class="text-secondary mb-0">Listado general de categorías registradas en el sistema.</p>
         <div>
+          <a href="{{ route('admin.services.index') }}" class="btn btn-turquesa">
+            <i class="bi bi-arrow-left me-1"></i> Volver
+          </a>
           <button class="btn btn-turquesa" data-bs-toggle="modal" data-bs-target="#modalAgregarCategoria">
             <i class="bi bi-plus-circle me-2"></i>Agregar categoría
           </button>
@@ -21,6 +24,11 @@
         </div>
       </div>
     </div>
+  </section>
+  <section class="container">
+    <x-breadcrumb
+      :items="[['label' => 'Servicios',   'route' => 'admin.services.index'],  ['label' => 'Listado de categorías']]"
+      separator="›"/>
   </section>
 
   <section class="container py-5">
@@ -54,21 +62,16 @@
             <tbody>
             @forelse($categories as $category)
               <tr>
-                <!-- id -->
                 <td>{{ $category->id }}</td>
-                <!-- fecha de actualización -->
                 <td class="text-center">
                   {{ $category->updated_at->format('d/m/Y H:i') }}
                 </td>
-                <!-- name -->
                 <td>{{ $category->name }}</td>
-                <!-- cantidad -->
                 <td class="text-center">
                     <span class="badge bg-turquesa text-light">
                       {{ $category->services_count ?? 0 }}
                     </span>
                 </td>
-                <!-- acciones -->
                 <td class="text-end">
                   <button class="btn btn-turquesa  text-light" data-bs-toggle="modal"
                           data-bs-target="#modalEditarCategoria{{ $category->id }}">
