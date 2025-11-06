@@ -160,9 +160,9 @@
                   @endphp
 
                   {{-- Botón para abrir modal (crea/edita según tenga planes) --}}
-                  <button class="btn  btn-turquesa"
+                  <button class="btn  btn-turquesa-light"
                           data-bs-toggle="modal" data-bs-target="#{{ $modalId }}">
-                    <i class="dark fa-solid {{ $isUpdate ? 'fa-grip-vertical' : 'fa-plus' }}"></i>
+                    <i class="dark fa-solid  {{ $isUpdate ? 'fa-pen-to-square' : 'fa-plus fa-fade' }}"></i>
                   </button>
                   <a href="{{ route('admin.services.show', $service->id) }}" class="btn btn-azul " title="Ver">
                     <i class="fa-solid fa-eye"></i>                    </button>

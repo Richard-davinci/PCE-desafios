@@ -124,14 +124,18 @@ main {
   scroll-margin-top: 5rem;
 }
 
-.btn-turquesa {
+.btn-turquesa, .btn-turquesa-light {
   font-family: 'BankGothic', sans-serif;
-  color: #fff;
+  color: #000;
   background-color: var(--turquesa);
   border-color: var(--azul);
 }
 
-.btn-turquesa:hover {
+.btn-turquesa-light {
+  color: #fff;
+}
+
+.btn-turquesa:hover, .btn-turquesa-light:hover {
   background-color: #7ff5e3;
   border-color: var(--azul);
   color: #000;

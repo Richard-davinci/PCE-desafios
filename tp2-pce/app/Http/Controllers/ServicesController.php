@@ -26,7 +26,7 @@ class ServicesController extends Controller
       $query->where('status', $request->status);
     }
 
-    $services = $query->orderBy('name')->paginate(6);
+    $services = $query->orderBy('id', 'desc')->paginate(6);
 
     $categories = Category::withCount('services')->orderBy('updated_at')->get();
 
