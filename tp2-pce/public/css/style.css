@@ -18,7 +18,7 @@ input, button, textarea, select {
 }
 
 :root {
-  --azul: #0c202d;
+  --azul: #112b3a;
   --turquesa: #0ec49f;
   --verde: #00d084;
   --negro: #0d0d0d;
@@ -126,7 +126,7 @@ main {
 
 .btn-turquesa {
   font-family: 'BankGothic', sans-serif;
-  color: #000;
+  color: #fff;
   background-color: var(--turquesa);
   border-color: var(--azul);
 }
@@ -158,6 +158,12 @@ main {
 
 .btn-azul {
   background-color: var(--azul);
+  color: #fff;
+}
+
+.btn-azul:hover {
+  background-color: #1a3c54;
+  border-color: var(--azul);
   color: #fff;
 }
 

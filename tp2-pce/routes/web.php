@@ -4,6 +4,7 @@ use App\Http\Controllers\{AdminController,
   AuthController,
   CategoryController,
   PageController,
+  PlanController,
   ServicesController,
   UserController};
 use Illuminate\Support\Facades\Route;
@@ -24,6 +25,12 @@ Route::get('/myProfile', [AuthController::class, 'myProfile'])->name('user.myPro
 
 // categorias
 Route::resource('admin/categories', CategoryController::class)->names('admin.categories')->except(['show']);
+
+//planes
+Route::post('/admin/services/{service}/plans', [PlanController::class, 'store'])->name('admin.plans.store');
+Route::get('/admin/services/{service}/plans/edit', [PlanController::class, 'edit'])->name('admin.plans.edit');
+Route::put('/admin/services/{service}/plans', [PlanController::class, 'update'])->name('admin.plans.update');
+
 
 // Panel Admin
 Route::get('/admin/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');

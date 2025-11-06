@@ -6,15 +6,14 @@ use Illuminate\View\Component;
 
 class ServiceCard extends Component
 {
-  public $image, $alt, $title, $description, $price, $link;
+  public $image, $alt, $title, $description, $link;
 
-  public function __construct($image, $alt, $title, $description, $price, $link)
+  public function __construct($image, $alt, $title, $description,  $link)
   {
     $this->image = $image;
     $this->alt = $alt;
     $this->title = $title;
     $this->description = $description;
-    $this->price = $price;
     $this->link = $link;
   }
 

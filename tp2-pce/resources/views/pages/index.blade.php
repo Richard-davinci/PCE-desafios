@@ -32,7 +32,6 @@
                             alt="Mockup de un sitio institucional"
                             title="{{ $service->name}}"
                             description="{{ $service->subtitle}}"
-                            price="${{ number_format($service->plans->first()->price, 0, ',', '.') }} dolares"
                             link="{{route('pages.viewService', ['service' => $service->id])}}"
                     />
                 @endforeach

@@ -3,6 +3,7 @@
 @section('title', 'Listado de servicios')
 
 @section('content')
+
   <section class="mt-3 py-5 bg-gradient-dark text-light">
     <div class="container">
       <h1 class="fs-1 font-bankgothic fw-bold mb-1">Listado de Servicios</h1>
@@ -85,8 +86,8 @@
               <th scope="col">Nombre</th>
               <th scope="col">Categoría</th>
               <th scope="col">Subtítulo</th>
-              <th scope="col" class="text-center">Plan</th>
               <th scope="col" class="text-center">Estado</th>
+              <th scope="col" class="text-center">Plan</th>
               <th scope="col" class="text-center">Actualizado</th>
               <th scope="col" class="text-center rounded-tr-full">Acciones</th>
             </tr>
@@ -110,6 +111,7 @@
                   @endif
                 </td>
 
+
                 <td class="text-center">
                   @php
                     $types = $service->plans->pluck('type')->unique()->toArray();
@@ -121,7 +123,9 @@
                     {{-- Solo si no hay mensual, mostramos único --}}
                     <span class="badge bg-success">Único</span>
                   @else
-                    <span class="text-secondary">—</span>
+                    @if(empty($types))
+                      <span class="text-muted">Sin planes</span>
+                    @endif
                   @endif
                 </td>
 
@@ -131,32 +135,61 @@
                 </td>
 
                 <td class="text-center">
-                  <div class="d-flex justify-content-center gap-2">
-                    <button
-                      type="button"
-                      class="btn btn-turquesa"
-                      data-bs-toggle="modal"
-                      data-bs-target="#planModal"
-                      data-service-id="{{ $service->id }}"
-                      data-service-name="{{ $service->name }}"
-                    ><i class="bi bi-plus-circle"></i></button>
-                    <a href="{{ route('admin.services.show', $service->id) }}" class="btn btn-dark " title="Ver">
-                      <i class="bi bi-eye"></i>
-                    </a>
-                    <a href="{{ route('admin.services.edit', $service->id) }}" class="btn btn-turquesa "
-                       title="Editar">
-                      <i class="bi bi-pencil"></i>
-                    </a>
-                    <form action="{{ route('admin.services.destroy', $service->id) }}" method="POST"
-                          onsubmit="return confirm('¿Seguro que querés eliminar este servicio?')"
-                          style="display:inline-block;">
-                      @csrf
-                      @method('DELETE')
-                      <button type="submit" class="btn btn-danger " title="Eliminar">
-                        <i class="bi bi-trash"></i>
-                      </button>
-                    </form>
-                  </div>
+                  @php
+                    // Agrupar planes existentes por tipo y nombre
+                    $byType   = $service->plans->groupBy('type');      // 'único' | 'mensual' | 'anual'
+                    $mensual  = optional($byType->get('mensual'))?->keyBy('name') ?? collect();
+                    $unique   = optional($byType->get('único'))?->first();
+
+                    // Planes mensuales por nombre (coinciden con los del modal/controlador)
+                    $pBasico  = $mensual->get('Básico');
+                    $pPro     = $mensual->get('Pro');           // UI muestra “Profesional”
+                    $pEmp     = $mensual->get('Empresarial');
+
+                    // Modo por defecto del modal
+                    $defaultMode = $unique ? 'unico' : 'mensual';
+
+                    // ¿crear o editar?
+                    $isUpdate   = $service->plans->isNotEmpty();
+                    $formAction = $isUpdate
+                      ? route('admin.plans.update', $service)   // PUT
+                      : route('admin.plans.store',  $service);  // POST
+
+                    // Modal ID único por servicio
+                    $modalId = 'planModal-'.$service->id;
+                  @endphp
+
+                  {{-- Botón para abrir modal (crea/edita según tenga planes) --}}
+                  <button class="btn  btn-turquesa"
+                          data-bs-toggle="modal" data-bs-target="#{{ $modalId }}">
+                    <i class="dark fa-solid {{ $isUpdate ? 'fa-grip-vertical' : 'fa-plus' }}"></i>
+                  </button>
+                  <a href="{{ route('admin.services.show', $service->id) }}" class="btn btn-azul " title="Ver">
+                    <i class="fa-solid fa-eye"></i>                    </button>
+                  </a>
+                  <a href="{{ route('admin.services.edit', $service->id) }}" class="btn btn-azul "
+                     title="Editar">
+                    <i class="fa-solid fa-pen"></i>                    </button>
+                  </a>
+                  <form action="{{ route('admin.services.destroy', $service->id) }}" method="POST"
+                        onsubmit="return confirm('¿Seguro que querés eliminar este servicio?')"
+                        style="display:inline-block;">
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit" class="btn btn-danger " title="Eliminar">
+                      <i class="fa-solid fa-trash"></i></button>
+                  </form>
+                  @include('components.plan-modal', [
+                    'service'     => $service,
+                    'modalId'     => $modalId,
+                    'defaultMode' => $defaultMode,
+                    'uniquePlan'  => $unique,     // plan único (o null)
+                    'pBasico'     => $pBasico,    // mensual Básico (o null)
+                    'pPro'        => $pPro,       // mensual Pro (o null)
+                    'pEmp'        => $pEmp,       // mensual Empresarial (o null)
+                    'formAction'  => $formAction, // store o update
+                    'isUpdate'    => $isUpdate,   // true/false
+                  ])
                 </td>
               </tr>
             @empty
