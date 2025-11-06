@@ -47,15 +47,13 @@ class ServicesController extends Controller
    */
   public function store(Request $request)
   {
-    $validated = $this->validateService($request);
+    $validated = $this->validateService($request);// valida los campos del servicio
 
     if ($request->hasFile('image')) {
       $validated['image'] = $this->saveImage($request);
     }
 
     $service = $this->createService($validated);
-
-    $this->createPlans($service, $validated['plans']);
 
     return redirect()->route('admin.services.index')
       ->with('success', 'Servicio creado correctamente.');
@@ -76,7 +74,7 @@ class ServicesController extends Controller
   public function edit(Service $service)
   {
     $categories = Category::orderBy('name')->get();
-    $service->load('plans');
+    $service->load(['category', 'plans']);
     return view('admin.services.edit', compact('service', 'categories'));
   }
 
@@ -91,8 +89,6 @@ class ServicesController extends Controller
 
     $service->update($this->extractServiceFields($validated));
 
-    $this->syncPlans($service, $validated['plans']);
-
     return redirect()->route('admin.services.index')->with('success', 'Servicio actualizado correctamente.');
   }
 
@@ -101,8 +97,12 @@ class ServicesController extends Controller
    */
   public function destroy(Service $service)
   {
-    if ($service->image && Storage::disk('public')->exists('img/servicios/' . $service->image)) {
-      Storage::disk('public')->delete('img/servicios/' . $service->image);
+    $image = $service->image; // guardo el nombre antes de borrar
+    $storage = Storage::disk('public');
+    $path = 'img/servicios/';
+
+    if ($image && $storage->exists($path . $image)) {
+      $storage->delete($path . $image);
     }
 
     $service->plans()->delete();
@@ -123,20 +123,23 @@ class ServicesController extends Controller
       'description' => 'required|string',
       'conditions' => 'nullable|string',
       'image' => 'nullable|image|mimes:webp,jpeg,png|max:5120',
-      'plans' => 'required|array|min:1',
-      'plans.*.id' => 'nullable|integer|exists:plans,id',
-      'plans.*.name' => 'required|string|max:255',
-      'plans.*.price' => 'required|numeric|min:0',
-      'plans.*.type' => 'nullable|string|max:255',
-      'plans.*.features' => 'nullable|string|max:500',
     ]);
   }
 
-  private function saveImage(Request $request)
+  private function saveImage(Request $request): string
   {
-    $path = $request->file('image')->store('img/servicios', 'public');
+    $image = $request->file('image');
+
+    // nombre único + extensión original
+    $filename = uniqid('srv_') . '.' . $image->getClientOriginalExtension();
+
+    // guardar en storage/app/public/img/servicios
+    $path = $image->storeAs('img/servicios', $filename, 'public');
+
+    // devolver solo el nombre (no la ruta completa)
     return basename($path);
   }
+
 
   private function createService(array $data)
   {
@@ -151,36 +154,34 @@ class ServicesController extends Controller
     ]);
   }
 
-  private function createPlans(Service $service, array $plans)
-  {
-    foreach ($plans as $planData) {
-      $service->plans()->create([
-        'name' => $planData['name'],
-        'price' => $planData['price'],
-        'type' => $planData['type'] ?? null,
-        'features' => json_encode(
-          array_map('trim', explode(',', $planData['features'] ?? ''))
-        ),
-      ]);
-    }
-  }
 
 // Puedes usar estos mismos métodos en create()
 
-  private function handleImage(Request $request, ?Service $service = null)
+  private function handleImage(Request $request, ?Service $service = null): ?string
   {
-    if ($request->hasFile('image')) {
-      // Si hay imagen nueva y hay imagen previa, eliminar la anterior
-      if ($service && $service->image && \Storage::disk('public')->exists('img/servicios/' . $service->image)) {
-        \Storage::disk('public')->delete('img/servicios/' . $service->image);
-      }
-      $path = $request->file('image')->store('img/servicios', 'public');
-      return basename($path);
-    } elseif ($service) {
-      return $service->image; // Mantener imagen anterior si no se sube nueva
+    // Si no se sube imagen, devolvemos la anterior (si existe)
+    if (!$request->hasFile('image')) {
+      return $service?->image;
     }
-    return null;
+
+    $image = $request->file('image');
+    $disk = \Storage::disk('public');
+    $path = 'img/servicios/';
+
+    // Si hay una imagen anterior y existe en disco, se elimina
+    if ($service && $service->image && $disk->exists($path . $service->image)) {
+      $disk->delete($path . $service->image);
+    }
+
+    // Generar un nombre único (más seguro que el original)
+    $filename = uniqid('srv_') . '.' . $image->getClientOriginalExtension();
+
+    // Guardar imagen en el disco público
+    $image->storeAs($path, $filename, 'public');
+
+    return $filename;
   }
+
 
   private function extractServiceFields(array $validated)
   {
@@ -193,41 +194,5 @@ class ServicesController extends Controller
       'conditions' => $validated['conditions'] ?? null,
       'image' => $validated['image'],
     ];
-  }
-
-  private function syncPlans(Service $service, array $plans)
-  {
-    $existingPlanIds = $service->plans()->pluck('id')->toArray();
-    $incomingPlanIds = [];
-
-    foreach ($plans as $planData) {
-      $features = json_encode(array_map('trim', explode(',', $planData['features'] ?? '')));
-      if (!empty($planData['id'])) {
-        $plan = $service->plans()->where('id', $planData['id'])->first();
-        if ($plan) {
-          $plan->update([
-            'name' => $planData['name'],
-            'price' => $planData['price'],
-            'type' => $planData['type'] ?? null,
-            'features' => $features,
-          ]);
-          $incomingPlanIds[] = $plan->id;
-        }
-      } else {
-        $newPlan = $service->plans()->create([
-          'name' => $planData['name'],
-          'price' => $planData['price'],
-          'type' => $planData['type'] ?? null,
-          'features' => $features,
-        ]);
-        $incomingPlanIds[] = $newPlan->id;
-      }
-    }
-
-    // Eliminar planes que no están en el formulario actual
-    $toDelete = array_diff($existingPlanIds, $incomingPlanIds);
-    if (count($toDelete) > 0) {
-      $service->plans()->whereIn('id', $toDelete)->delete();
-    }
   }
 }

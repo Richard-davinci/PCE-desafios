@@ -16,8 +16,9 @@
       </div>
     </section>
     <section class="container">
-      <x-breadcrumb :items="[['label' => 'Servicios',   'route' => 'admin.services.index'], ['label' => $service->name]  ]"
-                    separator="›"/>
+      <x-breadcrumb
+        :items="[['label' => 'Servicios',   'route' => 'admin.services.index'], ['label' => $service->name]  ]"
+        separator="›"/>
     </section>
 
     <!-- Descripción + Meta -->
@@ -30,6 +31,7 @@
               @if($service->image)
                 <img src="{{ asset('storage/img/servicios/' . $service->image) }}"
                      alt="{{ $service->name }}" class="img-fluid img-thumb mb-3">
+
               @endif
               <div class="service-meta small">
                 <div class="d-flex justify-content-between">
@@ -62,7 +64,7 @@
               <h2 class="fs-4 text-turquesa mb-2 font-bankgothic">Descripción</h2>
               <p class="mb-3">{{ $service->description }}</p>
 
-              @if($service->features ?? $service->plans->first()?->features)
+              @if($service->features ?? $service->plans->last()?->features)
                 <div class="row g-3">
                   @php
                     $features = [];
@@ -92,7 +94,8 @@
                 <ul class="small mb-0">
                   @foreach(is_array($service->conditions) ? $service->conditions : explode(',', $service->conditions) as $cond)
                     @if(trim($cond) !== '')
-                      <li><p><i class="bi bi-check2 me-1 text-turquesa"></i>{{ trim($cond) }}</p></li>
+                      <li><p><i class="bi bi-check2 me-1 text-turquesa"></i>{{ trim($cond) }}</p>
+                      </li>
                     @endif
                   @endforeach
                 </ul>
@@ -103,42 +106,214 @@
       </div>
     </section>
 
-    <!-- Planes -->
+    @php
+      $monthly = $service->plans->where('type', 'mensual');
+      $annual  = $service->plans->where('type', 'anual');
+      $unique  = $service->plans->where('type', 'único');
+
+      $hasMonthly = $monthly->isNotEmpty();
+      $hasAnnual  = $annual->isNotEmpty();
+      $hasUnique  = $unique->isNotEmpty();
+
+      $typesAvailable = collect([
+        'mensual' => $hasMonthly,
+        'anual'   => $hasAnnual,
+        'único'   => $hasUnique,
+      ])->filter()->keys(); // ej: ['único'] o ['mensual','anual']
+    @endphp
+
     <section class="bg-gradient-dark text-light">
       <div class="container py-5">
         <div class="card bg-azul text-light border-light shadow-sm mt-3">
           <div class="card-body">
+
             <div class="d-flex flex-column flex-md-row align-items-md-center justify-content-between gap-2 mb-2">
               <h2 class="fs-3 font-bankgothic text-turquesa mb-0">Planes disponibles</h2>
 
-              <ul class="nav tabs-underline justify-content-center mb-0" id="planTabs" role="tablist">
-                <li class="nav-item" role="presentation">
-                  <button class="nav-link active font-bankgothic fs-5" id="mensual-tab"
-                          data-bs-toggle="tab" data-bs-target="#mensual" type="button"
-                          role="tab" aria-controls="mensual" aria-selected="true">Mensual</button>
-                </li>
-                <li class="nav-item" role="presentation">
-                  <button class="nav-link font-bankgothic fs-5" id="anual-tab"
-                          data-bs-toggle="tab" data-bs-target="#anual" type="button"
-                          role="tab" aria-controls="anual" aria-selected="false">Anual</button>
-                </li>
-              </ul>
+              {{-- Mostrar tabs solo si hay 2+ tipos --}}
+              @if($typesAvailable->count() >= 2)
+                <ul class="nav tabs-underline justify-content-center mb-0" id="planTabs" role="tablist">
+                  @if($hasMonthly)
+                    <li class="nav-item" role="presentation">
+                      <button class="nav-link active font-bankgothic fs-5" id="mensual-tab"
+                              data-bs-toggle="tab" data-bs-target="#mensual" type="button"
+                              role="tab" aria-controls="mensual" aria-selected="true">
+                        Mensual
+                      </button>
+                    </li>
+                  @endif
+                  @if($hasAnnual)
+                    <li class="nav-item" role="presentation">
+                      <button class="nav-link font-bankgothic fs-5" id="anual-tab"
+                              data-bs-toggle="tab" data-bs-target="#anual" type="button"
+                              role="tab" aria-controls="anual" aria-selected="false">
+                        Anual
+                      </button>
+                    </li>
+                  @endif
+                  @if($hasUnique)
+                    <li class="nav-item" role="presentation">
+                      <button class="nav-link font-bankgothic fs-5" id="unico-tab"
+                              data-bs-toggle="tab" data-bs-target="#unico" type="button"
+                              role="tab" aria-controls="unico" aria-selected="false">
+                        Único
+                      </button>
+                    </li>
+                  @endif
+                </ul>
+              @endif
             </div>
 
-            <div class="tab-content mt-4" id="planTabsContent">
-              <!-- MENSUAL -->
-              <div class="tab-pane fade show active" id="mensual" role="tabpanel">
-                <div class="row g-3">
-                  @foreach($service->plans->where('type', 'mensual') as $plan)
+            @if($typesAvailable->count() >= 2)
+              {{-- CON TABS: contenido por cada tipo presente --}}
+              <div class="tab-content mt-4" id="planTabsContent">
+
+                @if($hasMonthly)
+                  <div class="tab-pane fade show active" id="mensual" role="tabpanel">
+                    <div class="row g-3">
+                      @foreach($monthly as $plan)
+                        @php
+                          $features = is_array($plan->features) ? $plan->features
+                                    : (is_string($plan->features) ? (json_decode($plan->features, true) ?? []) : []);
+                          $displayName = $plan->name === 'Pro' ? 'Profesional' : $plan->name;
+                        @endphp
+                        <div class="col-md-4">
+                          <div class="card rounded-3 h-100 p-3">
+                            <h3 class="fs-4 font-bankgothic text-turquesa fw-bold mb-1">{{ $displayName }}</h3>
+                            <p class="text-secondary small mb-2">Ideal para emprendedores</p>
+                            <div class="price fs-3 mb-2">
+                              AR$ {{ number_format($plan->price, 0, ',', '.') }}
+                              <span class="fs-6 text-secondary">/mes</span>
+                            </div>
+                            <ul class="small ps-3 mb-3">
+                              @foreach($features as $f)
+                                <li>{{ trim($f) }}</li>
+                              @endforeach
+                            </ul>
+                            <div class="d-grid">
+                              <a href="#" class="btn btn-turquesa mt-2">Elegir plan</a>
+                            </div>
+                          </div>
+                        </div>
+                      @endforeach
+                    </div>
+                  </div>
+                @endif
+
+                @if($hasAnnual)
+                  <div class="tab-pane fade {{ $hasMonthly ? '' : 'show active' }}" id="anual" role="tabpanel">
+                    <div class="row g-3">
+                      @foreach($annual as $plan)
+                        @php
+                          $features = is_array($plan->features) ? $plan->features
+                                    : (is_string($plan->features) ? (json_decode($plan->features, true) ?? []) : []);
+                          $displayName = $plan->name === 'Pro' ? 'Profesional' : $plan->name;
+                        @endphp
+                        <div class="col-md-4">
+                          <div class="card rounded-3 h-100 p-3">
+                            <h3 class="fs-4 font-bankgothic text-turquesa fw-bold mb-1">{{ $displayName }}</h3>
+                            <p class="text-secondary small mb-2">Plan anual con descuento</p>
+                            <div class="price fs-3 mb-2">
+                              AR$ {{ number_format($plan->price, 0, ',', '.') }}
+                              <span class="fs-6 text-secondary">/año</span>
+                            </div>
+                            <ul class="small ps-3 mb-3">
+                              @foreach($features as $f)
+                                <li>{{ trim($f) }}</li>
+                              @endforeach
+                            </ul>
+                            <div class="d-grid">
+                              <a href="#" class="btn btn-turquesa mt-2">Contratar anual</a>
+                            </div>
+                          </div>
+                        </div>
+                      @endforeach
+                    </div>
+                  </div>
+                @endif
+
+                @if($hasUnique)
+                  <div class="tab-pane fade {{ (!$hasMonthly && !$hasAnnual) ? 'show active' : '' }}" id="unico" role="tabpanel">
+                    <div class="row g-3">
+                      @foreach($unique as $plan)
+                        @php
+                          $features = is_array($plan->features) ? $plan->features
+                                    : (is_string($plan->features) ? (json_decode($plan->features, true) ?? []) : []);
+                          // Para Único el nombre puede ser el que definas; si usás 'Empresarial' lo mostramos tal cual
+                          $displayName = $plan->name === 'Pro' ? 'Profesional' : $plan->name;
+                        @endphp
+                        <div class="col-md-4">
+                          <div class="card rounded-3 h-100 p-3">
+                            <h3 class="fs-4 font-bankgothic text-turquesa fw-bold mb-1">{{ $displayName }}</h3>
+                            <p class="text-secondary small mb-2">Pago único</p>
+                            <div class="price fs-3 mb-2">
+                              AR$ {{ number_format($plan->price, 0, ',', '.') }}
+                            </div>
+                            <ul class="small ps-3 mb-3">
+                              @foreach($features as $f)
+                                <li>{{ trim($f) }}</li>
+                              @endforeach
+                            </ul>
+                            <div class="d-grid">
+                              <a href="#" class="btn btn-turquesa mt-2">Contratar</a>
+                            </div>
+                          </div>
+                        </div>
+                      @endforeach
+                    </div>
+                  </div>
+                @endif
+
+              </div>
+            @else
+              {{-- SIN TABS: render directo del único tipo existente --}}
+              @if($hasUnique)
+                <div class="row g-3 mt-3">
+                  @foreach($unique as $plan)
+                    @php
+                      $features = is_array($plan->features) ? $plan->features
+                                : (is_string($plan->features) ? (json_decode($plan->features, true) ?? []) : []);
+                      $displayName = $plan->name === 'Pro' ? 'Profesional' : $plan->name;
+                    @endphp
                     <div class="col-md-4">
                       <div class="card rounded-3 h-100 p-3">
-                        <h3 class="fs-4 font-bankgothic text-turquesa fw-bold mb-1">{{ $plan->name }}</h3>
-                        <p class="text-secondary small mb-2">Ideal para emprendedores</p>
-                        <div class="price fs-3 mb-2">AR$ {{ number_format($plan->price, 0, ',', '.') }}
-                          <span class="fs-6 text-secondary">/mes</span></div>
+                        <h3 class="fs-4 font-bankgothic text-turquesa fw-bold mb-1">{{ $displayName }}</h3>
+                        <p class="text-secondary small mb-2">Pago único</p>
+                        <div class="price fs-3 mb-2">
+                          AR$ {{ number_format($plan->price, 0, ',', '.') }}
+                        </div>
                         <ul class="small ps-3 mb-3">
-                          @foreach(json_decode($plan->features ?? '[]', true) as $f)
-                            <li>{{ $f }}</li>
+                          @foreach($features as $f)
+                            <li>{{ trim($f) }}</li>
+                          @endforeach
+                        </ul>
+                        <div class="d-grid">
+                          <a href="#" class="btn btn-turquesa mt-2">Contratar</a>
+                        </div>
+                      </div>
+                    </div>
+                  @endforeach
+                </div>
+              @endif
+
+              @if($hasMonthly)
+                <div class="row g-3 mt-3">
+                  @foreach($monthly as $plan)
+                    @php
+                      $features = is_array($plan->features) ? $plan->features
+                                : (is_string($plan->features) ? (json_decode($plan->features, true) ?? []) : []);
+                      $displayName = $plan->name === 'Pro' ? 'Profesional' : $plan->name;
+                    @endphp
+                    <div class="col-md-4">
+                      <div class="card rounded-3 h-100 p-3">
+                        <h3 class="fs-4 font-bankgothic text-turquesa fw-bold mb-1">{{ $displayName }}</h3>
+                        <p class="text-secondary small mb-2">Ideal para emprendedores</p>
+                        <div class="price fs-3 mb-2">
+                          AR$ {{ number_format($plan->price, 0, ',', '.') }} <span class="fs-6 text-secondary">/mes</span>
+                        </div>
+                        <ul class="small ps-3 mb-3">
+                          @foreach($features as $f)
+                            <li>{{ trim($f) }}</li>
                           @endforeach
                         </ul>
                         <div class="d-grid">
@@ -148,21 +323,26 @@
                     </div>
                   @endforeach
                 </div>
-              </div>
+              @endif
 
-              <!-- ANUAL -->
-              <div class="tab-pane fade" id="anual" role="tabpanel">
-                <div class="row g-3">
-                  @foreach($service->plans->where('type', 'anual') as $plan)
+              @if($hasAnnual)
+                <div class="row g-3 mt-3">
+                  @foreach($annual as $plan)
+                    @php
+                      $features = is_array($plan->features) ? $plan->features
+                                : (is_string($plan->features) ? (json_decode($plan->features, true) ?? []) : []);
+                      $displayName = $plan->name === 'Pro' ? 'Profesional' : $plan->name;
+                    @endphp
                     <div class="col-md-4">
                       <div class="card rounded-3 h-100 p-3">
-                        <h3 class="fs-4 font-bankgothic text-turquesa fw-bold mb-1">{{ $plan->name }}</h3>
+                        <h3 class="fs-4 font-bankgothic text-turquesa fw-bold mb-1">{{ $displayName }}</h3>
                         <p class="text-secondary small mb-2">Plan anual con descuento</p>
-                        <div class="price fs-3 mb-2">AR$ {{ number_format($plan->price, 0, ',', '.') }}
-                          <span class="fs-6 text-secondary">/año</span></div>
+                        <div class="price fs-3 mb-2">
+                          AR$ {{ number_format($plan->price, 0, ',', '.') }} <span class="fs-6 text-secondary">/año</span>
+                        </div>
                         <ul class="small ps-3 mb-3">
-                          @foreach(json_decode($plan->features ?? '[]', true) as $f)
-                            <li>{{ $f }}</li>
+                          @foreach($features as $f)
+                            <li>{{ trim($f) }}</li>
                           @endforeach
                         </ul>
                         <div class="d-grid">
@@ -172,11 +352,13 @@
                     </div>
                   @endforeach
                 </div>
-              </div>
-            </div>
+              @endif
+            @endif
+
           </div>
         </div>
       </div>
     </section>
+
   </main>
 @endsection

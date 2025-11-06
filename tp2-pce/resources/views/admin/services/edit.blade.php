@@ -76,9 +76,8 @@
         @if($service->image)
           <div class="col-sm-6 col-lg-4 mb-3">
             <label class="form-label">Imagen del servicio actual</label>
-            <img src="{{ asset('img/servicios/' . $service->image) }}"
-                 alt="Imagen actual"
-                 class="img-thumbnail" style="max-width: 150px;">
+            <img src="{{ asset('storage/img/servicios/' . $service->image) }}"
+                 alt="{{ $service->name }}" class="img-thumbnail" style="max-width: 150px;">
           </div>
         @endif
       </div>
@@ -109,58 +108,5 @@
       </div>
     </form>
   </section>
-
-  {{-- Script duplicar/eliminar planes --}}
-  @push('scripts')
-    <script>
-      let planIndex = {{ $service->plans->count() }};
-
-      document.getElementById('addPlan').addEventListener('click', function () {
-        const container = document.getElementById('plans-container');
-
-        const newPlan = document.createElement('div');
-        newPlan.classList.add('plan-item', 'border', 'rounded-3', 'p-3', 'mb-3');
-
-        newPlan.innerHTML = `
-          <div class="row g-2">
-            <div class="col-lg-4">
-              <label class="form-label">Nombre del plan</label>
-              <input type="text" name="plans[${planIndex}][name]" class="form-control">
-            </div>
-            <div class="col-lg-3">
-              <label class="form-label">Precio (AR$)</label>
-              <input type="number" name="plans[${planIndex}][price]" class="form-control" step="0.01">
-            </div>
-            <div class="col-lg-3">
-              <label class="form-label">Tipo</label>
-              <select name="plans[${planIndex}][type]" class="form-select">
-                <option value="único">Único</option>
-                <option value="mensual">Mensual</option>
-                <option value="anual">Anual</option>
-              </select>
-            </div>
-            <div class="col-lg-12 mt-2">
-              <label class="form-label">Características (separadas por coma)</label>
-              <input type="text" name="plans[${planIndex}][features]" class="form-control" placeholder="Hosting, Dominio, Soporte técnico">
-            </div>
-          </div>
-          <button type="button" class="btn btn-danger btn-sm mt-3 removePlan">
-            <i class="bi bi-trash"></i> Eliminar plan
-          </button>
-        `;
-
-        container.appendChild(newPlan);
-        planIndex++;
-      });
-
-      document.addEventListener('click', function (e) {
-        if (e.target.closest('.removePlan')) {
-          if (confirm('¿Estás seguro de eliminar este plan?')) {
-            e.target.closest('.plan-item').remove();
-          }
-        }
-      });
-    </script>
-  @endpush
 
 @endsection

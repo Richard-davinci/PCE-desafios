@@ -92,7 +92,8 @@
                       <input type="number" class="form-control" placeholder="Ej: 19000" min="0" step="1">
                     </div>
                     <div class="col-md-12 col-lg-4">
-                      <label class="form-label">Descuento anual (%) <span class="text-secondary">(opcional)</span></label>
+                      <label class="form-label">Descuento anual (%) <span
+                          class="text-secondary">(opcional)</span></label>
                       <input type="number" class="form-control" placeholder="Ej: 10" min="0" max="100" step="1">
                       <small class="text-secondary">Si lo dejás vacío: sin descuento.</small>
                     </div>
@@ -131,7 +132,8 @@
                       <input type="number" class="form-control" placeholder="Ej: 29000" min="0" step="1">
                     </div>
                     <div class="col-md-12 col-lg-4">
-                      <label class="form-label">Descuento anual (%) <span class="text-secondary">(opcional)</span></label>
+                      <label class="form-label">Descuento anual (%) <span
+                          class="text-secondary">(opcional)</span></label>
                       <input type="number" class="form-control" placeholder="Ej: 12" min="0" max="100" step="1">
                       <small class="text-secondary">Si lo dejás vacío: sin descuento.</small>
                     </div>
@@ -170,7 +172,8 @@
                       <input type="number" class="form-control" placeholder="Ej: 49000" min="0" step="1">
                     </div>
                     <div class="col-md-12 col-lg-4">
-                      <label class="form-label">Descuento anual (%) <span class="text-secondary">(opcional)</span></label>
+                      <label class="form-label">Descuento anual (%) <span
+                          class="text-secondary">(opcional)</span></label>
                       <input type="number" class="form-control" placeholder="Ej: 15" min="0" max="100" step="1">
                       <small class="text-secondary">Si lo dejás vacío: sin descuento.</small>
                     </div>
@@ -196,6 +199,7 @@
 </div>
 
 <script>
+  //para cambiar contraer los collapsibles
   document.addEventListener('DOMContentLoaded', function () {
     let toggles = document.querySelectorAll('.plan-toggle-icon');
     toggles.forEach(function (toggle) {
@@ -211,22 +215,25 @@
       });
     });
   });
-
+  //para cambiar la viosta de los radios()
   document.addEventListener('DOMContentLoaded', function () {
-    const unicoRadio = document.getElementById('modeUnico');
-    const mensualRadio = document.getElementById('modeMensual');
+    const unicoRadio = document.querySelector('#modeUnico');
+    const mensualRadio = document.querySelector('#modeMensual');
 
-    const blockUnico = document.getElementById('blockUnico');
-    const blockMensual = document.getElementById('blockMensual');
+    const blockUnico = document.querySelector('#blockUnico');
+    const blockMensual = document.querySelector('#blockMensual');
 
     function toggleSections() {
-      if (unicoRadio.checked) {
-        blockUnico.style.display = 'block';
-        blockMensual.style.display = 'none';
-      } else if (mensualRadio.checked) {
-        blockUnico.style.display = 'none';
-        blockMensual.style.display = 'block';
-      }
+      const display = unicoRadio.checked ? {
+        blockUnico: 'block',
+        blockMensual: 'none'
+      } : {
+        blockUnico: 'none',
+        blockMensual: 'block'
+      };
+
+      blockUnico.style.display = display.blockUnico;
+      blockMensual.style.display = display.blockMensual;
     }
 
     toggleSections();

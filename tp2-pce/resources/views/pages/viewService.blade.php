@@ -20,7 +20,6 @@
         :items="[['label' => 'Servicios',   'route' => 'admin.services.index'], ['label' => $service->name]  ]"
         separator="›"/>
     </section>
-
     <!-- Descripción + Meta -->
     <section class="container py-5">
       <div class="row g-4">
@@ -29,7 +28,7 @@
           <div class="card bg-azul text-light border-light shadow-sm h-100">
             <div class="card-body">
               @if($service->image)
-                <img src="{{ asset('img/servicios/' . $service->image) }}"
+                <img src="{{ asset('storage/img/servicios/' . $service->image) }}"
                      alt="{{ $service->name }}" class="img-fluid img-thumb mb-3">
               @endif
               <div class="service-meta small">
