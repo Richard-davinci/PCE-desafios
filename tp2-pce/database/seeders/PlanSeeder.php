@@ -7,76 +7,98 @@ use App\Models\Service;
 
 class PlanSeeder extends Seeder
 {
+  /**
+   * Run the database seeds.
+   */
   public function run(): void
   {
-    // === ELEGÍ ACÁ TUS DOS SERVICIOS "Único" ===
-    $uniqueServices = [
-      'Sitio Institucional',
-      'Diseño de Branding',
-    ];
+    // Recorremos todos los servicios existentes
+    $services = Service::all();
 
-    // Precios base para los tiers mensuales
-    $monthlyPrices = [
-      'Básico'      => 19990,
-      'Pro'         => 29990,
-      'Empresarial' => 49990,
-    ];
+    foreach ($services as $index => $service) {
 
-    // Descuentos anuales por tier
-    $annualDiscounts = [
-      'Básico'      => 0,
-      'Pro'         => 10,
-      'Empresarial' => 15,
-    ];
+      // 🔹 Para los primeros 2 servicios → plan ÚNICO
+      if ($index < 2) {
+        $service->plans()->create([
+          'name' => 'Único',
+          'type' => 'único',
+          'price' => fake()->numberBetween(100, 500),
+          'features' => [
+            'Dominio incluido',
+            'Soporte técnico básico',
+            'Entrega en 5 días hábiles',
+          ],
+        ]);
+      }
 
-    // Features base y extras
-    $baseFeatures = ['Hosting', 'SSL', 'Panel admin'];
-    $proExtras    = ['Soporte prioritario', 'Backups automáticos'];
-    $empExtras    = ['Gestor dedicado', 'SLA 24/7'];
-
-    // Config del plan único
-    $uniqueName     = 'Empresarial'; // si querés usar otro (Básico/Pro), cambiá acá
-    $uniquePrice    = 249990;
-    $uniqueFeatures = ['Entrega llave en mano', '1 ronda de ajustes', 'Optimización básica'];
-
-    foreach (Service::all() as $service) {
-      if (in_array($service->name, $uniqueServices, true)) {
-        // --- Caso ÚNICO ---
-        // Limpieza: borro mensual/anual previos si existieran
-        $service->plans()->whereIn('type', ['mensual', 'anual'])->delete();
-
-        // Creo/actualizo Único
-        $service->plans()->updateOrCreate(
-          ['name' => $uniqueName, 'type' => 'único'],
-          ['price' => $uniquePrice, 'features' => $uniqueFeatures]
-        );
-      } else {
-        // --- Caso MENSUAL + ANUAL ---
-        // Limpieza: borro único si existiera
-        $service->plans()->where('type', 'único')->delete();
-
-        // Tiers y features compuestos
-        $tiers = [
-          'Básico'      => $baseFeatures,
-          'Pro'         => array_values(array_unique(array_merge($baseFeatures, $proExtras))),
-          'Empresarial' => array_values(array_unique(array_merge($baseFeatures, $proExtras, $empExtras))),
+      // 🔹 Para los demás → 3 planes MENSUALES + 3 ANUALES
+      else {
+        // Precios base
+        $prices = [
+          'Básico' => 150,
+          'Pro' => 250,
+          'Empresarial' => 400,
         ];
 
-        foreach ($tiers as $name => $features) {
-          // Mensual
-          $service->plans()->updateOrCreate(
-            ['name' => $name, 'type' => 'mensual'],
-            ['price' => $monthlyPrices[$name], 'features' => $features]
-          );
+        foreach ($prices as $name => $price) {
+          // MENSUAL
+          $service->plans()->create([
+            'name' => $name,
+            'type' => 'mensual',
+            'price' => $price,
+            'features' => match ($name) {
+              'Básico' => [
+                'Hosting 5GB',
+                '1 dominio',
+                'Certificado SSL',
+              ],
+              'Pro' => [
+                'Hosting 15GB',
+                '2 dominios',
+                'SSL y Backups automáticos',
+                'Soporte prioritario',
+              ],
+              'Empresarial' => [
+                'Hosting ilimitado',
+                'Dominios ilimitados',
+                'Backups diarios',
+                'Soporte 24/7',
+                'Panel de estadísticas avanzado',
+              ],
+            },
+          ]);
 
-          // Anual (derivado del mensual con descuento)
-          $annualBase  = $monthlyPrices[$name] * 12;
-          $annualFinal = (int) round($annualBase * (1 - $annualDiscounts[$name] / 100));
-
-          $service->plans()->updateOrCreate(
-            ['name' => $name, 'type' => 'anual'],
-            ['price' => $annualFinal, 'features' => $features]
-          );
+          // ANUAL (precio mensual * 12 con 10-20% descuento)
+          $discount = fake()->numberBetween(10, 20);
+          $service->plans()->create([
+            'name' => $name,
+            'type' => 'anual',
+            'price' => round($price * 12 * (1 - $discount / 100), 2),
+            'discount' => $discount,
+            'features' => match ($name) {
+              'Básico' => [
+                'Hosting 5GB',
+                '1 dominio',
+                'Certificado SSL',
+                'Descuento anual del ' . $discount . '%',
+              ],
+              'Pro' => [
+                'Hosting 15GB',
+                '2 dominios',
+                'SSL y Backups automáticos',
+                'Soporte prioritario',
+                'Descuento anual del ' . $discount . '%',
+              ],
+              'Empresarial' => [
+                'Hosting ilimitado',
+                'Dominios ilimitados',
+                'Backups diarios',
+                'Soporte 24/7',
+                'Panel de estadísticas avanzado',
+                'Descuento anual del ' . $discount . '%',
+              ],
+            },
+          ]);
         }
       }
     }

@@ -12,17 +12,18 @@ class Plan extends Model
   protected $fillable = [
     'service_id',
     'name',
-    'price',
     'type',
+    'price',
+    'discount',
     'features',
-    'highlight',
   ];
 
   protected $casts = [
+    'price' => 'decimal:2',
+    'discount' => 'integer',
     'features' => 'array',
   ];
 
-  // cada plan pertenece a un servicio
   public function service()
   {
     return $this->belongsTo(Service::class);

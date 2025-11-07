@@ -27,9 +27,16 @@ Route::get('/myProfile', [AuthController::class, 'myProfile'])->name('user.myPro
 Route::resource('admin/categories', CategoryController::class)->names('admin.categories')->except(['show']);
 
 //planes
-Route::post('/admin/services/{service}/plans', [PlanController::class, 'store'])->name('admin.plans.store');
-Route::get('/admin/services/{service}/plans/edit', [PlanController::class, 'edit'])->name('admin.plans.edit');
-Route::put('/admin/services/{service}/plans', [PlanController::class, 'update'])->name('admin.plans.update');
+Route::middleware(['protegida', 'admin.only'])->group(function () {
+
+  Route::get('/admin/services/{service}/plans', [PlanController::class, 'edit'])
+    ->name('admin.services.plans.edit');   // ver/editar todos los planes del servicio
+
+  Route::get('/admin/services/{service}/plans', [PlanController::class, 'edit'])
+    ->name('admin.services.plans.edit');   // ver/editar todos los planes del servicio
+  Route::put('/admin/services/{service}/plans', [PlanController::class, 'update'])
+    ->name('admin.services.plans.update'); // guardar todos juntos
+});
 
 
 // Panel Admin
@@ -43,3 +50,7 @@ Route::resource('/admin/users', UserController::class)->names('admin.users');
 
 Route::get('/admin/unauthorized', [AdminController::class, 'unauthorized'])->name('unauthorized');
 Route::get('/404', [PageController::class, 'error404'])->name('pages.error404');
+
+
+
+

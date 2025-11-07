@@ -10,11 +10,11 @@
       <p class="text-secondary mb-0">Modificá los datos del servicio y gestioná sus planes.</p>
     </div>
   </section>
-  <section class="container">
+  <div class="container">
     <x-breadcrumb
       :items="[['label' => 'Servicios',   'route' => 'admin.services.index'],  ['label' => 'editar-servicio']]"
       separator="›"/>
-  </section>
+  </div>
 
   <section class="mt-3 py-4 container">
     <form method="POST" action="{{ route('admin.services.update', $service->id) }}" enctype="multipart/form-data"

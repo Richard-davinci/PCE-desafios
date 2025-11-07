@@ -1,9 +1,9 @@
 @props([
-    'id', // Ej: 'modalAgregarCategoria' o 'modalEditarCategoria1'
-    'title', // Ej: 'Agregar Categoría' o 'Editar Categoría'
-    'icon' => null, // Ej: 'bi-plus-circle' o 'bi-pencil', opcional
-    'action', // Ruta para el form
-    'method' => 'POST', // 'POST' o 'PUT'
+    'id',
+    'title', // 'Agregar Categoría' 'Editar Categoría'
+    'icon' => null, //'bi-plus-circle' o 'bi-pencil',
+    'action',
+    'method' => 'POST',
     'name' => '', // Valor por defecto para el campo name
 ])
 

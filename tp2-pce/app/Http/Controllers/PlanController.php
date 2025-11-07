@@ -9,130 +9,170 @@ use Illuminate\Support\Facades\DB;
 class PlanController extends Controller
 {
   /**
-   * Crea planes para un servicio desde el modal.
-   * - Único: crea 1 plan (name=Empresarial, type=único)
-   * - Mensual: crea 3 planes (Básico, Pro, Empresarial) con type=mensual
+   * Mostrar formulario para gestionar TODOS los planes de un servicio.
+   * - Si hay plan único → arranca en modo único
+   * - Si hay planes mensuales → arranca en modo mensual
+   * - Si no hay nada → por defecto modo único
    */
-  public function store(Request $request, Service $service)
+  public function edit(Service $service)
   {
-    $data = $this->validatePayload($request);
+    $service->load('plans');
 
-    // Modo enviado por los radios del modal: 'unico' | 'mensual'
-    $mode = $request->string('mode')->toString();
+    // Agrupamos por tipo
+    $byType = $service->plans->groupBy('type');
+
+    // Plan único (si existe)
+    $unique = optional($byType->get('único'))->first();
+
+    // Planes mensuales por nombre (si no hay, colección vacía)
+    $mensuales = $byType->get('mensual', collect())->keyBy('name');
+
+    $pBasico      = $mensuales->get('Básico');
+    $pPro         = $mensuales->get('Pro');
+    $pEmpresarial = $mensuales->get('Empresarial');
+
+    // Determinar modo inicial
+    $mode = $unique
+      ? 'unico'
+      : ($mensuales->isNotEmpty() ? 'mensual' : 'unico');
+
+    return view('admin.plans.edit', compact(
+      'service',
+      'unique',
+      'pBasico',
+      'pPro',
+      'pEmpresarial',
+      'mode'
+    ));
+  }
+
+  /**
+   * Guardar TODOS los planes de un servicio en una sola acción.
+   *
+   * Reglas:
+   * - mode = unico:
+   *    - borra todos los planes anteriores
+   *    - crea SOLO un plan tipo 'único'
+   * - mode = mensual:
+   *    - borra todos los planes anteriores
+   *    - crea 1..3 planes mensuales: Básico, Pro, Empresarial (solo si tienen precio)
+   */
+  public function update(Request $request, Service $service)
+  {
+    $mode = $request->input('mode', 'unico');
+
+    // Validación según modo
+    $rules = [
+      'mode' => 'required|in:unico,mensual',
+    ];
+
+    if ($mode === 'unico') {
+      $rules['plans.unico.price']    = 'required|numeric|min:0';
+      $rules['plans.unico.features'] = 'nullable|string';
+    } else { // mensual
+      $rules['plans.basico.price']        = 'nullable|numeric|min:0';
+      $rules['plans.basico.features']     = 'nullable|string';
+      $rules['plans.basico.discount']     = 'nullable|numeric|min:0|max:100';
+
+      $rules['plans.pro.price']           = 'nullable|numeric|min:0';
+      $rules['plans.pro.features']        = 'nullable|string';
+      $rules['plans.pro.discount']        = 'nullable|numeric|min:0|max:100';
+
+      $rules['plans.empresarial.price']   = 'nullable|numeric|min:0';
+      $rules['plans.empresarial.features']= 'nullable|string';
+      $rules['plans.empresarial.discount']= 'nullable|numeric|min:0|max:100';
+    }
+
+    $data = $request->validate($rules);
 
     DB::transaction(function () use ($service, $mode, $data) {
+
+      // Siempre limpiamos los planes actuales del servicio
+      $service->plans()->delete();
+
+      // 🔹 MODO ÚNICO
       if ($mode === 'unico') {
-        // Si voy a dejar Único, elimino Mensual/Anual previos (regla de negocio)
-        $service->plans()->whereIn('type', ['mensual', 'anual'])->delete();
+        $p = $data['plans']['unico'] ?? null;
 
-        // ÚNICO: solo index 0
-        $p = $data['plans'][0];
-        $service->plans()->updateOrCreate(
-          ['name' => 'Empresarial', 'type' => 'único'], // nombre fijo para enum
-          [
-            'price' => (int)$p['price'],
-            'features' => $this->toFeaturesArray($p['features'] ?? ''),
-          ]
-        );
-
-      } elseif ($mode === 'mensual') {
-        // Si voy a dejar Mensual, elimino Único previo (regla de negocio)
-        $service->plans()->where('type', 'único')->delete();
-
-        // MENSUAL: índices 0=Básico, 1=Pro, 2=Empresarial (como en el modal)
-        foreach ($data['plans'] as $p) {
-          // normalizo nombre (si viniera “Profesional”, lo mapeo a “Pro”)
-          $name = $p['name'] === 'Profesional' ? 'Pro' : $p['name'];
-
-          $service->plans()->updateOrCreate(
-            ['name' => $name, 'type' => 'mensual'],
-            [
-              'price' => (int)$p['price'],
-              'features' => $this->toFeaturesArray($p['features'] ?? ''),
-            ]
-          );
+        if ($p && $p['price'] !== null && $p['price'] !== '') {
+          $service->plans()->create([
+            'name'     => 'Único',
+            'type'     => 'único',
+            'price'    => $p['price'],
+            'features' => $this->parseFeatures($p['features'] ?? ''),
+          ]);
         }
+      }
 
-        // NOTA: el ANUAL lo derivamos más adelante (mensual * 12 con descuento) o vía seeder.
+      // 🔹 MODO MENSUAL → crea mensual + anual auto para cada tier con precio
+      if ($mode === 'mensual') {
+        $tiers = [
+          'basico'      => 'Básico',
+          'pro'         => 'Pro',
+          'empresarial' => 'Empresarial',
+        ];
+
+        foreach ($tiers as $key => $name) {
+          $row = $data['plans'][$key] ?? null;
+
+          // Si no hay fila o no tiene precio → no creamos nada para ese tier
+          if (!$row || $row['price'] === null || $row['price'] === '') {
+            continue;
+          }
+
+          $price    = (float) $row['price'];               // precio mensual
+          $discount = isset($row['discount']) && $row['discount'] !== ''
+            ? (float) $row['discount']
+            : 0.0;
+
+          $features = $this->parseFeatures($row['features'] ?? '');
+
+          // Plan mensual
+          $service->plans()->create([
+            'name'     => $name,
+            'type'     => 'mensual',
+            'price'    => $price,
+            'discount' => $discount > 0 ? $discount : null,
+            'features' => $features,
+          ]);
+
+          // Plan anual (auto)
+          $annualPrice = $price * 12;
+          if ($discount > 0) {
+            $annualPrice = $annualPrice * (1 - ($discount / 100));
+          }
+
+          $service->plans()->create([
+            'name'     => $name,
+            'type'     => 'anual',
+            'price'    => round($annualPrice, 2),
+            'discount' => $discount > 0 ? $discount : null,
+            'features' => $features,
+          ]);
+        }
       }
     });
 
     return redirect()
       ->route('admin.services.index')
-      ->with('success', 'Planes guardados correctamente.');
+      ->with('success', 'Planes actualizados correctamente.');
   }
 
 
-  /** EDIT:
-   *  Carga los planes del servicio para prellenar el modal o una vista standalone.
-   *  Si usás el modal en el index, NO es obligatorio este método (pero lo dejo por si lo querés).
+  /**
+   * Convierte "Hosting, Dominio, SSL" en ['Hosting','Dominio','SSL']
+   * para guardar en columna JSON (features).
    */
-  public function edit(Service $service)
+  private function parseFeatures(?string $features): array
   {
-    $service->load('plans'); // mensual/anual/único
-    return view('admin.plans.edit', compact('service')); // tu vista puede incluir el mismo modal
-  }
+    if (!$features) {
+      return [];
+    }
 
-  /** UPDATE:
-   *  Actualiza planes del servicio según el modo:
-   *  - 'unico': borra mensuales/anuales y deja ÚNICO (1 registro).
-   *  - 'mensual': borra ÚNICO y deja 3 mensuales (Básico, Pro, Empresarial).
-   */
-  public function update(Request $request, Service $service)
-  {
-    $data = $this->validatePayload($request);
-    $mode = $request->string('mode')->toString(); // 'unico' | 'mensual'
-
-    DB::transaction(function () use ($service, $mode, $data) {
-      if ($mode === 'unico') {
-        // Limpieza y actualización ÚNICO
-        $service->plans()->whereIn('type', ['mensual', 'anual'])->delete();
-
-        $p = $data['plans'][0];
-        $service->plans()->updateOrCreate(
-          ['name' => 'Empresarial', 'type' => 'único'],
-          ['price' => (int)$p['price'], 'features' => $this->toFeaturesArray($p['features'] ?? '')]
-        );
-      } else {
-        // Limpieza y actualización MENSUAL (3 planes)
-        $service->plans()->where('type', 'único')->delete();
-
-        foreach ($data['plans'] as $p) {
-          $name = $p['name'] === 'Profesional' ? 'Pro' : $p['name'];
-
-          $service->plans()->updateOrCreate(
-            ['name' => $name, 'type' => 'mensual'],
-            [
-              'price' => (int)$p['price'],
-              'features' => $this->toFeaturesArray($p['features'] ?? ''),
-            ]
-          );
-        }
-        // Si más adelante querés derivar anual acá, lo agregamos.
-      }
-    });
-
-    return back()->with('success', 'Planes actualizados correctamente.');
-  }
-
-  /* ============ helpers compartidos con store() ============ */
-
-  private function validatePayload(Request $request): array
-  {
-    return $request->validate([
-      'mode' => 'required|in:unico,mensual',
-      'plans' => 'required|array|min:1',
-      'plans.*.name' => 'required|string|in:Básico,Pro,Empresarial,Profesional',
-      'plans.*.price' => 'required|numeric|min:0',
-      'plans.*.type' => 'required|string|in:único,mensual',
-      'plans.*.features' => 'nullable|string',
-    ]);
-  }
-
-
-  private function toFeaturesArray(string $csv): array
-  {
-    $parts = array_map('trim', explode(',', $csv));
-    return array_values(array_filter($parts, fn($v) => $v !== ''));
+    return collect(explode(',', $features))
+      ->map(fn ($f) => trim($f))
+      ->filter()
+      ->values()
+      ->toArray();
   }
 }
