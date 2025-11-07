@@ -26,6 +26,7 @@ class PageController extends Controller
   function services()
   {
     $services = Service::with('category', 'plans')->get();
+
     return view('pages.services', compact('services'));
   }
 

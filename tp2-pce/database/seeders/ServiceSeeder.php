@@ -2,86 +2,87 @@
 
 namespace Database\Seeders;
 
-use App\Models\Service;
 use Illuminate\Database\Seeder;
-
+use App\Models\Category;
+use App\Models\Service;
 
 class ServiceSeeder extends Seeder
 {
   public function run(): void
   {
-    $services = [
+
+    $categories = Category::pluck('id', 'name');
+
+
+    $uniqueServices = [
       [
-        'name' => 'Diseño de Branding',
-        'subtitle' => 'Creación de identidad visual profesional',
-        'description' => 'Desarrollamos la identidad visual completa de tu marca, desde el logo hasta el manual de marca, garantizando coherencia y presencia profesional.',
-        'conditions' => ['Entrega en 7 dias habiles', 'Incluye 2 revisiones', 'Soporte via email'],
-        'image' => 'branding-cover.webp',
-        'category_id' => 4,
+        'name' => 'Landing Page Profesional',
+        'category_id' => $categories['Diseño Web'] ?? 1,
+        'subtitle' => 'Sitio web de una sola página con diseño personalizado.',
+        'description' => 'Ideal para emprendedores o marcas personales que buscan presencia online rápida y efectiva.
+          Incluye diseño responsive, optimización básica para buscadores (SEO) y dominio por 1 año.',
+        'conditions' => 'Entrega en un plazo estimado de 7 días hábiles. Incluye una revisión sin costo.',
+        'image' => 'landing.webp',
+        'status' => 'Activo',
       ],
       [
-        'name' => 'Desarrollo E-Commerce',
-        'subtitle' => 'Tienda online lista para vender',
-        'description' => 'Creamos tu tienda online con carrito de compras, pasarela de pagos y panel de administración, lista para vender desde el primer día.',
-        'conditions' => ['Entrega en 15 días', 'Soporte por 3 meses', 'Hosting gratuito por 1 año'],
-        'image' => 'ecommerce-cover.webp',
-        'category_id' => 1,
+        'name' => 'Sitio Web Corporativo',
+        'category_id' => $categories['Diseño Web'] ?? 1,
+        'subtitle' => 'Sitio institucional completo con hasta 5 secciones.',
+        'description' => 'Pensado para pymes y profesionales que necesitan una web sólida.
+          Incluye diseño adaptable, optimización SEO inicial, integración con redes sociales y formulario de contacto.',
+        'conditions' => 'Plazo estimado de 10 a 15 días hábiles. Incluye soporte por 30 días después de la entrega.',
+        'image' => 'corporativo.webp',
+        'status' => 'Activo',
       ],
       [
-        'name' => 'Formularios',
-        'subtitle' => 'Automatizá tus procesos de contacto',
-        'description' => 'Desarrollamos formularios dinámicos conectados a tu base de datos o correo para optimizar la captación de clientes.',
-        'conditions' => ['Entrega en 5 dias', 'Hasta 3 campos personalizados', 'Integracion con correo'],
-        'image' => 'formulario.webp',
-        'category_id' => 1,
-      ],
-      [
-        'name' => 'Servicio de Hosting',
-        'subtitle' => 'Hosting veloz y seguro',
-        'description' => 'Alojá tu sitio web con tecnología de punta, certificados SSL y copias de seguridad automáticas.',
-        'conditions' => ['Uptime garantizado del 99.9%', 'Soporte 24/7', 'Certificado SSL gratuito'],
-        'image' => 'hosting.webp',
-        'category_id' => 2,
-      ],
-      [
-        'name' => 'Sitio Institucional',
-        'subtitle' => 'Mostrá tu marca con estilo profesional',
-        'description' => 'Creamos sitios institucionales modernos, rápidos y optimizados para mostrar tus servicios y captar clientes.',
-        'conditions' => ['Entrega en 10 dias', 'Diseño responsive incluido', 'Optimizacion SEO basica'],
-        'image' => 'institucional-cover.webp',
-        'category_id' => 1,
-      ],
-      [
-        'name' => 'Mantenimiento Web',
-        'subtitle' => 'Nos ocupamos de todo por vos',
-        'description' => 'Mantené tu web siempre actualizada y segura con nuestros planes de mantenimiento mensuales y anuales.',
-        'conditions' => ['Backups semanales', 'Actualizaciones automáticas', 'Soporte tecnico prioritario'],
-        'image' => 'mantenimiento-cover.webp',
-        'category_id' => 2,
-      ],
-      [
-        'name' => 'SEO y Posicionamiento',
-        'subtitle' => 'Llevá tu marca a lo más alto de Google',
-        'description' => 'Optimizamos tu sitio para mejorar su visibilidad en buscadores y atraer más clientes de forma orgánica.',
-        'conditions' => ['Informe mensual de resultados', 'Optimizacion de palabras clave', 'Analisis de competencia'],
-        'image' => 'seo-cover.webp',
-        'category_id' => 5,
+        'name' => 'Tienda Online Inicial',
+        'category_id' => $categories['E-commerce'] ?? 2,
+        'subtitle' => 'E-commerce funcional con hasta 20 productos.',
+        'description' => 'Diseñada para pequeños negocios que quieren comenzar a vender online.
+          Incluye carrito, medios de pago integrados, panel de control, y hosting por 1 año.',
+        'conditions' => 'Plazo de entrega entre 15 y 20 días hábiles. Incluye soporte básico durante el primer mes.',
+        'image' => 'ecommerce.webp',
+        'status' => 'Activo',
       ],
     ];
 
-    foreach ($services as $service) {
-      $serviceModel = Service::create([
-        'name' => $service['name'],
-        'subtitle' => $service['subtitle'],
-        'description' => $service['description'],
-        'conditions' => $service['conditions'],
-        'image' => $service['image'],
-        'category_id' => $service['category_id'],
-        'status' => 'Activo',
-        'created_at' => now(),
-        'updated_at' => now(),
-      ]);
 
+    $recurringServices = [
+      [
+        'name' => 'Mantenimiento Web',
+        'category_id' => $categories['Mantenimiento'] ?? 3,
+        'subtitle' => 'Mantené tu sitio actualizado y seguro.',
+        'description' => 'Ideal para webs activas que requieren actualizaciones periódicas.
+          Incluye soporte técnico, optimización de rendimiento, actualizaciones de plugins y seguridad.',
+        'conditions' => 'Se factura mensualmente o anualmente. Cancelable en cualquier momento sin penalidad.',
+        'image' => 'mantenimiento.webp',
+        'status' => 'Activo',
+      ],
+      [
+        'name' => 'Gestión de Hosting y Dominio',
+        'category_id' => $categories['Hosting'] ?? 4,
+        'subtitle' => 'Servicio integral de alojamiento web y dominios.',
+        'description' => 'Nos encargamos de la gestión completa de tu hosting y dominio: configuración, seguridad, copias de seguridad y soporte continuo.',
+        'conditions' => 'Incluye monitoreo 24/7. Renovación anual automática con aviso previo de 30 días.',
+        'image' => 'hosting.webp',
+        'status' => 'Activo',
+      ],
+      [
+        'name' => 'Marketing Digital y SEO',
+        'category_id' => $categories['Marketing'] ?? 5,
+        'subtitle' => 'Hacemos crecer tu marca con estrategias efectivas.',
+        'description' => 'Plan de marketing digital con posicionamiento orgánico, optimización SEO avanzada,
+          y campañas publicitarias personalizadas en redes sociales y Google Ads.',
+        'conditions' => 'Incluye informes mensuales de resultados. Los costos publicitarios no están incluidos.',
+        'image' => 'marketing.webp',
+        'status' => 'Activo',
+      ],
+    ];
+
+
+    foreach (array_merge($uniqueServices, $recurringServices) as $data) {
+      Service::create($data);
     }
   }
 }

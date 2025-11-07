@@ -30,7 +30,7 @@
       <div class="row g-4">
         @foreach($services as $service)
           <x-service-card
-            image="{{asset('/img/servicios/' . $service->image)}}"
+            image="{{asset('storage/img/services/' . $service->image)}}"
             alt="Mockup de un sitio institucional"
             title="{{ $service->name}}"
             description="{{ $service->subtitle}}"

@@ -24,7 +24,7 @@
       <div class="row g-4">
         @foreach($services as $service)
           <x-service-card
-            image="{{ asset('storage/img/servicios/' . $service->image) }}"
+            image="{{ asset('storage/img/services/' . $service->image) }}"
             alt="Mockup de un sitio institucional"
             title="{{ $service->name}}"
             description="{{ $service->subtitle}}"
@@ -34,7 +34,7 @@
       </div>
     </div>
   </section>
-
+{{-- La siguiente seccion es para agregar en la siguiente intancia proyectos recientes reales --}}
   <section class="py-5 bg-azul text-light">
     <div class="container">
       <header class="mb-4">
@@ -45,32 +45,21 @@
       <div class="row g-4">
         <div class="col-md-4">
           <div class="card shadow-sm">
-            <img src="img/servicios/hosting.webp" class="card-img-top" alt="Sitio ejemplo 1">
+            <img src="{{ asset('storage/img/eccomerce.jpg')}}" class="card-img-top" alt="Sitio ">
             <div class="card-body">
-              <h3 class="h6 font-bankgothic">Ejemplo PymeTech</h3>
-              <p class="text-gris mb-2">Sitio institucional moderno y responsive para tecnológica pyme
-                local.</p>
-              <a href="#" class="btn btn-outline-turquesa btn-sm">Ver sitio</a>
+              <h3 class="h6 font-bankgothic">Lili-tech</h3>
+              <p class="text-gris mb-2">Sitio eccomerce para venta de productos tecnologicos.</p>
+              <a href="https://lilitech.shop/" target="_blank" class="btn btn-outline-turquesa btn-sm">Ver sitio</a>
             </div>
           </div>
         </div>
         <div class="col-md-4">
           <div class="card shadow-sm">
-            <img src="img/servicios/institucional-cover.webp" class="card-img-top" alt="Sitio ejemplo 1">
+            <img src="{{ asset('storage/img/comunidad.jpg')}}" class="card-img-top" alt="Sitio ">
             <div class="card-body">
-              <h3 class="h6 font-bankgothic">Landing ConverMax</h3>
-              <p class="text-gris mb-2">Landing de campaña con formulario de alta conversión.</p>
-              <a href="#" class="btn btn-outline-turquesa btn-sm">Ver sitio</a>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-4">
-          <div class="card shadow-sm">
-            <img src="img/servicios/mantenimiento-cover.webp" class="card-img-top" alt="Sitio ejemplo 1">
-            <div class="card-body">
-              <h3 class="h6 font-bankgothic">Blog MiNegocio</h3>
-              <p class="text-gris mb-2">Implementación de CMS editable para emprendimiento personal.</p>
-              <a href="#" class="btn btn-outline-turquesa btn-sm">Ver sitio</a>
+              <h3 class="h6 font-bankgothic">Red social lili-studio comunidad</h3>
+              <p class="text-gris mb-2">Red social para programadores web de muchos lenguajes</p>
+              <a href="https://lili-studio-comunidad.lilitech.shop/" class="btn btn-outline-turquesa btn-sm">Ver sitio</a>
             </div>
           </div>
         </div>

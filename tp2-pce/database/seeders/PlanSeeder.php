@@ -18,11 +18,17 @@ class PlanSeeder extends Seeder
         $service->plans()->create([
           'name' => 'Único',
           'type' => 'único',
-          'price' => 19990,
+          'price' => match ($index) {
+            0 => 120, // landing simple
+            1 => 200, // web profesional
+            2 => 350, // ecommerce básico
+            default => 150,
+          },
           'features' => [
-            'Dominio incluido',
-            'SSL',
-            'Soporte estándar',
+            'Dominio incluido por 1 año',
+            'SSL y hosting básico',
+            'Diseño responsive',
+            'Soporte técnico estándar',
           ],
         ]);
 
@@ -32,33 +38,33 @@ class PlanSeeder extends Seeder
       // 🔹 Resto: PLANES MENSUALES + ANUALES
       $tiers = [
         'Básico' => [
-          'price'    => 19990,
+          'price'    => 25,
           'discount' => 10,
           'features' => [
-            'Hosting 5GB',
-            '1 dominio',
-            'SSL incluido',
+            'Hosting 2GB',
+            '1 dominio incluido',
+            'SSL gratuito',
+            '1 actualización mensual',
           ],
         ],
         'Pro' => [
-          'price'    => 29990,
+          'price'    => 45,
           'discount' => 15,
           'features' => [
-            'Hosting 15GB',
-            '2 dominios',
-            'SSL + backups automáticos',
+            'Hosting 5GB',
+            '2 dominios incluidos',
+            'Backups automáticos',
             'Soporte prioritario',
           ],
         ],
         'Empresarial' => [
-          'price'    => 49990,
+          'price'    => 70,
           'discount' => 20,
           'features' => [
             'Hosting ilimitado',
             'Dominios ilimitados',
-            'Backups diarios',
-            'Soporte 24/7',
-            'Panel avanzado de estadísticas',
+            'Reportes mensuales',
+            'Gestor dedicado y soporte 24/7',
           ],
         ],
       ];
@@ -77,7 +83,7 @@ class PlanSeeder extends Seeder
           'features' => $features,
         ]);
 
-        // Plan anual (auto con descuento)
+        // Plan anual
         $annualBase  = $monthly * 12;
         $annualFinal = round($annualBase * (1 - $discount / 100), 2);
 
