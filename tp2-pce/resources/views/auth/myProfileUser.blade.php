@@ -241,12 +241,11 @@
                     <li>Horas de mantenimiento incluidas: 3 h/mes</li>
                   </ul>
                 </div>
-                <a class="btn btn-turquesa mt-3 mt-md-0" href="{{route('pages.viewService')}}">Ver
+                <a class="btn btn-turquesa mt-3 mt-md-0" href="{{route('pages.viewService',5)}}">Ver
                   servicio</a>
               </div>
             </div>
           </div>
-
 
           <!-- Historial de pagos -->
           <div class="card shadow-sm mt-3">

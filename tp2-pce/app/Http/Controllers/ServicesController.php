@@ -26,6 +26,31 @@ class ServicesController extends Controller
       $query->where('status', $request->status);
     }
 
+    //filtro para planes
+    if ($request->filled('plan_mode')) {
+      switch ($request->plan_mode) {
+        case 'none':
+          // Servicios sin ningún plan
+          $query->whereDoesntHave('plans');
+          break;
+
+        case 'unico':
+          // Servicios que tienen al menos un plan tipo 'único'
+          $query->whereHas('plans', function ($q) {
+            $q->where('type', 'único');
+          });
+          break;
+
+        case 'mensual':
+          // Servicios que tienen planes mensuales
+          // (si hay mensual asumimos que también generaste anual)
+          $query->whereHas('plans', function ($q) {
+            $q->where('type', 'mensual');
+          });
+          break;
+      }
+    }
+
     $services = $query->orderBy('id', 'desc')->paginate(6);
 
     $categories = Category::withCount('services')->orderBy('updated_at')->get();

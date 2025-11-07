@@ -112,14 +112,33 @@
       </section>
 
       {{-- PLANES MENSUALES --}}
+      {{-- PLANES MENSUALES --}}
       <section id="blockMensual" style="{{ $mode === 'mensual' ? '' : 'display:none;' }}">
         <div id="planesAccordionMensual">
 
-          {{-- Helpers para features --}}
           @php
-            $fBasico      = $pBasico ? ($pBasico->features ?? []) : [];
-            $fPro         = $pPro ? ($pPro->features ?? []) : [];
-            $fEmpresarial = $pEmpresarial ? ($pEmpresarial->features ?? []) : [];
+            // Helpers para features y valores seguros
+            $fBasico       = $pBasico ? ($pBasico->features ?? []) : [];
+            $fPro          = $pPro ? ($pPro->features ?? []) : [];
+            $fEmpresarial  = $pEmpresarial ? ($pEmpresarial->features ?? []) : [];
+
+            $precioBasico      = optional($pBasico)->price;
+            $descuentoBasico   = optional($pBasico)->discount;
+            $precioAnualBasico = $precioBasico
+                                    ? round($precioBasico * 12 * (1 - (($descuentoBasico ?? 0) / 100)), 2)
+                                    : '';
+
+            $precioPro         = optional($pPro)->price;
+            $descuentoPro      = optional($pPro)->discount;
+            $precioAnualPro    = $precioPro
+                                    ? round($precioPro * 12 * (1 - (($descuentoPro ?? 0) / 100)), 2)
+                                    : '';
+
+            $precioEmp         = optional($pEmpresarial)->price;
+            $descuentoEmp      = optional($pEmpresarial)->discount;
+            $precioAnualEmp    = $precioEmp
+                                    ? round($precioEmp * 12 * (1 - (($descuentoEmp ?? 0) / 100)), 2)
+                                    : '';
           @endphp
 
           {{-- BASICO --}}
@@ -134,8 +153,8 @@
                 aria-controls="collapseBasico">
                 <span class="font-bankgothic fs-5">Básico</span>
                 <span class="plan-toggle-icon" data-target="collapseBasico">
-                    <i class="bi bi-chevron-down"></i>
-                  </span>
+            <i class="bi bi-chevron-down"></i>
+          </span>
               </button>
             </div>
             <div id="collapseBasico" class="collapse" data-bs-parent="#planesAccordionMensual">
@@ -147,7 +166,7 @@
                            name="plans[basico][price]"
                            class="form-control"
                            min="0" step="0.01"
-                           value="{{ old('plans.basico.price', $pBasico->price ?? '') }}">
+                           value="{{ old('plans.basico.price', $precioBasico) }}">
                   </div>
                   <div class="col-md-4">
                     <label class="form-label">Descuento anual (%)</label>
@@ -155,7 +174,16 @@
                            name="plans[basico][discount]"
                            class="form-control"
                            min="0" max="100" step="1"
-                           value="{{ old('plans.basico.discount', $pBasico->discount ?? '') }}">
+                           value="{{ old('plans.basico.discount', $descuentoBasico) }}">
+                  </div>
+                  <div class="col-md-4">
+                    <label class="form-label">Precio anual (U$D)</label>
+                    <input type="number"
+                           id="basico-annual-price"
+                           class="form-control"
+                           value="{{ $precioAnualBasico }}"
+                           readonly>
+                    <small class="text-secondary">Se calcula automáticamente según mensual + descuento.</small>
                   </div>
                   <div class="col-12">
                     <label class="form-label">Características Básico</label>
@@ -183,8 +211,8 @@
                 aria-controls="collapsePro">
                 <span class="font-bankgothic fs-5">Profesional</span>
                 <span class="plan-toggle-icon" data-target="collapsePro">
-                    <i class="bi bi-chevron-down"></i>
-                  </span>
+            <i class="bi bi-chevron-down"></i>
+          </span>
               </button>
             </div>
             <div id="collapsePro" class="collapse" data-bs-parent="#planesAccordionMensual">
@@ -196,7 +224,7 @@
                            name="plans[pro][price]"
                            class="form-control"
                            min="0" step="0.01"
-                           value="{{ old('plans.pro.price', $pPro->price ?? '') }}">
+                           value="{{ old('plans.pro.price', $precioPro) }}">
                   </div>
                   <div class="col-md-4">
                     <label class="form-label">Descuento anual (%)</label>
@@ -204,7 +232,16 @@
                            name="plans[pro][discount]"
                            class="form-control"
                            min="0" max="100" step="1"
-                           value="{{ old('plans.pro.discount', $pPro->discount ?? '') }}">
+                           value="{{ old('plans.pro.discount', $descuentoPro) }}">
+                  </div>
+                  <div class="col-md-4">
+                    <label class="form-label">Precio anual (U$D)</label>
+                    <input type="number"
+                           id="pro-annual-price"
+                           class="form-control"
+                           value="{{ $precioAnualPro }}"
+                           readonly>
+                    <small class="text-secondary">Se calcula automáticamente según mensual + descuento.</small>
                   </div>
                   <div class="col-12">
                     <label class="form-label">Características Profesional</label>
@@ -232,8 +269,8 @@
                 aria-controls="collapseEmpresarial">
                 <span class="font-bankgothic fs-5">Empresarial</span>
                 <span class="plan-toggle-icon" data-target="collapseEmpresarial">
-                    <i class="bi bi-chevron-down"></i>
-                  </span>
+            <i class="bi bi-chevron-down"></i>
+          </span>
               </button>
             </div>
             <div id="collapseEmpresarial" class="collapse" data-bs-parent="#planesAccordionMensual">
@@ -245,7 +282,7 @@
                            name="plans[empresarial][price]"
                            class="form-control"
                            min="0" step="0.01"
-                           value="{{ old('plans.empresarial.price', $pEmpresarial->price ?? '') }}">
+                           value="{{ old('plans.empresarial.price', $precioEmp) }}">
                   </div>
                   <div class="col-md-4">
                     <label class="form-label">Descuento anual (%)</label>
@@ -253,7 +290,16 @@
                            name="plans[empresarial][discount]"
                            class="form-control"
                            min="0" max="100" step="1"
-                           value="{{ old('plans.empresarial.discount', $pEmpresarial->discount ?? '') }}">
+                           value="{{ old('plans.empresarial.discount', $descuentoEmp) }}">
+                  </div>
+                  <div class="col-md-4">
+                    <label class="form-label">Precio anual (U$D)</label>
+                    <input type="number"
+                           id="empresarial-annual-price"
+                           class="form-control"
+                           value="{{ $precioAnualEmp }}"
+                           readonly>
+                    <small class="text-secondary">Se calcula automáticamente según mensual + descuento.</small>
                   </div>
                   <div class="col-12">
                     <label class="form-label">Características Empresarial</label>
@@ -272,6 +318,7 @@
         </div>
       </section>
 
+
       {{-- BOTONES --}}
       <div class="card shadow-sm rounded-2 bg-azul mb-3">
         <div class="card-body d-flex justify-content-end gap-3">
@@ -285,6 +332,7 @@
         </div>
       </div>
       <div class="d-flex justify-content-between align-items-center mt-3">
+
       </div>
 
     </form>
@@ -315,9 +363,9 @@
       });
 
       // ---------- toggle bloques único / mensual ----------
-      const unicoRadio   = document.querySelector('#modeUnico');
+      const unicoRadio = document.querySelector('#modeUnico');
       const mensualRadio = document.querySelector('#modeMensual');
-      const blockUnico   = document.querySelector('#blockUnico');
+      const blockUnico = document.querySelector('#blockUnico');
       const blockMensual = document.querySelector('#blockMensual');
 
       function toggleSections() {
@@ -358,6 +406,43 @@
           }
         });
       }
+
+      function setupAnnualPreview(key) {
+        const priceInput = document.querySelector(`[name="plans[${key}][price]"]`);
+        const discountInput = document.querySelector(`[name="plans[${key}][discount]"]`);
+        const annualInput = document.getElementById(`${key}-annual-price`);
+
+        if (!priceInput || !annualInput) return;
+
+        const recalc = () => {
+          const price = parseFloat(priceInput.value);
+          const discount = discountInput ? parseFloat(discountInput.value) : 0;
+
+          if (isNaN(price) || price <= 0) {
+            annualInput.value = '';
+            return;
+          }
+
+          let annual = price * 12;
+
+          if (!isNaN(discount) && discount > 0 && discount <= 100) {
+            annual = annual * (1 - (discount / 100));
+          }
+
+          annualInput.value = annual.toFixed(2);
+        };
+
+        priceInput.addEventListener('input', recalc);
+        if (discountInput) {
+          discountInput.addEventListener('input', recalc);
+        }
+
+        recalc();
+      }
+
+      setupAnnualPreview('basico');
+      setupAnnualPreview('pro');
+      setupAnnualPreview('empresarial');
     });
   </script>
 @endpush

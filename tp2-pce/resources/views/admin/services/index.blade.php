@@ -65,6 +65,22 @@
                 </option>
               </select>
             </div>
+            <div class="col-md-4">
+              <select name="plan_mode" class="form-select">
+                <option value="">Planes (todos)</option>
+                <option value="none" {{ request('plan_mode') === 'none' ? 'selected' : '' }}>
+                  Sin planes
+                </option>
+                <option value="unico" {{ request('plan_mode') === 'unico' ? 'selected' : '' }}>
+                  Plan único
+                </option>
+                <option value="mensual" {{ request('plan_mode') === 'mensual' ? 'selected' : '' }}>
+                  Planes mensuales/anuales
+                </option>
+              </select>
+            </div>
+
+
             <div class="col-md-12 ">
               <div class="d-flex justify-content-end gap-2 mt-2">
                 <button type="submit" class="btn btn-turquesa"><i class="bi bi-filter"></i> Filtrar

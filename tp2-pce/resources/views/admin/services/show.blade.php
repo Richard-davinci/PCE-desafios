@@ -4,7 +4,6 @@
 
 @section('content')
   <main>
-    <!-- Hero -->
     <section class="d-flex align-items-center bg-gradient-dark text-light">
       <div class="container py-5">
         <div class="d-flex flex-column flex-lg-row align-items-lg-center justify-content-between gap-3">
@@ -21,7 +20,7 @@
         separator="›"/>
     </section>
 
-    <!-- Descripción + Meta -->
+    <!-- Descripción  -->
     <section class="container py-5">
       <div class="row g-4">
         <!-- Columna Izquierda -->
@@ -63,26 +62,6 @@
             <div class="card-body">
               <h2 class="fs-4 text-turquesa mb-2 font-bankgothic">Descripción</h2>
               <p class="mb-3">{{ $service->description }}</p>
-
-              @if($service->features ?? $service->plans->last()?->features)
-                <div class="row g-3">
-                  @php
-                    $features = [];
-                    foreach ($service->plans as $plan) {
-                      $decoded = is_array($plan->features) ? $plan->features : json_decode($plan->features ?? '[]', true);
-                      if (is_array($decoded)) $features = array_merge($features, $decoded);
-                    }
-                    $features = array_unique($features);
-                  @endphp
-                  @foreach($features as $feature)
-                    @if(trim($feature) !== '')
-                      <div class="col-sm-6">
-                        <i class="bi bi-check2 me-2 text-turquesa"></i>{{ trim($feature) }}
-                      </div>
-                    @endif
-                  @endforeach
-                </div>
-              @endif
             </div>
           </div>
 
@@ -119,7 +98,7 @@
         'mensual' => $hasMonthly,
         'anual'   => $hasAnnual,
         'único'   => $hasUnique,
-      ])->filter()->keys(); // ej: ['único'] o ['mensual','anual']
+      ])->filter()->keys(); //['único'] o ['mensual','anual']
     @endphp
 
     <section class="bg-gradient-dark text-light">
@@ -233,7 +212,8 @@
                 @endif
 
                 @if($hasUnique)
-                  <div class="tab-pane fade {{ (!$hasMonthly && !$hasAnnual) ? 'show active' : '' }}" id="unico" role="tabpanel">
+                  <div class="tab-pane fade {{ (!$hasMonthly && !$hasAnnual) ? 'show active' : '' }}" id="unico"
+                       role="tabpanel">
                     <div class="row g-3">
                       @foreach($unique as $plan)
                         @php
@@ -309,7 +289,8 @@
                         <h3 class="fs-4 font-bankgothic text-turquesa fw-bold mb-1">{{ $displayName }}</h3>
                         <p class="text-secondary small mb-2">Ideal para emprendedores</p>
                         <div class="price fs-3 mb-2">
-                          AR$ {{ number_format($plan->price, 0, ',', '.') }} <span class="fs-6 text-secondary">/mes</span>
+                          AR$ {{ number_format($plan->price, 0, ',', '.') }} <span
+                            class="fs-6 text-secondary">/mes</span>
                         </div>
                         <ul class="small ps-3 mb-3">
                           @foreach($features as $f)
@@ -338,7 +319,8 @@
                         <h3 class="fs-4 font-bankgothic text-turquesa fw-bold mb-1">{{ $displayName }}</h3>
                         <p class="text-secondary small mb-2">Plan anual con descuento</p>
                         <div class="price fs-3 mb-2">
-                          AR$ {{ number_format($plan->price, 0, ',', '.') }} <span class="fs-6 text-secondary">/año</span>
+                          AR$ {{ number_format($plan->price, 0, ',', '.') }} <span
+                            class="fs-6 text-secondary">/año</span>
                         </div>
                         <ul class="small ps-3 mb-3">
                           @foreach($features as $f)

@@ -73,10 +73,6 @@
               <label for="nombreReg" class="form-label">Nombre</label>
               <input type="text" id="nombreReg" name="name" class="form-control" value="{{ old('name') }}">
             </div>
-            {{--<div class="col-md-6">
-              <label for="apellidoReg" class="form-label">Apellido</label>
-              <input type="text" id="apellidoReg" class="form-control" value="{{ old('surname') }}">
-            </div>--}}
             <div class="col-12">
               <label for="emailReg" class="form-label">Email</label>
               <input type="email" id="emailReg" name="email" class="form-control" value="{{ old('email') }}">

@@ -17,7 +17,7 @@ class ServiceSeeder extends Seeder
         'description' => 'Desarrollamos la identidad visual completa de tu marca, desde el logo hasta el manual de marca, garantizando coherencia y presencia profesional.',
         'conditions' => ['Entrega en 7 dias habiles', 'Incluye 2 revisiones', 'Soporte via email'],
         'image' => 'branding-cover.webp',
-        'category_id' => 4, // Diseño Gráfico
+        'category_id' => 4,
       ],
       [
         'name' => 'Desarrollo E-Commerce',
@@ -25,7 +25,7 @@ class ServiceSeeder extends Seeder
         'description' => 'Creamos tu tienda online con carrito de compras, pasarela de pagos y panel de administración, lista para vender desde el primer día.',
         'conditions' => ['Entrega en 15 días', 'Soporte por 3 meses', 'Hosting gratuito por 1 año'],
         'image' => 'ecommerce-cover.webp',
-        'category_id' => 1, // Desarrollo Web
+        'category_id' => 1,
       ],
       [
         'name' => 'Formularios',
@@ -41,7 +41,7 @@ class ServiceSeeder extends Seeder
         'description' => 'Alojá tu sitio web con tecnología de punta, certificados SSL y copias de seguridad automáticas.',
         'conditions' => ['Uptime garantizado del 99.9%', 'Soporte 24/7', 'Certificado SSL gratuito'],
         'image' => 'hosting.webp',
-        'category_id' => 2, // Infraestructura
+        'category_id' => 2,
       ],
       [
         'name' => 'Sitio Institucional',
@@ -65,7 +65,7 @@ class ServiceSeeder extends Seeder
         'description' => 'Optimizamos tu sitio para mejorar su visibilidad en buscadores y atraer más clientes de forma orgánica.',
         'conditions' => ['Informe mensual de resultados', 'Optimizacion de palabras clave', 'Analisis de competencia'],
         'image' => 'seo-cover.webp',
-        'category_id' => 5, // Marketing Digital
+        'category_id' => 5,
       ],
     ];
 
@@ -74,7 +74,7 @@ class ServiceSeeder extends Seeder
         'name' => $service['name'],
         'subtitle' => $service['subtitle'],
         'description' => $service['description'],
-        'conditions' => $service['conditions'], // array directamente
+        'conditions' => $service['conditions'],
         'image' => $service['image'],
         'category_id' => $service['category_id'],
         'status' => 'Activo',
