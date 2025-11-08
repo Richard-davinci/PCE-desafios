@@ -57,7 +57,7 @@
         <div class="card bg-azul border-light shadow-sm mb-3">
           <div class="card-body">
             @if($service->image)
-              <img src="{{ asset('storage/img/services/' . $service->image) }}"
+              <img src="{{ asset('/storage/img/services/' . $service->image) }}"
                    alt="{{ $service->name }}"
                    class="img-fluid img-thumb mb-3 rounded-3">
             @endif
@@ -87,7 +87,7 @@
         @if(!$uniquePlan && !$hasMonthly)
           <div class="card bg-azul border-light shadow-sm">
             <div class="card-body">
-              <h2 class="fs-4 font-bankgothic text-turquesa mb-2">Planes</h2>
+              <h2 class="fs-4 font-bankgothic text-turquesa mb-2">Precio unico</h2>
               <p class="text-secondary mb-0">
                 Este servicio todavía no tiene planes configurados.
               </p>
@@ -99,7 +99,7 @@
         @if($uniquePlan)
           <div class="card bg-azul border-light shadow-sm mb-4">
             <div class="card-body">
-              <h2 class="fs-4 font-bankgothic text-turquesa mb-2">Plan</h2>
+              <h2 class="fs-4 font-bankgothic text-turquesa mb-2">Precio único</h2>
               <p class="fs-2 fw-bold mb-1">
                 U$D {{ number_format($uniquePlan->price, 2, ',', '.') }}
               </p>

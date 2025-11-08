@@ -24,6 +24,8 @@ Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 
 Route::post('/register', [AuthController::class, 'register'])->name('register.store');
 Route::get('/myProfile', [AuthController::class, 'myProfile'])->name('user.myProfile');
+Route::put('/myProfile/actualizar', [AuthController::class, 'updateProfile'])->name('profile.update');
+
 
 Route::middleware('auth')->group(function () {
   Route::get('/force-change', [ForcedPasswordController::class, 'show'])

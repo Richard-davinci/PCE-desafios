@@ -15,8 +15,8 @@ class UserSeeder extends Seeder
     User::create([
       'name' => 'Ricardo Garcia',
       'email' => 'ricardogarci4@gmail.com',
-      'password' => Hash::make('user'),
-      'role' => 'user',
+      'password' => Hash::make('admin'),
+      'role' => 'admin',
       'city' => 'Córdoba',
       'phone' => '3511111111',
       'profile_photo' => 'img/ricardo.webp',
@@ -86,8 +86,8 @@ class UserSeeder extends Seeder
     User::create([
       'name' => 'Pedro Sánchez',
       'email' => 'pedro@gmail.com',
-      'password' => Hash::make('admin'),
-      'role' => 'admin',
+      'password' => Hash::make('user'),
+      'role' => 'user',
       'city' => 'Santa Fe',
       'phone' => '3428888888',
       'profile_photo' => 'img/ricardo.webp',
