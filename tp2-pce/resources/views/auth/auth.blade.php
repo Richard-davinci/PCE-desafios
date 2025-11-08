@@ -54,10 +54,14 @@
               <label for="passLogin" class="form-label">Contraseña</label>
               <div class="input-group">
                 <input type="password" id="passLogin" class="form-control" name="password">
-                <button type="button" class="btn btn-outline-secondary" id="togglePassLogin" tabindex="-1">
+                <button type="button" class="btn btn-outline-secondary"
+                        data-toggle-password
+                        data-target="#passLogin"
+                        tabindex="-1">
                   <i class="bi bi-eye"></i>
                 </button>
               </div>
+
 
             </div>
             <div class="col-12 mt-2">
@@ -72,7 +76,15 @@
               </div>
             </div>
             <div class="col-12 d-grid d-sm-flex gap-3">
-              <button class="btn btn-turquesa font-bankgothic" type="submit">Ingresar</button>
+
+            </div>
+            <div class="col-md-6">
+              <a href="{{route('pages.index')}}" type="button" class="btn btn-outline-turquesa font-bankgothic w-100">
+                <i class="bi bi-arrow-left me-1"></i> Volver a inicio
+              </a>
+            </div>
+            <div class="col-md-6  ">
+              <button class="btn btn-turquesa font-bankgothic w-100" type="submit">Ingresar</button>
             </div>
           </form>
         </div>
@@ -90,15 +102,33 @@
             </div>
             <div class="col-md-6">
               <label for="passReg" class="form-label">Contraseña</label>
-              <input type="password" id="passReg" name="password" class="form-control" value="{{ old('password') }}">
+              <div class="input-group">
+                <input type="password" id="passReg" name="password" class="form-control"
+                       value="{{ old('password') }}">
+                <button type="button" class="btn btn-outline-secondary" id="togglePassReg" tabindex="-1">
+                  <i class="bi bi-eye"></i>
+                </button>
+              </div>
             </div>
+
             <div class="col-md-6">
               <label for="passReg2" class="form-label">Repetir contraseña</label>
-              <input type="password" id="passReg2" name="password_confirmation" class="form-control"
-                     value="{{ old('password_confirmation') }}">
+              <div class="input-group">
+                <input type="password" id="passReg2" name="password_confirmation" class="form-control"
+                       value="{{ old('password_confirmation') }}">
+                <button type="button" class="btn btn-outline-secondary" id="togglePassReg2" tabindex="-1">
+                  <i class="bi bi-eye"></i>
+                </button>
+              </div>
             </div>
-            <div class="col-12 d-grid d-sm-flex gap-3">
-              <button class="btn btn-turquesa font-bankgothic" type="submit">Crear cuenta</button>
+
+            <div class="col-md-6">
+              <button type="button" class="btn btn-outline-turquesa font-bankgothic w-100">
+                <i class="bi bi-arrow-left me-1"></i> Volver a inicio
+              </button>
+            </div>
+            <div class="col-md-6  ">
+              <button class="btn btn-turquesa font-bankgothic w-100" type="submit">Crear cuenta</button>
             </div>
           </form>
         </div>
