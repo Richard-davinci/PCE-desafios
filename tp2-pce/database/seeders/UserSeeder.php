@@ -8,16 +8,14 @@ use App\Models\User;
 
 class UserSeeder extends Seeder
 {
-  /**
-   * Run the database seeds.
-   */
+
   public function run(): void
   {
     // 3 usuarios administradores
     User::create([
       'name' => 'Ricardo Garcia',
       'email' => 'ricardogarci4@gmail.com',
-      'password' => Hash::make('gonzalo30'),
+      'password' => Hash::make('user'),
       'role' => 'user',
       'city' => 'Córdoba',
       'phone' => '3511111111',
@@ -26,7 +24,7 @@ class UserSeeder extends Seeder
 
     User::create([
       'name' => 'Bruno Pérez',
-      'email' => 'admin2@example.com',
+      'email' => 'admin@gmail.com',
       'password' => Hash::make('admin'),
       'role' => 'admin',
       'city' => 'Rosario',
@@ -36,7 +34,7 @@ class UserSeeder extends Seeder
 
     User::create([
       'name' => 'Carlos Navarro',
-      'email' => 'admin3@example.com',
+      'email' => 'admin2@gmail.com',
       'password' => Hash::make('admin'),
       'role' => 'admin',
       'city' => 'Buenos Aires',
@@ -47,7 +45,7 @@ class UserSeeder extends Seeder
     // 5 usuarios normales
     User::create([
       'name' => 'Juan Pérez',
-      'email' => 'juan@example.com',
+      'email' => 'juan@gmail.com',
       'password' => Hash::make('user'),
       'role' => 'user',
       'city' => 'Mendoza',
@@ -57,7 +55,7 @@ class UserSeeder extends Seeder
 
     User::create([
       'name' => 'Laura Gómez',
-      'email' => 'laura@example.com',
+      'email' => 'laura@gmail.com',
       'password' => Hash::make('user'),
       'role' => 'user',
       'city' => 'La Plata',
@@ -67,7 +65,7 @@ class UserSeeder extends Seeder
 
     User::create([
       'name' => 'Marcos Díaz',
-      'email' => 'marcos@example.com',
+      'email' => 'marcos@gmail.com',
       'password' => Hash::make('user'),
       'role' => 'user',
       'city' => 'Salta',
@@ -77,7 +75,7 @@ class UserSeeder extends Seeder
 
     User::create([
       'name' => 'Sofía López',
-      'email' => 'sofia@example.com',
+      'email' => 'sofia@gmail.com',
       'password' => Hash::make('user'),
       'role' => 'user',
       'city' => 'San Juan',
@@ -87,7 +85,7 @@ class UserSeeder extends Seeder
 
     User::create([
       'name' => 'Pedro Sánchez',
-      'email' => 'pedro@example.com',
+      'email' => 'pedro@gmail.com',
       'password' => Hash::make('admin'),
       'role' => 'admin',
       'city' => 'Santa Fe',

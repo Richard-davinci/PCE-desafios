@@ -55,7 +55,7 @@
         </div>
         <div class="col-md-4">
           <div class="card shadow-sm">
-            <img src="{{ asset('img/comunidad.jpg')}}" class="card-img-top" alt="Sitio ">
+            <img src="{{ asset('storage/img/comunidad.jpg')}}" class="card-img-top" alt="Sitio ">
             <div class="card-body">
               <h3 class="h6 font-bankgothic">Red social lili-studio comunidad</h3>
               <p class="text-gris mb-2">Red social para programadores web de muchos lenguajes</p>

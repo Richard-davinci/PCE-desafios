@@ -12,7 +12,6 @@ class ForcedPasswordController extends Controller
         $user = $request->user();
 
         if (!$user->must_change_password) {
-            // Si no está marcado, lo mandamos a donde corresponda
             return $user->role === 'admin'
                 ? redirect()->route('admin.dashboard')
                 : redirect()->route('pages.index');

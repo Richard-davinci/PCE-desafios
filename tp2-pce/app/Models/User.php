@@ -2,14 +2,12 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
 class User extends Authenticatable
 {
-  /** @use HasFactory<\Database\Factories\UserFactory> */
   use HasFactory, Notifiable;
 
   protected $fillable = [
@@ -32,7 +30,7 @@ class User extends Authenticatable
   {
     return [
       'email_verified_at' => 'datetime',
-      'must_change_password'=> 'boolean',
+      'must_change_password' => 'boolean',
 //      'password' => 'hashed',
     ];
   }
@@ -63,7 +61,6 @@ class User extends Authenticatable
     return $query->orderBy('created_at', 'desc')->take($limit);
   }
 
-  // Método estático para estadísticas
   public static function getRolesStats()
   {
     $total = self::count();

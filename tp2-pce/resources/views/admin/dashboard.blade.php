@@ -177,7 +177,7 @@
     </div>
   </section>
 
-  {{-- Listados rápidos --}}
+  {{-- Listados --}}
   <section class="py-4">
     <div class="container">
       <div class="row g-3">

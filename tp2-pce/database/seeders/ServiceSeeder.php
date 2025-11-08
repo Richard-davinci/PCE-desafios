@@ -13,7 +13,6 @@ class ServiceSeeder extends Seeder
 
     $categories = Category::pluck('id', 'name');
 
-
     $uniqueServices = [
       [
         'name' => 'Landing Page Profesional',

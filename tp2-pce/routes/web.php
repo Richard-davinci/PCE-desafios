@@ -3,11 +3,11 @@
 use App\Http\Controllers\{AdminController,
   AuthController,
   CategoryController,
+  ForcedPasswordController,
   PageController,
   PlanController,
   ServicesController,
-  UserController,
-  ForcedPasswordController};
+  UserController};
 use Illuminate\Support\Facades\Route;
 
 // Páginas públicas
@@ -40,12 +40,12 @@ Route::resource('admin/categories', CategoryController::class)->names('admin.cat
 Route::middleware(['protegida', 'admin.only'])->group(function () {
 
   Route::get('/admin/services/{service}/plans', [PlanController::class, 'edit'])
-    ->name('admin.services.plans.edit');   // ver/editar todos los planes del servicio
+    ->name('admin.services.plans.edit');
 
   Route::get('/admin/services/{service}/plans', [PlanController::class, 'edit'])
-    ->name('admin.services.plans.edit');   // ver/editar todos los planes del servicio
+    ->name('admin.services.plans.edit');
   Route::put('/admin/services/{service}/plans', [PlanController::class, 'update'])
-    ->name('admin.services.plans.update'); // guardar todos juntos
+    ->name('admin.services.plans.update');
 });
 
 
@@ -65,6 +65,8 @@ Route::patch('/admin/users/{user}/reset-password', [UserController::class, 'rese
 
 Route::get('/admin/unauthorized', [AdminController::class, 'unauthorized'])->name('unauthorized');
 Route::get('/404', [PageController::class, 'error404'])->name('pages.error404');
+
+
 
 
 

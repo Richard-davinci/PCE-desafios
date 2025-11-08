@@ -95,13 +95,10 @@
               @enderror
             </div>
 
-            {{-- Password opcional --}}
+            {{-- Password --}}
             <div class="col-md-4">
               <label for="password" class="form-label text-light">
                 Contraseña
-                <span class="text-secondary small d-block">
-                  (Opcional: si la dejás vacía, se genera una automática)
-                </span>
               </label>
               <input type="text"
                      id="password"

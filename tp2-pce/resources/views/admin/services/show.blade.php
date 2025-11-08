@@ -50,7 +50,6 @@
     </div>
   </section>
 
-
   <section class="container py-5">
     <div class="row g-4 align-items-start">
       <div class="col-lg-4">
@@ -118,7 +117,7 @@
           </div>
         @endif
 
-        {{-- PLANES MENSUALES / ANUALES --}}
+        {{-- PLANES MENSUALES--}}
         @if($hasMonthly)
           <div class="card bg-azul text-light border-light shadow-sm">
             <div class="card-body">

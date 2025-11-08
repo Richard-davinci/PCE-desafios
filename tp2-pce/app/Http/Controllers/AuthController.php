@@ -79,4 +79,27 @@ class AuthController extends Controller
     }
   }
 
+  public function updateProfile(Request $request)
+  {
+    $user = Auth::user();
+
+    $data = $request->validate([
+      'name' => ['required', 'string', 'max:255'],
+      'email' => ['required', 'email', 'unique:users,email,' . $user->id],
+      'password' => ['nullable', 'confirmed', 'min:6'],
+    ]);
+
+    // Actualiza los datos
+    $user->name = $data['name'];
+    $user->email = $data['email'];
+
+    if (!empty($data['password'])) {
+      $user->password = Hash::make($data['password']);
+    }
+
+    $user->save();
+
+    return back()->with('success', 'Perfil actualizado correctamente.');
+  }
+
 }

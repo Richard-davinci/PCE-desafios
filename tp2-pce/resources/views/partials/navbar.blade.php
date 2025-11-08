@@ -39,7 +39,7 @@
                 </a>
               </li>
             @else
-              {{-- ===== En vistas públicas (home, about, etc.) ===== --}}
+              {{-- En vistas públicas  --}}
               <li class="nav-item text-center">
                 <x-nav-link route="pages.index">Inicio</x-nav-link>
               </li>
@@ -53,7 +53,6 @@
                 <x-nav-link route="pages.contact">Contacto</x-nav-link>
               </li>
 
-              {{-- Botón directo al panel Admin --}}
               <li class="nav-item text-center">
                 <a href="{{ route('admin.dashboard') }}"
                    class="btn btn-outline-turquesa ms-0 ms-lg-2 w-100 w-lg-auto mt-2 mt-lg-0">
@@ -78,7 +77,7 @@
             </li>
           @endif
 
-          {{-- Dropdown de cuenta --}}
+          {{-- Dropdown de mi cuenta --}}
           <li class="nav-item dropdown ms-lg-2">
             <a class="nav-link dropdown-toggle d-flex align-items-center gap-2 text-light justify-content-center"
                href="#" data-bs-toggle="dropdown">

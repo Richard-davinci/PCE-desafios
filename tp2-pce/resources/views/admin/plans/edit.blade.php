@@ -42,7 +42,6 @@
       @method('PUT')
       <input type="hidden" id="initialMode" value="{{ $mode }}">
 
-      {{-- Selector de modo --}}
       <div class="card shadow-sm rounded-2 bg-azul mb-3">
         <div class="card-body">
           <p class="mb-2">Elegí el tipo de plan para este servicio:</p>
@@ -112,12 +111,11 @@
       </section>
 
       {{-- PLANES MENSUALES --}}
-      {{-- PLANES MENSUALES --}}
+
       <section id="blockMensual" style="{{ $mode === 'mensual' ? '' : 'display:none;' }}">
         <div id="planesAccordionMensual">
 
           @php
-            // Helpers para features y valores seguros
             $fBasico       = $pBasico ? ($pBasico->features ?? []) : [];
             $fPro          = $pPro ? ($pPro->features ?? []) : [];
             $fEmpresarial  = $pEmpresarial ? ($pEmpresarial->features ?? []) : [];
@@ -343,7 +341,7 @@
 @push('scripts')
   <script>
     document.addEventListener('DOMContentLoaded', () => {
-      // ---------- toggle flechas ----------
+      // ---------- collepsibles ----------
       document.querySelectorAll('.plan-toggle-icon').forEach(toggle => {
         const targetId = toggle.dataset.target;
         const collapseEl = document.querySelector('#' + targetId);
@@ -362,7 +360,7 @@
         });
       });
 
-      // ---------- toggle bloques único / mensual ----------
+      // ---------- cambiar de  bloques único / mensual ----------
       const unicoRadio = document.querySelector('#modeUnico');
       const mensualRadio = document.querySelector('#modeMensual');
       const blockUnico = document.querySelector('#blockUnico');
@@ -384,7 +382,7 @@
         toggleSections();
       }
 
-      // ---------- confirmación al cambiar modo ----------
+      // ---------- confirmación cambio modo ----------
       const form = document.querySelector('#plansForm');
       const initialModeInput = document.querySelector('#initialMode');
 
@@ -397,8 +395,8 @@
           if (initialMode !== '' && initialMode !== currentMode) {
             const message =
               currentMode === 'unico'
-                ? 'Vas a pasar de planes Mensuales/Anuales a un Plan Único.\nSe eliminarán todos los planes mensuales/anuales actuales para este servicio.\n\n¿Confirmás guardar los cambios?'
-                : 'Vas a pasar de Plan Único a planes Mensuales/Anuales.\nSe eliminará el plan único actual para este servicio.\n\n¿Confirmás guardar los cambios?';
+                ? 'Vas a pasar a un Plan Único.\nSe eliminarán todos los planes mensuales/anuales actuales para este servicio.\n\n¿Confirmás guardar los cambios?'
+                : 'Vas a pasar a planes Mensuales/Anuales.\nSe eliminará el plan único actual para este servicio.\n\n¿Confirmás guardar los cambios?';
 
             if (!confirm(message)) {
               e.preventDefault();

@@ -1,16 +1,10 @@
 @props([
-  // Estructura: [['label' => 'Home', 'route' => 'pages.home'], ['label' => 'Servicios', 'route' => 'admin.services.index'], ['label' => 'Crear']]
   'items' => [],
-
-  // Separador visual (opcional): '›', '/', '»', etc. Si no usás, queda el default de Bootstrap.
   'separator' => null,
-
-  // Clases extra para wrapper (por si querés variantes de color/fondo)
   'class' => '',
 ])
 
 @php
-  // Normalizo items: permito string simple, o array con label/route/url
   $normalized = collect($items)->map(function ($it) {
     if (is_string($it)) return ['label' => $it, 'route' => null, 'url' => null];
     return [
@@ -29,12 +23,12 @@
       @php $isLast = $i === $lastIndex; @endphp
 
       @if ($isLast)
-        {{-- Item activo (no link) --}}
+        {{-- Item activo--}}
         <li class="breadcrumb-item active" aria-current="page">
           {{ $item['label'] }}
         </li>
       @else
-        {{-- Item con link (route > url > texto plano) --}}
+        {{-- Item con link --}}
         <li class="breadcrumb-item">
           @if ($item['route'])
             <a class="text-azul text-decoration-none font-bold fs-5" href="{{ route($item['route']) }}">
@@ -50,7 +44,7 @@
         </li>
       @endif
 
-      {{-- Separador custom opcional --}}
+      {{-- Separador --}}
       @if(!$isLast && $separator)
         <li class="px-1 text-turquesa fs-4 fw-bold"> {{ $separator }} </li>
       @endif

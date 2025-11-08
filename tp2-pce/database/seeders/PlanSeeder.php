@@ -35,7 +35,7 @@ class PlanSeeder extends Seeder
         continue;
       }
 
-      // 🔹 Resto: PLANES MENSUALES + ANUALES
+      // Resto: PLANES MENSUALES + ANUALES
       $tiers = [
         'Básico' => [
           'price'    => 25,

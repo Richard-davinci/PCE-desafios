@@ -99,7 +99,7 @@
               @enderror
             </div>
 
-            {{-- Info fija --}}
+
             <div class="col-md-4">
               <label class="form-label text-secondary">Información</label>
               <div class="text-secondary small">
@@ -123,7 +123,7 @@
             </a>
 
             <div class="d-flex gap-2">
-              {{-- Reset pass desde edit, reutilizando la ruta existente --}}
+              {{-- Reset password --}}
               <form action="{{ route('admin.users.reset-password', $user) }}"
                     method="POST"
                     onsubmit="return confirm('¿Seguro que querés resetear la contraseña de este usuario?')">

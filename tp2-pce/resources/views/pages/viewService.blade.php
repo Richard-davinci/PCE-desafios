@@ -9,7 +9,7 @@
     // Plan único
     $uniquePlan = $service->plans->firstWhere('type', 'único');
 
-    // Planes mensuales/anuales agrupados por nombre
+    // Planes mensuales/anuales
     $monthlyPlans = $service->plans
         ->where('type', 'mensual')
         ->sortBy('price')

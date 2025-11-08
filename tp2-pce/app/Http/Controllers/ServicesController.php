@@ -43,7 +43,6 @@ class ServicesController extends Controller
 
         case 'mensual':
           // Servicios que tienen planes mensuales
-          // (si hay mensual asumimos que también generaste anual)
           $query->whereHas('plans', function ($q) {
             $q->where('type', 'mensual');
           });
@@ -58,18 +57,12 @@ class ServicesController extends Controller
     return view('admin.services.index', compact('services', 'categories'));
   }
 
-  /**
-   * Mostrar formulario de creación.
-   */
   public function create()
   {
     $categories = Category::orderBy('name')->get();
     return view('admin.services.create', compact('categories'));
   }
 
-  /**
-   * Guardar un nuevo servicio.
-   */
   public function store(Request $request)
   {
     $validated = $this->validateService($request);// valida los campos del servicio
@@ -155,13 +148,12 @@ class ServicesController extends Controller
   {
     $image = $request->file('image');
 
-    // nombre único + extensión original
     $filename = uniqid('srv_') . '.' . $image->getClientOriginalExtension();
 
     // guardar en storage/app/public/img/services
     $path = $image->storeAs('img/service', $filename, 'public');
 
-    // devolver solo el nombre (no la ruta completa)
+    // devolver solo el nombre
     return basename($path);
   }
 
@@ -179,18 +171,14 @@ class ServicesController extends Controller
     ]);
   }
 
-
-// Puedes usar estos mismos métodos en create()
-
   private function handleImage(Request $request, ?Service $service = null): ?string
   {
-    // Si no se sube imagen, devolvemos la anterior (si existe)
     if (!$request->hasFile('image')) {
       return $service?->image;
     }
 
     $image = $request->file('image');
-    $disk = \Storage::disk('public');
+    $disk = Storage::disk('public');
     $path = 'img/services/';
 
     // Si hay una imagen anterior y existe en disco, se elimina
@@ -198,17 +186,15 @@ class ServicesController extends Controller
       $disk->delete($path . $service->image);
     }
 
-    // Generar un nombre único (más seguro que el original)
     $filename = uniqid('srv_') . '.' . $image->getClientOriginalExtension();
 
-    // Guardar imagen en el disco público
     $image->storeAs($path, $filename, 'public');
 
     return $filename;
   }
 
 
-  private function extractServiceFields(array $validated)
+  private function extractServiceFields(array $validated): array
   {
     return [
       'name' => $validated['name'],
