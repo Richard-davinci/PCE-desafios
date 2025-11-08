@@ -38,7 +38,7 @@
                   <small class="text-blanco d-block">Usuarios totales</small>
                   <div class="fs-3 fw-bold">{{ $users->count() }}</div>
                 </div>
-                <span class="badge text-bg-success">{{ $usersToday }} hoy</span>
+                <span class="badge bg-turquesa">{{ $usersToday }} hoy</span>
               </div>
 
               {{-- Admins --}}
@@ -81,9 +81,9 @@
                   <small class="text-blanco d-block">Servicios totales</small>
                   <div class="fs-3 fw-bold">{{ $totalServices ?? 0 }}</div>
                 </div>
-                <span class="badge text-bg-info">
-          Con planes: {{ $servicesWithPlansCount ?? 0 }}
-        </span>
+                <span class="badge bg-turquesa">
+                  Con planes: {{ $servicesWithPlansCount ?? 0 }}
+                </span>
               </div>
 
               @php
@@ -132,9 +132,9 @@
                   <small class="text-blanco d-block">Categorías totales</small>
                   <div class="fs-3 fw-bold">{{ $totalCategories ?? 0 }}</div>
                 </div>
-                <span class="badge text-bg-warning">
-          Con servicios: {{ $categoriesWithServicesCount ?? 0 }}
-        </span>
+                <span class="badge bg-turquesa">
+                  Con servicios: {{ $categoriesWithServicesCount ?? 0 }}
+                </span>
               </div>
 
               @php
@@ -173,8 +173,6 @@
             </div>
           </div>
         </div>
-
-
       </div>
     </div>
   </section>
@@ -189,7 +187,7 @@
           <div class="card bg-azul border-0 shadow-sm h-100">
             <div class="card-header bg-transparent border-0 d-flex justify-content-between align-items-center">
               <h5 class="mb-0 font-bankgothic text-turquesa">Últimos usuarios</h5>
-              <a href="{{ route('admin.users.index') }}" class="text-decoration-none text-secondary small">
+              <a href="{{ route('admin.users.index') }}" class="text-decoration-none text-turquesa small">
                 Ver todos
               </a>
             </div>
@@ -215,7 +213,7 @@
           <div class="card bg-azul border-0 shadow-sm h-100">
             <div class="card-header bg-transparent border-0 d-flex justify-content-between align-items-center">
               <h5 class="mb-0 font-bankgothic text-turquesa">Últimos servicios</h5>
-              <a href="{{ route('admin.services.index') }}" class="text-decoration-none text-secondary small">
+              <a href="{{ route('admin.services.index') }}" class="text-decoration-none text-turquesa small">
                 Ver todos
               </a>
             </div>
@@ -223,14 +221,6 @@
               @forelse(($latestServices ?? []) as $service)
                 <div class="py-2 border-bottom border-secondary small">
                   <div class="fw-semibold">{{ $service->name }}</div>
-                  <div class="text-secondary">
-                    {{ $service->category->name ?? 'Sin categoría' }}
-                    @if($service->status === 'active')
-                      · <span class="badge bg-success bg-opacity-75">Activo</span>
-                    @else
-                      · <span class="badge bg-secondary">Inactivo</span>
-                    @endif
-                  </div>
                 </div>
               @empty
                 <p class="text-secondary small mb-0">No hay servicios recientes.</p>
@@ -244,7 +234,7 @@
           <div class="card bg-azul border-0 shadow-sm h-100">
             <div class="card-header bg-transparent border-0 d-flex justify-content-between align-items-center">
               <h5 class="mb-0 font-bankgothic text-turquesa">Últimas categorías</h5>
-              <a href="{{ route('admin.categories.index') }}" class="text-decoration-none text-secondary small">
+              <a href="{{ route('admin.categories.index') }}" class="text-decoration-none text-turquesa small">
                 Ver todas
               </a>
             </div>
