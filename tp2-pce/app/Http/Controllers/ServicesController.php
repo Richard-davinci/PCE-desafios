@@ -124,7 +124,7 @@ class ServicesController extends Controller
   {
     $image = $service->image; // guardo el nombre antes de borrar
     $storage = Storage::disk('public');
-    $path = 'img/servicios/';
+    $path = 'img/services/';
 
     if ($image && $storage->exists($path . $image)) {
       $storage->delete($path . $image);
@@ -158,8 +158,8 @@ class ServicesController extends Controller
     // nombre único + extensión original
     $filename = uniqid('srv_') . '.' . $image->getClientOriginalExtension();
 
-    // guardar en storage/app/public/img/servicios
-    $path = $image->storeAs('img/servicios', $filename, 'public');
+    // guardar en storage/app/public/img/services
+    $path = $image->storeAs('img/service', $filename, 'public');
 
     // devolver solo el nombre (no la ruta completa)
     return basename($path);
@@ -191,7 +191,7 @@ class ServicesController extends Controller
 
     $image = $request->file('image');
     $disk = \Storage::disk('public');
-    $path = 'img/servicios/';
+    $path = 'img/services/';
 
     // Si hay una imagen anterior y existe en disco, se elimina
     if ($service && $service->image && $disk->exists($path . $service->image)) {

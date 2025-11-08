@@ -76,7 +76,7 @@
         @if($service->image)
           <div class="col-sm-6 col-lg-4 mb-3">
             <label class="form-label">Imagen del servicio actual</label>
-            <img src="{{ asset('storage/img/servicios/' . $service->image) }}"
+            <img src="{{ asset('storage/img/services/' . $service->image) }}"
                  alt="{{ $service->name }}" class="img-thumbnail" style="max-width: 150px;">
           </div>
         @endif

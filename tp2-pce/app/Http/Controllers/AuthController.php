@@ -7,7 +7,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
-
 class AuthController extends Controller
 {
 
@@ -47,7 +46,7 @@ class AuthController extends Controller
 
       $user = Auth::user();
 
-      // Si el admin marcó reseteo, obligamos a cambiar la contraseña
+      // obligar a cambiar la contraseña
       if ($user->must_change_password) {
         return redirect()
           ->route('force.form')
