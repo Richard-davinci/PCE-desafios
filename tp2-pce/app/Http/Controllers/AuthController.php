@@ -44,11 +44,20 @@ class AuthController extends Controller
 
     if (Auth::attempt($credentials, $remember)) {
       $request->session()->regenerate();
-      $user = Auth::user(); // Usuario logueado
+
+      $user = Auth::user();
+
+      // Si el admin marcó reseteo, obligamos a cambiar la contraseña
+      if ($user->must_change_password) {
+        return redirect()
+          ->route('force.form')
+          ->with('info', 'Antes de continuar, debés actualizar tu contraseña.');
+      }
+
       if ($user->role === 'admin') {
         return redirect()->route('admin.dashboard')->with('success', 'Bienvenido Administrador.');
       }
-      return redirect()->intended('myProfile')->with('success', 'Bienvenido de nuevo.');
+      return redirect()->route('pages.index')->with('success', 'Bienvenido de nuevo.');
     }
     return back()->withErrors(['email' => 'Las credenciales no coinciden con nuestros registros.',])->onlyInput('email');
   }

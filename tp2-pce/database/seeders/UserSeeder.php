@@ -16,9 +16,9 @@ class UserSeeder extends Seeder
     // 3 usuarios administradores
     User::create([
       'name' => 'Ricardo Garcia',
-      'email' => 'admin1@example.com',
-      'password' => Hash::make('admin'),
-      'role' => 'admin',
+      'email' => 'ricardogarci4@gmail.com',
+      'password' => Hash::make('gonzalo30'),
+      'role' => 'user',
       'city' => 'Córdoba',
       'phone' => '3511111111',
       'profile_photo' => 'img/ricardo.webp',
@@ -88,8 +88,8 @@ class UserSeeder extends Seeder
     User::create([
       'name' => 'Pedro Sánchez',
       'email' => 'pedro@example.com',
-      'password' => Hash::make('user'),
-      'role' => 'user',
+      'password' => Hash::make('admin'),
+      'role' => 'admin',
       'city' => 'Santa Fe',
       'phone' => '3428888888',
       'profile_photo' => 'img/ricardo.webp',

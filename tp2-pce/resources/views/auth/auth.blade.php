@@ -52,7 +52,18 @@
             </div>
             <div class="col-12">
               <label for="passLogin" class="form-label">Contraseña</label>
-              <input type="password" id="passLogin" class="form-control" name="password">
+              <div class="input-group">
+                <input type="password" id="passLogin" class="form-control" name="password">
+                <button type="button" class="btn btn-outline-secondary" id="togglePassLogin" tabindex="-1">
+                  <i class="bi bi-eye"></i>
+                </button>
+              </div>
+
+            </div>
+            <div class="col-12 mt-2">
+              <a href="#" class="text-decoration-none text-turquesa small">
+                Me olvidé la contraseña
+              </a>
             </div>
             <div class="col-12">
               <div class="form-check">
@@ -94,4 +105,33 @@
       </div>
     </div>
   </section>
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      // Detecta si hay errores de validación en el formulario de registro
+      const hasRegisterErrors = @json(
+      $errors->has('name')
+      || $errors->has('password')
+      || $errors->has('password_confirmation')
+      || (old('name') && $errors->any())
+    );
+
+      if (hasRegisterErrors) {
+        const loginTab = document.querySelector('#login-tab');
+        const loginPane = document.querySelector('#login');
+        const registroTab = document.querySelector('#registro-tab');
+        const registroPane = document.querySelector('#registro');
+
+        if (loginTab && loginPane && registroTab && registroPane) {
+          // Sacar activo del login
+          loginTab.classList.remove('active');
+          loginPane.classList.remove('show', 'active');
+
+          // Activar registro
+          registroTab.classList.add('active');
+          registroPane.classList.add('show', 'active');
+        }
+      }
+    });
+
+  </script>
 @endsection

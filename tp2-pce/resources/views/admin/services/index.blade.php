@@ -109,7 +109,6 @@
               <th scope="col">Nombre</th>
               <th scope="col">Categoría</th>
               <th scope="col">Subtítulo</th>
-              <th scope="col" class="text-center">Estado</th>
               <th scope="col" class="text-center">Plan</th>
               <th scope="col" class="text-center">Actualizado</th>
               <th scope="col" class="text-center rounded-tr-full">Acciones</th>
@@ -117,7 +116,6 @@
             </thead>
             <tbody>
             @forelse($services as $service)
-
               <tr>
                 <td class="text-center">{{ $service->id }}</td>
 
@@ -125,15 +123,6 @@
                 <td>{{ $service->category->name ?? 'Sin categoría' }}</td>
                 <td class="text-secondary">{{ Str::limit($service->subtitle, 45) }}</td>
 
-                <td class="text-center">
-                  @if($service->status === 'Activo')
-                    <span class="badge bg-turquesa">{{ $service->status }}</span>
-                  @elseif($service->status === 'Pausado')
-                    <span class="badge bg-warning text-dark">{{ $service->status }}</span>
-                  @else
-                    <span class="badge bg-danger">{{ $service->status }}</span>
-                  @endif
-                </td>
                 @php
                   $hasPlans = $service->plans->isNotEmpty();
                 @endphp
@@ -158,41 +147,50 @@
                   @endif
                 </td>
 
-
-
-                <td class="text-center small">
+                <td class="text-center">
                   {{ $service->updated_at->format('d/m/Y') }}
                 </td>
                 {{-- Detalle de planes --}}
                 <td>
-                  <a href="{{ route('admin.services.show', $service->id) }}" class="btn btn-azul "
-                     title="Ver">
-                    <i class="fa-solid fa-eye"></i>
-                  </a>
-                  {{-- Agregar / Editar planes (según tenga o no) --}}
-                  @if(!$hasPlans)
-                    <a href="{{ route('admin.services.plans.edit', $service) }}"
-                       class="btn btn-azul">
-                      <i class="bi bi-plus-circle"></i>
-                    </a>
-                  @else
-                    <a href="{{ route('admin.services.plans.edit', $service) }}"
-                       class="btn btn-azul">
-                      <i class="bi bi-sliders"></i></a>
-                  @endif
-                  <a href="{{ route('admin.services.edit', $service->id) }}" class="btn btn-azul "
-                     title="Editar">
-                    <i class="fa-solid fa-pen"></i>
-                  </a>
-                  <form action="{{ route('admin.services.destroy', $service->id) }}" method="POST"
-                        onsubmit="return confirm('¿Seguro que querés eliminar este servicio?')"
-                        style="display:inline-block;">
-                    @csrf
-                    @method('DELETE')
-                    <button type="submit" class="btn btn-danger " title="Eliminar">
-                      <i class="fa-solid fa-trash"></i></button>
-                  </form>
+                  <div class="d-flex flex-wrap justify-content-center gap-2">
 
+                    {{-- Ver --}}
+                    <a href="{{ route('admin.services.show', $service->id) }}"
+                       class="btn btn-sm btn-azul" title="Ver">
+                      <i class="fa-solid fa-eye"></i>
+                    </a>
+
+                    {{-- Agregar / Editar planes --}}
+                    @if(!$hasPlans)
+                      <a href="{{ route('admin.services.plans.edit', $service) }}"
+                         class="btn btn-sm btn-azul" title="Agregar plan">
+                        <i class="bi bi-plus-circle"></i>
+                      </a>
+                    @else
+                      <a href="{{ route('admin.services.plans.edit', $service) }}"
+                         class="btn btn-sm btn-azul" title="Editar planes">
+                        <i class="bi bi-sliders"></i>
+                      </a>
+                    @endif
+
+                    {{-- Editar --}}
+                    <a href="{{ route('admin.services.edit', $service->id) }}"
+                       class="btn btn-sm btn-azul" title="Editar">
+                      <i class="fa-solid fa-pen"></i>
+                    </a>
+
+                    {{-- Eliminar --}}
+                    <form action="{{ route('admin.services.destroy', $service->id) }}"
+                          method="POST"
+                          onsubmit="return confirm('¿Seguro que querés eliminar este servicio?')"
+                          class="d-inline">
+                      @csrf
+                      @method('DELETE')
+                      <button type="submit" class="btn btn-sm btn-danger" title="Eliminar">
+                        <i class="fa-solid fa-trash"></i>
+                      </button>
+                    </form>
+                  </div>
                 </td>
               </tr>
             @empty
