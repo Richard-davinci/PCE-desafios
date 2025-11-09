@@ -10,11 +10,11 @@
       <p class="text-secondary mb-0">Completá los datos del servicio y agregá uno o más planes.</p>
     </div>
   </section>
-  <section class="container">
+  <div class="container">
     <x-breadcrumb
       :items="[['label' => 'Servicios',   'route' => 'admin.services.index'],  ['label' => 'crear-servicio']]"
       separator="›"/>
-  </section>
+  </div>
   <form method="POST" action="{{ route('admin.services.store') }}" enctype="multipart/form-data"
         class="">
     @csrf
@@ -23,85 +23,98 @@
       <div class="row">
         {{-- Nombre --}}
         <div class="col-sm-6 col-lg-4 mb-3">
-          <label for="name" class="form-label">Nombre del servicio</label>
-          <input type="text" name="name" id="name" class="form-control" required>
+          <label for="name" class="form-label">Nombre del servicio *</label>
+          <input type="text" name="name" id="name"
+                 class="form-control"
+                 placeholder="Nombre completo del servicio"
+                 value="{{old('name')}}">
           @error('name')
-          <div class="alert alert-danger mt-1">{{ $message }}</div>
+          <x-alert type="danger" :message="$message" small/>
           @enderror
+
+
         </div>
 
         {{-- Categoría --}}
         <div class="col-sm-6 col-lg-4 mb-3">
-          <label for="category_id" class="form-label">Categoría</label>
-          <select name="category_id" id="category_id" class="form-select" required>
+          <label for="category_id" class="form-label">Categoría *</label>
+          <select name="category_id" id="category_id" class="form-select">
             <option value="">Seleccionar categoría...</option>
             @foreach($categories as $category)
-              <option value="{{ $category->id }}">{{ $category->name }}</option>
+              <option value="{{ $category->id }}"
+                {{ old('category_id', $service->category_id ?? '') == $category->id ? 'selected' : '' }}>
+                {{ $category->name }}
+              </option>
             @endforeach
           </select>
+
           @error('category_id')
-          <div class="alert alert-danger mt-1">{{ $message }}</div>
+          <x-alert type="danger" :message="$message" small/>
           @enderror
         </div>
 
         {{-- Estado --}}
         <div class="col-sm-6 col-lg-4 mb-3">
           <label for="status" class="form-label">Estado</label>
-          <select name="status" id="status" class="form-select">
-            <option value="Activo" selected>Activo</option>
-            <option value="Pausado">Pausado</option>
-            <option value="Discontinuado">Discontinuado</option>
+          <select name="status" id="status"
+                  class="form-select @error('status') is-invalid @enderror">
+            <option value="Activo" {{ old('status', 'Borrador') == 'Activo' ? 'selected' : '' }}>Activo</option>
+            <option value="Pausado" {{ old('status', 'Borrador') == 'Pausado' ? 'selected' : '' }}>Pausado</option>
+            <option value="Borrador" {{ old('status', 'Borrador') == 'Borrador' ? 'selected' : '' }}>Borrador</option>
           </select>
-          @error('status')
-          <div class="alert alert-danger mt-1">{{ $message }}</div>
-          @enderror
         </div>
+
 
         {{-- Subtítulo --}}
         <div class="col-sm-6 col-lg-4 mb-3">
-          <label for="subtitle" class="form-label">Subtítulo</label>
-          <input type="text" name="subtitle" id="subtitle" class="form-control" required>
+          <label for="subtitle" class="form-label">Subtítulo *</label>
+          <input type="text" name="subtitle" id="subtitle"
+                 class="form-control"
+                 value="{{old('subtitle')}}"
+                 placeholder="Breve descripción del servicio">
           @error('subtitle')
-          <div class="alert alert-danger mt-1">{{ $message }}</div>
+          <x-alert type="danger" :message="$message" small/>
           @enderror
         </div>
 
         {{-- Imagen principal --}}
         <div class="col-sm-6 col-lg-4 mb-3">
-          <label for="cover_image" class="form-label">Imagen principal</label>
-          <input type="file" name="cover_image" id="cover_image" class="form-control" accept=".webp,.jpeg,.png">
-          @error('cover_image')
-          <div class="alert alert-danger mt-1">{{ $message }}</div>
+          <label for="image" class="form-label">Imagen del servicio</label>
+          <input type="file" name="image" id="image" class="form-control">
+          @error('image')
+          <x-alert type="danger" :message="$message" small/>
+          @enderror
+        </div>
+        {{-- Descripción --}}
+        <div class="col-12 col-lg-6 mb-3">
+          <label for="description" class="form-label">Descripción *</label>
+          <textarea name="description" id="description" rows="3"
+                    placeholder="Escriba una descripcion completa del servico"
+                    class="form-control @error('description') is-invalid @enderror">{{ old('description') }}</textarea>
+          @error('description')
+          <x-alert type="danger" :message="$message" small/>
+          @enderror
+        </div>
+
+
+        {{-- Condiciones --}}
+        <div class="col-12 col-lg-6 mb-3">
+          <label for="conditions" class="form-label">Condiciones</label>
+          <textarea name="conditions" id="conditions" rows="3" class="form-control"
+                    placeholder="Separá cada condición con una coma. Ej: Soporte técnico, Renovación automática, Cancelación gratuita">{{ old('conditions')}}</textarea>
+          <small class="text-secondary">Separá cada condición con una coma.</small>
+          @error('conditions')
+          <x-alert type="danger" :message="$message" small/>
           @enderror
         </div>
       </div>
 
-      {{-- Descripción --}}
-      <div class="col-12 mb-3">
-        <label for="description" class="form-label">Descripción</label>
-        <textarea name="description" id="description" rows="4" class="form-control" required></textarea>
-        @error('description')
-        <div class="alert alert-danger mt-1">{{ $message }}</div>
-        @enderror
-      </div>
-
-      {{-- Condiciones --}}
-      <div class="col-12 mb-3">
-        <label for="conditions" class="form-label">Condiciones</label>
-        <textarea name="conditions" id="conditions" rows="3" class="form-control"
-                  placeholder="Ej: Soporte técnico, Renovación automática, Cancelación gratuita"></textarea>
-        <small class="text-secondary">Separá cada condición con una coma.</small>
-        @error('conditions')
-        <div class="alert alert-danger mt-1">{{ $message }}</div>
-        @enderror
-      </div>
-
       <div class="d-flex justify-content-end gap-2 w-auto">
         <a href="{{ route('admin.services.index') }}" class="btn btn-outline-turquesa">
-          <i class="bi bi-arrow-left"></i> Volver
+          <i class="fa-solid fa-arrow-left"></i> Volver
         </a>
         <button type="submit" class="btn btn-turquesa">
-          <i class="bi bi-save"></i> Guardar servicio
+          <i class="fa-solid fa-floppy-disk"></i> Guardar cambios
         </button>
       </div>
     </section>

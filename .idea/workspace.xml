@@ -1,0 +1,909 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="cf526441-a9ec-44e7-8035-905892d2809a" name="Changes" comment="fix">
+      <change afterPath="$PROJECT_DIR$/DWT4AV-GARCIA_RICARDO-PARCIAL_2/app/View/Components/Alert.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/DWT4AV-GARCIA_RICARDO-PARCIAL_2/resources/views/components/alert.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/DWT4AV-GARCIA_RICARDO-PARCIAL_2/storage/app/public/img/services/default.webp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DWT4AV-GARCIA_RICARDO-PARCIAL_2/app/Http/Controllers/CategoryController.php" beforeDir="false" afterPath="$PROJECT_DIR$/DWT4AV-GARCIA_RICARDO-PARCIAL_2/app/Http/Controllers/CategoryController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DWT4AV-GARCIA_RICARDO-PARCIAL_2/app/Http/Controllers/ServicesController.php" beforeDir="false" afterPath="$PROJECT_DIR$/DWT4AV-GARCIA_RICARDO-PARCIAL_2/app/Http/Controllers/ServicesController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DWT4AV-GARCIA_RICARDO-PARCIAL_2/database/migrations/2025_10_06_050957_create_services_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/DWT4AV-GARCIA_RICARDO-PARCIAL_2/database/migrations/2025_10_06_050957_create_services_table.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DWT4AV-GARCIA_RICARDO-PARCIAL_2/database/seeders/ServiceSeeder.php" beforeDir="false" afterPath="$PROJECT_DIR$/DWT4AV-GARCIA_RICARDO-PARCIAL_2/database/seeders/ServiceSeeder.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DWT4AV-GARCIA_RICARDO-PARCIAL_2/public/img/default.webp" beforeDir="false" afterPath="$PROJECT_DIR$/DWT4AV-GARCIA_RICARDO-PARCIAL_2/storage/app/public/img/users/default.webp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DWT4AV-GARCIA_RICARDO-PARCIAL_2/public/img/default2.webp" beforeDir="false" afterPath="$PROJECT_DIR$/DWT4AV-GARCIA_RICARDO-PARCIAL_2/storage/app/public/img/users/default2.webp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DWT4AV-GARCIA_RICARDO-PARCIAL_2/public/img/ricardo.webp" beforeDir="false" afterPath="$PROJECT_DIR$/DWT4AV-GARCIA_RICARDO-PARCIAL_2/storage/app/public/img/users/ricardo.webp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DWT4AV-GARCIA_RICARDO-PARCIAL_2/resources/views/admin/services/create.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/DWT4AV-GARCIA_RICARDO-PARCIAL_2/resources/views/admin/services/create.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DWT4AV-GARCIA_RICARDO-PARCIAL_2/resources/views/admin/services/edit.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/DWT4AV-GARCIA_RICARDO-PARCIAL_2/resources/views/admin/services/edit.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DWT4AV-GARCIA_RICARDO-PARCIAL_2/resources/views/admin/services/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/DWT4AV-GARCIA_RICARDO-PARCIAL_2/resources/views/admin/services/index.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DWT4AV-GARCIA_RICARDO-PARCIAL_2/resources/views/admin/services/show.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/DWT4AV-GARCIA_RICARDO-PARCIAL_2/resources/views/admin/services/show.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DWT4AV-GARCIA_RICARDO-PARCIAL_2/resources/views/partials/head.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/DWT4AV-GARCIA_RICARDO-PARCIAL_2/resources/views/partials/head.blade.php" afterDir="false" />
+    </list>
+    <list id="ed23b480-1a16-4b23-b870-afc00d3f2283" name="ideas" comment="fix">
+      <change afterPath="$PROJECT_DIR$/.idea/php-test-framework.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/phpunit.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ChangesViewManager">
+    <option name="groupingKeys" />
+  </component>
+  <component name="ComposerConfigs">
+    <option name="configs">
+      <option value="$PROJECT_DIR$/Desafios/composer.json" />
+    </option>
+  </component>
+  <component name="ComposerSettings" synchronizationState="SYNCHRONIZE">
+    <pharConfigPath>$PROJECT_DIR$/tp2-pce/composer.json</pharConfigPath>
+    <execution />
+  </component>
+  <component name="EditorConfigPreviewManager">
+    <editorConfig file="$PROJECT_DIR$/tp2-pce/.editorconfig" previewFile="$PROJECT_DIR$/tp2-pce/resources/views/user/loginUser.blade.php" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="prod" />
+      </map>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="RESET_MODE" value="HARD" />
+  </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;Richard-davinci&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/Richard-davinci/PCE-desafios.git&quot;,
+    &quot;accountId&quot;: &quot;31416930-6176-4ba3-a5eb-041a8ebf13f3&quot;
+  }
+}</component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/tp2-pce/resources/views/service.blade.php" root0="FORCE_HIGHLIGHTING" root1="SKIP_INSPECTION" />
+  </component>
+  <component name="PhpWorkspaceProjectConfiguration" interpreter_name="C:/xampp8.2/php/php.exe">
+    <include_path>
+      <path value="$PROJECT_DIR$/vendor/phar-io/version" />
+      <path value="$PROJECT_DIR$/vendor/phar-io/manifest" />
+      <path value="$PROJECT_DIR$/vendor/dflydev/dot-access-data" />
+      <path value="$PROJECT_DIR$/vendor/theseer/tokenizer" />
+      <path value="$PROJECT_DIR$/vendor/egulias/email-validator" />
+      <path value="$PROJECT_DIR$/vendor/voku/portable-ascii" />
+      <path value="$PROJECT_DIR$/vendor/ramsey/collection" />
+      <path value="$PROJECT_DIR$/vendor/ramsey/uuid" />
+      <path value="$PROJECT_DIR$/vendor/tijsverkoyen/css-to-inline-styles" />
+      <path value="$PROJECT_DIR$/vendor/doctrine/lexer" />
+      <path value="$PROJECT_DIR$/vendor/doctrine/inflector" />
+      <path value="$PROJECT_DIR$/vendor/dragonmantank/cron-expression" />
+      <path value="$PROJECT_DIR$/vendor/nikic/php-parser" />
+      <path value="$PROJECT_DIR$/vendor/carbonphp/carbon-doctrine-types" />
+      <path value="$PROJECT_DIR$/vendor/webmozart/assert" />
+      <path value="$PROJECT_DIR$/vendor/graham-campbell/result-type" />
+      <path value="$PROJECT_DIR$/vendor/guzzlehttp/uri-template" />
+      <path value="$PROJECT_DIR$/vendor/fruitcake/php-cors" />
+      <path value="$PROJECT_DIR$/vendor/guzzlehttp/psr7" />
+      <path value="$PROJECT_DIR$/vendor/guzzlehttp/guzzle" />
+      <path value="$PROJECT_DIR$/vendor/guzzlehttp/promises" />
+      <path value="$PROJECT_DIR$/vendor/monolog/monolog" />
+      <path value="$PROJECT_DIR$/vendor/phpoption/phpoption" />
+      <path value="$PROJECT_DIR$/vendor/ralouphie/getallheaders" />
+      <path value="$PROJECT_DIR$/vendor/league/config" />
+      <path value="$PROJECT_DIR$/vendor/league/mime-type-detection" />
+      <path value="$PROJECT_DIR$/vendor/league/uri" />
+      <path value="$PROJECT_DIR$/vendor/sebastian/type" />
+      <path value="$PROJECT_DIR$/vendor/league/commonmark" />
+      <path value="$PROJECT_DIR$/vendor/sebastian/diff" />
+      <path value="$PROJECT_DIR$/vendor/league/flysystem" />
+      <path value="$PROJECT_DIR$/vendor/sebastian/lines-of-code" />
+      <path value="$PROJECT_DIR$/vendor/league/flysystem-local" />
+      <path value="$PROJECT_DIR$/vendor/sebastian/object-enumerator" />
+      <path value="$PROJECT_DIR$/vendor/league/uri-interfaces" />
+      <path value="$PROJECT_DIR$/vendor/sebastian/comparator" />
+      <path value="$PROJECT_DIR$/vendor/sebastian/code-unit" />
+      <path value="$PROJECT_DIR$/vendor/sebastian/exporter" />
+      <path value="$PROJECT_DIR$/vendor/phpunit/php-code-coverage" />
+      <path value="$PROJECT_DIR$/vendor/sebastian/cli-parser" />
+      <path value="$PROJECT_DIR$/vendor/phpunit/php-file-iterator" />
+      <path value="$PROJECT_DIR$/vendor/sebastian/version" />
+      <path value="$PROJECT_DIR$/vendor/phpunit/php-invoker" />
+      <path value="$PROJECT_DIR$/vendor/sebastian/complexity" />
+      <path value="$PROJECT_DIR$/vendor/phpunit/php-text-template" />
+      <path value="$PROJECT_DIR$/vendor/sebastian/recursion-context" />
+      <path value="$PROJECT_DIR$/vendor/phpunit/phpunit" />
+      <path value="$PROJECT_DIR$/vendor/symfony/clock" />
+      <path value="$PROJECT_DIR$/vendor/sebastian/environment" />
+      <path value="$PROJECT_DIR$/vendor/phpunit/php-timer" />
+      <path value="$PROJECT_DIR$/vendor/symfony/polyfill-mbstring" />
+      <path value="$PROJECT_DIR$/vendor/sebastian/global-state" />
+      <path value="$PROJECT_DIR$/vendor/symfony/deprecation-contracts" />
+      <path value="$PROJECT_DIR$/vendor/sebastian/code-unit-reverse-lookup" />
+      <path value="$PROJECT_DIR$/vendor/symfony/routing" />
+      <path value="$PROJECT_DIR$/vendor/sebastian/object-reflector" />
+      <path value="$PROJECT_DIR$/vendor/symfony/polyfill-php84" />
+      <path value="$PROJECT_DIR$/vendor/symfony/polyfill-php83" />
+      <path value="$PROJECT_DIR$/vendor/symfony/polyfill-intl-grapheme" />
+      <path value="$PROJECT_DIR$/vendor/nesbot/carbon" />
+      <path value="$PROJECT_DIR$/vendor/symfony/css-selector" />
+      <path value="$PROJECT_DIR$/vendor/symfony/polyfill-intl-normalizer" />
+      <path value="$PROJECT_DIR$/vendor/symfony/polyfill-php80" />
+      <path value="$PROJECT_DIR$/vendor/symfony/mailer" />
+      <path value="$PROJECT_DIR$/vendor/fakerphp/faker" />
+      <path value="$PROJECT_DIR$/vendor/symfony/mime" />
+      <path value="$PROJECT_DIR$/vendor/symfony/polyfill-ctype" />
+      <path value="$PROJECT_DIR$/vendor/composer" />
+      <path value="$PROJECT_DIR$/vendor/symfony/error-handler" />
+      <path value="$PROJECT_DIR$/vendor/laravel/prompts" />
+      <path value="$PROJECT_DIR$/vendor/symfony/event-dispatcher-contracts" />
+      <path value="$PROJECT_DIR$/vendor/laravel/sail" />
+      <path value="$PROJECT_DIR$/vendor/symfony/polyfill-intl-idn" />
+      <path value="$PROJECT_DIR$/vendor/laravel/framework" />
+      <path value="$PROJECT_DIR$/vendor/symfony/console" />
+      <path value="$PROJECT_DIR$/vendor/laravel/pail" />
+      <path value="$PROJECT_DIR$/vendor/symfony/polyfill-php85" />
+      <path value="$PROJECT_DIR$/vendor/laravel/tinker" />
+      <path value="$PROJECT_DIR$/vendor/symfony/event-dispatcher" />
+      <path value="$PROJECT_DIR$/vendor/laravel/serializable-closure" />
+      <path value="$PROJECT_DIR$/vendor/symfony/var-dumper" />
+      <path value="$PROJECT_DIR$/vendor/laravel/pint" />
+      <path value="$PROJECT_DIR$/vendor/symfony/http-foundation" />
+      <path value="$PROJECT_DIR$/vendor/symfony/uid" />
+      <path value="$PROJECT_DIR$/vendor/symfony/http-kernel" />
+      <path value="$PROJECT_DIR$/vendor/symfony/translation-contracts" />
+      <path value="$PROJECT_DIR$/vendor/symfony/service-contracts" />
+      <path value="$PROJECT_DIR$/vendor/symfony/string" />
+      <path value="$PROJECT_DIR$/vendor/symfony/yaml" />
+      <path value="$PROJECT_DIR$/vendor/symfony/translation" />
+      <path value="$PROJECT_DIR$/vendor/symfony/polyfill-uuid" />
+      <path value="$PROJECT_DIR$/vendor/symfony/process" />
+      <path value="$PROJECT_DIR$/vendor/symfony/finder" />
+      <path value="$PROJECT_DIR$/vendor/psr/simple-cache" />
+      <path value="$PROJECT_DIR$/vendor/psr/clock" />
+      <path value="$PROJECT_DIR$/vendor/psr/http-factory" />
+      <path value="$PROJECT_DIR$/vendor/psr/container" />
+      <path value="$PROJECT_DIR$/vendor/psr/http-client" />
+      <path value="$PROJECT_DIR$/vendor/psr/http-message" />
+      <path value="$PROJECT_DIR$/vendor/psr/event-dispatcher" />
+      <path value="$PROJECT_DIR$/vendor/psr/log" />
+      <path value="$PROJECT_DIR$/vendor/mockery/mockery" />
+      <path value="$PROJECT_DIR$/vendor/nunomaduro/termwind" />
+      <path value="$PROJECT_DIR$/vendor/nunomaduro/collision" />
+      <path value="$PROJECT_DIR$/vendor/staabm/side-effects-detector" />
+      <path value="$PROJECT_DIR$/vendor/hamcrest/hamcrest-php" />
+      <path value="$PROJECT_DIR$/vendor/vlucas/phpdotenv" />
+      <path value="$PROJECT_DIR$/vendor/myclabs/deep-copy" />
+      <path value="$PROJECT_DIR$/vendor/filp/whoops" />
+      <path value="$PROJECT_DIR$/vendor/brick/math" />
+      <path value="$PROJECT_DIR$/vendor/psy/psysh" />
+      <path value="$PROJECT_DIR$/vendor/nette/schema" />
+      <path value="$PROJECT_DIR$/vendor/nette/utils" />
+      <path value="$PROJECT_DIR$/Desafios/vendor/composer" />
+      <path value="$PROJECT_DIR$/Desafios/vendor/psr/container" />
+      <path value="$PROJECT_DIR$/Desafios/vendor/psr/clock" />
+      <path value="$PROJECT_DIR$/Desafios/vendor/psr/http-client" />
+      <path value="$PROJECT_DIR$/Desafios/vendor/psr/event-dispatcher" />
+      <path value="$PROJECT_DIR$/Desafios/vendor/psr/http-message" />
+      <path value="$PROJECT_DIR$/Desafios/vendor/psr/http-factory" />
+      <path value="$PROJECT_DIR$/Desafios/vendor/psr/simple-cache" />
+      <path value="$PROJECT_DIR$/Desafios/vendor/psr/log" />
+      <path value="$PROJECT_DIR$/Desafios/vendor/filp/whoops" />
+      <path value="$PROJECT_DIR$/Desafios/vendor/psy/psysh" />
+      <path value="$PROJECT_DIR$/Desafios/vendor/brick/math" />
+      <path value="$PROJECT_DIR$/Desafios/vendor/voku/portable-ascii" />
+      <path value="$PROJECT_DIR$/Desafios/vendor/nette/utils" />
+      <path value="$PROJECT_DIR$/Desafios/vendor/nette/schema" />
+      <path value="$PROJECT_DIR$/Desafios/vendor/league/commonmark" />
+      <path value="$PROJECT_DIR$/Desafios/vendor/nikic/php-parser" />
+      <path value="$PROJECT_DIR$/Desafios/vendor/league/flysystem" />
+      <path value="$PROJECT_DIR$/Desafios/vendor/league/config" />
+      <path value="$PROJECT_DIR$/Desafios/vendor/league/mime-type-detection" />
+      <path value="$PROJECT_DIR$/Desafios/vendor/league/flysystem-local" />
+      <path value="$PROJECT_DIR$/Desafios/vendor/league/uri-interfaces" />
+      <path value="$PROJECT_DIR$/Desafios/vendor/league/uri" />
+      <path value="$PROJECT_DIR$/Desafios/vendor/ramsey/collection" />
+      <path value="$PROJECT_DIR$/Desafios/vendor/nesbot/carbon" />
+      <path value="$PROJECT_DIR$/Desafios/vendor/staabm/side-effects-detector" />
+      <path value="$PROJECT_DIR$/Desafios/vendor/ramsey/uuid" />
+      <path value="$PROJECT_DIR$/Desafios/vendor/dflydev/dot-access-data" />
+      <path value="$PROJECT_DIR$/Desafios/vendor/vlucas/phpdotenv" />
+      <path value="$PROJECT_DIR$/Desafios/vendor/laravel/framework" />
+      <path value="$PROJECT_DIR$/Desafios/vendor/egulias/email-validator" />
+      <path value="$PROJECT_DIR$/Desafios/vendor/laravel/pint" />
+      <path value="$PROJECT_DIR$/Desafios/vendor/laravel/pail" />
+      <path value="$PROJECT_DIR$/Desafios/vendor/laravel/sail" />
+      <path value="$PROJECT_DIR$/Desafios/vendor/laravel/prompts" />
+      <path value="$PROJECT_DIR$/Desafios/vendor/laravel/tinker" />
+      <path value="$PROJECT_DIR$/Desafios/vendor/laravel/serializable-closure" />
+      <path value="$PROJECT_DIR$/Desafios/vendor/monolog/monolog" />
+      <path value="$PROJECT_DIR$/Desafios/vendor/mockery/mockery" />
+      <path value="$PROJECT_DIR$/Desafios/vendor/phar-io/manifest" />
+      <path value="$PROJECT_DIR$/Desafios/vendor/myclabs/deep-copy" />
+      <path value="$PROJECT_DIR$/Desafios/vendor/phpunit/php-code-coverage" />
+      <path value="$PROJECT_DIR$/Desafios/vendor/phar-io/version" />
+      <path value="$PROJECT_DIR$/Desafios/vendor/phpunit/php-invoker" />
+      <path value="$PROJECT_DIR$/Desafios/vendor/phpunit/php-file-iterator" />
+      <path value="$PROJECT_DIR$/Desafios/vendor/phpunit/php-timer" />
+      <path value="$PROJECT_DIR$/Desafios/vendor/phpunit/php-text-template" />
+      <path value="$PROJECT_DIR$/Desafios/vendor/symfony/clock" />
+      <path value="$PROJECT_DIR$/Desafios/vendor/phpunit/phpunit" />
+      <path value="$PROJECT_DIR$/Desafios/vendor/symfony/css-selector" />
+      <path value="$PROJECT_DIR$/Desafios/vendor/symfony/console" />
+      <path value="$PROJECT_DIR$/Desafios/vendor/symfony/error-handler" />
+      <path value="$PROJECT_DIR$/Desafios/vendor/symfony/deprecation-contracts" />
+      <path value="$PROJECT_DIR$/Desafios/vendor/symfony/event-dispatcher-contracts" />
+      <path value="$PROJECT_DIR$/Desafios/vendor/symfony/event-dispatcher" />
+      <path value="$PROJECT_DIR$/Desafios/vendor/symfony/http-foundation" />
+      <path value="$PROJECT_DIR$/Desafios/vendor/symfony/finder" />
+      <path value="$PROJECT_DIR$/Desafios/vendor/symfony/mailer" />
+      <path value="$PROJECT_DIR$/Desafios/vendor/symfony/http-kernel" />
+      <path value="$PROJECT_DIR$/Desafios/vendor/symfony/polyfill-ctype" />
+      <path value="$PROJECT_DIR$/Desafios/vendor/symfony/mime" />
+      <path value="$PROJECT_DIR$/Desafios/vendor/symfony/polyfill-intl-idn" />
+      <path value="$PROJECT_DIR$/Desafios/vendor/symfony/polyfill-intl-grapheme" />
+      <path value="$PROJECT_DIR$/Desafios/vendor/symfony/polyfill-mbstring" />
+      <path value="$PROJECT_DIR$/Desafios/vendor/symfony/polyfill-intl-normalizer" />
+      <path value="$PROJECT_DIR$/Desafios/vendor/symfony/polyfill-php83" />
+      <path value="$PROJECT_DIR$/Desafios/vendor/symfony/polyfill-php80" />
+      <path value="$PROJECT_DIR$/Desafios/vendor/symfony/polyfill-php85" />
+      <path value="$PROJECT_DIR$/Desafios/vendor/symfony/polyfill-php84" />
+      <path value="$PROJECT_DIR$/Desafios/vendor/symfony/process" />
+      <path value="$PROJECT_DIR$/Desafios/vendor/symfony/polyfill-uuid" />
+      <path value="$PROJECT_DIR$/Desafios/vendor/symfony/service-contracts" />
+      <path value="$PROJECT_DIR$/Desafios/vendor/symfony/routing" />
+      <path value="$PROJECT_DIR$/Desafios/vendor/symfony/translation" />
+      <path value="$PROJECT_DIR$/Desafios/vendor/symfony/string" />
+      <path value="$PROJECT_DIR$/Desafios/vendor/symfony/uid" />
+      <path value="$PROJECT_DIR$/Desafios/vendor/symfony/translation-contracts" />
+      <path value="$PROJECT_DIR$/Desafios/vendor/symfony/yaml" />
+      <path value="$PROJECT_DIR$/Desafios/vendor/symfony/var-dumper" />
+      <path value="$PROJECT_DIR$/Desafios/vendor/theseer/tokenizer" />
+      <path value="$PROJECT_DIR$/Desafios/vendor/doctrine/inflector" />
+      <path value="$PROJECT_DIR$/Desafios/vendor/fakerphp/faker" />
+      <path value="$PROJECT_DIR$/Desafios/vendor/doctrine/lexer" />
+      <path value="$PROJECT_DIR$/Desafios/vendor/carbonphp/carbon-doctrine-types" />
+      <path value="$PROJECT_DIR$/Desafios/vendor/hamcrest/hamcrest-php" />
+      <path value="$PROJECT_DIR$/Desafios/vendor/phpoption/phpoption" />
+      <path value="$PROJECT_DIR$/Desafios/vendor/fruitcake/php-cors" />
+      <path value="$PROJECT_DIR$/Desafios/vendor/sebastian/cli-parser" />
+      <path value="$PROJECT_DIR$/Desafios/vendor/ralouphie/getallheaders" />
+      <path value="$PROJECT_DIR$/Desafios/vendor/sebastian/code-unit-reverse-lookup" />
+      <path value="$PROJECT_DIR$/Desafios/vendor/sebastian/code-unit" />
+      <path value="$PROJECT_DIR$/Desafios/vendor/sebastian/complexity" />
+      <path value="$PROJECT_DIR$/Desafios/vendor/sebastian/comparator" />
+      <path value="$PROJECT_DIR$/Desafios/vendor/sebastian/environment" />
+      <path value="$PROJECT_DIR$/Desafios/vendor/sebastian/diff" />
+      <path value="$PROJECT_DIR$/Desafios/vendor/sebastian/global-state" />
+      <path value="$PROJECT_DIR$/Desafios/vendor/sebastian/exporter" />
+      <path value="$PROJECT_DIR$/Desafios/vendor/sebastian/object-enumerator" />
+      <path value="$PROJECT_DIR$/Desafios/vendor/sebastian/lines-of-code" />
+      <path value="$PROJECT_DIR$/Desafios/vendor/sebastian/recursion-context" />
+      <path value="$PROJECT_DIR$/Desafios/vendor/sebastian/object-reflector" />
+      <path value="$PROJECT_DIR$/Desafios/vendor/sebastian/version" />
+      <path value="$PROJECT_DIR$/Desafios/vendor/sebastian/type" />
+      <path value="$PROJECT_DIR$/Desafios/vendor/guzzlehttp/guzzle" />
+      <path value="$PROJECT_DIR$/Desafios/vendor/webmozart/assert" />
+      <path value="$PROJECT_DIR$/Desafios/vendor/guzzlehttp/psr7" />
+      <path value="$PROJECT_DIR$/Desafios/vendor/guzzlehttp/promises" />
+      <path value="$PROJECT_DIR$/Desafios/vendor/nunomaduro/collision" />
+      <path value="$PROJECT_DIR$/Desafios/vendor/guzzlehttp/uri-template" />
+      <path value="$PROJECT_DIR$/Desafios/vendor/tijsverkoyen/css-to-inline-styles" />
+      <path value="$PROJECT_DIR$/Desafios/vendor/nunomaduro/termwind" />
+      <path value="$PROJECT_DIR$/Desafios/vendor/graham-campbell/result-type" />
+      <path value="$PROJECT_DIR$/Desafios/vendor/dragonmantank/cron-expression" />
+    </include_path>
+  </component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="CurrentFile" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 2
+}</component>
+  <component name="ProjectId" id="31sK5I0wUIAeFEdoDWOjhfXkIsB" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "JavaScript Debug.admin.html.executor": "Run",
+    "JavaScript Debug.contacto.html.executor": "Run",
+    "JavaScript Debug.iniciar-sesion.html.executor": "Run",
+    "JavaScript Debug.verServicios.html.executor": "Run",
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultAutoModeForALLUsers.v1": "true",
+    "com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1": "true",
+    "git-widget-placeholder": "main",
+    "junie.onboarding.icon.badge.shown": "true",
+    "last_opened_file_path": "Z:/Davinci/Proyectos/04-semestre/03 - Portales y Comercio Electronico/PCE-desafios/tp2-pce/public/img",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.stylelint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.stylelint": "",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "preferences.pluginManager",
+    "to.speed.mode.migration.done": "true",
+    "vue.rearranger.settings.migration": "true"
+  },
+  "keyToStringList": {
+    "ChangesTree.GroupingKeys": [
+      "repository"
+    ]
+  }
+}]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="Z:\Davinci\Proyectos\04-semestre\03 - Portales y Comercio Electronico\PCE-desafios\tp2-pce\public\img" />
+      <recent name="Z:\Davinci\Proyectos\04-semestre\03 - Portales y Comercio Electronico\PCE-desafios\tp2-pce\storage\app\public\img\services" />
+      <recent name="Z:\Davinci\Proyectos\04-semestre\03 - Portales y Comercio Electronico\PCE-desafios\tp2-pce\storage\app\public\img" />
+      <recent name="Z:\Davinci\Proyectos\04-semestre\03 - Portales y Comercio Electronico\PCE-desafios\tp2-pce\storage\app\public\img\servicios" />
+      <recent name="Z:\Davinci\Proyectos\04-semestre\03 - Portales y Comercio Electronico\PCE-desafios\tp2-pce\resources\views\admin\plans" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="Z:\Davinci\Proyectos\04-semestre\03 - Portales y Comercio Electronico\PCE-desafios\DWT4AV-GARCIA_RICARDO-PARCIAL_2\storage\app\public\img\users" />
+      <recent name="Z:\Davinci\Proyectos\04-semestre\03 - Portales y Comercio Electronico\PCE-desafios\DWT4AV-GARCIA_RICARDO-PARCIAL_2\storage\app\public\img" />
+      <recent name="Z:\Davinci\Proyectos\04-semestre\03 - Portales y Comercio Electronico\PCE-desafios\DWT4AV-GARCIA_RICARDO-PARCIAL_2\storage\app\public\img\services" />
+      <recent name="Z:\Davinci\Proyectos\04-semestre\03 - Portales y Comercio Electronico\PCE-desafios\DWT4AV-GARCIA_RICARDO-PARCIAL_2" />
+      <recent name="Z:\Davinci\Proyectos\04-semestre\03 - Portales y Comercio Electronico\PCE-desafios\tp2-pce\public\storage\img" />
+    </key>
+  </component>
+  <component name="RunManager" selected="JavaScript Debug.contacto.html">
+    <configuration name="admin.html" type="JavascriptDebugType" temporary="true" nameIsGenerated="true" uri="http://localhost:63343/PCE-desafios/Tp1-PCE/admin/admin.html" useBuiltInWebServerPort="true">
+      <method v="2" />
+    </configuration>
+    <configuration name="contacto.html" type="JavascriptDebugType" temporary="true" nameIsGenerated="true" uri="http://localhost:63342/PCE-desafios/Tp1-PCE/views/contacto.html" useBuiltInWebServerPort="true">
+      <method v="2" />
+    </configuration>
+    <configuration name="iniciar-sesion.html" type="JavascriptDebugType" temporary="true" nameIsGenerated="true" uri="http://localhost:63343/PCE-desafios/Tp1-PCE/admin/iniciar-sesion.html" useBuiltInWebServerPort="true">
+      <method v="2" />
+    </configuration>
+    <configuration name="verServicios.html" type="JavascriptDebugType" temporary="true" nameIsGenerated="true" uri="http://localhost:63342/PCE-desafios/Tp1-PCE/views/verServicios.html" useBuiltInWebServerPort="true">
+      <method v="2" />
+    </configuration>
+    <configuration name="Desafios" type="PHPUnitRunConfigurationType" factoryName="PHPUnit">
+      <TestRunner configuration_file="$PROJECT_DIR$/Desafios/phpunit.xml" scope="XML" use_alternative_configuration_file="true" />
+      <method v="2" />
+    </configuration>
+    <configuration name="Main" type="PHPUnitRunConfigurationType" factoryName="PHPUnit">
+      <TestRunner configuration_file="$PROJECT_DIR$/tp2-pce/phpunit.xml" scope="XML" use_alternative_configuration_file="true" />
+      <method v="2" />
+    </configuration>
+    <configuration name="Main" type="PestRunConfigurationType">
+      <option name="pestRunnerSettings">
+        <PestRunner configuration_file="$PROJECT_DIR$/tp2-pce/phpunit.xml" scope="ConfigurationFile" use_alternative_configuration_file="true" />
+      </option>
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="JavaScript Debug.verServicios.html" />
+        <item itemvalue="JavaScript Debug.iniciar-sesion.html" />
+        <item itemvalue="JavaScript Debug.contacto.html" />
+        <item itemvalue="JavaScript Debug.admin.html" />
+        <item itemvalue="JavaScript Debug.verServicios.html" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-js-predefined-d6986cc7102b-09060db00ec0-JavaScript-PS-251.29188.4" />
+        <option value="bundled-php-predefined-a98d8de5180a-e5747d4f5a45-com.jetbrains.php.sharedIndexes-PS-251.29188.4" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="cf526441-a9ec-44e7-8035-905892d2809a" name="Changes" comment="" />
+      <changelist id="ed23b480-1a16-4b23-b870-afc00d3f2283" name="ideas" comment="" />
+      <created>1756307154860</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1756307154860</updated>
+      <workItem from="1756307155957" duration="877000" />
+      <workItem from="1756308086508" duration="3365000" />
+      <workItem from="1756327157288" duration="8271000" />
+      <workItem from="1757451612568" duration="12388000" />
+      <workItem from="1757530669508" duration="23000" />
+      <workItem from="1757530699101" duration="15000" />
+      <workItem from="1757532127107" duration="1940000" />
+      <workItem from="1757793835252" duration="2000" />
+      <workItem from="1758063860781" duration="24911000" />
+      <workItem from="1758119100612" duration="673000" />
+      <workItem from="1758169830797" duration="4782000" />
+      <workItem from="1758227128466" duration="5390000" />
+      <workItem from="1758671602577" duration="13000" />
+      <workItem from="1758776517701" duration="3949000" />
+      <workItem from="1758846922357" duration="1271000" />
+      <workItem from="1758904070392" duration="12000" />
+      <workItem from="1759349166379" duration="3825000" />
+      <workItem from="1759696385781" duration="6249000" />
+      <workItem from="1759714289024" duration="172000" />
+      <workItem from="1759899665581" duration="710000" />
+      <workItem from="1759900437564" duration="10398000" />
+      <workItem from="1759911035172" duration="2523000" />
+      <workItem from="1759913606749" duration="588000" />
+      <workItem from="1759934194341" duration="153000" />
+      <workItem from="1759950875911" duration="18061000" />
+      <workItem from="1761011543512" duration="19186000" />
+      <workItem from="1761160584971" duration="9037000" />
+      <workItem from="1761699379233" duration="22484000" />
+      <workItem from="1761854852632" duration="34309000" />
+      <workItem from="1761927198914" duration="751000" />
+      <workItem from="1761929245034" duration="887000" />
+      <workItem from="1761930411473" duration="743000" />
+      <workItem from="1761963747313" duration="24192000" />
+      <workItem from="1762081029206" duration="8529000" />
+      <workItem from="1762090774900" duration="3774000" />
+      <workItem from="1762209140709" duration="10926000" />
+      <workItem from="1762272386018" duration="37945000" />
+      <workItem from="1762373047178" duration="79599000" />
+      <workItem from="1762564587162" duration="31532000" />
+    </task>
+    <task id="LOCAL-00011" summary="fix url">
+      <option name="closed" value="true" />
+      <created>1758091027408</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1758091027408</updated>
+    </task>
+    <task id="LOCAL-00012" summary="fix routes y nombres">
+      <option name="closed" value="true" />
+      <created>1759724685846</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1759724685846</updated>
+    </task>
+    <task id="LOCAL-00013" summary="fix routes y nombres">
+      <option name="closed" value="true" />
+      <created>1759724867754</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1759724867754</updated>
+    </task>
+    <task id="LOCAL-00014" summary="se agrega el service resorce">
+      <option name="closed" value="true" />
+      <created>1759725489620</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1759725489620</updated>
+    </task>
+    <task id="LOCAL-00015" summary="se crea el model">
+      <option name="closed" value="true" />
+      <created>1759727521584</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1759727521584</updated>
+    </task>
+    <task id="LOCAL-00016" summary="se crea el model resource y componentes">
+      <option name="closed" value="true" />
+      <created>1759730873835</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1759730873835</updated>
+    </task>
+    <task id="LOCAL-00017" summary="migraciones">
+      <option name="closed" value="true" />
+      <created>1759771998242</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1759771998242</updated>
+    </task>
+    <task id="LOCAL-00018" summary="seeders y estructuras de carpetas">
+      <option name="closed" value="true" />
+      <created>1759892085426</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1759892085426</updated>
+    </task>
+    <task id="LOCAL-00019" summary="estructuras de archivos partials y pages">
+      <option name="closed" value="true" />
+      <created>1759895715762</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1759895715762</updated>
+    </task>
+    <task id="LOCAL-00020" summary="paginador">
+      <option name="closed" value="true" />
+      <created>1759898489085</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1759898489085</updated>
+    </task>
+    <task id="LOCAL-00021" summary="fix servicios y otras cosas">
+      <option name="closed" value="true" />
+      <created>1759902311106</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1759902311106</updated>
+    </task>
+    <task id="LOCAL-00022" summary="se agrega tabla de planes y se crea el crear formulario">
+      <option name="closed" value="true" />
+      <created>1759904365183</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1759904365183</updated>
+    </task>
+    <task id="LOCAL-00023" summary="creo las categorias y planes y hago funcionar el crear servicio(falta el crear catefgoria)">
+      <option name="closed" value="true" />
+      <created>1759908960964</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1759908960964</updated>
+    </task>
+    <task id="LOCAL-00024" summary="mensajes de errores">
+      <option name="closed" value="true" />
+      <created>1759913587765</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1759913587765</updated>
+    </task>
+    <task id="LOCAL-00025" summary="fin de crum(falta optimizacion y revision)">
+      <option name="closed" value="true" />
+      <created>1759985683432</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1759985683432</updated>
+    </task>
+    <task id="LOCAL-00026" summary="creaccio de login y register + fix">
+      <option name="closed" value="true" />
+      <created>1761030512701</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1761030512701</updated>
+    </task>
+    <task id="LOCAL-00027" summary="fix">
+      <option name="closed" value="true" />
+      <created>1761030976593</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1761030976593</updated>
+    </task>
+    <task id="LOCAL-00028" summary="login y roles y demas">
+      <option name="closed" value="true" />
+      <created>1761866294397</created>
+      <option name="number" value="00028" />
+      <option name="presentableId" value="LOCAL-00028" />
+      <option name="project" value="LOCAL" />
+      <updated>1761866294397</updated>
+    </task>
+    <task id="LOCAL-00029" summary="se crearon las categorias">
+      <option name="closed" value="true" />
+      <created>1761887686689</created>
+      <option name="number" value="00029" />
+      <option name="presentableId" value="LOCAL-00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1761887686689</updated>
+    </task>
+    <task id="LOCAL-00030" summary="fix categorias y modals">
+      <option name="closed" value="true" />
+      <created>1761919538067</created>
+      <option name="number" value="00030" />
+      <option name="presentableId" value="LOCAL-00030" />
+      <option name="project" value="LOCAL" />
+      <updated>1761919538067</updated>
+    </task>
+    <task id="LOCAL-00031" summary="se agrega filtro de servicios">
+      <option name="closed" value="true" />
+      <created>1761920726098</created>
+      <option name="number" value="00031" />
+      <option name="presentableId" value="LOCAL-00031" />
+      <option name="project" value="LOCAL" />
+      <updated>1761920726098</updated>
+    </task>
+    <task id="LOCAL-00032" summary="fix">
+      <option name="closed" value="true" />
+      <created>1762029269483</created>
+      <option name="number" value="00032" />
+      <option name="presentableId" value="LOCAL-00032" />
+      <option name="project" value="LOCAL" />
+      <updated>1762029269483</updated>
+    </task>
+    <task id="LOCAL-00033" summary="fix">
+      <option name="closed" value="true" />
+      <created>1762029393413</created>
+      <option name="number" value="00033" />
+      <option name="presentableId" value="LOCAL-00033" />
+      <option name="project" value="LOCAL" />
+      <updated>1762029393413</updated>
+    </task>
+    <task id="LOCAL-00034" summary="fix dashboard y model user">
+      <option name="closed" value="true" />
+      <created>1762036122469</created>
+      <option name="number" value="00034" />
+      <option name="presentableId" value="LOCAL-00034" />
+      <option name="project" value="LOCAL" />
+      <updated>1762036122469</updated>
+    </task>
+    <task id="LOCAL-00035" summary="configurando el usery modularizando">
+      <option name="closed" value="true" />
+      <created>1762078941369</created>
+      <option name="number" value="00035" />
+      <option name="presentableId" value="LOCAL-00035" />
+      <option name="project" value="LOCAL" />
+      <updated>1762078941369</updated>
+    </task>
+    <task id="LOCAL-00036" summary="reestruccturacion">
+      <option name="closed" value="true" />
+      <created>1762088929926</created>
+      <option name="number" value="00036" />
+      <option name="presentableId" value="LOCAL-00036" />
+      <option name="project" value="LOCAL" />
+      <updated>1762088929926</updated>
+    </task>
+    <task id="LOCAL-00037" summary="fix">
+      <option name="closed" value="true" />
+      <created>1762090441081</created>
+      <option name="number" value="00037" />
+      <option name="presentableId" value="LOCAL-00037" />
+      <option name="project" value="LOCAL" />
+      <updated>1762090441081</updated>
+    </task>
+    <task id="LOCAL-00038" summary="fix">
+      <option name="closed" value="true" />
+      <created>1762091843927</created>
+      <option name="number" value="00038" />
+      <option name="presentableId" value="LOCAL-00038" />
+      <option name="project" value="LOCAL" />
+      <updated>1762091843927</updated>
+    </task>
+    <task id="LOCAL-00039" summary="fix">
+      <option name="closed" value="true" />
+      <created>1762091854292</created>
+      <option name="number" value="00039" />
+      <option name="presentableId" value="LOCAL-00039" />
+      <option name="project" value="LOCAL" />
+      <updated>1762091854292</updated>
+    </task>
+    <task id="LOCAL-00040" summary="fix muchas cosas">
+      <option name="closed" value="true" />
+      <created>1762294436849</created>
+      <option name="number" value="00040" />
+      <option name="presentableId" value="LOCAL-00040" />
+      <option name="project" value="LOCAL" />
+      <updated>1762294436849</updated>
+    </task>
+    <task id="LOCAL-00041" summary="fix muchas cosas">
+      <option name="closed" value="true" />
+      <created>1762294502582</created>
+      <option name="number" value="00041" />
+      <option name="presentableId" value="LOCAL-00041" />
+      <option name="project" value="LOCAL" />
+      <updated>1762294502582</updated>
+    </task>
+    <task id="LOCAL-00042" summary="fix planes">
+      <option name="closed" value="true" />
+      <created>1762375782628</created>
+      <option name="number" value="00042" />
+      <option name="presentableId" value="LOCAL-00042" />
+      <option name="project" value="LOCAL" />
+      <updated>1762375782628</updated>
+    </task>
+    <task id="LOCAL-00043" summary="fix muchos errores y falta crear planes y usuarios">
+      <option name="closed" value="true" />
+      <created>1762395546122</created>
+      <option name="number" value="00043" />
+      <option name="presentableId" value="LOCAL-00043" />
+      <option name="project" value="LOCAL" />
+      <updated>1762395546122</updated>
+    </task>
+    <task id="LOCAL-00044" summary="fix">
+      <option name="closed" value="true" />
+      <created>1762405166218</created>
+      <option name="number" value="00044" />
+      <option name="presentableId" value="LOCAL-00044" />
+      <option name="project" value="LOCAL" />
+      <updated>1762405166218</updated>
+    </task>
+    <task id="LOCAL-00045" summary="fix">
+      <option name="closed" value="true" />
+      <created>1762406953798</created>
+      <option name="number" value="00045" />
+      <option name="presentableId" value="LOCAL-00045" />
+      <option name="project" value="LOCAL" />
+      <updated>1762406953798</updated>
+    </task>
+    <task id="LOCAL-00046" summary="creacion de planes">
+      <option name="closed" value="true" />
+      <created>1762534933804</created>
+      <option name="number" value="00046" />
+      <option name="presentableId" value="LOCAL-00046" />
+      <option name="project" value="LOCAL" />
+      <updated>1762534933804</updated>
+    </task>
+    <task id="LOCAL-00047" summary="fix">
+      <option name="closed" value="true" />
+      <created>1762546544877</created>
+      <option name="number" value="00047" />
+      <option name="presentableId" value="LOCAL-00047" />
+      <option name="project" value="LOCAL" />
+      <updated>1762546544877</updated>
+    </task>
+    <task id="LOCAL-00048" summary="fix">
+      <option name="closed" value="true" />
+      <created>1762554661312</created>
+      <option name="number" value="00048" />
+      <option name="presentableId" value="LOCAL-00048" />
+      <option name="project" value="LOCAL" />
+      <updated>1762554661312</updated>
+    </task>
+    <task id="LOCAL-00049" summary="se termino casi los usuarios">
+      <option name="closed" value="true" />
+      <created>1762560902861</created>
+      <option name="number" value="00049" />
+      <option name="presentableId" value="LOCAL-00049" />
+      <option name="project" value="LOCAL" />
+      <updated>1762560902861</updated>
+    </task>
+    <task id="LOCAL-00050" summary="fix">
+      <option name="closed" value="true" />
+      <created>1762560918844</created>
+      <option name="number" value="00050" />
+      <option name="presentableId" value="LOCAL-00050" />
+      <option name="project" value="LOCAL" />
+      <updated>1762560918844</updated>
+    </task>
+    <task id="LOCAL-00051" summary="se termino casi los usuarios">
+      <option name="closed" value="true" />
+      <created>1762562125045</created>
+      <option name="number" value="00051" />
+      <option name="presentableId" value="LOCAL-00051" />
+      <option name="project" value="LOCAL" />
+      <updated>1762562125046</updated>
+    </task>
+    <task id="LOCAL-00052" summary="se termino casi los usuarios">
+      <option name="closed" value="true" />
+      <created>1762564711813</created>
+      <option name="number" value="00052" />
+      <option name="presentableId" value="LOCAL-00052" />
+      <option name="project" value="LOCAL" />
+      <updated>1762564711813</updated>
+    </task>
+    <task id="LOCAL-00053" summary="fix">
+      <option name="closed" value="true" />
+      <created>1762566697420</created>
+      <option name="number" value="00053" />
+      <option name="presentableId" value="LOCAL-00053" />
+      <option name="project" value="LOCAL" />
+      <updated>1762566697420</updated>
+    </task>
+    <task id="LOCAL-00054" summary="fix">
+      <option name="closed" value="true" />
+      <created>1762567548861</created>
+      <option name="number" value="00054" />
+      <option name="presentableId" value="LOCAL-00054" />
+      <option name="project" value="LOCAL" />
+      <updated>1762567548861</updated>
+    </task>
+    <task id="LOCAL-00055" summary="fix">
+      <option name="closed" value="true" />
+      <created>1762567562512</created>
+      <option name="number" value="00055" />
+      <option name="presentableId" value="LOCAL-00055" />
+      <option name="project" value="LOCAL" />
+      <updated>1762567562512</updated>
+    </task>
+    <task id="LOCAL-00056" summary="fix">
+      <option name="closed" value="true" />
+      <created>1762569726250</created>
+      <option name="number" value="00056" />
+      <option name="presentableId" value="LOCAL-00056" />
+      <option name="project" value="LOCAL" />
+      <updated>1762569726250</updated>
+    </task>
+    <task id="LOCAL-00057" summary="fix">
+      <option name="closed" value="true" />
+      <created>1762573711457</created>
+      <option name="number" value="00057" />
+      <option name="presentableId" value="LOCAL-00057" />
+      <option name="project" value="LOCAL" />
+      <updated>1762573711457</updated>
+    </task>
+    <task id="LOCAL-00058" summary="fix">
+      <option name="closed" value="true" />
+      <created>1762573719564</created>
+      <option name="number" value="00058" />
+      <option name="presentableId" value="LOCAL-00058" />
+      <option name="project" value="LOCAL" />
+      <updated>1762573719564</updated>
+    </task>
+    <task id="LOCAL-00059" summary="fix">
+      <option name="closed" value="true" />
+      <created>1762577709241</created>
+      <option name="number" value="00059" />
+      <option name="presentableId" value="LOCAL-00059" />
+      <option name="project" value="LOCAL" />
+      <updated>1762577709241</updated>
+    </task>
+    <option name="localTasksCounter" value="60" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="main" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="se crea el model resource y componentes" />
+    <MESSAGE value="migraciones" />
+    <MESSAGE value="seeders y estructuras de carpetas" />
+    <MESSAGE value="estructuras de archivos partials y pages" />
+    <MESSAGE value="paginador" />
+    <MESSAGE value="fix servicios y otras cosas" />
+    <MESSAGE value="se agrega tabla de planes y se crea el crear formulario" />
+    <MESSAGE value="creo las categorias y planes y hago funcionar el crear servicio(falta el crear catefgoria)" />
+    <MESSAGE value="mensajes de errores" />
+    <MESSAGE value="fin de crum(falta optimizacion y revision)" />
+    <MESSAGE value="creaccio de login y register + fix" />
+    <MESSAGE value="login y roles y demas" />
+    <MESSAGE value="se crearon las categorias" />
+    <MESSAGE value="fix categorias y modals" />
+    <MESSAGE value="se agrega filtro de servicios" />
+    <MESSAGE value="fix bg" />
+    <MESSAGE value="fix dashboard y model user" />
+    <MESSAGE value="configurando el usery modularizando" />
+    <MESSAGE value="reestruccturacion" />
+    <MESSAGE value="fix muchas cosas" />
+    <MESSAGE value="fix planes" />
+    <MESSAGE value="fix muchos errores y falta crear planes y usuarios" />
+    <MESSAGE value="creacion de planes" />
+    <MESSAGE value="se termino casi los usuarios" />
+    <MESSAGE value="fix" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix" />
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
+  </component>
+</project>

@@ -65,17 +65,22 @@ class ServicesController extends Controller
 
   public function store(Request $request)
   {
-    $validated = $this->validateService($request);// valida los campos del servicio
+    $validated = $this->validateService($request);
 
-    if ($request->hasFile('image')) {
-      $validated['image'] = $this->saveImage($request);
+    $imageName = $this->handleImage($request, null);
+
+    if ($imageName) {
+      $validated['image'] = $imageName;
     }
 
     $service = $this->createService($validated);
 
-    return redirect()->route('admin.services.index')
+    return redirect()
+      ->route('admin.services.index')
       ->with('success', 'Servicio creado correctamente.');
   }
+
+
 
   /**
    * Mostrar servicio individual.
@@ -134,29 +139,46 @@ class ServicesController extends Controller
   private function validateService(Request $request)
   {
     return $request->validate([
-      'name' => 'required|string|max:255',
+      'name'        => 'required|string|min:3|max:100',
       'category_id' => 'required|integer|exists:categories,id',
-      'status' => 'nullable|string|max:50',
-      'subtitle' => 'required|string|max:255',
-      'description' => 'required|string',
-      'conditions' => 'nullable|string',
-      'image' => 'nullable|image|mimes:webp,jpeg,png|max:5120',
+      'subtitle'    => 'required|string|min:10|max:150',
+      'description' => 'required|string|min:20|max:2000',
+      'conditions'  => 'nullable|string|max:2000',
+      'image'       => 'nullable|image|mimes:webp,jpeg,png|max:2048',
+    ], [
+      //Nombre
+      'name.required' => 'El nombre del servicio es obligatorio.',
+      'name.string'   => 'El nombre debe contener solo texto válido.',
+      'name.min'      => 'El nombre debe tener al menos 3 caracteres.',
+      'name.max'      => 'El nombre no puede superar los 100 caracteres.',
+
+      //Categoría
+      'category_id.required' => 'Debe seleccionar una categoría.',
+      'category_id.integer'  => 'El identificador de categoría no es válido.',
+      'category_id.exists'   => 'La categoría seleccionada no existe o no es válida.',
+
+      //Subtítulo
+      'subtitle.required' => 'El subtítulo es obligatorio.',
+      'subtitle.string'   => 'El subtítulo debe ser texto válido.',
+      'subtitle.min'      => 'El subtítulo debe tener al menos 10 caracteres.',
+      'subtitle.max'      => 'El subtítulo no puede superar los 150 caracteres.',
+
+      // Descripción
+      'description.required' => 'La descripción del servicio es obligatoria.',
+      'description.string'   => 'La descripción debe contener texto válido.',
+      'description.min'      => 'La descripción debe tener al menos 20 caracteres.',
+      'description.max'      => 'La descripción no puede superar los 2000 caracteres.',
+
+      // Condiciones
+      'conditions.string' => 'Las condiciones deben contener texto válido.',
+      'conditions.max'    => 'Las condiciones no pueden superar los 2000 caracteres.',
+
+      // Imagen
+      'image.image' => 'El archivo seleccionado debe ser una imagen válida.',
+      'image.mimes' => 'La imagen debe estar en formato WEBP, JPEG o PNG.',
+      'image.max'   => 'La imagen no debe superar los 5 MB de tamaño.',
     ]);
   }
-
-  private function saveImage(Request $request): string
-  {
-    $image = $request->file('image');
-
-    $filename = uniqid('srv_') . '.' . $image->getClientOriginalExtension();
-
-    // guardar en storage/app/public/img/services
-    $path = $image->storeAs('img/service', $filename, 'public');
-
-    // devolver solo el nombre
-    return basename($path);
-  }
-
 
   private function createService(array $data)
   {
@@ -171,27 +193,32 @@ class ServicesController extends Controller
     ]);
   }
 
-  private function handleImage(Request $request, ?Service $service = null): ?string
+  private function handleImage(Request $request, ?Service $service = null): string
   {
-    if (!$request->hasFile('image')) {
-      return $service?->image;
-    }
-
-    $image = $request->file('image');
     $disk = Storage::disk('public');
     $path = 'img/services/';
+    $defaultImage = 'default.webp';
 
-    // Si hay una imagen anterior y existe en disco, se elimina
-    if ($service && $service->image && $disk->exists($path . $service->image)) {
+    // Si NO se sube nueva imagen:
+    if (!$request->hasFile('image')) {
+      return $service?->image ?? $defaultImage; // Si el servicio ya tiene imagen, la mantiene. Si no, usa la default.
+    }
+
+    // Si se sube una nueva imagen:
+    $image = $request->file('image');
+
+    // Si hay una imagen anterior, la borra
+    if ($service && $service->image && $disk->exists($path . $service->image) && $service->image !== $defaultImage) {
       $disk->delete($path . $service->image);
     }
 
+    // Guarda la nueva imagen
     $filename = uniqid('srv_') . '.' . $image->getClientOriginalExtension();
-
     $image->storeAs($path, $filename, 'public');
 
     return $filename;
   }
+
 
 
   private function extractServiceFields(array $validated): array

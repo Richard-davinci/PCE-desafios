@@ -23,12 +23,7 @@
 
   <section class="container py-5">
     {{-- Mensaje de éxito --}}
-    @if(session('success'))
-      <div class="alert alert-success alert-dismissible fade show" role="alert">
-        <i class="bi bi-check-circle me-2"></i>{{ session('success') }}
-        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-      </div>
-    @endif
+    <x-alert type="success" :message="session('success')"/>
 
     <div class="bg-azul rounded shadow-sm mb-3">
       <button class="btn btn-azul  text-white w-100 text-start rounded-lg py-4" type="button"
@@ -36,7 +31,7 @@
               data-bs-target="#filtrosServicios" aria-expanded="false" aria-controls="filtrosServicios">
         <i class="bi bi-funnel me-2"></i>Filtros de búsqueda
       </button>
-      <div class="collapse" id="filtrosServicios">
+      <div class="collapse show" id="filtrosServicios">
         <div class="p-3 border-top border-light bg-azul">
           <form method="GET" action="{{ route('admin.services.index') }}" class="row g-2">
             <div class="col-md-4 ">
@@ -60,14 +55,14 @@
                 </option>
                 <option value="Pausado" {{ request('status') == 'Pausado' ? 'selected' : '' }}>Pausado
                 </option>
-                <option value="Inactivo" {{ request('status') == 'Inactivo' ? 'selected' : '' }}>
-                  Inactivo
+                <option value="Borrador" {{ request('status') == 'Borrador' ? 'selected' : '' }}>
+                  Borrador
                 </option>
               </select>
             </div>
             <div class="col-md-4">
               <select name="plan_mode" class="form-select">
-                <option value="">Planes (todos)</option>
+                <option value="">Todos los planes</option>
                 <option value="none" {{ request('plan_mode') === 'none' ? 'selected' : '' }}>
                   Sin planes
                 </option>
@@ -79,7 +74,6 @@
                 </option>
               </select>
             </div>
-
 
             <div class="col-md-12 ">
               <div class="d-flex justify-content-end gap-2 mt-2">
@@ -108,7 +102,7 @@
               <th scope="col" class="text-center rounded-rounded-tl-lg">#</th>
               <th scope="col">Nombre</th>
               <th scope="col">Categoría</th>
-              <th scope="col">Subtítulo</th>
+              <th scope="col">Estado</th>
               <th scope="col" class="text-center">Plan</th>
               <th scope="col" class="text-center">Actualizado</th>
               <th scope="col" class="text-center rounded-tr-full">Acciones</th>
@@ -121,31 +115,47 @@
 
                 <td>{{ $service->name }}</td>
                 <td>{{ $service->category->name ?? 'Sin categoría' }}</td>
-                <td class="text-secondary">{{ Str::limit($service->subtitle, 45) }}</td>
+                <td class="text-center">
+                  @switch($service->status)
+                    @case('Activo')
+                      <span class="badge bg-turquesa">Activo</span>
+                      @break
+                    @case('Pausado')
+                      <span class="badge bg-azul">Pausado</span>
+                      @break
+                    @case('Borrador')
+                      <span class="badge bg-secondary">Borrador</span>
+                      @break
+                    @default
+                      <span
+                        class="badge text-bg-secondary">{{ $service->status }}</span>
+                  @endswitch
+                </td>
 
                 @php
                   $hasPlans = $service->plans->isNotEmpty();
                 @endphp
                 @php
-                  // Extraemos los tipos de plan únicos que tiene este servicio
+                  // Extraigo los tipos de plan únicos que tiene este servicio
                   $types = $service->plans->pluck('type')->unique()->toArray();
                 @endphp
 
                 <td class="text-center">
                   @if(empty($types))
-                    <span class="badge bg-dark text-secondary">Sin planes</span>
+                    <span class="badge bg-secondary text-secondary text-light">Sin planes</span>
                   @else
                     @if(in_array('único', $types))
-                      <span class="badge bg-success">Único</span>
+                      <span class="badge bg-turquesa">Único</span>
                     @endif
                     @if(in_array('mensual', $types))
-                      <span class="badge bg-info text-dark">Mensual</span>
+                      <span class="badge bg-azul">Mensual</span>
                     @endif
                     @if(in_array('anual', $types))
-                      <span class="badge bg-warning text-dark">Anual</span>
+                      <span class="badge bg-azul">Anual</span>
                     @endif
                   @endif
                 </td>
+
 
                 <td class="text-center">
                   {{ $service->updated_at->format('d/m/Y') }}

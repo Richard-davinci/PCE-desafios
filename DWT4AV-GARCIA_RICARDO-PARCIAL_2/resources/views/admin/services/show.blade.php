@@ -68,14 +68,14 @@
 
             @if($service->conditions)
               <h3 class="fs-6 font-bankgothic text-turquesa mt-3 mb-1">Condiciones</h3>
-              <p class="mb-0">
-                @php
-                  $conditionsText = is_array($service->conditions)
-                      ? implode(', ', $service->conditions)
-                      : $service->conditions;
-                @endphp
-                {!! nl2br(e($conditionsText)) !!}
-              </p>
+              <ul class="list-unstyled mb-0">
+                @foreach(array_filter(explode(',', $service->conditions)) as $cond)
+                  <li>
+                    <i class="fa-solid fa-circle-check text-turquesa me-2"></i>
+                    {{ trim($cond) }}
+                  </li>
+                @endforeach
+              </ul>
             @endif
 
           </div>

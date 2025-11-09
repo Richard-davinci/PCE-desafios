@@ -16,7 +16,7 @@ return new class extends Migration {
       $table->string('subtitle', 150)->nullable();
       $table->text('description');
       $table->foreignId('category_id')->constrained('categories');
-      $table->string('status', 20)->default('Activo');
+      $table->string('status', 20)->default('Borrador');
       $table->json('conditions')->nullable();
       $table->string('image', 255)->nullable();
       $table->timestamps();
