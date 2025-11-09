@@ -81,7 +81,7 @@
           <li class="nav-item dropdown ms-lg-2">
             <a class="nav-link dropdown-toggle d-flex align-items-center gap-2 text-light justify-content-center"
                href="#" data-bs-toggle="dropdown">
-              <img src="{{ asset('img/ricardo.webp') }}" alt="Avatar de usuario" class="navbar-avatar">
+              <img src="{{ asset('storage/img/users/default2.webp') }}" alt="Avatar de usuario" class="navbar-avatar">
               <span id="navUserName">Mi cuenta</span>
             </a>
             <ul class="dropdown-menu dropdown-menu-end dropdown-menu-dark shadow border-light">

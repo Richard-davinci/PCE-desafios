@@ -21,7 +21,7 @@
                 <div class="col-lg-4">
                     <div class="card bg-azul text-light border-light card-section mb-3">
                         <div class="card-body text-center">
-                            <img src="{{ asset(Auth::user()->profile_photo ?? 'img/default2.webp') }}" alt="Tu avatar" height="169" width="169"
+                            <img src="{{ asset(Auth::user()->profile_photo ?? 'storage/img/users/default2.webp') }}" alt="Tu avatar" height="169" width="169"
                    class="avatar-lg mx-auto mb-3 border border-secondary">
               <div class="d-grid gap-2">
                 <label class="btn btn-turquesa mb-0">

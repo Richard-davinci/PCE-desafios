@@ -3,59 +3,73 @@
 @section('title', 'Gestión de categorías')
 
 @section('content')
+  {{-- Hero --}}
   <section class="mt-3 py-5 bg-gradient-dark text-light">
     <div class="container">
       <h1 class="fs-1 font-bankgothic fw-bold mb-1">Categorías</h1>
+
       <div class="my-2 d-flex flex-wrap justify-content-between align-items-center gap-2">
-        <p class="text-secondary mb-0">Listado general de categorías registradas en el sistema.</p>
-        <div>
+        <p class="text-secondary mb-0">
+          Listado general de categorías registradas en el sistema.
+        </p>
+
+        <div class="d-flex gap-2">
           <a href="{{ route('admin.services.index') }}" class="btn btn-turquesa">
-            <i class="bi bi-arrow-left me-1"></i> Volver
+            <i class="fa-solid fa-arrow-left me-1"></i> Volver
           </a>
-          <button class="btn btn-turquesa" data-bs-toggle="modal" data-bs-target="#modalAgregarCategoria">
-            <i class="bi bi-plus-circle me-2"></i>Agregar categoría
+
+          {{-- Botón abrir modal crear categoría --}}
+          <button class="btn btn-turquesa"
+                  data-bs-toggle="modal"
+                  data-bs-target="#modalAgregarCategoria">
+            <i class="fa-solid fa-plus me-2"></i> Agregar categoría
           </button>
+
+          {{-- Modal crear categoría (componente) --}}
           <x-categoryModal
             id="modalAgregarCategoria"
             title="Agregar Categoría"
-            icon="bi-plus-circle"
+            icon="fa-solid fa-plus-circle"
             :action="route('admin.categories.store')"
           />
         </div>
       </div>
     </div>
   </section>
+
+  {{-- Breadcrumb --}}
   <section class="container">
     <x-breadcrumb
-      :items="[['label' => 'Servicios',   'route' => 'admin.services.index'],  ['label' => 'Listado de categorías']]"
-      separator="›"/>
+      :items="[
+        ['label' => 'Servicios', 'route' => 'admin.services.index'],
+        ['label' => 'Listado de categorías']
+      ]"
+      separator="›"
+    />
   </section>
 
+  {{-- Contenido principal --}}
   <section class="container py-5">
     {{-- Mensaje de éxito --}}
-    @if(session('success'))
-      <div class="alert alert-success alert-dismissible fade show" role="alert">
-        <i class="bi bi-check-circle me-2"></i>{{ session('success') }}
-        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-      </div>
-    @endif
-    {{-- Mensaje de error --}}
+    <x-alert type="success" :message="session('success')"/>
+    <x-alert type="danger" :message="session('error')"/>
+
+
+    {{-- Errores globales --}}
     @if($errors->any())
-      <div class="alert alert-danger">
-        {{ implode('', $errors->all(':message')) }}
-      </div>
+      <x-alert type="danger" :errors="$errors->all()"/>
     @endif
 
-    <div class="shadow-sm p-3 bg-azul  rounded-2">
+    <div class="shadow-sm p-3 bg-azul rounded-2">
       <div class="card border-light border-2 shadow-sm">
         <div class="table-responsive">
           <table class="table table-striped align-middle mb-0">
             <thead>
             <tr class="table-dark font-bankgothic">
               <th>#</th>
-              <th class="text-center">Actualización</th>
+              <th class="text-center">Actualizado</th>
               <th>Nombre de la categoría</th>
-              <th class="text-center">Servicios asociados</th>
+              <th class="text-center">Cantidad servicios</th>
               <th class="text-end">Acciones</th>
             </tr>
             </thead>
@@ -63,85 +77,107 @@
             @forelse($categories as $category)
               <tr>
                 <td>{{ $category->id }}</td>
+
                 <td class="text-center">
-                  {{ $category->updated_at->format('d/m/Y H:i') }}
+                  {{ $category->updated_at->format('d/m/Y') }}
                 </td>
+
                 <td>{{ $category->name }}</td>
+
                 <td class="text-center">
-                    <span class="badge bg-turquesa text-light">
-                      {{ $category->services_count ?? 0 }}
-                    </span>
+                  <span class="badge bg-azul">
+                    {{ $category->services_count ?? 0 }}
+                  </span>
                 </td>
+
                 <td class="text-end">
-                  <button class="btn btn-turquesa  text-light" data-bs-toggle="modal"
+                  {{-- Editar categoría --}}
+                  <button class="btn btn-azul btn-sm"
+                          data-bs-toggle="modal"
+                          title="Editar"
                           data-bs-target="#modalEditarCategoria{{ $category->id }}">
-                    <i class="bi bi-pencil"></i>
+                    <i class="fa-solid fa-pen"></i>
                   </button>
-                  <form action="{{ route('admin.categories.destroy', $category->id) }}" method="POST"
-                        style="display:inline-block;"
-                        onsubmit="return confirm('¿Seguro que deseas eliminar esta categoría?')">
-                    @csrf
-                    @method('DELETE')
-                    <button type="submit" class="btn btn-danger " title="Eliminar">
-                      <i class="bi bi-trash "></i>
+
+                  {{-- Eliminar categoría --}}
+                  @if($category->services_count > 0)
+                    {{--  --}}
+                    <button type="button"
+                            class="btn btn-secondary btn-sm"
+                            title="No se puede eliminar: tiene servicios asociados"
+                    >
+                      <i class="fa-solid fa-trash"></i>
                     </button>
-                  </form>
+                  @else
+                    {{-- Eliminar con SweetAlert --}}
+                    <form id="deleteForm{{ $category->id }}"
+                          action="{{ route('admin.categories.destroy', $category->id) }}"
+                          method="POST"
+                          style="display:inline-block;">
+                      @csrf
+                      @method('DELETE')
+                      <button type="button"
+                              data-bs-toggle="tooltip"
+                              class="btn btn-danger btn-sm"
+                              title="Eliminar"
+                              onclick="confirmDelete({{ $category->id }})">
+                        <i class="fa-solid fa-trash"></i>
+                      </button>
+                    </form>
+                  @endif
                 </td>
               </tr>
-              <!-- modal editar categoría -->
+
+              {{-- Modal editar categoría (componente) --}}
               <x-categoryModal
-                :id="'modalEditarCategoria'.$category->id"
+                :id="'modalEditarCategoria' . $category->id"
                 title="Editar Categoría"
-                icon="bi-pencil"
+                icon="fa-solid fa-pen"
                 :action="route('admin.categories.update', $category->id)"
                 method="PUT"
                 :name="$category->name"
               />
             @empty
               <tr>
-                <td colspan="5" class="text-center text-secondary py-3">No hay categorías registradas.</td>
+                <td colspan="5" class="text-center text-secondary py-3">
+                  No hay categorías registradas.
+                </td>
               </tr>
             @endforelse
             </tbody>
           </table>
         </div>
       </div>
+
       {{-- Paginación --}}
-    </div>
-    <div class="mt-4 d-flex justify-content-end">
-      {{ $categories->links('pagination::bootstrap-5') }}
-    </div>
-  </section>
-  <div class="modal fade" id="modalEditarCategoria{{ $category->id }}" tabindex="-1"
-       aria-labelledby="modalEditarCategoriaLabel{{ $category->id }}" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content border-light">
-        <div class="modal-header bg-azul">
-          <h5 class="modal-title font-bankgothic" id="modalEditarCategoriaLabel{{ $category->id }}">
-            <i class="bi bi-pencil me-2"></i>Editar Categoría
-          </h5>
-          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
-        </div>
-        <form action="{{ route('admin.categories.update', $category->id) }}" method="POST">
-          @csrf
-          @method('PUT')
-          <div class="modal-body ">
-            <div class="card shadow-sm rounded-2 bg-azul">
-              <div class="card-body">
-                <label class="form-label" for="categoriaEditar{{ $category->id }}">Nombre de la
-                  categoría</label>
-                <input type="text" class="form-control" id="categoriaEditar{{ $category->id }}"
-                       name="name" value="{{ $category->name }}" required>
-              </div>
-            </div>
-          </div>
-          <div class="modal-footer bg-azul">
-            <button type="submit" class="btn btn-turquesa font-bankgothic">Guardar</button>
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-          </div>
-        </form>
+      <div class="mt-4 d-flex justify-content-end">
+        {{ $categories->links('pagination::bootstrap-5') }}
       </div>
     </div>
-  </div>
-
+  </section>
+  {{-- Confirmación SweetAlert para eliminar --}}
+  <script>
+    function confirmDelete(id) {
+      Swal.fire({
+        title: '¿Eliminar categoría?',
+        text: 'Esta acción no se puede deshacer.',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#00C4B3',
+        cancelButtonColor: '#6c757d',
+        confirmButtonText: 'Sí, eliminar',
+        cancelButtonText: 'Cancelar',
+        background: '#0b1c2b',
+        color: '#ffffff'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          const form = document.getElementById(`deleteForm${id}`);
+          if (form) {
+            form.submit();
+          }
+        }
+      });
+    }
+  </script>
 @endsection
+

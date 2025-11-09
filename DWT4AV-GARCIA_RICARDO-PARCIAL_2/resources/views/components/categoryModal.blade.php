@@ -29,12 +29,15 @@
             <div class="card-body">
               <label class="form-label" for="categoriaInput{{ $id }}">Nombre de la categoría</label>
               <input type="text"
-                     class="form-control"
+                     class="form-control @error('name') is-invalid @enderror"
                      id="categoriaInput{{ $id }}"
                      name="name"
-                     value="{{ old('name', $name) }}"
+                     value="{{ old('name', $name ?? '') }}"
                      placeholder="Nombre de la categoría"
-                     required>
+                     >
+              @error('name')
+              <x-alert type="danger" :message="$message" small/>
+              @enderror
             </div>
           </div>
         </div>

@@ -19,7 +19,7 @@ class UserSeeder extends Seeder
       'role' => 'admin',
       'city' => 'Córdoba',
       'phone' => '3511111111',
-      'profile_photo' => 'img/ricardo.webp',
+      'profile_photo' => 'storage/img/users/default2.webp',
     ]);
 
     User::create([

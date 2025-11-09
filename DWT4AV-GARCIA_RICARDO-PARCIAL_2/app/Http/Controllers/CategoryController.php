@@ -20,16 +20,24 @@ class CategoryController extends Controller
 
   public function store(Request $request)
   {
-    $request->validate([
-      'name' => 'required|unique:categories,name|max:255',
+    $validated = $request->validate([
+      'name' => 'required|string|max:100|unique:categories,name',
+    ], [
+      'name.required' => 'El nombre de la categoría es obligatorio.',
+      'name.string'   => 'El nombre debe contener solo texto válido.',
+      'name.max'      => 'El nombre no puede superar los 100 caracteres.',
+      'name.unique'   => 'Ya existe una categoría con este nombre.',
     ]);
 
     Category::create([
-      'name' => $request->name,
+      'name' => $validated['name'],
     ]);
 
-    return redirect()->route('admin.categories.index')->with('success', 'Categoría creada correctamente.');
+    return redirect()
+      ->route('admin.categories.index')
+      ->with('success', 'Categoría creada correctamente.');
   }
+
 
   public function edit(Category $category)
   {
@@ -51,8 +59,13 @@ class CategoryController extends Controller
 
   public function destroy(Category $category)
   {
+    if ($category->services()->exists()) {
+      return back()->with('error', 'No se puede eliminar la categoría porque tiene servicios asociados.');
+    }
+
     $category->delete();
 
-    return redirect()->route('admin.categories.index')->with('success', 'Categoría eliminada correctamente.');
+    return back()->with('success', 'Categoría eliminada correctamente.');
   }
+
 }

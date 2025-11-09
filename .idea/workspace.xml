@@ -4,30 +4,18 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="cf526441-a9ec-44e7-8035-905892d2809a" name="Changes" comment="fix">
-      <change afterPath="$PROJECT_DIR$/DWT4AV-GARCIA_RICARDO-PARCIAL_2/app/View/Components/Alert.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/DWT4AV-GARCIA_RICARDO-PARCIAL_2/resources/views/components/alert.blade.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/DWT4AV-GARCIA_RICARDO-PARCIAL_2/storage/app/public/img/services/default.webp" afterDir="false" />
+    <list default="true" id="cf526441-a9ec-44e7-8035-905892d2809a" name="Changes" comment="fix servicios">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/DWT4AV-GARCIA_RICARDO-PARCIAL_2/app/Http/Controllers/CategoryController.php" beforeDir="false" afterPath="$PROJECT_DIR$/DWT4AV-GARCIA_RICARDO-PARCIAL_2/app/Http/Controllers/CategoryController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DWT4AV-GARCIA_RICARDO-PARCIAL_2/app/Http/Controllers/ServicesController.php" beforeDir="false" afterPath="$PROJECT_DIR$/DWT4AV-GARCIA_RICARDO-PARCIAL_2/app/Http/Controllers/ServicesController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DWT4AV-GARCIA_RICARDO-PARCIAL_2/database/migrations/2025_10_06_050957_create_services_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/DWT4AV-GARCIA_RICARDO-PARCIAL_2/database/migrations/2025_10_06_050957_create_services_table.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DWT4AV-GARCIA_RICARDO-PARCIAL_2/database/seeders/ServiceSeeder.php" beforeDir="false" afterPath="$PROJECT_DIR$/DWT4AV-GARCIA_RICARDO-PARCIAL_2/database/seeders/ServiceSeeder.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DWT4AV-GARCIA_RICARDO-PARCIAL_2/public/img/default.webp" beforeDir="false" afterPath="$PROJECT_DIR$/DWT4AV-GARCIA_RICARDO-PARCIAL_2/storage/app/public/img/users/default.webp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DWT4AV-GARCIA_RICARDO-PARCIAL_2/public/img/default2.webp" beforeDir="false" afterPath="$PROJECT_DIR$/DWT4AV-GARCIA_RICARDO-PARCIAL_2/storage/app/public/img/users/default2.webp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DWT4AV-GARCIA_RICARDO-PARCIAL_2/public/img/ricardo.webp" beforeDir="false" afterPath="$PROJECT_DIR$/DWT4AV-GARCIA_RICARDO-PARCIAL_2/storage/app/public/img/users/ricardo.webp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DWT4AV-GARCIA_RICARDO-PARCIAL_2/resources/views/admin/services/create.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/DWT4AV-GARCIA_RICARDO-PARCIAL_2/resources/views/admin/services/create.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DWT4AV-GARCIA_RICARDO-PARCIAL_2/resources/views/admin/services/edit.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/DWT4AV-GARCIA_RICARDO-PARCIAL_2/resources/views/admin/services/edit.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DWT4AV-GARCIA_RICARDO-PARCIAL_2/resources/views/admin/services/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/DWT4AV-GARCIA_RICARDO-PARCIAL_2/resources/views/admin/services/index.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DWT4AV-GARCIA_RICARDO-PARCIAL_2/resources/views/admin/services/show.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/DWT4AV-GARCIA_RICARDO-PARCIAL_2/resources/views/admin/services/show.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DWT4AV-GARCIA_RICARDO-PARCIAL_2/resources/views/partials/head.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/DWT4AV-GARCIA_RICARDO-PARCIAL_2/resources/views/partials/head.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DWT4AV-GARCIA_RICARDO-PARCIAL_2/database/seeders/UserSeeder.php" beforeDir="false" afterPath="$PROJECT_DIR$/DWT4AV-GARCIA_RICARDO-PARCIAL_2/database/seeders/UserSeeder.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DWT4AV-GARCIA_RICARDO-PARCIAL_2/resources/views/admin/categories/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/DWT4AV-GARCIA_RICARDO-PARCIAL_2/resources/views/admin/categories/index.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DWT4AV-GARCIA_RICARDO-PARCIAL_2/resources/views/auth/myProfileAdmin.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/DWT4AV-GARCIA_RICARDO-PARCIAL_2/resources/views/auth/myProfileAdmin.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DWT4AV-GARCIA_RICARDO-PARCIAL_2/resources/views/components/categoryModal.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/DWT4AV-GARCIA_RICARDO-PARCIAL_2/resources/views/components/categoryModal.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DWT4AV-GARCIA_RICARDO-PARCIAL_2/resources/views/partials/navbar.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/DWT4AV-GARCIA_RICARDO-PARCIAL_2/resources/views/partials/navbar.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DWT4AV-GARCIA_RICARDO-PARCIAL_2/resources/views/partials/scripts.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/DWT4AV-GARCIA_RICARDO-PARCIAL_2/resources/views/partials/scripts.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DWT4AV-GARCIA_RICARDO-PARCIAL_2/storage/app/public/img/users/default2.webp" beforeDir="false" afterPath="$PROJECT_DIR$/DWT4AV-GARCIA_RICARDO-PARCIAL_2/storage/app/public/img/users/default2.webp" afterDir="false" />
     </list>
-    <list id="ed23b480-1a16-4b23-b870-afc00d3f2283" name="ideas" comment="fix">
-      <change afterPath="$PROJECT_DIR$/.idea/php-test-framework.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/phpunit.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-    </list>
+    <list id="ed23b480-1a16-4b23-b870-afc00d3f2283" name="ideas" comment="fix" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -451,15 +439,7 @@
       <workItem from="1762209140709" duration="10926000" />
       <workItem from="1762272386018" duration="37945000" />
       <workItem from="1762373047178" duration="79599000" />
-      <workItem from="1762564587162" duration="31532000" />
-    </task>
-    <task id="LOCAL-00011" summary="fix url">
-      <option name="closed" value="true" />
-      <created>1758091027408</created>
-      <option name="number" value="00011" />
-      <option name="presentableId" value="LOCAL-00011" />
-      <option name="project" value="LOCAL" />
-      <updated>1758091027408</updated>
+      <workItem from="1762564587162" duration="40907000" />
     </task>
     <task id="LOCAL-00012" summary="fix routes y nombres">
       <option name="closed" value="true" />
@@ -845,7 +825,15 @@
       <option name="project" value="LOCAL" />
       <updated>1762577709241</updated>
     </task>
-    <option name="localTasksCounter" value="60" />
+    <task id="LOCAL-00060" summary="fix servicios">
+      <option name="closed" value="true" />
+      <created>1762662571225</created>
+      <option name="number" value="00060" />
+      <option name="presentableId" value="LOCAL-00060" />
+      <option name="project" value="LOCAL" />
+      <updated>1762662571225</updated>
+    </task>
+    <option name="localTasksCounter" value="61" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -875,7 +863,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="se crea el model resource y componentes" />
     <MESSAGE value="migraciones" />
     <MESSAGE value="seeders y estructuras de carpetas" />
     <MESSAGE value="estructuras de archivos partials y pages" />
@@ -900,7 +887,8 @@
     <MESSAGE value="creacion de planes" />
     <MESSAGE value="se termino casi los usuarios" />
     <MESSAGE value="fix" />
-    <option name="LAST_COMMIT_MESSAGE" value="fix" />
+    <MESSAGE value="fix servicios" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix servicios" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
