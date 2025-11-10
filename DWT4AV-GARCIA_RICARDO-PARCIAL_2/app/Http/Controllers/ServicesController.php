@@ -219,8 +219,6 @@ class ServicesController extends Controller
     return $filename;
   }
 
-
-
   private function extractServiceFields(array $validated): array
   {
     return [

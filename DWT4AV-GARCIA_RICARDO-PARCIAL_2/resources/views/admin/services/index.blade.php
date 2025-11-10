@@ -172,7 +172,7 @@
 
                     {{-- Agregar / Editar planes --}}
                     @if(!$hasPlans)
-                      <a href="{{ route('admin.services.plans.edit', $service) }}"
+                      <a href="{{ route('admin.services.plans.create', $service) }}"
                          class="btn btn-sm btn-azul" title="Agregar plan">
                         <i class="bi bi-plus-circle"></i>
                       </a>
@@ -185,7 +185,7 @@
 
                     {{-- Editar --}}
                     <a href="{{ route('admin.services.edit', $service->id) }}"
-                       class="btn btn-sm btn-azul" title="Editar">
+                       class="btn btn-sm btn-azul" title="Editar servicios">
                       <i class="fa-solid fa-pen"></i>
                     </a>
 

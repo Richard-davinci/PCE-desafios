@@ -38,16 +38,12 @@ Route::middleware('auth')->group(function () {
 // categorias
 Route::resource('admin/categories', CategoryController::class)->names('admin.categories')->except(['show']);
 
-//planes
-Route::middleware(['protegida', 'admin.only'])->group(function () {
-
-  Route::get('/admin/services/{service}/plans', [PlanController::class, 'edit'])
-    ->name('admin.services.plans.edit');
-
-  Route::get('/admin/services/{service}/plans', [PlanController::class, 'edit'])
-    ->name('admin.services.plans.edit');
-  Route::put('/admin/services/{service}/plans', [PlanController::class, 'update'])
-    ->name('admin.services.plans.update');
+// Planes por servicio
+Route::middleware(['protegida', 'admin.only'])->prefix('admin')->name('admin.')->group(function () {
+  Route::get('/services/{service}/plans/create', [PlanController::class, 'create'])->name('services.plans.create');
+  Route::post('/services/{service}/plans', [PlanController::class, 'store'])->name('services.plans.store');
+  Route::get('/services/{service}/plans/edit', [PlanController::class, 'edit'])->name('services.plans.edit');
+  Route::put('/services/{service}/plans', [PlanController::class, 'update'])->name('services.plans.update');
 });
 
 

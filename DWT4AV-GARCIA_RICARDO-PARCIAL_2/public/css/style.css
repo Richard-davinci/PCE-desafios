@@ -19,6 +19,7 @@ input, button, textarea, select {
 
 :root {
   --azul: #112b3a;
+  --azul-light: #074360;
   --turquesa: #0ec49f;
   --verde: #00d084;
   --negro: #0d0d0d;
@@ -120,11 +121,19 @@ main {
   color: #fff;
 }
 
+.bg-azul-light {
+  background-color: var(--azul-light);
+}
+
+.text-secondary {
+  color: #c4c4c4 !important;
+}
+
 .scroll-mt-navbar {
   scroll-margin-top: 5rem;
 }
 
-.btn-turquesa, .btn-turquesa-light {
+.btn-turquesa, .btn-turquesa-light , .swal-custom-confirm {
   font-family: 'BankGothic', sans-serif;
   color: #000;
   background-color: var(--turquesa);
@@ -135,17 +144,18 @@ main {
   color: #fff;
 }
 
-.btn-turquesa:hover, .btn-turquesa-light:hover {
-  background-color: #7ff5e3;
-  border-color: var(--azul);
-  color: #000;
+.btn-turquesa:hover,
+.btn-turquesa-light:hover,
+.swal-custom-confirm:hover {
+  background-color: var(--verde);
+  transition: all 0.25s ease-in-out;
 }
 
 .btn-turquesa:active {
   background-color: #5feedd;
 }
 
-.btn-outline-turquesa {
+.btn-outline-turquesa , .swal-custom-cancel {
   color: var(--turquesa);
   border: 1px solid var(--turquesa);
   background-color: transparent;
@@ -154,7 +164,8 @@ main {
 }
 
 .btn-outline-turquesa:hover,
-.btn-outline-turquesa:focus {
+.btn-outline-turquesa:focus,
+.swal-custom-cancel:hover{
   color: #000;
   background-color: var(--turquesa);
   border-color: var(--turquesa);
@@ -430,6 +441,21 @@ nav .small {
 .card-link-stretch:focus {
   text-decoration: none;
 }
+
+
+.swal-custom-popup {
+  border: 2px solid var(--turquesa);
+  box-shadow: 0 0 25px rgba(14, 196, 159, 0.3);
+  border-radius: 16px;
+}
+
+.swal-custom-title {
+  font-family: 'BankGothic', sans-serif;
+  color: var(--turquesa) !important;
+}
+
+
+
 
 
 
