@@ -50,7 +50,11 @@ class ServicesController extends Controller
       }
     }
 
-    $services = $query->orderBy('id', 'desc')->paginate(6);
+    $services = $query
+      ->orderByRaw("FIELD(status, 'Borrador', 'Pausado', 'Activo')")
+      ->orderBy('name', 'asc')
+      ->paginate(6);
+
 
     $categories = Category::withCount('services')->orderBy('updated_at')->get();
 
@@ -79,7 +83,6 @@ class ServicesController extends Controller
       ->route('admin.services.index')
       ->with('success', 'Servicio creado correctamente.');
   }
-
 
 
   /**
@@ -139,44 +142,46 @@ class ServicesController extends Controller
   private function validateService(Request $request)
   {
     return $request->validate([
-      'name'        => 'required|string|min:3|max:100',
+      'name' => 'required|string|min:3|max:100',
       'category_id' => 'required|integer|exists:categories,id',
-      'subtitle'    => 'required|string|min:10|max:150',
+      'subtitle' => 'required|string|min:10|max:150',
       'description' => 'required|string|min:20|max:2000',
-      'conditions'  => 'nullable|string|max:2000',
-      'image'       => 'nullable|image|mimes:webp,jpeg,png|max:2048',
+      'conditions' => 'nullable|string|max:2000',
+      'image' => 'nullable|image|mimes:webp,jpeg,png|max:2048',
+      'status' => 'required|in:Activo,Borrador,Pausado',
+
     ], [
       //Nombre
       'name.required' => 'El nombre del servicio es obligatorio.',
-      'name.string'   => 'El nombre debe contener solo texto válido.',
-      'name.min'      => 'El nombre debe tener al menos 3 caracteres.',
-      'name.max'      => 'El nombre no puede superar los 100 caracteres.',
+      'name.string' => 'El nombre debe contener solo texto válido.',
+      'name.min' => 'El nombre debe tener al menos 3 caracteres.',
+      'name.max' => 'El nombre no puede superar los 100 caracteres.',
 
       //Categoría
       'category_id.required' => 'Debe seleccionar una categoría.',
-      'category_id.integer'  => 'El identificador de categoría no es válido.',
-      'category_id.exists'   => 'La categoría seleccionada no existe o no es válida.',
+      'category_id.integer' => 'El identificador de categoría no es válido.',
+      'category_id.exists' => 'La categoría seleccionada no existe o no es válida.',
 
       //Subtítulo
       'subtitle.required' => 'El subtítulo es obligatorio.',
-      'subtitle.string'   => 'El subtítulo debe ser texto válido.',
-      'subtitle.min'      => 'El subtítulo debe tener al menos 10 caracteres.',
-      'subtitle.max'      => 'El subtítulo no puede superar los 150 caracteres.',
+      'subtitle.string' => 'El subtítulo debe ser texto válido.',
+      'subtitle.min' => 'El subtítulo debe tener al menos 10 caracteres.',
+      'subtitle.max' => 'El subtítulo no puede superar los 150 caracteres.',
 
       // Descripción
       'description.required' => 'La descripción del servicio es obligatoria.',
-      'description.string'   => 'La descripción debe contener texto válido.',
-      'description.min'      => 'La descripción debe tener al menos 20 caracteres.',
-      'description.max'      => 'La descripción no puede superar los 2000 caracteres.',
+      'description.string' => 'La descripción debe contener texto válido.',
+      'description.min' => 'La descripción debe tener al menos 20 caracteres.',
+      'description.max' => 'La descripción no puede superar los 2000 caracteres.',
 
       // Condiciones
       'conditions.string' => 'Las condiciones deben contener texto válido.',
-      'conditions.max'    => 'Las condiciones no pueden superar los 2000 caracteres.',
+      'conditions.max' => 'Las condiciones no pueden superar los 2000 caracteres.',
 
       // Imagen
       'image.image' => 'El archivo seleccionado debe ser una imagen válida.',
       'image.mimes' => 'La imagen debe estar en formato WEBP, JPEG o PNG.',
-      'image.max'   => 'La imagen no debe superar los 5 MB de tamaño.',
+      'image.max' => 'La imagen no debe superar los 5 MB de tamaño.',
     ]);
   }
 
@@ -197,18 +202,17 @@ class ServicesController extends Controller
   {
     $disk = Storage::disk('public');
     $path = 'img/services/';
-    $defaultImage = 'default.webp';
 
     // Si NO se sube nueva imagen:
     if (!$request->hasFile('image')) {
-      return $service?->image ?? $defaultImage; // Si el servicio ya tiene imagen, la mantiene. Si no, usa la default.
+      return $service?->image ?? '';
     }
 
     // Si se sube una nueva imagen:
     $image = $request->file('image');
 
     // Si hay una imagen anterior, la borra
-    if ($service && $service->image && $disk->exists($path . $service->image) && $service->image !== $defaultImage) {
+    if ($service && $service->image && $disk->exists($path . $service->image)) {
       $disk->delete($path . $service->image);
     }
 
@@ -224,11 +228,13 @@ class ServicesController extends Controller
     return [
       'name' => $validated['name'],
       'category_id' => $validated['category_id'],
-      'status' => $validated['status'] ?? 'Activo',
+      'status' => $validated['status'],
       'subtitle' => $validated['subtitle'],
       'description' => $validated['description'],
       'conditions' => $validated['conditions'] ?? null,
-      'image' => $validated['image'],
+      'image' => !empty($validated['image'])
+        ? $validated['image']
+        : 'default.webp',
     ];
   }
 }

@@ -1,3 +1,7 @@
+/* ================================
+   RESET BÁSICO
+================================ */
+
 *, *::before, *::after {
   margin: 0;
   padding: 0;
@@ -17,15 +21,25 @@ input, button, textarea, select {
   font: inherit;
 }
 
+
+/* ================================
+   VARIABLES & COLORES
+================================ */
+
 :root {
   --azul: #112b3a;
   --azul-light: #074360;
   --turquesa: #0ec49f;
-  --verde: #00d084;
+  --verde: #2b0a45; /* violeta verdoso oscuro (fondo/hover mix) */
   --negro: #0d0d0d;
   --blanco: #cfd6dc;
   --gris: #43494e;
 }
+
+
+/* ================================
+   TIPOGRAFÍAS
+================================ */
 
 @font-face {
   font-family: 'Quantum';
@@ -53,6 +67,11 @@ input, button, textarea, select {
   font-family: 'BankGothic', sans-serif;
 }
 
+
+/* ================================
+   BASE HTML / BODY / LAYOUT
+================================ */
+
 html {
   font-size: 100%;
   line-height: 1.15;
@@ -76,6 +95,15 @@ main {
   flex: 1 0 auto;
 }
 
+.scroll-mt-navbar {
+  scroll-margin-top: 5rem;
+}
+
+
+/* ================================
+   UTILIDADES DE TEXTO
+================================ */
+
 .text-turquesa {
   color: var(--turquesa);
 }
@@ -96,6 +124,15 @@ main {
   color: var(--azul);
 }
 
+.text-secondary {
+  color: #c4c4c4 !important;
+}
+
+
+/* ================================
+   BACKGROUNDS
+================================ */
+
 .bg-turquesa {
   background-color: var(--turquesa);
   color: var(--negro);
@@ -111,9 +148,10 @@ main {
 }
 
 .bg-gradient-dark {
-  background: radial-gradient(1200px 600px at 10% -10%, rgba(0, 255, 204, .15), transparent 40%),
-  radial-gradient(1200px 600px at 90% 0%, rgba(2, 116, 190, .2), transparent 40%),
-  var(--negro);
+  background:
+    radial-gradient(1200px 600px at 10% -10%, rgba(0, 255, 204, .15), transparent 40%),
+    radial-gradient(1200px 600px at 90% 0%, rgba(2, 116, 190, .2), transparent 40%),
+    var(--negro);
 }
 
 .bg-azul {
@@ -125,70 +163,156 @@ main {
   background-color: var(--azul-light);
 }
 
-.text-secondary {
-  color: #c4c4c4 !important;
-}
 
-.scroll-mt-navbar {
-  scroll-margin-top: 5rem;
-}
+/* ================================
+   BOTONES
+================================ */
 
-.btn-turquesa, .btn-turquesa-light , .swal-custom-confirm {
+/* Base: botón turquesa principal */
+.btn-turquesa,
+.swal-custom-confirm {
   font-family: 'BankGothic', sans-serif;
-  color: #000;
   background-color: var(--turquesa);
-  border-color: var(--azul);
-}
-
-.btn-turquesa-light {
-  color: #fff;
-}
-
-.btn-turquesa:hover,
-.btn-turquesa-light:hover,
-.swal-custom-confirm:hover {
-  background-color: var(--verde);
+  color: var(--negro);
+  border: 1px solid var(--turquesa);
+  border-radius: .4rem;
+  display: inline-flex;
+  align-items: center;
+  gap: .35rem;
   transition: all 0.25s ease-in-out;
 }
 
-.btn-turquesa:active {
-  background-color: #5feedd;
+/* Hover: efecto neón sutil + profundidad */
+.btn-turquesa:hover,
+.swal-custom-confirm:hover {
+  background-color: var(--turquesa);
+  color: var(--negro);
+  box-shadow:
+    0 0 8px rgba(14, 196, 159, 0.6),
+    0 0 20px rgba(14, 196, 159, 0.4),
+    inset 0 0 8px var(--verde);
+  transform: translateY(-2px);
 }
 
-.btn-outline-turquesa , .swal-custom-cancel {
+/* Active: clic, sin tanto glow */
+.btn-turquesa:active,
+.swal-custom-confirm:active {
+  transform: translateY(0);
+  box-shadow: 0 0 4px rgba(14, 196, 159, 0.25);
+}
+
+/* ================================
+   BOTÓN OUTLINE TURQUESA
+================================ */
+
+.btn-outline-turquesa,
+.swal-custom-cancel {
+  font-family: 'BankGothic', sans-serif;
+  background-color: transparent;
   color: var(--turquesa);
   border: 1px solid var(--turquesa);
-  background-color: transparent;
-  transition: all .3s ease;
-  font-family: 'BankGothic', sans-serif;
+  border-radius: .4rem;
+  display: inline-flex;
+  align-items: center;
+  gap: .35rem;
+  transition: all 0.25s ease-in-out;
 }
 
+/* Hover: efecto neón igual que el botón turquesa */
 .btn-outline-turquesa:hover,
-.btn-outline-turquesa:focus,
-.swal-custom-cancel:hover{
-  color: #000;
-  background-color: var(--turquesa);
+.swal-custom-cancel:hover {
+  background-color: rgba(14, 196, 159, 0.1); /* leve relleno turquesa translúcido */
+  color: var(--turquesa);
+  box-shadow:
+    0 0 8px rgba(14, 196, 159, 0.6),
+    0 0 20px rgba(14, 196, 159, 0.4),
+    inset 0 0 8px var(--verde);
+  transform: translateY(-2px);
   border-color: var(--turquesa);
 }
 
+/* Active: efecto presionado */
+.btn-outline-turquesa:active,
+.swal-custom-cancel:active {
+  transform: translateY(0);
+  box-shadow: 0 0 4px rgba(14, 196, 159, 0.25);
+}
+
+
+/* ================================
+   BOTÓN AZUL (SECUNDARIO)
+================================ */
+
 .btn-azul {
+  font-family: 'BankGothic', sans-serif;
   background-color: var(--azul);
   color: #fff;
+  border: 1px solid var(--azul);
+  border-radius: .4rem;
+  display: inline-flex;
+  align-items: center;
+  transition: all 0.25s ease-in-out;
 }
 
 .btn-azul:hover {
-  background-color: #1a3c54;
-  border-color: var(--azul);
+  background-color: var(--azul-light);
   color: #fff;
+  box-shadow: 0 0 10px rgba(9, 36, 56, 0.4);
+  transform: translateY(-2px);
 }
 
-.navbar .nav-link.active,
-.navbar .nav-link:hover {
-  color: var(--turquesa) !important;
-  font-weight: 600;
-  text-decoration: underline;
-  text-underline-offset: 6px;
+.btn-azul:active {
+  transform: translateY(0);
+  box-shadow: none;
 }
+
+
+
+/* ================================
+   NAVBAR & LINKS (Animados estilo neón)
+================================ */
+
+.navbar .nav-link {
+  color: var(--blanco);
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+/* Hover + activo con efecto neón turquesa */
+.navbar .nav-link:hover,
+.navbar .nav-link.active {
+  color: var(--turquesa) !important;
+  text-decoration: none;
+  font-weight: 600;
+  transform: translateY(-1px);
+  text-shadow:
+    0 0 4px rgba(14, 196, 159, 0.8),
+    0 0 8px rgba(14, 196, 159, 0.6),
+    0 0 16px rgba(14, 196, 159, 0.4);
+}
+
+/* Subrayado animado */
+.navbar .nav-link::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 2px;
+  width: 0;
+  height: 2px;
+  background: var(--turquesa);
+  transition: width 0.3s ease;
+}
+
+.navbar .nav-link:hover::after,
+.navbar .nav-link.active::after {
+  width: 100%;
+}
+
+
+
+/* ================================
+   TABS (Underline & Segment)
+================================ */
 
 .tabs-underline {
   gap: 1.5rem;
@@ -276,9 +400,37 @@ main {
   letter-spacing: .2px;
 }
 
-.table-dark th, .table-dark td {
+.tabs-segment .enlace {
+  color: #000;
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: 16px 16px 0 0;
+  padding: .5rem 1rem;
+  line-height: 1;
+}
+
+.tabs-segment .enlace.active {
+  background: var(--azul) !important;
+  color: #fff !important;
+  border-color: var(--azul) !important;
+  font-weight: 600;
+  box-shadow: 0 0 0 .12rem rgba(12, 32, 45, .20);
+}
+
+
+/* ================================
+   TABLAS
+================================ */
+
+.table-dark th,
+.table-dark td {
   vertical-align: middle;
 }
+
+
+/* ================================
+   FOOTER
+================================ */
 
 footer {
   flex-shrink: 0;
@@ -299,6 +451,11 @@ footer .text-accent {
   color: #00d1b2;
 }
 
+
+/* ================================
+   COMPONENTES VARIOS
+================================ */
+
 .navbar-avatar {
   width: 36px;
   height: 36px;
@@ -317,7 +474,8 @@ footer .text-accent {
   color: var(--turquesa);
 }
 
-.procesos-container, .tecnologias-container {
+.procesos-container,
+.tecnologias-container {
   padding: 2rem;
   background: linear-gradient(135deg, #0c202d, #0d2a39);
   border-radius: 10px;
@@ -326,11 +484,13 @@ footer .text-accent {
   transition: transform .3s;
 }
 
-.procesos-container:hover, .tecnologias-container:hover {
+.procesos-container:hover,
+.tecnologias-container:hover {
   transform: translateY(-5px);
 }
 
-.procesos-container h3, .tecnologias-container h3 {
+.procesos-container h3,
+.tecnologias-container h3 {
   font-family: 'BankGothic', sans-serif;
   border-bottom: 2px solid var(--turquesa);
   padding-bottom: .5rem;
@@ -359,27 +519,10 @@ iframe {
   border: 0;
 }
 
-.tabs-segment .enlace.active {
-  background: var(--azul) !important;
-  color: #fff !important;
-  border-color: var(--azul) !important;
-  font-weight: 600;
-  box-shadow: 0 0 0 .12rem rgba(12, 32, 45, .20);
-}
-
-.tabs-segment .enlace {
-  color: #000;
-  background: transparent;
-  border: 1px solid transparent;
-  border-radius: 16px 16px 0 0;
-  padding: .5rem 1rem;
-  line-height: 1;
-}
 
 /* ================================
-   Paginación estilo oscuro - Lili Studio
-   ================================ */
-
+   PAGINACIÓN
+================================ */
 
 .page-item {
   margin: 0 2px;
@@ -387,29 +530,29 @@ iframe {
 
 .page-link {
   background-color: var(--azul);
-  color: var(--blanco); /* texto azul */
+  color: var(--blanco);
   transition: all 0.2s ease-in-out;
-  border-radius: 6px; /* bordes suaves */
+  border-radius: 6px;
   padding: .45rem .85rem;
   font-weight: bold;
 }
 
 .page-link:hover {
-  background-color: var(--turquesa); /* azul hover */
+  background-color: var(--turquesa);
   border-color: var(--azul);
   color: var(--negro);
   font-weight: 600;
 }
 
 .page-item.active .page-link {
-  background-color: var(--turquesa); /* turquesa activo */
+  background-color: var(--turquesa);
   border-color: var(--azul);
   color: var(--negro);
   font-weight: 600;
 }
 
 .page-item.disabled .page-link {
-  background-color: var(--turquesa); /* gris oscuro para desactivado */
+  background-color: var(--turquesa);
   color: var(--negro);
   border-color: #333;
   font-weight: bold;
@@ -419,10 +562,20 @@ nav .small {
   color: #e1e1e1 !important;
 }
 
+
+/* ================================
+   FORM / INPUTS
+================================ */
+
 .form-check-input:checked {
   background-color: var(--turquesa);
   border-color: var(--turquesa);
 }
+
+
+/* ================================
+   EFECTOS / ANIMACIONES
+================================ */
 
 .transition-move {
   transition: transform 0.2s cubic-bezier(.4, 2, .6, 1);
@@ -443,6 +596,10 @@ nav .small {
 }
 
 
+/* ================================
+   SWEETALERT CUSTOM
+================================ */
+
 .swal-custom-popup {
   border: 2px solid var(--turquesa);
   box-shadow: 0 0 25px rgba(14, 196, 159, 0.3);
@@ -454,8 +611,69 @@ nav .small {
   color: var(--turquesa) !important;
 }
 
+/* ================================
+   NAVBAR DROPDOWN (Mi Cuenta)
+================================ */
 
+/* Avatar circular pequeño */
+.navbar-avatar {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid var(--turquesa);
+  box-shadow: 0 0 6px rgba(14, 196, 159, 0.5);
+  transition: all 0.3s ease;
+}
 
+.navbar-avatar:hover {
+  box-shadow:
+    0 0 8px rgba(14, 196, 159, 0.7),
+    0 0 16px rgba(14, 196, 159, 0.5);
+}
 
+/* Estilo general del toggle */
+.navbar .dropdown-toggle {
+  color: var(--blanco);
+  transition: all 0.3s ease;
+  position: relative;
+}
 
+.navbar .dropdown-toggle:hover,
+.navbar .dropdown-toggle:focus {
+  color: var(--turquesa);
+  text-shadow:
+    0 0 4px rgba(14, 196, 159, 0.8),
+    0 0 10px rgba(14, 196, 159, 0.6);
+}
+
+/* Fondo del menú */
+.custom-dropdown {
+  background-color: var(--azul);
+  border: 1px solid rgba(14, 196, 159, 0.4);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+/* Ítems del menú */
+.custom-dropdown .dropdown-item {
+  color: var(--blanco);
+  transition: all 0.25s ease;
+  padding: 10px 16px;
+}
+
+.custom-dropdown .dropdown-item:hover {
+  background-color: rgba(14, 196, 159, 0.15);
+  color: var(--turquesa);
+  text-shadow: 0 0 6px rgba(14, 196, 159, 0.6);
+  transform: translateX(2px);
+}
+
+/* Separador visual del logout */
+.custom-dropdown .dropdown-item.text-danger:hover {
+  background-color: rgba(255, 0, 0, 0.15);
+  color: #ff6b6b;
+  text-shadow: none;
+  transform: translateX(2px);
+}
 

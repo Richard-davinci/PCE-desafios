@@ -127,16 +127,13 @@
         </div>
 
         {{-- Imagen actual --}}
-        @if($service->image)
-          <div class="col-sm-6 col-lg-4 mb-3">
-            <label class="form-label">Imagen actual</label>
-            <img src="{{ asset('storage/img/services/' . $service->image) }}"
-                 alt="{{ $service->name }}"
-                 class="img-thumbnail"
-                 style="max-width: 70px;">
-          </div>
-        @endif
-
+        <div class="col-sm-6 col-lg-4 mb-3">
+          <label class="form-label">Imagen actual</label>
+          <img src="{{ asset('storage/img/services/' . ($service->image ?? 'default.webp')) }}"
+               alt="{{ $service->name }}"
+               class="img-thumbnail"
+               style="max-width: 70px;">
+        </div>
         {{-- Descripción --}}
         <div class="col-12 col-lg-6 mb-3">
           <label for="description" class="form-label">Descripción *</label>

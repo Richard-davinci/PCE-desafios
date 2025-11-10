@@ -77,24 +77,26 @@
             </li>
           @endif
 
-          {{-- Dropdown de mi cuenta --}}
+          {{-- Dropdown de Mi Cuenta --}}
           <li class="nav-item dropdown ms-lg-2">
-            <a class="nav-link dropdown-toggle d-flex align-items-center gap-2 text-light justify-content-center"
+            <a class="nav-link dropdown-toggle d-flex align-items-center gap-2 justify-content-center"
                href="#" data-bs-toggle="dropdown">
               <img src="{{ asset('storage/img/users/default2.webp') }}" alt="Avatar de usuario" class="navbar-avatar">
               <span id="navUserName">Mi cuenta</span>
+              <i class="fa-solid fa-caret-down ms-1"></i>
             </a>
-            <ul class="dropdown-menu dropdown-menu-end dropdown-menu-dark shadow border-light">
+
+            <ul class="dropdown-menu dropdown-menu-end custom-dropdown shadow">
               <li>
                 <a class="dropdown-item" href="{{ route('user.myProfile') }}">
-                  <i class="bi bi-person-circle me-2"></i> Ver perfil
+                  <i class="fa-solid fa-user me-2 text-turquesa"></i> Ver perfil
                 </a>
               </li>
               <li>
                 <form action="{{ route('logout') }}" method="get">
                   @csrf
                   <button type="submit" class="dropdown-item text-danger">
-                    <i class="bi bi-box-arrow-right me-2"></i> Cerrar sesión
+                    <i class="fa-solid fa-arrow-right-from-bracket me-2"></i> Cerrar sesión
                   </button>
                 </form>
               </li>

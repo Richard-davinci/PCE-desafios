@@ -57,8 +57,8 @@
         <div class="card bg-azul border-light shadow-sm mb-3">
           <div class="card-body">
             @if($service->image)
-              <img src="{{ asset('/storage/img/services/' . $service->image) }}"
-                   alt="{{ $service->name }}"
+              <img src="{{ asset('storage/img/services/' . ($service->image ?? 'default.webp')) }}"
+                   alt="{{ $service->name ?? 'Sin imagen'}}"
                    class="img-fluid img-thumb mb-3 rounded-3">
             @endif
 

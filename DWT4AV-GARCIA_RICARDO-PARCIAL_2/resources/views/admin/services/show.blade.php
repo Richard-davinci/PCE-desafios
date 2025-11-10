@@ -55,11 +55,9 @@
       <div class="col-lg-4">
         <div class="card bg-azul border-light shadow-sm mb-3">
           <div class="card-body">
-            @if($service->image)
-              <img src="{{ asset('storage/img/services/' . $service->image) }}"
-                   alt="{{ $service->name }}"
-                   class="img-fluid img-thumb mb-3 rounded-3">
-            @endif
+            <img src="{{ asset('storage/img/services/' . ($service->image ?? 'default.webp')) }}"
+                 alt="{{ $service->name ?? 'sin imagen' }}"
+                 class="img-fluid img-thumb mb-3 rounded-3">
 
             <h2 class="fs-5 font-bankgothic text-turquesa mb-2">Descripción</h2>
             <p class=" mb-2">
@@ -109,7 +107,7 @@
               @if(!empty($uniquePlan->features))
                 <ul class="small ps-3 mb-3">
                   @foreach($uniquePlan->features as $f)
-                    <li>{{ trim($f) }}</li>
+                    <li><i class="fa-solid fa-circle-check text-turquesa me-2"></i>{{ trim($f) }}</li>
                   @endforeach
                 </ul>
               @endif
@@ -175,7 +173,7 @@
                           @if(!empty($plan->features))
                             <ul class="small ps-3 mb-3">
                               @foreach($plan->features as $f)
-                                <li>{{ trim($f) }}</li>
+                                <li><i class="fa-solid fa-circle-check text-turquesa me-2"></i>{{ trim($f) }}</li>
                               @endforeach
                             </ul>
                           @endif
@@ -187,14 +185,14 @@
 
                 {{-- ANUAL --}}
                 <div class="tab-pane fade" id="anual" role="tabpanel">
-                  <div class="row g-3">
+                  <div class="row g-3 ">
                     @foreach($annualPlans as $plan)
                       @php
                         $monthly = $monthlyPlans->get($plan->name);
                         $discount = $plan->discount;
                       @endphp
                       <div class="col-md-4">
-                        <div class="card rounded-3 h-100 p-3 border-0 ">
+                        <div class="card rounded-3 h-100 p-3 border-0  ">
                           <h3 class="fs-5 font-bankgothic text-light fw-bold mb-1 badge bg-turquesa">
                             {{ $plan->name }}
                           </h3>
@@ -221,7 +219,7 @@
                           @if(!empty($plan->features))
                             <ul class="small ps-3 mb-3">
                               @foreach($plan->features as $f)
-                                <li>{{ trim($f) }}</li>
+                                <li><i class="fa-solid fa-circle-check text-turquesa me-2"></i>{{ trim($f) }}</li>
                               @endforeach
                             </ul>
                           @endif

@@ -8,10 +8,16 @@ class PageController extends Controller
 {
   public function index()
   {
-    // modificar cuando agregue las suscripciones para q me muestre las 3 mas vendidas
-    $services = Service::all();
+    // Trae los últimos 3 servicios activos
+    $services = Service::where('status', 'Activo')
+      ->orderBy('created_at', 'desc')
+      ->take(3)
+      ->get();
+
     return view('pages.index', compact('services'));
   }
+
+
 
   public function about()
   {
@@ -25,7 +31,7 @@ class PageController extends Controller
 
   function services()
   {
-    $services = Service::with('category', 'plans')->get();
+    $services = Service::with('category', 'plans')->where('status', 'Activo')->get();
 
     return view('pages.services', compact('services'));
   }

@@ -17,14 +17,14 @@
 
   <section class="py-5">
     <div class="container">
-      <header class="mb-4">
-        <h2 class="font-bankgothic fw-bold fs-2">Servicios destacados</h2>
-        <p class="text-gris mb-0">Elegidos por pymes y emprendedores para despegar su presencia online.</p>
-      </header>
+      <div class="mb-4">
+        <h2 class="font-bankgothic fw-bold fs-2">Últimos servicios</h2>
+        <p class="text-gris mb-0">Los servicios más recientes que ofrecemos para potenciar tu presencia online.</p>
+      </div>
       <div class="row g-4">
         @foreach($services as $service)
           <x-service-card
-            image="{{ asset('storage/img/services/' . $service->image) }}"
+            image="{{ asset('storage/img/services/' . ($service->image ?? 'default.webp')) }}"
             alt="Mockup de un sitio institucional"
             title="{{ $service->name}}"
             description="{{ $service->subtitle}}"
@@ -34,6 +34,7 @@
       </div>
     </div>
   </section>
+
   {{-- La siguiente seccion es para agregar en la siguiente intancia proyectos recientes reales --}}
   <section class="py-5 bg-azul text-light">
     <div class="container">
@@ -44,22 +45,22 @@
       </header>
       <div class="row g-4">
         <div class="col-md-4">
-          <div class="card shadow-sm">
-            <img src="{{ asset('storage/img/proyectos/ecommerce.jpg')}}" class="card-img-top" alt="Sitio ">
+          <div class="card transition-move">
+            <img src="{{ asset('storage/img/proyectos/ecommerce.jpg')}}" class="card-img-proyect" alt="Sitio ">
             <div class="card-body">
-              <h3 class="h6 font-bankgothic">Lili-tech</h3>
+              <h3 class="font-bankgothic fs-4">Lili-tech</h3>
               <p class="text-gris mb-2">Sitio eccomerce para venta de productos tecnologicos.</p>
-              <a href="https://lilitech.shop/" target="_blank" class="btn btn-outline-turquesa btn-sm">Ver sitio</a>
+              <a href="https://lilitech.shop/" target="_blank" class="btn btn-turquesa">Ver sitio</a>
             </div>
           </div>
         </div>
         <div class="col-md-4">
-          <div class="card shadow-sm">
-            <img src="{{ asset('storage/img/proyectos/comunidad.jpg')}}" class="card-img-top" alt="Sitio ">
+          <div class="card transition-move ">
+            <img src="{{ asset('storage/img/proyectos/comunidad.jpg')}}" class="card-img-proyect" alt="Sitio ">
             <div class="card-body">
-              <h3 class="h6 font-bankgothic">Red social lili-studio comunidad</h3>
+              <h3 class="font-bankgothic fs-4">lili-studio comunidad</h3>
               <p class="text-gris mb-2">Red social para programadores web de muchos lenguajes</p>
-              <a href="https://lili-studio-comunidad.lilitech.shop/" class="btn btn-outline-turquesa btn-sm">Ver
+              <a href="https://lili-studio-comunidad.lilitech.shop/" class="btn btn-turquesa ">Ver
                 sitio</a>
             </div>
           </div>

@@ -166,26 +166,27 @@
 
                     {{-- Ver --}}
                     <a href="{{ route('admin.services.show', $service->id) }}"
-                       class="btn btn-sm btn-azul" title="Ver">
+                       class="btn  btn-azul" title="Ver">
                       <i class="fa-solid fa-eye"></i>
                     </a>
 
                     {{-- Agregar / Editar planes --}}
                     @if(!$hasPlans)
                       <a href="{{ route('admin.services.plans.create', $service) }}"
-                         class="btn btn-sm btn-azul" title="Agregar plan">
-                        <i class="bi bi-plus-circle"></i>
+                         class="btn btn-azul" title="Agregar plan">
+                        <i class="fa-solid fa-plus"></i>
                       </a>
                     @else
                       <a href="{{ route('admin.services.plans.edit', $service) }}"
-                         class="btn btn-sm btn-azul" title="Editar planes">
-                        <i class="bi bi-sliders"></i>
+                         class="btn btn-azul" title="Editar planes">
+                        <i class="fa-solid fa-sliders"></i>
                       </a>
                     @endif
 
+
                     {{-- Editar --}}
                     <a href="{{ route('admin.services.edit', $service->id) }}"
-                       class="btn btn-sm btn-azul" title="Editar servicios">
+                       class="btn  btn-azul" title="Editar servicios">
                       <i class="fa-solid fa-pen"></i>
                     </a>
 
@@ -196,7 +197,7 @@
                           class="d-inline">
                       @csrf
                       @method('DELETE')
-                      <button type="submit" class="btn btn-sm btn-danger" title="Eliminar">
+                      <button type="submit" class="btn  btn-danger" title="Eliminar">
                         <i class="fa-solid fa-trash"></i>
                       </button>
                     </form>
