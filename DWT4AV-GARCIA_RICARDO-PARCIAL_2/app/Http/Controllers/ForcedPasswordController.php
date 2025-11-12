@@ -4,44 +4,46 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\ValidationException;
+
 
 class ForcedPasswordController extends Controller
 {
-    public function show(Request $request)
-    {
-        $user = $request->user();
+  public function show(Request $request)
+  {
+    $user = $request->user();
 
-        if (!$user->must_change_password) {
-            return $user->role === 'admin'
-                ? redirect()->route('admin.dashboard')
-                : redirect()->route('pages.index');
-        }
-
-        return view('auth.force-change');
+    if (!$user->must_change_password) {
+      return $user->role === 'admin'
+        ? redirect()->route('admin.dashboard')
+        : redirect()->route('pages.index');
     }
 
-    public function update(Request $request)
-    {
-        $request->validate([
-            'current_password'      => ['required'],
-            'password'              => ['required', 'min:6', 'confirmed'],
-        ]);
+    return view('auth.force-change');
+  }
 
-        $user = $request->user();
+  public function update(Request $request)
+  {
+    $request->validate([
+      'current_password' => ['required'],
+      'password' => ['required', 'min:6', 'confirmed'],
+    ]);
 
-        if (!Hash::check($request->current_password, $user->password)) {
-            return back()
-                ->withErrors(['current_password' => 'La contraseña actual no es correcta.'])
-                ->withInput();
-        }
+    $user = $request->user();
 
-        $user->update([
-            'password'             => Hash::make($request->password),
-            'must_change_password' => false,
-        ]);
-
-        return $user->role === 'admin'
-            ? redirect()->route('admin.dashboard')->with('success', 'Contraseña actualizada.')
-            : redirect()->route('pages.index')->with('success', 'Contraseña actualizada.');
+    if (!Hash::check($request->current_password, $user->password)) {
+      return back()
+        ->withErrors(['current_password' => 'La contraseña actual no es correcta.'])
+        ->withInput();
     }
+
+    $user->update([
+      'password' => Hash::make($request->password),
+      'must_change_password' => false,
+    ]);
+
+    return $user->role === 'admin'
+      ? redirect()->route('admin.dashboard')->with('success', 'Contraseña actualizada.')
+      : redirect()->route('pages.index')->with('success', 'Contraseña actualizada.');
+  }
 }

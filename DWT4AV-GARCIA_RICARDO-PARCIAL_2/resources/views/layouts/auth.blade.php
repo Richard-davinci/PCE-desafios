@@ -31,8 +31,8 @@
                     const isPassword = field.type === 'password';
                     field.type = isPassword ? 'text' : 'password';
                     this.innerHTML = isPassword
-                        ? '<i class="bi bi-eye-slash"></i>'
-                        : '<i class="bi bi-eye"></i>';
+                        ? '<i class="fa-solid fa-eye-slash"></i>'
+                        : '<i class="fa-solid fa-eye"></i>';
                 });
             }
         });

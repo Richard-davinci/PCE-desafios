@@ -115,7 +115,7 @@
                   @if($user->role === 'admin')
                     <span class="badge bg-turquesa">Admin</span>
                   @else
-                    <span class="badge bg-secondary">User</span>
+                    <span class="badge bg-azul">User</span>
                   @endif
                 </td>
 
@@ -129,7 +129,7 @@
 
                     {{-- Editar --}}
                     <a href="{{ route('admin.users.edit', $user) }}"
-                       class="btn btn-sm btn-azul"
+                       class="btn  btn-azul"
                        title="Editar usuario">
                       <i class="fa-solid fa-pen"></i>
                     </a>
@@ -141,7 +141,7 @@
                           onsubmit="return confirm('¿Seguro que querés resetear la contraseña de este usuario?')">
                       @csrf
                       @method('PATCH')
-                      <button type="submit" class="btn btn-sm btn-warning" title="Forzar cambio de contraseña">
+                      <button type="submit" class="btn btn-azul" title="Forzar cambio de contraseña">
                         <i class="bi bi-key-fill"></i>
                       </button>
                     </form>
@@ -154,7 +154,7 @@
                       @csrf
                       @method('DELETE')
                       <button type="submit"
-                              class="btn btn-sm btn-danger"
+                              class="btn  btn-danger"
                               title="Eliminar usuario">
                         <i class="fa-solid fa-trash"></i>
                       </button>

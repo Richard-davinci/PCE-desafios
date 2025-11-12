@@ -6,19 +6,21 @@
       <img src="{{ asset('img/logo.png') }}" alt="logo Lili Studio" class="img-fluid w-75">
     </a>
 
-    {{-- Botón móvil --}}
     <button class="navbar-toggler toogler-color" type="button" data-bs-toggle="collapse"
             data-bs-target="#mainNav" aria-controls="mainNav" aria-expanded="false" aria-label="Abrir menú">
       <span class="navbar-toggler-icon"></span>
     </button>
 
     <div id="mainNav" class="collapse navbar-collapse">
-      <ul class="navbar-nav ms-auto font-bankgothic align-items-end align-items-lg-center gap-0 gap-lg-2">
+      <ul class="navbar-nav ms-auto font-bankgothic align-items-end align-items-lg-center gap-0 gap-lg-2 ">
 
         {{-- ======================= USUARIOS AUTENTICADOS ======================= --}}
+        @php
+          $user = Auth::user();
+          @endphp
         @auth
           {{-- ADMIN --}}
-          @if (Auth::user()->role === 'admin')
+          @if ($user->role === 'admin')
             @if (request()->is('admin/*'))
               {{-- ===== Dentro del panel Admin ===== --}}
               <li class="nav-item text-center">
@@ -81,7 +83,8 @@
           <li class="nav-item dropdown ms-lg-2">
             <a class="nav-link dropdown-toggle d-flex align-items-center gap-2 justify-content-center"
                href="#" data-bs-toggle="dropdown">
-              <img src="{{ asset('storage/img/users/default2.webp') }}" alt="Avatar de usuario" class="navbar-avatar">
+              <img src="{{ $user->profile_photo ? Storage::url($user->profile_photo) :
+                                  asset('storage/img/users/default.webp') }}" alt=" {{$user->name}}" class="navbar-avatar">
               <span id="navUserName">Mi cuenta</span>
               <i class="fa-solid fa-caret-down ms-1"></i>
             </a>
@@ -92,6 +95,12 @@
                   <i class="fa-solid fa-user me-2 text-turquesa"></i> Ver perfil
                 </a>
               </li>
+              <li>
+                <a class="dropdown-item" href="{{ route('user.subscriptions') }}">
+                  <i class="fa-solid fa-user me-2 text-turquesa"></i> Mis suscripciones
+                </a>
+              </li>
+
               <li>
                 <form action="{{ route('logout') }}" method="get">
                   @csrf

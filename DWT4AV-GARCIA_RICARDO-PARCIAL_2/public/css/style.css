@@ -32,7 +32,7 @@ input, button, textarea, select {
   --turquesa: #0ec49f;
   --verde: #2b0a45; /* violeta verdoso oscuro (fondo/hover mix) */
   --negro: #0d0d0d;
-  --blanco: #cfd6dc;
+  --blanco: #dcdcdc;
   --gris: #43494e;
 }
 
@@ -75,7 +75,6 @@ input, button, textarea, select {
 html {
   font-size: 100%;
   line-height: 1.15;
-  background-color: rgb(225, 225, 225);
   font-family: 'Roboto', sans-serif;
   height: 100%;
 }
@@ -84,7 +83,7 @@ body {
   min-height: 100vh;
   scroll-behavior: smooth;
   text-rendering: optimizeSpeed;
-  background-color: rgb(225, 225, 225);
+  background-color: #dcdcdc;
   font-family: 'Roboto', sans-serif;
   height: 100%;
   display: flex;
@@ -124,11 +123,6 @@ main {
   color: var(--azul);
 }
 
-.text-secondary {
-  color: #c4c4c4 !important;
-}
-
-
 /* ================================
    BACKGROUNDS
 ================================ */
@@ -163,6 +157,10 @@ main {
   background-color: var(--azul-light);
 }
 
+.bg-blanco {
+  background-color: var(--blanco);
+}
+
 
 /* ================================
    BOTONES
@@ -176,9 +174,6 @@ main {
   color: var(--negro);
   border: 1px solid var(--turquesa);
   border-radius: .4rem;
-  display: inline-flex;
-  align-items: center;
-  gap: .35rem;
   transition: all 0.25s ease-in-out;
 }
 
@@ -212,9 +207,6 @@ main {
   color: var(--turquesa);
   border: 1px solid var(--turquesa);
   border-radius: .4rem;
-  display: inline-flex;
-  align-items: center;
-  gap: .35rem;
   transition: all 0.25s ease-in-out;
 }
 
@@ -249,8 +241,6 @@ main {
   color: #fff;
   border: 1px solid var(--azul);
   border-radius: .4rem;
-  display: inline-flex;
-  align-items: center;
   transition: all 0.25s ease-in-out;
 }
 
@@ -310,25 +300,33 @@ main {
 
 
 
-/* ================================
-   TABS (Underline & Segment)
-================================ */
-
+/* =========================================
+   TABS estilo Lili-Studio (hover tipo navbar)
+   ========================================= */
 .tabs-underline {
   gap: 1.5rem;
-  border-bottom: 1px solid rgba(255, 255, 255, .15);
+  padding-bottom: 0.15rem;
 }
 
 .tabs-underline .nav-link {
-  color: #bbb;
-  border: none;
-  background: transparent;
-  border-radius: 0;
-  padding: .75rem .5rem;
   position: relative;
-  transition: color .2s ease;
+  padding: 0.75rem 0.5rem;
+  border: none;
+  border-radius: 0;
+  background: transparent;
+  color: rgba(235, 245, 255, 0.6);
+  font-weight: 400;
+  letter-spacing: 0.3px;
+  transition: color 0.25s ease, text-shadow 0.25s ease;
 }
 
+/* Hover tipo navbar: cambia color y leve glow */
+.tabs-underline .nav-link:hover {
+  color: var(--turquesa);
+  text-shadow: 0 0 8px rgba(14, 196, 159, 0.4);
+}
+
+/* Subrayado más fino y elegante */
 .tabs-underline .nav-link::after {
   content: "";
   position: absolute;
@@ -338,83 +336,27 @@ main {
   height: 2px;
   background: transparent;
   transform: scaleX(0);
-  transition: transform .2s ease, background .2s ease;
+  transform-origin: center;
+  transition: transform 0.25s ease, background 0.25s ease;
 }
 
-.tabs-underline .nav-link:hover {
-  color: #fff;
-}
-
+/* El hover no muestra barra, solo el color */
 .tabs-underline .nav-link:hover::after {
-  background: rgba(255, 255, 255, .35);
-  transform: scaleX(1);
+  background: transparent;
+  transform: scaleX(0);
 }
 
+/* Tab activo con barra turquesa sutil */
 .tabs-underline .nav-link.active {
   color: var(--turquesa);
   font-weight: 600;
+  text-shadow: 0 0 10px rgba(14, 196, 159, 0.45);
 }
 
 .tabs-underline .nav-link.active::after {
   background: var(--turquesa);
   transform: scaleX(1);
-}
-
-.tabs-segment {
-  display: inline-flex;
-  gap: .5rem;
-  border: 1px solid rgba(255, 255, 255, .18);
-  backdrop-filter: saturate(120%);
-}
-
-.tabs-segment .nav-link {
-  color: #b8c2ca;
-  background: transparent;
-  border: 1px solid transparent;
-  border-radius: 999px;
-  padding: .5rem 1rem;
-  line-height: 1;
-}
-
-.tabs-segment .nav-link:hover {
-  color: #e7eef3;
-}
-
-.tabs-segment .nav-link.active {
-  color: #000;
-  background: var(--turquesa);
-  border-color: var(--turquesa);
-  font-weight: 600;
-  box-shadow: 0 0 0 .12rem rgba(14, 196, 159, .25);
-}
-
-.tabs-segment .tab-chip {
-  display: inline-block;
-  padding: .12rem .45rem;
-  border-radius: 999px;
-  background: rgba(14, 196, 159, .15);
-  color: var(--turquesa);
-  border: 1px solid var(--turquesa);
-  font-size: .75rem;
-  font-weight: 600;
-  letter-spacing: .2px;
-}
-
-.tabs-segment .enlace {
-  color: #000;
-  background: transparent;
-  border: 1px solid transparent;
-  border-radius: 16px 16px 0 0;
-  padding: .5rem 1rem;
-  line-height: 1;
-}
-
-.tabs-segment .enlace.active {
-  background: var(--azul) !important;
-  color: #fff !important;
-  border-color: var(--azul) !important;
-  font-weight: 600;
-  box-shadow: 0 0 0 .12rem rgba(12, 32, 45, .20);
+  box-shadow: 0 0 10px rgba(14, 196, 159, 0.45);
 }
 
 
@@ -497,8 +439,8 @@ footer .text-accent {
   margin-bottom: 1.5rem;
 }
 
-.service-card .card-img-top {
-  aspect-ratio: 16/9;
+ .card-img-top {
+  aspect-ratio: 5/4;
   object-fit: cover;
   border-bottom: 1px solid rgba(255, 255, 255, .2);
   background: #0f0f0f;

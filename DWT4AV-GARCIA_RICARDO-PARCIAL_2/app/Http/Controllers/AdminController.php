@@ -12,9 +12,9 @@ class AdminController extends Controller
   {
     // Datos de usuarios
     $rolesStats = User::getRolesStats();
-    $users      = User::all();                 // Todos los usuarios
-    $usersToday = User::today()->count();      // Usuarios creados hoy
-    $lastUsers  = User::latest()->take(5)->get(); // Últimos 5 usuarios
+    $users      = User::all();
+    $usersToday = User::today()->count();
+    $lastUsers  = User::latest()->take(5)->get();
 
     // Totales para el dashboard
     $totalUsers  = $users->count();
@@ -30,12 +30,12 @@ class AdminController extends Controller
     $totalCategories = Category::count();
     $categoriesWithServicesCount = Category::has('services')->count();
 
-    // 🔹 Últimos registros
-    $latestUsers      = $lastUsers; // reutilizo tu consulta
+    //Últimos registros
+    $latestUsers      = $lastUsers;
     $latestServices   = Service::with('category')->latest()->take(5)->get();
     $latestCategories = Category::withCount('services')->latest()->take(5)->get();
 
-    // 🔹 Enviamos todo a la vista
+
     return view('admin.dashboard', compact(
       'rolesStats',
       'users',

@@ -10,7 +10,7 @@
         <p class="text-secondary mb-0">Iniciá sesión o registrate para gestionar tu suscripción.</p>
       </div>
 
-      <ul class="nav tabs-underline justify-content-center mb-4" id="authTabs" role="tablist">
+      <ul class="nav tabs-underline justify-content-center mb-2" id="authTabs" role="tablist">
         <li class="nav-item" role="presentation">
           <button class="nav-link active font-bankgothic fs-5" id="login-tab"
                   data-bs-toggle="tab" data-bs-target="#login" type="button"
@@ -27,13 +27,7 @@
         </li>
       </ul>
       @if($errors->any())
-        <div class="alert alert-danger">
-          <ul class="mb-0">
-            @foreach($errors->all() as $error)
-              <li>{{ $error }}</li>
-            @endforeach
-          </ul>
-        </div>
+        <x-alert type="danger" message="las credenciales no coinciden"/>
       @endif
 
       @if(session('success'))
@@ -42,45 +36,49 @@
         </div>
       @endif
 
-      <div class="tab-content bg-azul text-light border border-light rounded p-4 shadow-sm">
+      <div class="tab-content bg-azul text-light border border-light rounded p-5 shadow-sm">
         <div class="tab-pane fade show active" id="login" role="tabpanel" aria-labelledby="login-tab">
           <form class="row g-3" action="{{route('login.store')}}" method="post" id="loginForm">
             @csrf
             <div class="col-12">
-              <label for="emailLogin" class="form-label">Email</label>
+              <label for="emailLogin" class="formd-label">Email</label>
               <input type="email" id="emailLogin" class="form-control" name="email" value="{{ old('email') }}">
+              @error('email')
+              <x-alert type="danger" :message="$message" small/>
+              @enderror
             </div>
+
             <div class="col-12">
               <label for="passLogin" class="form-label">Contraseña</label>
               <div class="input-group">
                 <input type="password" id="passLogin" class="form-control" name="password">
-                <button type="button" class="btn btn-outline-secondary"
-                        data-toggle-password
-                        data-target="#passLogin"
-                        tabindex="-1">
-                  <i class="bi bi-eye"></i>
+                <button type="button" class="btn btn-outline-turquesa"  id="togglePassLogin"
+                        data-target="#passLogin" tabindex="-1">
+                  <i class="fa-solid fa-eye"></i>
                 </button>
               </div>
-
-
+              @error('password')
+              <x-alert type="danger" :message="$message" small/>
+              @enderror
             </div>
+
+            {{--no funciona todavia el recordar averiguar como--}}
             <div class="col-12 mt-2">
               <a href="#" class="text-decoration-none text-turquesa small">
                 Me olvidé la contraseña
               </a>
             </div>
+
             <div class="col-12">
               <div class="form-check">
                 <input type="checkbox" class="form-check-input" id="remember" name="remember">
                 <label class="form-check-label" for="remember">Recordarme</label>
               </div>
             </div>
-            <div class="col-12 d-grid d-sm-flex gap-3">
 
-            </div>
-            <div class="col-md-6">
+            <div class="col-md-6 ">
               <a href="{{route('pages.index')}}" type="button" class="btn btn-outline-turquesa font-bankgothic w-100">
-                <i class="bi bi-arrow-left me-1"></i> Volver a inicio
+                <i class="fa-solid fa-arrow-left me-1"></i> Volver
               </a>
             </div>
             <div class="col-md-6  ">
@@ -93,22 +91,33 @@
           <form class="row g-3 " id="registerForm" action="{{ route('register.store') }}" method="POST">
             @csrf
             <div class="col-md-12">
-              <label for="nombreReg" class="form-label">Nombre</label>
+              <label for="nombreReg" class="form-label">Nombre y apellido</label>
               <input type="text" id="nombreReg" name="name" class="form-control" value="{{ old('name') }}">
+              @error('name')
+              <x-alert type="danger" :message="$message" small/>
+              @enderror
             </div>
+
             <div class="col-12">
               <label for="emailReg" class="form-label">Email</label>
               <input type="email" id="emailReg" name="email" class="form-control" value="{{ old('email') }}">
+              @error('email')
+              <x-alert type="danger" :message="$message" small/>
+              @enderror
             </div>
+
             <div class="col-md-6">
               <label for="passReg" class="form-label">Contraseña</label>
               <div class="input-group">
                 <input type="password" id="passReg" name="password" class="form-control"
                        value="{{ old('password') }}">
-                <button type="button" class="btn btn-outline-secondary" id="togglePassReg" tabindex="-1">
-                  <i class="bi bi-eye"></i>
+                <button type="button" class="btn btn-outline-turquesa" id="togglePassReg" tabindex="-1">
+                  <i class="fa-solid fa-eye"></i>
                 </button>
               </div>
+              @error('password')
+              <x-alert type="danger" :message="$message" small/>
+              @enderror
             </div>
 
             <div class="col-md-6">
@@ -116,19 +125,21 @@
               <div class="input-group">
                 <input type="password" id="passReg2" name="password_confirmation" class="form-control"
                        value="{{ old('password_confirmation') }}">
-                <button type="button" class="btn btn-outline-secondary" id="togglePassReg2" tabindex="-1">
-                  <i class="bi bi-eye"></i>
+                <button type="button" class="btn btn-outline-turquesa" id="togglePassReg2" tabindex="-1">
+                  <i class="fa-solid fa-eye"></i>
                 </button>
               </div>
+              @error('password_confirmation')
+              <x-alert type="danger" :message="$message" small/>
+              @enderror
             </div>
-
             <div class="col-md-6">
-              <button type="button" class="btn btn-outline-turquesa font-bankgothic w-100">
-                <i class="bi bi-arrow-left me-1"></i> Volver a inicio
+              <button type="button" class="btn btn-outline-turquesa font-bankgothic w-100 mt-4">
+                <i class="fa-solid fa-arrow-left me-1"></i> Volver
               </button>
             </div>
-            <div class="col-md-6  ">
-              <button class="btn btn-turquesa font-bankgothic w-100" type="submit">Crear cuenta</button>
+            <div class="col-md-6">
+              <button class="btn btn-turquesa font-bankgothic w-100 mt-4" type="submit">Crear cuenta</button>
             </div>
           </form>
         </div>
@@ -137,31 +148,39 @@
   </section>
   <script>
     document.addEventListener('DOMContentLoaded', function () {
-      // Detecta si hay errores de validación en el formulario de registro
-      const hasRegisterErrors = @json(
-      $errors->has('name')
-      || $errors->has('password')
-      || $errors->has('password_confirmation')
-      || (old('name') && $errors->any())
-    );
+      const tabs = {
+        login: document.querySelector('#login-tab'),
+        registro: document.querySelector('#registro-tab'),
+      };
 
-      if (hasRegisterErrors) {
-        const loginTab = document.querySelector('#login-tab');
-        const loginPane = document.querySelector('#login');
-        const registroTab = document.querySelector('#registro-tab');
-        const registroPane = document.querySelector('#registro');
+      function activateAuthTab(key) {
+        const trigger = tabs[key];
+        if (!trigger) return;
 
-        if (loginTab && loginPane && registroTab && registroPane) {
-          // Sacar activo del login
-          loginTab.classList.remove('active');
-          loginPane.classList.remove('show', 'active');
-
-          // Activar registro
-          registroTab.classList.add('active');
-          registroPane.classList.add('show', 'active');
-        }
+        const tab = new bootstrap.Tab(trigger);
+        tab.show();
       }
-    });
 
+      // Tab inicial según backend (por defecto login)
+      const initialTab = @json(session('auth_tab', 'login'));
+      activateAuthTab(initialTab);
+
+      document.querySelectorAll('.toggle-password').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const targetId = btn.getAttribute('data-target');
+          const input = document.getElementById(targetId);
+          if (!input) return;
+
+          const isPwd = input.type === 'password';
+          input.type = isPwd ? 'text' : 'password';
+
+          const icon = btn.querySelector('i');
+          if (icon) {
+            icon.classList.toggle('fa-eye', !isPwd);
+            icon.classList.toggle('fa-eye-slash', isPwd);
+          }
+        });
+    });
   </script>
+
 @endsection

@@ -28,7 +28,7 @@
   <section class="py-4 ">
     <div class="container">
       <div class="row g-3">
-
+        <x-alert type="success" :message="session('success')"/>
         {{-- Usuarios --}}
         <div class="col-12 col-md-6 col-lg-4">
           <div class="card bg-azul text-light border-light">

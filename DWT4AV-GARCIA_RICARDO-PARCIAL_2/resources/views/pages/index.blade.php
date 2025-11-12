@@ -6,8 +6,7 @@
       <h1 class="font-bankgothic">Servicios web, <span
           class="text-turquesa">rápidos y sin vueltas</span>.</h1>
       <p class="text-blanco">
-        Sitios, landings y mantenimiento continuo para pymes y emprendedores. Menos humo, más resultados
-        medibles.
+        Sitios, landings y mantenimiento continuo para pymes y emprendedores.
       </p>
       <div class="d-flex flex-wrap gap-3">
         <a class="btn btn-turquesa" href="{{route('pages.services')}}">Ver servicios </a>
@@ -16,7 +15,9 @@
   </section>
 
   <section class="py-5">
+
     <div class="container">
+      <x-alert type="success" :message="session('success')"/>
       <div class="mb-4">
         <h2 class="font-bankgothic fw-bold fs-2">Últimos servicios</h2>
         <p class="text-gris mb-0">Los servicios más recientes que ofrecemos para potenciar tu presencia online.</p>
@@ -46,7 +47,7 @@
       <div class="row g-4">
         <div class="col-md-4">
           <div class="card transition-move">
-            <img src="{{ asset('storage/img/proyectos/ecommerce.jpg')}}" class="card-img-proyect" alt="Sitio ">
+            <img src="{{ asset('storage/img/proyectos/ecommerce.jpg')}}" class="card-img-top" alt="Sitio ">
             <div class="card-body">
               <h3 class="font-bankgothic fs-4">Lili-tech</h3>
               <p class="text-gris mb-2">Sitio eccomerce para venta de productos tecnologicos.</p>
@@ -56,7 +57,7 @@
         </div>
         <div class="col-md-4">
           <div class="card transition-move ">
-            <img src="{{ asset('storage/img/proyectos/comunidad.jpg')}}" class="card-img-proyect" alt="Sitio ">
+            <img src="{{ asset('storage/img/proyectos/comunidad.jpg')}}" class="card-img-top" alt="Sitio ">
             <div class="card-body">
               <h3 class="font-bankgothic fs-4">lili-studio comunidad</h3>
               <p class="text-gris mb-2">Red social para programadores web de muchos lenguajes</p>

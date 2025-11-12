@@ -29,20 +29,36 @@
 
         <div class="col-12">
           <label for="current_password" class="form-label">Contraseña actual</label>
+          <div class="input-group">
           <input type="password" id="current_password" name="current_password"
-                 class="form-control bg-dark text-light border-secondary" required>
+                   class="form-control bg-dark text-light border-secondary" required>
+            <button type="button" class="btn btn-outline-turquesa" id="toggleCurrentPass"
+                    data-toggle-password data-target="#current_password" tabindex="-1">
+            <i class="bi bi-eye"></i>
+            </button>
+          </div>
         </div>
 
         <div class="col-12">
           <label for="password" class="form-label">Nueva contraseña</label>
-          <input type="password" id="password" name="password"
-                 class="form-control bg-dark text-light border-secondary" required>
+          <div class="input-group">
+            <input type="password" id="password" name="password"
+                   class="form-control bg-dark text-light border-secondary">
+            <button type="button" class="btn btn-outline-turquesa" id="togglePassReg2" tabindex="-1">
+              <i class="bi bi-eye"></i>
+            </button>
+          </div>
         </div>
 
         <div class="col-12">
           <label for="password_confirmation" class="form-label">Confirmar nueva contraseña</label>
-          <input type="password" id="password_confirmation" name="password_confirmation"
-                 class="form-control bg-dark text-light border-secondary" required>
+          <div class="input-group">
+            <input type="password" id="password_confirmation" name="password_confirmation"
+                   class="form-control bg-dark text-light border-secondary">
+            <button type="button" class="btn btn-outline-turquesa" id="togglePassReg2" tabindex="-1">
+              <i class="bi bi-eye"></i>
+            </button>
+          </div>
         </div>
 
         <div class="col-12 d-grid">

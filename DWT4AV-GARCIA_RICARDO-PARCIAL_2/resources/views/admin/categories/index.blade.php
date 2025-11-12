@@ -92,18 +92,17 @@
 
                 <td class="text-end">
                   {{-- Editar categoría --}}
-                  <button class="btn btn-azul btn-sm"
+                  <a class="btn btn-azul"
                           data-bs-toggle="modal"
                           title="Editar"
                           data-bs-target="#modalEditarCategoria{{ $category->id }}">
                     <i class="fa-solid fa-pen"></i>
-                  </button>
+                  </a>
 
                   {{-- Eliminar categoría --}}
                   @if($category->services_count > 0)
-                    {{--  --}}
                     <button type="button"
-                            class="btn btn-secondary btn-sm"
+                            class="btn btn-secondary"
                             title="No se puede eliminar: tiene servicios asociados"
                     >
                       <i class="fa-solid fa-trash"></i>
@@ -118,7 +117,7 @@
                       @method('DELETE')
                       <button type="button"
                               data-bs-toggle="tooltip"
-                              class="btn btn-danger btn-sm"
+                              class="btn btn-danger"
                               title="Eliminar"
                               onclick="confirmDelete({{ $category->id }})">
                         <i class="fa-solid fa-trash"></i>

@@ -25,6 +25,26 @@
       <div class="mb-4">
         <h2 class="fs-2 font-bankgothic fw-bold">Servicios</h2>
         <p class="text-gris mb-0">Servicios clave para tu presencia digital.</p>
+
+        <form method="GET" action="{{ route('pages.services') }}" class="my-4">
+          <div class="input-group">
+            <input
+              type="text"
+              name="name"
+              id="searchName"
+              value="{{ old('name', $name ?? '') }}"
+              class="form-control"
+              placeholder="Buscar servicio por nombre…"
+              autocomplete="off">
+            <button class="btn btn-turquesa" type="submit">
+              <i class="fa-solid fa-magnifying-glass me-1"></i> Buscar
+            </button>
+          </div>
+          @error('name')
+          <div class="invalid-feedback d-block">{{ $message }}</div>
+          @enderror
+        </form>
+
       </div>
 
       <div class="row g-4">
@@ -37,6 +57,10 @@
             link="{{ route('pages.viewService', $service) }}"
           />
         @endforeach
+      </div>
+      {{-- Paginación --}}
+      <div class="mt-4 d-flex justify-content-end">
+        {{ $services->links('pagination::bootstrap-5') }}
       </div>
     </div>
   </section>

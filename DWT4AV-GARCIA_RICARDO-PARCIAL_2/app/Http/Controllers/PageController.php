@@ -1,8 +1,9 @@
 <?php
 
 namespace App\Http\Controllers;
-use Illuminate\Http\Request;
+
 use App\Models\Service;
+use Illuminate\Http\Request;
 
 class PageController extends Controller
 {
@@ -18,7 +19,6 @@ class PageController extends Controller
   }
 
 
-
   public function about()
   {
     return view('pages.about');
@@ -29,11 +29,28 @@ class PageController extends Controller
     return view('pages.contact');
   }
 
-  function services()
+  public function services(Request $request)
   {
-    $services = Service::with('category', 'plans')->where('status', 'Activo')->get();
 
-    return view('pages.services', compact('services'));
+    $validated = $request->validate(['name' => ['nullable', 'string', 'max:100'],]);
+
+    $query = Service::query()->where('status', 'Activo');
+
+    if (!empty($validated['name'])) {
+      $name = trim($validated['name']);
+      $query->where('name', 'LIKE', "%{$name}%");
+
+    }
+
+    $services = $query
+      ->orderBy('name', 'asc')
+      ->paginate(6)
+      ->withQueryString(); // preserva ?name= en la paginación
+
+    return view('pages.services', [
+      'services' => $services,
+      'name' => $validated['name'] ?? '',
+    ]);
   }
 
   public function viewService(Service $service)

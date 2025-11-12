@@ -10,7 +10,7 @@ class RoleAuth
   public function handle($request, Closure $next)
   {
     if (!Auth::user()->hasRole('admin')) {
-      return redirect()->route('unauthorized');
+      return redirect()->route('admin.unauthorized');
     }
 
     return $next($request);

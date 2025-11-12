@@ -116,9 +116,8 @@
               @endif
 
               <div class="d-flex gap-2">
-                <a href="#" class="btn btn-turquesa">
-                  Contratar servicio
-                </a>
+                <a href="{{ route('checkout.preview', ['service' => $service->id, 'plan' => $uniquePlan->id]) }}"
+                   class="btn btn-turquesa">Elegir PLan</a>
               </div>
             </div>
           </div>
@@ -167,26 +166,30 @@
                     @foreach($monthlyPlans as $plan)
                       <div class="col-md-4">
                         <div class="card rounded-3 h-100 p-3 border-0 ">
-                          <h3 class="fs-5 font-bankgothic text-light fw-bold mb-1 badge bg-turquesa">
+                          <h3 class="fs-3 font-bankgothic text-turquesa  fw-bold mb-1 ">
                             {{ $plan->name }}
                           </h3>
-                          <p class="text-secondary small mb-2">
-                            Plan mensual flexible.
-                          </p>
-                          <div class="price fs-3 mb-2">
-                            U$D {{ number_format($plan->price, 2, ',', '.') }}
-                            <span class="fs-6 text-secondary">/mes</span>
+
+                          {{--------------------necesito acomodar este texto--------------------------------------}}
+                          {{--<p class="text-secondary small mb-2">
+                            Todo lo que necesitás para empezar
+                          </p>--}}
+
+                          <div class="price">
+                            <p class=" fs-4 mb-2">U$D {{ number_format($plan->price, 2, ',', '.') }}
+                              <span class="fs-6 text-secondary">/mes</span></p>
                           </div>
                           @if(!empty($plan->features))
-                            <ul class="small ps-3 mb-3">
+                            <ul class="small mb-3 p-0">
                               @foreach($plan->features as $f)
-                                <li>{{ trim($f) }}</li>
+                                <li><i class="fa-solid fa-check-circle text-turquesa"></i> {{ trim($f) }}</li>
                               @endforeach
                             </ul>
                           @endif
-                          <div class="d-grid">
-                            <a href="#" class="btn btn-turquesa mt-2">Elegir plan
-                              </a>
+                          <div class="d-grid mt-auto">
+                            <a href="{{ route('checkout.preview', ['service' => $service->id, 'plan' => $plan->id]) }}"
+                               class="btn btn-turquesa">Elegir PLan</a>
+
                           </div>
                         </div>
                       </div>
@@ -203,7 +206,7 @@
                       @endphp
                       <div class="col-md-4">
                         <div class="card rounded-3 h-100 p-3 border-0 ">
-                          <h3 class="fs-5 font-bankgothic text-light fw-bold mb-1 badge bg-turquesa">
+                          <h3 class="fs-3 font-bankgothic  fw-bold mb-1 text-turquesa">
                             {{ $plan->name }}
                           </h3>
                           <p class="text-light small mb-2 badge bg-azul">
@@ -213,9 +216,10 @@
                                 class="text-turquesa fw-bold">{{ $discount }}% OFF</span>
                             @endif
                           </p>
-                          <div class="price fs-3 mb-1">
-                            U$D {{ number_format($plan->price, 2, ',', '.') }}
-                            <span class="fs-6 text-secondary">/año</span>
+                          <div class="price mb-1">
+                            <p>
+                              U$D {{ number_format($plan->price, 2, ',', '.') }} <span class="fs-6 text-secondary">/año</span>
+                            </p>
                           </div>
 
                           @if($discount && $monthly)
@@ -227,15 +231,16 @@
                           @endif
 
                           @if(!empty($plan->features))
-                            <ul class="small ps-3 mb-3">
+                            <ul class="small p-0 mb-3">
                               @foreach($plan->features as $f)
-                                <li>{{ trim($f) }}</li>
+                                <li><i class="fa-solid fa-check-circle text-turquesa"></i> {{ trim($f) }}</li>
                               @endforeach
                             </ul>
                           @endif
 
-                          <div class="d-grid">
-                            <a href="#" class="btn btn-turquesa mt-2">Contratar anual</a>
+                          <div class="d-grid mt-auto">
+                            <a href="{{ route('checkout.preview', ['service' => $service->id, 'plan' => $plan->id]) }}"
+                               class="btn btn-turquesa">Contratar anual</a>
                           </div>
                         </div>
                       </div>

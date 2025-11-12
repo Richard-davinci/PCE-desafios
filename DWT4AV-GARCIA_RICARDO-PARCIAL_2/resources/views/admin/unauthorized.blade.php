@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Inicio')
+@section('title', 'No autorizado')
 
 @section('content')
   <section class="mt-3 py-5 bg-gradient-dark text-light">

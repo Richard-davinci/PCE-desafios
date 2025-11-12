@@ -7,62 +7,146 @@ use App\Http\Controllers\{AdminController,
   PageController,
   PlanController,
   ServicesController,
+  SubscriptionController,
   UserController};
 use Illuminate\Support\Facades\Route;
 
-// Páginas públicas
-Route::get('/', [PageController::class, 'index'])->name('pages.index');
-Route::get('/about', [PageController::class, 'about'])->name('pages.about');
-Route::get('/contact', [PageController::class, 'contact'])->name('pages.contact');
-Route::get('/servicios', [PageController::class, 'services'])->name('pages.services');
-Route::get('/viewService/{service}', [PageController::class, 'viewService'])->name('pages.viewService');
 
-// Autenticación
-Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
+/*
+--------------------------------------------------------------------------
+                       Páginas públicas
+--------------------------------------------------------------------------
+*/
+
+Route::get('/', [PageController::class, 'index'])->name('pages.index');
+Route::get('/nosotros', [PageController::class, 'about'])->name('pages.about');
+Route::get('/servicios', [PageController::class, 'services'])->name('pages.services');
+Route::get('/servicios/{service}', [PageController::class, 'viewService'])->name('pages.viewService');
+Route::get('/contacto', [PageController::class, 'contact'])->name('pages.contact');
+Route::get('/error404', [PageController::class, 'error404'])->name('pages.error404');
+/*
+--------------------------------------------------------------------------
+                       Autenticación
+--------------------------------------------------------------------------
+*/
+
+Route::get('/acceder', [AuthController::class, 'showLogin'])->name('login');
 Route::post('/login', [AuthController::class, 'login'])->name('login.store');
+Route::post('/register', [AuthController::class, 'register'])->name('register.store');
 Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 
-Route::post('/register', [AuthController::class, 'register'])->name('register.store');
-Route::get('/myProfile', [AuthController::class, 'myProfile'])->name('user.myProfile');
-Route::put('/myProfile/actualizar', [AuthController::class, 'updateProfile'])->name('profile.update');
+/*
+--------------------------------------------------------------------------
+                 Zona protegida
+--------------------------------------------------------------------------
+*/
+Route::get('/myProfile', [AuthController::class, 'myProfile'])->name('user.myProfile')->middleware('protegida');
+Route::put('/myProfile', [AuthController::class, 'updateProfile'])->name('profile.update')->middleware('protegida');
+Route::put('/updatePassword', [AuthController::class, 'updatePassword'])->name('profile.password.update')->middleware('protegida');
 
+/*
+--------------------------------------------------------------------------
+            Panel de Administración
+--------------------------------------------------------------------------
+*/
+Route::get('/admin/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard')->middleware(['protegida', 'admin.only']);
 
-Route::middleware('auth')->group(function () {
-  Route::get('/force-change', [ForcedPasswordController::class, 'show'])
-    ->name('force.form');
-
-  Route::post('/force-change', [ForcedPasswordController::class, 'update'])
-    ->name('force.update');
-});
-
-// categorias
+/*
+--------------------------------------------------------------------------
+            Panel de categories
+--------------------------------------------------------------------------
+*/
 Route::resource('admin/categories', CategoryController::class)->names('admin.categories')->except(['show']);
 
-// Planes por servicio
-Route::middleware(['protegida', 'admin.only'])->prefix('admin')->name('admin.')->group(function () {
-  Route::get('/services/{service}/plans/create', [PlanController::class, 'create'])->name('services.plans.create');
-  Route::post('/services/{service}/plans', [PlanController::class, 'store'])->name('services.plans.store');
-  Route::get('/services/{service}/plans/edit', [PlanController::class, 'edit'])->name('services.plans.edit');
-  Route::put('/services/{service}/plans', [PlanController::class, 'update'])->name('services.plans.update');
-});
+/*
+--------------------------------------------------------------------------
+            Panel de servicios
+--------------------------------------------------------------------------
+*/
+Route::resource('/admin/services', ServicesController::class)->names('admin.services')->middleware(['protegida', 'admin.only']);
 
+/*
+--------------------------------------------------------------------------
+            Panel de planes del servicio
+--------------------------------------------------------------------------
+*/
+Route::get('/admin/services/{service}/plans/create', [PlanController::class, 'create'])->name('admin.services.plans.create')->middleware(['protegida', 'admin.only']);
 
-// Panel Admin
-Route::get('/admin/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
+Route::post('/admin/services/{service}/plans', [PlanController::class, 'store'])->name('admin.services.plans.store')->middleware(['protegida', 'admin.only']);
 
-//servicios
-Route::resource('/admin/services', ServicesController::class)->names('admin.services')->middleware('protegida', 'admin.only');
+Route::get('/admin/services/{service}/plans/edit', [PlanController::class, 'edit'])->name('admin.services.plans.edit')->middleware(['protegida', 'admin.only']);
 
-// usuarios
-// usuarios
-Route::resource('/admin/users', UserController::class)->names('admin.users')->middleware('protegida', 'admin.only');
+Route::put('/admin/services/{service}/plans', [PlanController::class, 'update'])->name('admin.services.plans.update')->middleware(['protegida', 'admin.only']);
+
+/*
+--------------------------------------------------------------------------
+                Usuarios admin (resource + reset password)
+--------------------------------------------------------------------------
+*/
+
+Route::resource('/admin/users', UserController::class)->names('admin.users')->middleware(['protegida', 'admin.only']);
 
 Route::patch('/admin/users/{user}/reset-password', [UserController::class, 'resetPassword'])->name('admin.users.reset-password')
-  ->middleware('protegida', 'admin.only');
+  ->middleware(['protegida', 'admin.only']);
+/*
+--------------------------------------------------------------------------
+                               Unauthorized admin
+--------------------------------------------------------------------------
+*/
+Route::get('/admin/unauthorized', [AdminController::class, 'admin.unauthorized'])->name('admin.unauthorized');
+
+/*
+|--------------------------------------------------------------------------
+| Forzar cambio de contraseña (protegidas)
+|--------------------------------------------------------------------------
+*/
+Route::get('/force-change', [ForcedPasswordController::class, 'show'])->name('force.form')->middleware('protegida');
+
+Route::post('/force-change', [ForcedPasswordController::class, 'update'])->name('force.update')->middleware('protegida');
+
+/*
+|--------------------------------------------------------------------------
+| Checkout (solo vistas informativas)
+|--------------------------------------------------------------------------
+*/
+
+// Pre-vista (recomendado requerir login para guardar luego la sub)
+Route::get('/checkout/preview', [SubscriptionController::class, 'preview'])
+  ->name('checkout.preview')
+  ->middleware('protegida');
+
+// Gracias
+Route::get('/checkout/thanks', [SubscriptionController::class, 'thanks'])
+  ->name('checkout.thanks')
+  ->middleware('protegida');
+
+/*
+--------------------------------------------------------------------------
+ Mis Suscripciones (usuario)
+--------------------------------------------------------------------------
+*/
+Route::get('/my-subscriptions', [SubscriptionController::class, 'userIndex'])
+  ->name('user.subscriptions')
+  ->middleware('protegida');
+
+/*
+--------------------------------------------------------------------------
+ Suscripciones por Usuario (admin)
+--------------------------------------------------------------------------
+*/
+Route::get('/admin/users/{user}/subscriptions', [SubscriptionController::class, 'adminUserSubscriptions'])
+  ->name('admin.users.subscriptions')
+  ->middleware(['protegida', 'admin.only']);
+
+Route::post('/checkout/confirm', [SubscriptionController::class, 'confirm'])
+  ->name('checkout.confirm')
+  ->middleware('protegida');
 
 
-Route::get('/admin/unauthorized', [AdminController::class, 'unauthorized'])->name('unauthorized');
-Route::get('/404', [PageController::class, 'error404'])->name('pages.error404');
+
+
+
+
 
 
 

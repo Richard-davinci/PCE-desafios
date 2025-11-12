@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use \App\Models\subscription;
+
 
 class Plan extends Model
 {
@@ -28,4 +30,11 @@ class Plan extends Model
   {
     return $this->belongsTo(Service::class);
   }
+
+// En app/Models/Plan.php
+  public function subscriptions()
+  {
+    return $this->hasMany(\App\Models\Subscription::class);
+  }
+
 }
