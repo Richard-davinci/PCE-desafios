@@ -8,10 +8,10 @@
     <div class="container">
       <div class="align-items-center g-4">
         <h1 class="font-bankgothic fw-bold mb-3">Construimos presencia digital que <span
-            class="text-turquesa">vende</span>.
+            class="text-turquesa">vende</span>
         </h1>
         <p class="text-blanco">En Lili-Studio acompañamos a pymes y emprendedores con
-          sitios, landings y mantenimiento continuo. Menos humo, más resultados medibles.</p>
+          sitios, landings y mantenimiento continuo</p>
       </div>
 
     </div>

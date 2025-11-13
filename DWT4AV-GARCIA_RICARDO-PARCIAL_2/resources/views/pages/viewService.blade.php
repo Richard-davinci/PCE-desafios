@@ -64,18 +64,13 @@
 
             <h2 class="fs-5 font-bankgothic text-turquesa mb-2">Descripción</h2>
             <p class=" mb-2">
-              {!! nl2br(e($service->description)) !!}
+              {{$service->description}}
             </p>
 
             @if($service->conditions)
               <h3 class="fs-6 font-bankgothic text-turquesa mt-3 mb-1">Condiciones</h3>
               <p class="mb-0">
-                @php
-                  $conditionsText = is_array($service->conditions)
-                      ? implode(', ', $service->conditions)
-                      : $service->conditions;
-                @endphp
-                {!! nl2br(e($conditionsText)) !!}
+                {{$service->conditions}}
               </p>
             @endif
 

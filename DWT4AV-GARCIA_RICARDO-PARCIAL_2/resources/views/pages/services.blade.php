@@ -13,7 +13,7 @@
           </h1>
           <p class="text-blanco mb-4">
             Elegí el alcance que mejor te calza: sitio institucional, landing,
-            CMS, formularios, SEO y mantenimiento.
+            CMS, formularios, SEO y mantenimiento
           </p>
         </div>
       </div>

@@ -40,7 +40,7 @@
           <div class="row g-3">
 
             {{-- Nombre --}}
-            <div class="col-md-6">
+            <div class="col-md-4">
               <label for="name" class="form-label text-light">Nombre completo</label>
               <input type="text"
                      id="name"
@@ -54,7 +54,7 @@
             </div>
 
             {{-- Email --}}
-            <div class="col-md-6">
+            <div class="col-md-4">
               <label for="email" class="form-label text-light">Email</label>
               <input type="email"
                      id="email"
@@ -75,8 +75,7 @@
                       class="form-select @error('role') is-invalid @enderror"
                       required>
                 <option value="">Seleccione un rol</option>
-                <option value="user" {{ old('role', $user->role) === 'user' ? 'selected' : '' }}>User</option>
-
+                <option value="user" {{ old('role', $user->role) === 'user'  ? 'selected' : '' }}>User</option>
                 <option value="admin" {{ old('role', $user->role) === 'admin' ? 'selected' : '' }}>Admin</option>
               </select>
               @error('role')
@@ -84,34 +83,18 @@
               @enderror
             </div>
 
-            {{-- Estado --}}
-            <div class="col-md-4">
-              <label for="status" class="form-label text-light">Estado</label>
-              <select id="status"
-                      name="status"
-                      class="form-select @error('status') is-invalid @enderror">
-                <option value="activo" {{ old('status', $user->status ?? 'activo') === 'activo' ? 'selected' : '' }}>
-                  Activo
-                </option>
-                <option value="inactivo" {{ old('status', $user->status) === 'inactivo' ? 'selected' : '' }}>
-                  Inactivo
-                </option>
-              </select>
-              @error('status')
-              <div class="invalid-feedback">{{ $message }}</div>
-              @enderror
-            </div>
           </div>
 
           <div class="d-flex justify-content-end gap-2 align-items-center mt-4">
-              <a href="{{ route('admin.users.index') }}" class="btn btn-outline-turquesa">
-                <i class="fa-solid fa-close me-1"></i>Cancelar
-              </a>
-              <button type="submit" class="btn btn-turquesa">
-                <i class="fa-solid fa-floppy-disk me-1"></i>Guardar cambios
-              </button>
+            <a href="{{ route('admin.users.index') }}" class="btn btn-outline-turquesa">
+              <i class="fa-solid fa-close me-1"></i>Cancelar
+            </a>
+            <button type="submit" class="btn btn-turquesa">
+              <i class="fa-solid fa-floppy-disk me-1"></i>Guardar cambios
+            </button>
           </div>
         </form>
+
       </div>
     </div>
 

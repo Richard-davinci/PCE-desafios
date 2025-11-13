@@ -557,7 +557,6 @@ nav .small {
    NAVBAR DROPDOWN (Mi Cuenta)
 ================================ */
 
-/* Avatar circular pequeño */
 .navbar-avatar {
   width: 34px;
   height: 34px;
@@ -574,7 +573,6 @@ nav .small {
     0 0 16px rgba(14, 196, 159, 0.5);
 }
 
-/* Estilo general del toggle */
 .navbar .dropdown-toggle {
   color: var(--blanco);
   transition: all 0.3s ease;
@@ -589,7 +587,6 @@ nav .small {
     0 0 10px rgba(14, 196, 159, 0.6);
 }
 
-/* Fondo del menú */
 .custom-dropdown {
   background-color: var(--azul);
   border: 1px solid rgba(14, 196, 159, 0.4);
@@ -597,7 +594,6 @@ nav .small {
   overflow: hidden;
 }
 
-/* Ítems del menú */
 .custom-dropdown .dropdown-item {
   color: var(--blanco);
   transition: all 0.25s ease;
@@ -611,11 +607,46 @@ nav .small {
   transform: translateX(2px);
 }
 
-/* Separador visual del logout */
 .custom-dropdown .dropdown-item.text-danger:hover {
   background-color: rgba(255, 0, 0, 0.15);
   color: #ff6b6b;
   text-shadow: none;
   transform: translateX(2px);
 }
+
+/* ================================
+      ERROR 404
+================================ */
+
+
+.error-card {
+  max-width: 520px;
+  border-radius: 18px;
+  background-color: var(--azul);
+  border: 2px solid var(--turquesa) !important;
+  padding: 2rem;
+  text-align: center;
+  box-shadow: 0 0 18px rgba(0, 196, 179, .35); /* Glow turquesa */
+}
+
+.error-icon {
+  font-size: 3.2rem;
+  color: var(--turquesa);
+  text-shadow: 0 0 12px rgba(0, 196, 179, .5);
+}
+
+.error-title {
+  font-family: 'BankGothic', sans-serif;
+  color: var(--turquesa);
+  font-weight: bold;
+  text-shadow: 0 0 8px rgba(0, 196, 179, .35);
+}
+
+.error-wrapper {
+  min-height: 80vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 

@@ -19,7 +19,7 @@ class UserSeeder extends Seeder
       'role' => 'admin',
       'city' => 'Córdoba',
       'phone' => '3511111111',
-      'profile_photo' => 'storage/img/users/default2.webp',
+      'profile_photo' => '/img/users/default.webp',
     ]);
 
     User::create([
@@ -29,7 +29,7 @@ class UserSeeder extends Seeder
       'role' => 'admin',
       'city' => 'Rosario',
       'phone' => '3412222222',
-      'profile_photo' => 'img/ricardo.webp',
+      'profile_photo' => 'img/users/ricardo.webp',
     ]);
 
     User::create([
@@ -39,7 +39,7 @@ class UserSeeder extends Seeder
       'role' => 'admin',
       'city' => 'Buenos Aires',
       'phone' => '1133333333',
-      'profile_photo' => 'img/ricardo.webp',
+      'profile_photo' => 'img/users/ricardo.webp',
     ]);
 
     // 5 usuarios normales
@@ -50,7 +50,7 @@ class UserSeeder extends Seeder
       'role' => 'user',
       'city' => 'Mendoza',
       'phone' => '2614444444',
-      'profile_photo' => 'img/ricardo.webp',
+      'profile_photo' => 'img/users/ricardo.webp',
     ]);
 
     User::create([
@@ -60,7 +60,7 @@ class UserSeeder extends Seeder
       'role' => 'user',
       'city' => 'La Plata',
       'phone' => '2215555555',
-      'profile_photo' => 'img/ricardo.webp',
+      'profile_photo' => 'img/users/ricardo.webp',
     ]);
 
     User::create([
@@ -70,7 +70,7 @@ class UserSeeder extends Seeder
       'role' => 'user',
       'city' => 'Salta',
       'phone' => '3876666666',
-      'profile_photo' => 'img/ricardo.webp',
+      'profile_photo' => 'img/users/ricardo.webp',
     ]);
 
     User::create([
@@ -80,7 +80,7 @@ class UserSeeder extends Seeder
       'role' => 'user',
       'city' => 'San Juan',
       'phone' => '2647777777',
-      'profile_photo' => 'img/ricardo.webp',
+      'profile_photo' => 'img/users/ricardo.webp',
     ]);
 
     User::create([
@@ -90,7 +90,7 @@ class UserSeeder extends Seeder
       'role' => 'user',
       'city' => 'Santa Fe',
       'phone' => '3428888888',
-      'profile_photo' => 'img/ricardo.webp',
+      'profile_photo' => 'img/users/ricardo.webp',
     ]);
   }
 }

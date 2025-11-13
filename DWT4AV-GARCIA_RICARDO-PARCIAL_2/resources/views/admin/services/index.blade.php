@@ -26,7 +26,7 @@
     <x-alert type="success" :message="session('success')"/>
 
     <div class="bg-azul rounded shadow-sm mb-3">
-      <button class="btn btn-azul  text-white w-100 text-start rounded-lg py-4" type="button"
+      <button class="btn btn-azul  text-white w-100 text-start rounded-lg py-4 fs-5" type="button"
               data-bs-toggle="collapse"
               data-bs-target="#filtrosServicios" aria-expanded="false" aria-controls="filtrosServicios">
         <i class="bi bi-funnel me-2"></i>Filtros de búsqueda
@@ -35,10 +35,12 @@
         <div class="p-3 border-top border-light bg-azul">
           <form method="GET" action="{{ route('admin.services.index') }}" class="row g-2">
             <div class="col-md-4 ">
-              <input type="text" name="name" class="form-control" placeholder="Nombre del servicio"
+              <label for="name" class="mb-1">Nombre</label>
+              <input type="text" name="name" class="form-control" placeholder="Ingrese el nombre del servicio"
                      value="{{ request('name') }}">
             </div>
             <div class="col-md-4">
+              <label for="category_id" class="mb-1">Categorías</label>
               <select name="category_id" class="form-select">
                 <option value="">Todas las categorías</option>
                 @foreach($categories as $category)
@@ -49,6 +51,7 @@
               </select>
             </div>
             <div class="col-md-4">
+              <label for="status" class="mb-1">Estado</label>
               <select name="status" class="form-select">
                 <option value="">Todos los estados</option>
                 <option value="Activo" {{ request('status') == 'Activo' ? 'selected' : '' }}>Activo
@@ -61,6 +64,7 @@
               </select>
             </div>
             <div class="col-md-4">
+              <label for="plan_mode" class="mb-1">Tipo de plan</label>
               <select name="plan_mode" class="form-select">
                 <option value="">Todos los planes</option>
                 <option value="none" {{ request('plan_mode') === 'none' ? 'selected' : '' }}>
@@ -192,13 +196,18 @@
                     </a>
 
                     {{-- Eliminar --}}
-                    <form action="{{ route('admin.services.destroy', $service->id) }}"
+                    <form id="deleteForm{{ $service->id }}"
+                          action="{{ route('admin.services.destroy', $service->id) }}"
                           method="POST"
-                          onsubmit="return confirm('¿Seguro que querés eliminar este servicio?')"
                           class="d-inline">
                       @csrf
                       @method('DELETE')
-                      <button type="submit" class="btn  btn-danger" title="Eliminar">
+                      <button type="button"
+                              id="deleteBtn{{ $service->id }}"
+                              class="btn btn-danger"
+                              title="Eliminar"
+                              data-has-subs="{{ $service->subscriptions_count > 0 ? '1' : '0' }}"
+                              onclick="confirmDelete({{ $service->id }})">
                         <i class="fa-solid fa-trash"></i>
                       </button>
                     </form>
@@ -222,5 +231,54 @@
       {{ $services->links('pagination::bootstrap-5') }}
     </div>
   </section>
+
+  <script>
+    function confirmDelete(id) {
+      const btn = document.getElementById(`deleteBtn${id}`);
+      const hasSubs = btn?.dataset.hasSubs === '1';
+
+      if (hasSubs) {
+        Swal.fire({
+          title: 'No se puede eliminar',
+          text: 'Este servicio tiene usuarios suscriptos. Primero anulá o transferí las suscripciones.',
+          icon: 'info',
+          confirmButtonText: 'Entendido',
+          background: '#112b3a',
+          color: '#cfd6dc',
+          customClass: {
+            popup: 'swal-custom-popup',
+            title: 'swal-custom-title',
+            confirmButton: 'swal-custom-confirm',
+            cancelButton: 'swal-custom-cancel',
+          },
+        });
+        return;
+      }
+
+      Swal.fire({
+        title: '¿Eliminar servicio?',
+        text: 'Esta acción no se puede deshacer.',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Sí, eliminar',
+        cancelButtonText: 'Cancelar',
+        background: '#112b3a',
+        color: '#cfd6dc',
+        customClass: {
+          popup: 'swal-custom-popup',
+          title: 'swal-custom-title',
+          confirmButton: 'swal-custom-confirm',
+          cancelButton: 'swal-custom-cancel',
+        },
+      }).then((result) => {
+        if (result.isConfirmed) {
+          const form = document.getElementById(`deleteForm${id}`);
+          if (form) {
+            form.submit();
+          }
+        }
+      });
+    }
+  </script>
 
 @endsection

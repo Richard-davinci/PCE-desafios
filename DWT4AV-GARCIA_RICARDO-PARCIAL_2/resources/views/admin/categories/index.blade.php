@@ -3,7 +3,6 @@
 @section('title', 'Gestión de categorías')
 
 @section('content')
-  {{-- Hero --}}
   <section class="mt-3 py-5 bg-gradient-dark text-light">
     <div class="container">
       <h1 class="fs-1 font-bankgothic fw-bold mb-1">Categorías</h1>

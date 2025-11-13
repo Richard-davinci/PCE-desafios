@@ -34,9 +34,6 @@ class UserController extends Controller
       $query->where('role', $request->role);
     }
 
-    if ($request->filled('status')) {
-      $query->where('status', $request->status);
-    }
 
     // Ordenar por fecha más reciente
     $users = $query->orderBy('created_at', 'desc')->paginate(6);
@@ -62,7 +59,6 @@ class UserController extends Controller
       'name' => ['required', 'string', 'max:255'],
       'email' => ['required', 'email', 'max:255', 'unique:users,email'],
       'role' => ['required', 'in:admin,user'],
-      'status' => ['nullable', 'in:activo,inactivo'],
       'password' => ['nullable', 'string', 'min:6'],
     ]);
 
@@ -73,7 +69,6 @@ class UserController extends Controller
       'name' => $data['name'],
       'email' => $data['email'],
       'role' => $data['role'],
-      'status' => $data['status'] ?? 'activo',
       'password' => Hash::make($plainPassword),
     ]);
 
@@ -101,7 +96,6 @@ class UserController extends Controller
       'name' => ['required', 'string', 'max:255'],
       'email' => ['required', 'email', 'max:255', 'unique:users,email,' . $user->id],
       'role' => ['required', 'in:admin,user'],
-      'status' => ['required', 'in:activo,inactivo'],
     ]);
 
     $user->update($data);
@@ -141,6 +135,7 @@ class UserController extends Controller
    */
   public function destroy(User $user)
   {
+
     $user->delete();
 
     return redirect()

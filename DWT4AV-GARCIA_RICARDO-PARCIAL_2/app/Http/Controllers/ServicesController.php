@@ -14,7 +14,8 @@ class ServicesController extends Controller
    */
   public function index(Request $request)
   {
-    $query = Service::with('category', 'plans');
+    $query = Service::with('category', 'plans')
+      ->withCount('subscriptions');
 
     if ($request->filled('name')) {
       $query->where('name', 'LIKE', '%' . $request->name . '%');
@@ -123,6 +124,10 @@ class ServicesController extends Controller
    */
   public function destroy(Service $service)
   {
+    if ($service->subscriptions()->exists()) {
+      return back()->with('error', 'No podés eliminar este servicio porque tiene suscripciones activas.');
+    }
+
     $image = $service->image; // guardo el nombre antes de borrar
     $storage = Storage::disk('public');
     $path = 'img/services/';

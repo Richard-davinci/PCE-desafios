@@ -4,9 +4,9 @@
   <section class="mt-3 py-5 bg-gradient-dark text-light">
     <div class="container">
       <h1 class="font-bankgothic">Servicios web, <span
-          class="text-turquesa">rápidos y sin vueltas</span>.</h1>
+          class="text-turquesa">rápidos y sin vueltas</span></h1>
       <p class="text-blanco">
-        Sitios, landings y mantenimiento continuo para pymes y emprendedores.
+        Sitios, landings y mantenimiento continuo para pymes y emprendedores
       </p>
       <div class="d-flex flex-wrap gap-3">
         <a class="btn btn-turquesa" href="{{route('pages.services')}}">Ver servicios </a>

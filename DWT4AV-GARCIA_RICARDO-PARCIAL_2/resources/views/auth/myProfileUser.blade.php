@@ -34,8 +34,7 @@
         <div class="col-lg-4">
           <div class="card bg-azul text-light border-light card-section mb-3">
             <div class="card-body text-center">
-              <img src="{{ $user->profile_photo ? Storage::url($user->profile_photo)
-                                : asset('storage/img/users/default.webp') }}"
+              <img src="storage/{{ $user->profile_photo }}"
                    alt="Foto de perfil de {{ $user->name }}"
                    height="150"
                    width="150"

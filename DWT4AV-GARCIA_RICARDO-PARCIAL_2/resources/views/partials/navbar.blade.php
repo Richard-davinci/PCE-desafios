@@ -1,6 +1,5 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-gradient-dark border-bottom fixed-top">
   <div class="container-fluid">
-    {{-- Logo --}}
     <a class="navbar-brand d-flex justify-content-center justify-content-lg-start align-items-center m-auto"
        href="{{ route('pages.index') }}">
       <img src="{{ asset('img/logo.png') }}" alt="logo Lili Studio" class="img-fluid w-75">
@@ -14,24 +13,36 @@
     <div id="mainNav" class="collapse navbar-collapse">
       <ul class="navbar-nav ms-auto font-bankgothic align-items-end align-items-lg-center gap-0 gap-lg-2 ">
 
-        {{-- ======================= USUARIOS AUTENTICADOS ======================= --}}
         @php
           $user = Auth::user();
-          @endphp
+
+          $publicNavItems = [
+            ['route' => 'pages.index',    'label' => 'Inicio'],
+            ['route' => 'pages.about',    'label' => 'Nosotros'],
+            ['route' => 'pages.services', 'label' => 'Servicios'],
+            ['route' => 'pages.contact',  'label' => 'Contacto'],
+          ];
+
+          $adminNavItems = [
+            ['route' => 'admin.dashboard',      'label' => 'Dashboard'],
+            ['route' => 'admin.users.index',    'label' => 'Usuarios'],
+            ['route' => 'admin.services.index', 'label' => 'Servicios'],
+          ];
+        @endphp
+
+        {{-- ======================= USUARIOS AUTENTICADOS ======================= --}}
         @auth
           {{-- ADMIN --}}
           @if ($user->role === 'admin')
             @if (request()->is('admin/*'))
               {{-- ===== Dentro del panel Admin ===== --}}
-              <li class="nav-item text-center">
-                <x-nav-link route="admin.dashboard">Dashboard</x-nav-link>
-              </li>
-              <li class="nav-item text-center">
-                <x-nav-link route="admin.users.index">Usuarios</x-nav-link>
-              </li>
-              <li class="nav-item text-center">
-                <x-nav-link route="admin.services.index">Servicios</x-nav-link>
-              </li>
+              @foreach ($adminNavItems as $item)
+                <li class="nav-item text-center">
+                  <x-nav-link :route="$item['route']">
+                    {{ $item['label'] }}
+                  </x-nav-link>
+                </li>
+              @endforeach
 
               {{-- Botón para volver al sitio público --}}
               <li class="nav-item text-center">
@@ -42,18 +53,13 @@
               </li>
             @else
               {{-- En vistas públicas  --}}
-              <li class="nav-item text-center">
-                <x-nav-link route="pages.index">Inicio</x-nav-link>
-              </li>
-              <li class="nav-item text-center">
-                <x-nav-link route="pages.about">Nosotros</x-nav-link>
-              </li>
-              <li class="nav-item text-center">
-                <x-nav-link route="pages.services">Servicios</x-nav-link>
-              </li>
-              <li class="nav-item text-center">
-                <x-nav-link route="pages.contact">Contacto</x-nav-link>
-              </li>
+              @foreach ($publicNavItems as $item)
+                <li class="nav-item text-center">
+                  <x-nav-link :route="$item['route']">
+                    {{ $item['label'] }}
+                  </x-nav-link>
+                </li>
+              @endforeach
 
               <li class="nav-item text-center">
                 <a href="{{ route('admin.dashboard') }}"
@@ -65,26 +71,20 @@
 
             {{-- USUARIO NORMAL --}}
           @else
-            <li class="nav-item text-center">
-              <x-nav-link route="pages.index">Inicio</x-nav-link>
-            </li>
-            <li class="nav-item text-center">
-              <x-nav-link route="pages.about">Nosotros</x-nav-link>
-            </li>
-            <li class="nav-item text-center">
-              <x-nav-link route="pages.services">Servicios</x-nav-link>
-            </li>
-            <li class="nav-item text-center">
-              <x-nav-link route="pages.contact">Contacto</x-nav-link>
-            </li>
+            @foreach ($publicNavItems as $item)
+              <li class="nav-item text-center">
+                <x-nav-link :route="$item['route']">
+                  {{ $item['label'] }}
+                </x-nav-link>
+              </li>
+            @endforeach
           @endif
 
           {{-- Dropdown de Mi Cuenta --}}
           <li class="nav-item dropdown ms-lg-2">
             <a class="nav-link dropdown-toggle d-flex align-items-center gap-2 justify-content-center"
                href="#" data-bs-toggle="dropdown">
-              <img src="{{ $user->profile_photo ? Storage::url($user->profile_photo) :
-                                  asset('storage/img/users/default.webp') }}" alt=" {{$user->name}}" class="navbar-avatar">
+              <img src="storage/{{ $user->profile_photo }}" alt="foto de {{$user->name}}" class="navbar-avatar">
               <span id="navUserName">Mi cuenta</span>
               <i class="fa-solid fa-caret-down ms-1"></i>
             </a>
@@ -95,11 +95,13 @@
                   <i class="fa-solid fa-user me-2 text-turquesa"></i> Ver perfil
                 </a>
               </li>
+              @if ($user->role === 'user')
               <li>
                 <a class="dropdown-item" href="{{ route('user.subscriptions') }}">
                   <i class="fa-solid fa-user me-2 text-turquesa"></i> Mis suscripciones
                 </a>
               </li>
+              @endif
 
               <li>
                 <form action="{{ route('logout') }}" method="get">
@@ -114,18 +116,13 @@
 
           {{-- ======================= INVITADOS ======================= --}}
         @else
-          <li class="nav-item text-center">
-            <x-nav-link route="pages.index">Inicio</x-nav-link>
-          </li>
-          <li class="nav-item text-center">
-            <x-nav-link route="pages.about">Nosotros</x-nav-link>
-          </li>
-          <li class="nav-item text-center">
-            <x-nav-link route="pages.services">Servicios</x-nav-link>
-          </li>
-          <li class="nav-item text-center">
-            <x-nav-link route="pages.contact">Contacto</x-nav-link>
-          </li>
+          @foreach ($publicNavItems as $item)
+            <li class="nav-item text-center">
+              <x-nav-link :route="$item['route']">
+                {{ $item['label'] }}
+              </x-nav-link>
+            </li>
+          @endforeach
 
           <li class="nav-item text-center">
             <a class="btn btn-outline-turquesa ms-0 ms-lg-2 w-100 w-lg-auto mt-2 mt-lg-0"

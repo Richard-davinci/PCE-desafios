@@ -37,7 +37,7 @@
 
           <div class="row g-3">
             {{-- Nombre --}}
-            <div class="col-md-6">
+            <div class="col-md-6 col-lg-3">
               <label for="name" class="form-label text-light">Nombre completo</label>
               <input type="text"
                      id="name"
@@ -52,7 +52,7 @@
             </div>
 
             {{-- Email --}}
-            <div class="col-md-6">
+            <div class="col-md-6 col-lg-3">
               <label for="email" class="form-label text-light">Email</label>
               <input type="email"
                      id="email"
@@ -67,7 +67,7 @@
             </div>
 
             {{-- Rol --}}
-            <div class="col-md-4">
+            <div class="col-md-6 col-lg-3">
               <label for="role" class="form-label text-light">Rol</label>
               <select id="role"
                       name="role"
@@ -82,22 +82,8 @@
               @enderror
             </div>
 
-            {{-- Estado --}}
-            <div class="col-md-4">
-              <label for="status" class="form-label text-light">Estado</label>
-              <select id="status"
-                      name="status"
-                      class="form-select @error('status') is-invalid @enderror">
-                <option value="activo" {{ old('status', 'activo') === 'activo' ? 'selected' : '' }}>Activo</option>
-                <option value="inactivo" {{ old('status') === 'inactivo' ? 'selected' : '' }}>Inactivo</option>
-              </select>
-              @error('status')
-              <div class="invalid-feedback">{{ $message }}</div>
-              @enderror
-            </div>
-
             {{-- Password --}}
-            <div class="col-md-4">
+            <div class="col-md-6 col-lg-3">
               <label for="password" class="form-label text-light">
                 Contraseña
               </label>
