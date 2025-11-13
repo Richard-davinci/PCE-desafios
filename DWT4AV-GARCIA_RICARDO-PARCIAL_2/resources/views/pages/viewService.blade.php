@@ -100,7 +100,7 @@
           <div class="card bg-azul border-light shadow-sm mb-4">
             <div class="card-body">
               <h2 class="fs-4 font-bankgothic text-turquesa mb-2">Precio único</h2>
-              <p class="fs-2 fw-bold mb-1">
+              <p class="fs-3 fw-bold mb-1">
                 U$D {{ number_format($uniquePlan->price, 2, ',', '.') }}
               </p>
               <p class="small mb-2">
@@ -117,7 +117,7 @@
 
               <div class="d-flex gap-2">
                 <a href="{{ route('checkout.preview', ['service' => $service->id, 'plan' => $uniquePlan->id]) }}"
-                   class="btn btn-turquesa">Elegir PLan</a>
+                   class="btn btn-turquesa">Elegir suscripción</a>
               </div>
             </div>
           </div>

@@ -15,7 +15,7 @@
   </section>
 
   {{-- Breadcrumb igual estructura que create --}}
-  <section class="container">
+  <div class="container">
     <x-breadcrumb
       :items="[
         ['label' => 'Servicios', 'route' => 'admin.services.index'],
@@ -23,7 +23,7 @@
       ]"
       separator="›"
     />
-  </section>
+  </div>
 
   {{-- Formulario principal, misma card/section que create --}}
   <form method="POST"

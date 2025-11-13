@@ -38,7 +38,7 @@
   </section>
 
   {{-- Breadcrumb --}}
-  <section class="container">
+  <div class="container">
     <x-breadcrumb
       :items="[
         ['label' => 'Servicios', 'route' => 'admin.services.index'],
@@ -46,7 +46,7 @@
       ]"
       separator="›"
     />
-  </section>
+  </div>
 
   {{-- Contenido principal --}}
   <section class="container py-5">
@@ -61,6 +61,7 @@
     @endif
 
     <div class="shadow-sm p-3 bg-azul rounded-2">
+      <h2 class="font-bankgothic fs-3">Listado de categorias</h2>
       <div class="card border-light border-2 shadow-sm">
         <div class="table-responsive">
           <table class="table table-striped align-middle mb-0">
@@ -98,6 +99,14 @@
                           data-bs-target="#modalEditarCategoria{{ $category->id }}">
                     <i class="fa-solid fa-pen"></i>
                   </a>
+                  <x-categoryModal
+                    :id="'modalEditarCategoria' . $category->id"
+                    title="Editar Categoría"
+                    icon="fa-solid fa-pen"
+                    :action="route('admin.categories.update', $category->id)"
+                    method="PUT"
+                    :name="$category->name"
+                  />
 
                   {{-- Eliminar categoría --}}
                   @if($category->services_count > 0)
@@ -126,16 +135,6 @@
                   @endif
                 </td>
               </tr>
-
-              {{-- Modal editar categoría (componente) --}}
-              <x-categoryModal
-                :id="'modalEditarCategoria' . $category->id"
-                title="Editar Categoría"
-                icon="fa-solid fa-pen"
-                :action="route('admin.categories.update', $category->id)"
-                method="PUT"
-                :name="$category->name"
-              />
             @empty
               <tr>
                 <td colspan="5" class="text-center text-secondary py-3">
@@ -148,12 +147,14 @@
         </div>
       </div>
 
-      {{-- Paginación --}}
-      <div class="mt-4 d-flex justify-content-end">
-        {{ $categories->links('pagination::bootstrap-5') }}
-      </div>
+    </div>
+    {{-- Paginación --}}
+    <div class="mt-4 d-flex justify-content-end">
+      {{ $categories->links('pagination::bootstrap-5') }}
     </div>
   </section>
+  {{-- Modal editar categoría (componente) --}}
+
   {{-- Confirmación SweetAlert para eliminar --}}
   <script>
     function confirmDelete(id) {

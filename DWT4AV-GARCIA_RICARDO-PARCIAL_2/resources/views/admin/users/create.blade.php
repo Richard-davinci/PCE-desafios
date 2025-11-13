@@ -30,12 +30,12 @@
 
     <div class="card bg-azul border-0 shadow-sm rounded-3">
       <div class="card-body p-4">
+        <h2 class="font-bankgothic fs-3">Datos</h2>
 
         <form action="{{ route('admin.users.store') }}" method="POST">
           @csrf
 
           <div class="row g-3">
-
             {{-- Nombre --}}
             <div class="col-md-6">
               <label for="name" class="form-label text-light">Nombre completo</label>
@@ -73,6 +73,7 @@
                       name="role"
                       class="form-select @error('role') is-invalid @enderror"
                       required>
+                <option value="">Seleccione un Rol</option>
                 <option value="user" {{ old('role') === 'user' ? 'selected' : '' }}>User</option>
                 <option value="admin" {{ old('role') === 'admin' ? 'selected' : '' }}>Admin</option>
               </select>
@@ -114,7 +115,7 @@
 
           <div class="d-flex justify-content-end align-items-center gap-2 mt-4">
             <a href="{{ route('admin.users.index') }}" class="btn btn-outline-turquesa">
-             cancelar
+              cancelar
             </a>
             <button type="submit" class="btn btn-turquesa">
               <i class="bi bi-check-circle me-1"></i>Guardar usuario

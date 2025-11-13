@@ -4,4 +4,6 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
 <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
 <link href="{{ asset('css/style.css') }}" rel="stylesheet">
+<link rel="icon" type="image/x-icon" href="{{ asset('img/favicon.ico') }}">
+
 <script src="https://kit.fontawesome.com/0403beff78.js" crossorigin="anonymous"></script>@stack('styles')

@@ -6,7 +6,7 @@
 
   <section class="mt-3 py-5 bg-gradient-dark text-light">
     <div class="container">
-      <h1 class="fs-1 font-bankgothic fw-bold mb-1">Listado de Servicios</h1>
+      <h1 class="fs-1 font-bankgothic fw-bold mb-1">Servicios</h1>
       <div class="my-2 d-flex flex-wrap justify-content-between align-items-center gap-2">
         <p class="text-secondary mb-0">Listado general de servicios registrados en el sistema.</p>
         <div class="d-flex gap-2">
@@ -92,6 +92,7 @@
 
     {{-- Tabla de servicios --}}
     <div class="shadow-sm p-3 bg-azul  rounded-2">
+      <h2 class="fs-3 font-bankgothic fw-bold">Listado de de servicios</h2>
       <div class="card border-light border-2 shadow-sm">
 
         <div class="table-responsive">

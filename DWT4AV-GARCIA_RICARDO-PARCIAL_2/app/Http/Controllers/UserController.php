@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Subscription;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -14,9 +15,13 @@ class UserController extends Controller
    */
   public function index(Request $request)
   {
-    $query = User::query();
+    $query = User::query()->withCount(['subscriptions',
+      'subscriptions as active_subscriptions_count' => function ($q) {
+        $q->where('status', 'activa');
+      },
+    ]);
 
-    // Filtros dinámicos
+    // Filtros
     if ($request->filled('name')) {
       $query->where('name', 'like', '%' . $request->name . '%');
     }
@@ -41,7 +46,7 @@ class UserController extends Controller
 
 
   /**
-   * Formulario: crear nuevo usuario (user o admin).
+   * crear nuevo usuario
    */
   public function create()
   {
@@ -49,14 +54,14 @@ class UserController extends Controller
   }
 
   /**
-   * Guardar nuevo usuario creado por el admin.
+   * Guardar nuevo usuario
    */
   public function store(Request $request)
   {
     $data = $request->validate([
-      'name'   => ['required', 'string', 'max:255'],
-      'email'  => ['required', 'email', 'max:255', 'unique:users,email'],
-      'role'   => ['required', 'in:admin,user'],
+      'name' => ['required', 'string', 'max:255'],
+      'email' => ['required', 'email', 'max:255', 'unique:users,email'],
+      'role' => ['required', 'in:admin,user'],
       'status' => ['nullable', 'in:activo,inactivo'],
       'password' => ['nullable', 'string', 'min:6'],
     ]);
@@ -65,10 +70,10 @@ class UserController extends Controller
     $plainPassword = $data['password'] ?? Str::random(8);
 
     $user = User::create([
-      'name'     => $data['name'],
-      'email'    => $data['email'],
-      'role'     => $data['role'],
-      'status'   => $data['status'] ?? 'activo',
+      'name' => $data['name'],
+      'email' => $data['email'],
+      'role' => $data['role'],
+      'status' => $data['status'] ?? 'activo',
       'password' => Hash::make($plainPassword),
     ]);
 
@@ -79,7 +84,7 @@ class UserController extends Controller
   }
 
   /**
-   * Formulario: editar datos básicos del usuario.
+   * editar datos
    */
   public function edit(User $user)
   {
@@ -93,9 +98,9 @@ class UserController extends Controller
   public function update(Request $request, User $user)
   {
     $data = $request->validate([
-      'name'   => ['required', 'string', 'max:255'],
-      'email'  => ['required', 'email', 'max:255', 'unique:users,email,' . $user->id],
-      'role'   => ['required', 'in:admin,user'],
+      'name' => ['required', 'string', 'max:255'],
+      'email' => ['required', 'email', 'max:255', 'unique:users,email,' . $user->id],
+      'role' => ['required', 'in:admin,user'],
       'status' => ['required', 'in:activo,inactivo'],
     ]);
 
@@ -106,8 +111,19 @@ class UserController extends Controller
       ->with('success', 'Usuario actualizado correctamente.');
   }
 
+  public function show(User $user)
+  {
+    $subscriptions = Subscription::with(['service', 'plan'])
+      ->where('user_id', $user->id)
+      ->orderBy('created_at', 'desc')
+      ->paginate(12)
+      ->withQueryString();
+
+    return view('admin.users.show', compact('user', 'subscriptions'));
+  }
+
   /**
-   * Resetear contraseña: genera una nueva y la muestra al admin.
+   * Resetear contraseña
    */
   public function resetPassword(User $user)//se marca q la contraseña se debe cambiar al iniciar sesion
   {
@@ -121,8 +137,7 @@ class UserController extends Controller
   }
 
   /**
-   * Eliminar usuario (si querés mantenerlo simple, borrado directo).
-   * Podés cambiar a soft deletes más adelante.
+   * Eliminar usuario
    */
   public function destroy(User $user)
   {

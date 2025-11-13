@@ -26,7 +26,7 @@
   <section class="mt-3 py-5 bg-gradient-dark text-light">
     <div class="container">
       <h1 class="fs-1 font-bankgothic fw-bold mb-1">{{ $service->name }}</h1>
-      <p class="text-secondary mb-2">{{ $service->subtitle }}</p>
+      <p class="text-balnco mb-2">{{ $service->subtitle }}</p>
 
       <div class="d-flex flex-wrap align-items-center gap-3">
         @if($service->category)
@@ -44,9 +44,14 @@
         </span>
 
       </div>
-      <a href="{{ route('admin.services.index') }}" class="btn btn-turquesa ms-auto mt-3">
-        <i class="bi bi-arrow-left"></i> Volver a servicios
-      </a>
+      <div class="d-flex gap-2">
+        <a href="{{ route('admin.services.index') }}" class="btn btn-turquesa ms-auto">
+          <i class="fa-solid fa-chevron-left me-2"></i> Volver
+        </a>
+        <a href="{{ route('admin.services.edit', $service) }}" class="btn btn-turquesa">
+          <i class="fa-regular fa-pen-to-square me-2"></i> Editar
+        </a>
+      </div>
     </div>
   </section>
 
@@ -63,9 +68,15 @@
             <p class=" mb-2">
               {!! nl2br(e($service->description)) !!}
             </p>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-8">
 
+        <div class="card bg-azul border-light shadow-sm mb-3">
+          <div class="card-body">
             @if($service->conditions)
-              <h3 class="fs-6 font-bankgothic text-turquesa mt-3 mb-1">Condiciones</h3>
+              <h2 class="fs-6 font-bankgothic text-turquesa mt-2 mb-1">Condiciones</h2>
               <ul class="list-unstyled mb-0">
                 @foreach(array_filter(explode(',', $service->conditions)) as $cond)
                   <li>
@@ -75,17 +86,15 @@
                 @endforeach
               </ul>
             @endif
-
           </div>
         </div>
-      </div>
 
-      <div class="col-lg-8">
+
         @if(!$uniquePlan && !$hasMonthly)
           <div class="card bg-azul border-light shadow-sm">
             <div class="card-body">
               <h2 class="fs-4 font-bankgothic text-turquesa mb-2">Planes</h2>
-              <p class="text-secondary mb-0">
+              <p class="text-balnco mb-0">
                 Este servicio todavía no tiene planes configurados.
               </p>
             </div>
@@ -96,8 +105,8 @@
         @if($uniquePlan)
           <div class="card bg-azul border-light shadow-sm mb-4">
             <div class="card-body">
-              <h2 class="fs-4 font-bankgothic text-turquesa mb-2">Plan</h2>
-              <p class="fs-2 fw-bold mb-1">
+              <h2 class="fs-3 font-bankgothic text-turquesa mb-2">Pago único</h2>
+              <p class="fs-3 fw-bold mb-1">
                 U$D {{ number_format($uniquePlan->price, 2, ',', '.') }}
               </p>
               <p class="small mb-2">
@@ -107,7 +116,8 @@
               @if(!empty($uniquePlan->features))
                 <ul class="small ps-3 mb-3">
                   @foreach($uniquePlan->features as $f)
-                    <li><i class="fa-solid fa-circle-check text-turquesa me-2"></i>{{ trim($f) }}</li>
+                    <li><i class="fa-solid fa-circle-check text-turquesa me-2"></i>{{ trim($f) }}
+                    </li>
                   @endforeach
                 </ul>
               @endif
@@ -153,27 +163,29 @@
                 </ul>
               </div>
 
-              <div class="tab-content mt-4" id="planTabsContent">
+              <div class="tab-content mt-2" id="planTabsContent">
                 {{-- MENSUAL --}}
                 <div class="tab-pane fade show active" id="mensual" role="tabpanel">
                   <div class="row g-3">
                     @foreach($monthlyPlans as $plan)
                       <div class="col-md-4">
                         <div class="card rounded-3 h-100 p-3 border-0 ">
-                          <h3 class="fs-5 font-bankgothic text-light fw-bold mb-1 badge bg-turquesa">
+                          <h3 class="fs-3 font-bankgothic fw-bold mb-1  text-turquesa">
                             {{ $plan->name }}
                           </h3>
                           <p class="text-secondary small mb-2">
                             Plan mensual flexible.
                           </p>
-                          <div class="price fs-3 mb-2">
-                            U$D {{ number_format($plan->price, 2, ',', '.') }}
-                            <span class="fs-6 text-secondary">/mes</span>
+                          <div class="price p-0">
+                            <p class="fs-4">U$D {{ number_format($plan->price, 2, ',', '.') }}
+                              <span class="fs-6 text-secondary">/mes</span></p>
                           </div>
                           @if(!empty($plan->features))
                             <ul class="small ps-3 mb-3">
                               @foreach($plan->features as $f)
-                                <li><i class="fa-solid fa-circle-check text-turquesa me-2"></i>{{ trim($f) }}</li>
+                                <li>
+                                  <i class="fa-solid fa-circle-check text-turquesa me-2"></i>{{ trim($f) }}
+                                </li>
                               @endforeach
                             </ul>
                           @endif
@@ -193,7 +205,7 @@
                       @endphp
                       <div class="col-md-4">
                         <div class="card rounded-3 h-100 p-3 border-0  ">
-                          <h3 class="fs-5 font-bankgothic text-light fw-bold mb-1 badge bg-turquesa">
+                          <h3 class="fs-3 font-bankgothic fw-bold mb-1  text-turquesa">
                             {{ $plan->name }}
                           </h3>
                           <p class="text-light small mb-2 badge bg-azul">
@@ -203,15 +215,14 @@
                                 class="text-turquesa fw-bold">{{ $discount }}% OFF</span>
                             @endif
                           </p>
-                          <div class="price fs-3 mb-1">
-                            U$D {{ number_format($plan->price, 2, ',', '.') }}
-                            <span class="fs-6 text-secondary">/año</span>
+                          <div class="price p-0">
+                            <p class="fs-4">U$D {{ number_format($plan->price, 2, ',', '.') }}
+                              <span class="fs-6 text-secondary">/mes</span></p>
                           </div>
 
                           @if($discount && $monthly)
                             <small class="text-turquesa d-block mb-2">
-                              En lugar de
-                              U$D {{ number_format($monthly->price * 12, 2, ',', '.') }}
+                              En lugar de U$D {{ number_format($monthly->price * 12, 2, ',', '.') }}
                               pagando mes a mes.
                             </small>
                           @endif
@@ -219,7 +230,9 @@
                           @if(!empty($plan->features))
                             <ul class="small ps-3 mb-3">
                               @foreach($plan->features as $f)
-                                <li><i class="fa-solid fa-circle-check text-turquesa me-2"></i>{{ trim($f) }}</li>
+                                <li>
+                                  <i class="fa-solid fa-circle-check text-turquesa me-2"></i>{{ trim($f) }}
+                                </li>
                               @endforeach
                             </ul>
                           @endif

@@ -35,7 +35,7 @@
             <div class="card-body">
               <div class="d-flex justify-content-between align-items-start">
                 <div>
-                  <small class="text-blanco d-block">Usuarios totales</small>
+                  <h2 class="fs-4 font-bankgothic text-turquesa d-block">Usuarios totales</h2>
                   <div class="fs-3 fw-bold">{{ $users->count() }}</div>
                 </div>
                 <span class="badge bg-turquesa">{{ $usersToday }} hoy</span>
@@ -78,7 +78,8 @@
             <div class="card-body">
               <div class="d-flex justify-content-between align-items-start">
                 <div>
-                  <small class="text-blanco d-block">Servicios totales</small>
+                  <h2 class="fs-4 font-bankgothic text-turquesa d-block">Servicios totales</h2>
+                  <small class="text-blanco d-block"></small>
                   <div class="fs-3 fw-bold">{{ $totalServices ?? 0 }}</div>
                 </div>
                 <span class="badge bg-turquesa">
@@ -129,7 +130,7 @@
             <div class="card-body">
               <div class="d-flex justify-content-between align-items-start">
                 <div>
-                  <small class="text-blanco d-block">Categorías totales</small>
+                  <h2 class="fs-4 font-bankgothic text-turquesa d-block">Categorías totales</h2>
                   <div class="fs-3 fw-bold">{{ $totalCategories ?? 0 }}</div>
                 </div>
                 <span class="badge bg-turquesa">

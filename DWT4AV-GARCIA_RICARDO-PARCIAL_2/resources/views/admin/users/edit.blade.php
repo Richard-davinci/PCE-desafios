@@ -31,6 +31,7 @@
 
     <div class="card bg-azul border-0 shadow-sm rounded-3">
       <div class="card-body p-4">
+        <h2 class="font-bankgothic fs-3">Datos</h2>
 
         <form action="{{ route('admin.users.update', $user) }}" method="POST">
           @csrf
@@ -73,7 +74,9 @@
                       name="role"
                       class="form-select @error('role') is-invalid @enderror"
                       required>
+                <option value="">Seleccione un rol</option>
                 <option value="user" {{ old('role', $user->role) === 'user' ? 'selected' : '' }}>User</option>
+
                 <option value="admin" {{ old('role', $user->role) === 'admin' ? 'selected' : '' }}>Admin</option>
               </select>
               @error('role')
@@ -98,50 +101,17 @@
               <div class="invalid-feedback">{{ $message }}</div>
               @enderror
             </div>
-
-
-            <div class="col-md-4">
-              <label class="form-label text-secondary">Información</label>
-              <div class="text-secondary small">
-                <div><span class="text-turquesa">ID:</span> {{ $user->id }}</div>
-                <div>
-                  <span class="text-turquesa">Registrado:</span>
-                  {{ optional($user->created_at)->format('d/m/Y H:i') }}
-                </div>
-                <div>
-                  <span class="text-turquesa">Actualizado:</span>
-                  {{ optional($user->updated_at)->format('d/m/Y H:i') }}
-                </div>
-              </div>
-            </div>
-
           </div>
 
-          <div class="d-flex justify-content-between align-items-center mt-4">
-            <a href="{{ route('admin.users.index') }}" class="btn btn-outline-light">
-              <i class="bi bi-arrow-left me-1"></i>Volver al listado
-            </a>
-
-            <div class="d-flex gap-2">
-              {{-- Reset password --}}
-              <form action="{{ route('admin.users.reset-password', $user) }}"
-                    method="POST"
-                    onsubmit="return confirm('¿Seguro que querés resetear la contraseña de este usuario?')">
-                @csrf
-                @method('PATCH')
-                <button type="submit" class="btn btn-azul">
-                  <i class="bi bi-key-fill me-1"></i>Resetear contraseña
-                </button>
-              </form>
-
+          <div class="d-flex justify-content-end gap-2 align-items-center mt-4">
+              <a href="{{ route('admin.users.index') }}" class="btn btn-outline-turquesa">
+                <i class="fa-solid fa-close me-1"></i>Cancelar
+              </a>
               <button type="submit" class="btn btn-turquesa">
-                <i class="bi bi-check-circle me-1"></i>Guardar cambios
+                <i class="fa-solid fa-floppy-disk me-1"></i>Guardar cambios
               </button>
-            </div>
           </div>
-
         </form>
-
       </div>
     </div>
 

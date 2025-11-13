@@ -6,7 +6,7 @@
 
   <section class="mt-3 py-5 bg-gradient-dark text-light">
     <div class="container">
-      <h1 class="fs-1 font-bankgothic fw-bold mb-1">Listado de Usuarios</h1>
+      <h1 class="fs-1 font-bankgothic fw-bold mb-1">Usuarios</h1>
       <div class="my-2 d-flex flex-wrap justify-content-between align-items-center gap-2">
         <p class="text-secondary mb-0">Listado general de usuarios registrados en el sistema.</p>
         <div class="d-flex gap-2">
@@ -90,6 +90,7 @@
 
     {{-- Tabla de usuarios --}}
     <div class="shadow-sm p-3 bg-azul rounded-2">
+      <h2 class="font-bankgothic fs-3"> Listado de usuarios</h2>
       <div class="card border-light border-2 shadow-sm">
         <div class="table-responsive">
           <table class="table table-striped align-middle mb-0">
@@ -99,6 +100,7 @@
               <th scope="col">Nombre</th>
               <th scope="col">Email</th>
               <th scope="col" class="text-center">Rol</th>
+              <th>Suscripciones</th>
               <th scope="col" class="text-center">Registrado</th>
               <th scope="col" class="text-center">Acciones</th>
             </tr>
@@ -109,7 +111,6 @@
                 <td class="text-center">{{ $user->id }}</td>
                 <td>{{ $user->name }}</td>
                 <td class="text-secondary">{{ $user->email }}</td>
-
                 {{-- Rol --}}
                 <td class="text-center">
                   @if($user->role === 'admin')
@@ -118,15 +119,23 @@
                     <span class="badge bg-azul">User</span>
                   @endif
                 </td>
+                <td>
+                  <span class="small text-secondary ms-1">
+                    (activas: {{ $user->active_subscriptions_count }})
+                  </span>
+                </td>
 
                 <td class="text-center small">
                   {{ optional($user->created_at)->format('d/m/Y') }}
                 </td>
 
                 {{-- Acciones --}}
-                <td class="text-center">
+                <td class="text-end">
                   <div class="d-flex flex-wrap justify-content-center gap-2">
-
+                    {{--ver usuario--}}
+                    <a href="{{ route('admin.users.show', $user->id) }}" class="btn btn-azul ">
+                      <i class="fa-regular fa-eye me-1"></i>
+                    </a>
                     {{-- Editar --}}
                     <a href="{{ route('admin.users.edit', $user) }}"
                        class="btn  btn-azul"

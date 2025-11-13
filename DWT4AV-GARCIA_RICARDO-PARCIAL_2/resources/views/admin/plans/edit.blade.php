@@ -1,7 +1,5 @@
 @extends('layouts.app')
-
 @section('title', 'Editar planes - ' . $service->name)
-
 @section('content')
 
   <section class="mt-3 py-5 bg-gradient-dark text-light">
@@ -9,7 +7,7 @@
       <h1 id="pageTitle" class="fs-1 font-bankgothic fw-bold mb-1">
         Editar planes de {{ $service->name }}
       </h1>
-      <p class="text-secondary mb-0">
+      <p class="text-blanco mb-0">
         Modificá el plan único o los planes mensuales asociados a este servicio.
       </p>
       <a href="{{ route('admin.services.index') }}" class="btn btn-turquesa mt-3">
@@ -25,9 +23,8 @@
   </div>
 
   {{-- =========================================================
-       Se establece la variable $currentMode(modo actual) para mantener el modo actual o el anterior
+       $currentMode(modo actual) para mantener el modo actual o el anterior
        ========================================================= --}}
-
   @php
     $currentMode = old('mode', $mode ?? 'unico');
   @endphp
@@ -37,15 +34,13 @@
       @method('PUT')
 
       {{-- =========================================================
-          MODO DE PLANES
-          Sección con radio buttons para seleccionar entre modo "Unico" o "Mensual".
+                        radio burtton con modo "Unico" o "Mensual".
           ========================================================= --}}
-
       <div class="card shadow-sm rounded-2 bg-azul mb-3">
         <div class="card-body">
           <p class="mb-2">Tipo de planes configurados para este servicio:</p>
-          {{-- Grupo de radio buttons para seleccionar modo --}}
           <div class="d-flex gap-4 align-items-center">
+
             {{-- Opción plan único --}}
             <label class="form-check mb-0">
               <input class="form-check-input"
@@ -56,15 +51,14 @@
               <span class="form-check-label">Único</span>
             </label>
 
-            {{-- Opción planes mensuales --}}
+            {{-- Opción planes mensuales/anueles --}}
             <label class="form-check mb-0">
               <input class="form-check-input"
                      type="radio"
                      name="mode"
                      value="mensual"
                 {{ $currentMode === 'mensual' ? 'checked' : '' }}>
-              <span class="form-check-label">Mensual (Básico / Profesional
- / Empresarial)</span>
+              <span class="form-check-label">Mensual / Anual</span>
             </label>
           </div>
         </div>
@@ -74,6 +68,8 @@
           BLOCK PLANES UNICO
           ========================================================= --}}
       <section id="blockUnico" style="{{ $currentMode === 'unico' ? '' : 'display:none;' }}">
+        <h2 class="font-bankgothic mt-2">Plan Único</h2>
+
         <div id="planesAccordion">
           <div class="card  my-4 border-light">
 
@@ -93,7 +89,6 @@
               </button>
             </div>
 
-            {{-- Campos de precio y características --}}
             <div id="collapseUnico" class="collapse show" data-bs-parent="#planesAccordion">
               <div class="card-body border-top border-light bg-azul-light text-light rounded-bottom-3">
                 <div class="row g-3">
@@ -121,7 +116,7 @@
                            class="form-control"
                            value="{{ old('plans.unico.features', $uniqueFeatures ?? '') }}"
                            placeholder="Ej: Hosting, Dominio .com, SSL, Instalación">
-                    <small class="text-secondary">Separá las características por coma.</small>
+                    <small class="text-blanco">Separá las características por coma.</small>
                     @error('plans.unico.features')
                     <x-alert type="danger" :message="$message" small/>
                     @enderror
@@ -134,17 +129,16 @@
       </section>
 
       {{-- =========================================================
-           BLOCK PLANES MENSUALES
-           Se muestra solo si $currentMode es 'mensual'.
-           Incluye planes Básico, Profesional
- y Empresarial en acordeón.
-           ========================================================= --}}
+          BLOCK PLANES MENSUALES
+          ========================================================= --}}
       <section id="blockMensual" style="{{ $currentMode === 'mensual' ? '' : 'display:none;' }}">
+        <h2 class="font-bankgothic mt-2">Planes anual / mensual</h2>
         <div id="planesAccordionMensual">
 
-          {{------------ PLAN BÁSICO -----------------------}}
+          {{-- =========================================================
+                               PLAN BÁSICO
+          ========================================================= --}}
           <div class="card my-4 border-light shadow-sm rounded-2">
-            {{-- Collapsible para plan Básico --}}
             <div class="card-header bg-azul ">
               <button
                 class="btn btn-link text-light d-flex justify-content-between w-100 align-items-center p-0 text-decoration-none"
@@ -160,7 +154,6 @@
               </button>
             </div>
 
-            {{-- Campos del plan Básico --}}
             <div id="collapseBasico" class="collapse show" data-bs-parent="#planesAccordionMensual">
               <div class="card-body border-top border-light bg-azul-light text-light rounded-bottom-3">
                 <div class="row g-3">
@@ -180,7 +173,9 @@
                     @enderror
                   </div>
 
-                  {{-- Descuento anual --}}
+                  {{-- =========================================================
+                       Descuento anual entre 0 y 99 porciento( revisar cuando es 100 xq da 0 el calculo)
+                       ========================================================= --}}
                   <div class="col-md-4">
                     <label class="form-label">Descuento anual (%)</label>
                     <input type="number"
@@ -193,14 +188,14 @@
                            value="{{ old('plans.basico.discount', $descuentoBasico ?? '0') }}">
                   </div>
 
-                  {{-- Precio anual calculado automáticamente --}}
+                  {{-- Precio anual calculado automáticamente con porcentaje y precio --}}
                   <div class="col-md-4">
                     <label class="form-label">Precio anual (U$D)</label>
                     <input type="number"
                            id="basico-annual-price"
                            class="form-control"
                            readonly>
-                    <small class="text-secondary">Se calcula automáticamente según mensual +
+                    <small class="text-blanco">Se calcula automáticamente según precio +
                       descuento.</small>
                   </div>
 
@@ -212,7 +207,7 @@
                            class="form-control"
                            value="{{ old('plans.basico.features', $featuresBasico) }}"
                            placeholder="Ej: Hosting, SSL, Soporte básico">
-                    <small class="text-secondary">Separá las características por coma.</small>
+                    <small class="text-blanco">Separá las características por coma.</small>
                     @error('plans.basico.features')
                     <x-alert type="danger" :message="$message" small/>
                     @enderror
@@ -222,7 +217,9 @@
             </div>
           </div>
 
-          {{------------ PLAN PRO -----------------------}}
+          {{-- =========================================================
+                            PLAN PROFESIONAL
+               ========================================================= --}}
           <div class="card bg-azul border-light">
             <div class="card-header">
               <button
@@ -232,8 +229,7 @@
                 data-bs-target="#collapsePro"
                 aria-expanded="false"
                 aria-controls="collapsePro">
-                <span class="font-bankgothic fs-5">Profesional
-</span>
+                <span class="font-bankgothic fs-5">Profesional</span>
                 <span class="plan-toggle-icon" data-target="collapsePro">
                     <i class="bi bi-chevron-down"></i>
                   </span>
@@ -254,13 +250,15 @@
                            min="0"
                            step="0.01"
                            value="{{ old('plans.pro.price', $precioPro) ?? '0' }}"
->
+                    >
                     @error('plans.pro.price')
                     <x-alert type="danger" :message="$message" small/>
                     @enderror
                   </div>
 
-                  {{-- Descuento anual --}}
+                  {{-- =========================================================
+                  Descuento anual entre 0 y 99 porciento( revisar cuando es 100 xq da 0 el calculo)
+                  ========================================================= --}}
                   <div class="col-md-4">
                     <label class="form-label">Descuento anual (%)</label>
                     <input type="number"
@@ -270,8 +268,7 @@
                            min="0"
                            max="100"
                            step="1"
-                           value="{{ old('plans.pro.discount', $descuentoPro) ?? '0' }}"
->
+                           value="{{ old('plans.pro.discount', $descuentoPro) ?? '0' }}">
                   </div>
 
                   {{-- Precio anual calculado automáticamente --}}
@@ -281,21 +278,19 @@
                            id="pro-annual-price"
                            class="form-control"
                            readonly>
-                    <small class="text-secondary">Se calcula automáticamente según mensual +
+                    <small class="text-blanco">Se calcula automáticamente según precio +
                       descuento.</small>
                   </div>
 
-                  {{-- Características Profesional
- --}}
+                  {{-- Características Profesional --}}
                   <div class="col-12">
-                    <label class="form-label">Características Profesional
-</label>
+                    <label class="form-label">Características Profesional</label>
                     <input type="text"
                            name="plans[pro][features]"
                            class="form-control"
                            value="{{ old('plans.pro.features', $featuresPro ?? '') }}"
                            placeholder="Ej: Todo lo de Básico + extras">
-                    <small class="text-secondary">Separá las características por coma.</small>
+                    <small class="text-blanco">Separá las características por coma.</small>
                     @error('plans.pro.features')
                     <x-alert type="danger" :message="$message" small/>
                     @enderror
@@ -305,7 +300,9 @@
             </div>
           </div>
 
-          {{------------ PLAN EMPRESARIAL -----------------------}}
+          {{-- =========================================================
+                                      PLAN EMPRESARIAL
+               ========================================================= --}}
           <div class="card bg-azul my-4 border-light">
             <div class="card-header">
               <button
@@ -334,14 +331,15 @@
                            class="form-control"
                            min="0"
                            step="0.01"
-                           value="{{ old('plans.empresarial.price', $precioEmpresas) ?? '0' }}"
->
+                           value="{{ old('plans.empresarial.price', $precioEmpresas) ?? '0' }}">
                     @error('plans.empresarial.price')
                     <x-alert type="danger" :message="$message" small/>
                     @enderror
                   </div>
 
-                  {{-- Descuento anual --}}
+                  {{-- =========================================================
+                  Descuento anual entre 0 y 99 porciento( revisar cuando es 100 xq da 0 el calculo)
+                  ========================================================= --}}
                   <div class="col-md-4">
                     <label class="form-label">Descuento anual (%)</label>
                     <input type="number"
@@ -351,8 +349,7 @@
                            min="0"
                            max="100"
                            step="1"
-                           value="{{ old('plans.empresarial.discount', $descuentoEmpresas) ?? '0' }}"
->
+                           value="{{ old('plans.empresarial.discount', $descuentoEmpresas) ?? '0' }}">
                   </div>
 
                   {{-- Precio anual automático --}}
@@ -362,8 +359,7 @@
                            id="empresarial-annual-price"
                            class="form-control"
                            readonly>
-                    <small class="text-secondary">Se calcula automáticamente según mensual +
-                      descuento.</small>
+                    <small class="text-blanco">Se calcula automáticamente según mensual + descuento.</small>
                   </div>
 
                   {{-- Características Empresarial --}}
@@ -374,7 +370,7 @@
                            class="form-control"
                            value="{{ old('plans.empresarial.features', $featuresEmpresarial ?? '') }}"
                            placeholder="Ej: Soporte prioritario, SLA, integraciones avanzadas">
-                    <small class="text-secondary">Separá las características por coma.</small>
+                    <small class="text-blanco">Separá las características por coma.</small>
                     @error('plans.empresarial.features')
                     <x-alert type="danger" :message="$message" small/>
                     @enderror
@@ -403,12 +399,10 @@
 
     </form>
   </div>
-  </div>
 @endsection
 
 {{-- =========================================================
-     SCRIPTS
-     Funcionalidad JS para collapses, cambiar iconos, mostrar/ocultar bloques, cálculos y confirmaciones.
+                          SCRIPTS
      ========================================================= --}}
 @push('scripts')
   <script>
@@ -437,7 +431,7 @@
       });
 
       // =========================================================
-      // 2) Mostrar / ocultar bloques según modo (Único / Mensual)
+      // Mostrar / ocultar bloques según modo (Único / Mensual)
       // =========================================================
       const blockUnico = document.querySelector('#blockUnico');
       const blockMensual = document.querySelector('#blockMensual');
@@ -462,8 +456,14 @@
       updateModeUI();
 
       // =========================================================
-      // 3) Cálculo automático de precios anuales
+      // Cálculo automático de precios anuales
       // =========================================================
+      /**
+       * Configura el cálculo de precio anual:
+       * - monthlySelector: input de precio mensual
+       * - discountSelector: input de descuento (%)
+       * - annualSelector: input donde se muestra el precio anual calculado
+       */
       function setupAnnualCalc(monthlySelector, discountSelector, annualSelector) {
         const monthly = document.querySelector(monthlySelector);
         const discount = document.querySelector(discountSelector);
@@ -489,6 +489,7 @@
       setupAnnualCalc('#basico-price', '#basico-discount', '#basico-annual-price');
       setupAnnualCalc('#pro-price', '#pro-discount', '#pro-annual-price');
       setupAnnualCalc('#empresarial-price', '#empresarial-discount', '#empresarial-annual-price');
+
       // =========================================================
       // Confirmar antes de enviar el formulario
       // =========================================================
@@ -508,7 +509,7 @@
               text: text,
               icon: 'warning',
               showCancelButton: true,
-              confirmButtonText: 'Sí, actualizar',
+              confirmButtonText: 'Sí, guardar',
               cancelButtonText: 'Cancelar',
               background: '#112b3a',
               color: '#cfd6dc',

@@ -116,7 +116,7 @@
                 </li>
                 <li class="nav-item" role="presentation">
                   <button class="nav-link font-bankgothic fs-5" id="password-tab" data-bs-toggle="tab"
-                          data-bs-target="#password" type="button" role="tab">
+                          data-bs-target="#passwordTab" type="button" role="tab">
                     Cambiar contraseña
                   </button>
                 </li>
@@ -213,7 +213,7 @@
                   <x-alert type="success" :message="session('success_password')"/>
                 @endif
                 {{-- TAB: CAMBIAR CONTRASEÑA --}}
-                <div class="tab-pane fade" id="password" role="tabpanel" aria-labelledby="password-tab">
+                <div class="tab-pane fade" id="passwordTab" role="tabpanel" aria-labelledby="password-tab">
                   <form id="passwordForm" action="{{ route('profile.password.update') }}"
                         method="POST" class="row g-3 needs-validation" novalidate>
                     @csrf

@@ -77,7 +77,7 @@
             </div>
 
             <div class="col-md-6 ">
-              <a href="{{route('pages.index')}}" type="button" class="btn btn-outline-turquesa font-bankgothic w-100">
+              <a href="{{route('pages.index')}}"  class="btn btn-outline-turquesa font-bankgothic w-100">
                 <i class="fa-solid fa-arrow-left me-1"></i> Volver
               </a>
             </div>
