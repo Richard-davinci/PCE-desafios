@@ -14,6 +14,7 @@ class User extends Authenticatable
   protected $fillable = [
     'name',
     'email',
+    'role',
     'password',
     'phone',
     'city',
@@ -47,7 +48,7 @@ class User extends Authenticatable
   }
 
 
-  // Scopes
+  // Despues eliminar esto probando los Scopes
   public function scopeAdmins($query)
   {
     return $query->where('role', 'admin');

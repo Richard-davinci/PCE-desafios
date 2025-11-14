@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Validation\ValidationException;
 
 
 class ForcedPasswordController extends Controller
@@ -26,7 +25,12 @@ class ForcedPasswordController extends Controller
   {
     $request->validate([
       'current_password' => ['required'],
-      'password' => ['required', 'min:6', 'confirmed'],
+      'password' => ['required', 'confirmed', 'min:6'],
+    ], [
+      'current_password.required' => 'Debés ingresar tu contraseña actual.',
+      'password.required' => 'Ingresá una nueva contraseña.',
+      'password.confirmed' => 'Las contraseñas no coinciden.',
+      'password.min' => 'La contraseña debe tener al menos 6 caracteres.',
     ]);
 
     $user = $request->user();

@@ -38,6 +38,7 @@ class AuthController extends Controller
     $user = User::create([
       'name' => $data['name'],
       'email' => $data['email'],
+      'role' => 'user',
       'password' => Hash::make($data['password']),
     ]);
 
@@ -174,7 +175,6 @@ class AuthController extends Controller
     $user = Auth::user();
 
     try {
-      // Tu validación original, sin cambiar nada
       $request->validate([
         'current_password' => ['required'],
         'password' => ['required', 'confirmed', 'min:6'],

@@ -167,6 +167,10 @@ Route::get('/my-subscriptions', [SubscriptionController::class, 'userIndex'])
   ->name('user.subscriptions')
   ->middleware('protegida');
 
+Route::get('/suscripciones/ya-existe/{subscription}', [SubscriptionController::class, 'already'])
+  ->name('errors.already')
+  ->middleware('protegida');
+
 
 
 

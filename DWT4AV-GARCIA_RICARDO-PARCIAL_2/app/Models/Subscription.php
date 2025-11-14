@@ -43,9 +43,5 @@ class Subscription extends Model
     return $this->belongsTo(Plan::class);
   }
 
-  // Scope útil para el listado del usuario
-  public function scopeForUser($query, int $userId)
-  {
-    return $query->where('user_id', $userId);
-  }
+
 }

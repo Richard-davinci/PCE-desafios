@@ -286,7 +286,7 @@
     </div>
   </section>
 
-  {{-- Mostrar botón "Cambiar foto" solo en pestaña Editar --}}
+  {{-- Mostrar botón caambiar foto solo en pestaña editar --}}
   <script>
     document.addEventListener('DOMContentLoaded', function () {
       const tabs = {
@@ -313,11 +313,11 @@
         toggleEditButtons(key);
       }
 
-      // 1) Tab inicial según sesión (si hay error viene 'editar' o 'password')
+      //Tab inicial según sesión
       const initialTab = @json(session('active_tab', 'ver'));
       activateTab(initialTab);
 
-      // 2) Cuando el usuario cambia de tab manualmente
+      //Cuando el usuario cambia de tab manualmente
       Object.entries(tabs).forEach(([key, trigger]) => {
         if (!trigger) return;
 

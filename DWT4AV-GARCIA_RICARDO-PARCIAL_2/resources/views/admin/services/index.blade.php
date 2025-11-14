@@ -1,7 +1,5 @@
 @extends('layouts.app')
-
 @section('title', 'Listado de servicios')
-
 @section('content')
 
   <section class="mt-3 py-5 bg-gradient-dark text-light">
@@ -25,21 +23,21 @@
     {{-- Mensaje de éxito --}}
     <x-alert type="success" :message="session('success')"/>
 
-    <div class="bg-azul rounded shadow-sm mb-3">
+    <div class="bg-azul rounded  mb-5">
       <button class="btn btn-azul  text-white w-100 text-start rounded-lg py-4 fs-5" type="button"
               data-bs-toggle="collapse"
               data-bs-target="#filtrosServicios" aria-expanded="false" aria-controls="filtrosServicios">
-        <i class="bi bi-funnel me-2"></i>Filtros de búsqueda
+        <i class="fa-solid fa-filter me-2"></i>Filtros de búsqueda
       </button>
       <div class="collapse show" id="filtrosServicios">
-        <div class="p-3 border-top border-light bg-azul">
+        <div class="p-3 border-top border-light bg-azul-light">
           <form method="GET" action="{{ route('admin.services.index') }}" class="row g-2">
-            <div class="col-md-4 ">
+            <div class="col-md-6 col-lg-3 ">
               <label for="name" class="mb-1">Nombre</label>
               <input type="text" name="name" class="form-control" placeholder="Ingrese el nombre del servicio"
                      value="{{ request('name') }}">
             </div>
-            <div class="col-md-4">
+            <div class="col-md-6 col-lg-3 ">
               <label for="category_id" class="mb-1">Categorías</label>
               <select name="category_id" class="form-select">
                 <option value="">Todas las categorías</option>
@@ -50,7 +48,7 @@
                 @endforeach
               </select>
             </div>
-            <div class="col-md-4">
+            <div class="col-md-6 col-lg-3">
               <label for="status" class="mb-1">Estado</label>
               <select name="status" class="form-select">
                 <option value="">Todos los estados</option>
@@ -63,7 +61,7 @@
                 </option>
               </select>
             </div>
-            <div class="col-md-4">
+            <div class="col-md-6 col-lg-3">
               <label for="plan_mode" class="mb-1">Tipo de plan</label>
               <select name="plan_mode" class="form-select">
                 <option value="">Todos los planes</option>
@@ -81,10 +79,10 @@
 
             <div class="col-md-12 ">
               <div class="d-flex justify-content-end gap-2 mt-2">
-                <button type="submit" class="btn btn-turquesa"><i class="bi bi-filter"></i> Filtrar
+                <button type="submit" class="btn btn-turquesa"><i class="fa-solid fa-filter"></i> Filtrar
                 </button>
                 <a href="{{ route('admin.services.index') }}" class="btn btn-turquesa"><i
-                    class="bi bi-x-circle"></i>
+                    class="fa-solid fa-broom"></i>
                   Limpiar</a>
               </div>
             </div>
@@ -93,24 +91,23 @@
       </div>
     </div>
 
-
     {{-- Tabla de servicios --}}
-    <div class="shadow-sm p-3 bg-azul  rounded-2">
+    <div class=" p-3 bg-azul rounded-2">
       <h2 class="fs-3 font-bankgothic fw-bold">Listado de de servicios</h2>
-      <div class="card border-light border-2 shadow-sm">
+      <div class="card border-light border-2 ">
 
         <div class="table-responsive">
 
           <table class="table table-striped align-middle mb-0 ">
             <thead>
             <tr class="table-dark font-bankgothic ">
-              <th scope="col" class="text-center rounded-rounded-tl-lg">#</th>
-              <th scope="col">Nombre</th>
-              <th scope="col">Categoría</th>
-              <th scope="col">Estado</th>
-              <th scope="col" class="text-center">Plan</th>
-              <th scope="col" class="text-center">Actualizado</th>
-              <th scope="col" class="text-center rounded-tr-full">Acciones</th>
+              <th class="text-center rounded-rounded-tl-lg">#</th>
+              <th>Nombre</th>
+              <th>Categoría</th>
+              <th>Estado</th>
+              <th class="text-center">Plan</th>
+              <th class="text-center">Actualizado</th>
+              <th class="text-center rounded-tr-full">Acciones</th>
             </tr>
             </thead>
             <tbody>
@@ -165,10 +162,8 @@
                 <td class="text-center">
                   {{ $service->updated_at->format('d/m/Y') }}
                 </td>
-                {{-- Detalle de planes --}}
                 <td>
                   <div class="d-flex flex-wrap justify-content-center gap-2">
-
                     {{-- Ver --}}
                     <a href="{{ route('admin.services.show', $service->id) }}"
                        class="btn  btn-azul" title="Ver">
@@ -233,6 +228,7 @@
   </section>
 
   <script>
+
     function confirmDelete(id) {
       const btn = document.getElementById(`deleteBtn${id}`);
       const hasSubs = btn?.dataset.hasSubs === '1';

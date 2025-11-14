@@ -2,7 +2,7 @@
 @section('title', '¡Gracias por suscribirte!')
 
 @section('content')
-  <section class="mt-3 py-5 bg-gradient-dark text-light">
+  <section class="mt-3 py-5 bg-gradient-dark text-light h-100">
     <div class="container" style="max-width: 900px">
       <div class="text-center mb-4">
         <i class="fa-regular fa-circle-check display-3 text-turquesa mb-3"></i>
@@ -16,7 +16,7 @@
         <div class="col-lg-8 mx-auto">
           <div class="card bg-azul text-light border-0 shadow-sm">
             <div class="card-body">
-              <h2 class="h6 text-turquesa mb-3">Resumen</h2>
+              <h2 class="h3  font-bankgothic mb-3">Resumen</h2>
               <ul class="list-unstyled mb-0">
                 <li class="mb-2">
                   <span class="text-turquesa me-2">Servicio:</span>
@@ -30,9 +30,13 @@
                   <span class="text-turquesa me-2">Período:</span>
                   <span class="text-blanco text-capitalize">{{ $plan->type ?? '—' }}</span>
                 </li>
+                <li><span class="text-turquesa">Próxima renovación:</span>
+                  {{ optional($sub->next_renewal_at)->format('d/m/Y') ?? '—' }}
+                </li>
+
                 <li class="mb-1">
                   <span class="text-turquesa me-2">Precio:</span>
-                  <span class="text-turquesa fw-bold">${{ number_format($plan->price ?? 0, 2, ',', '.') }}</span>
+                  <span class="text-turquesa fw-bold">U$D{{ number_format($plan->price ?? 0, 2, ',', '.') }}</span>
                 </li>
               </ul>
             </div>

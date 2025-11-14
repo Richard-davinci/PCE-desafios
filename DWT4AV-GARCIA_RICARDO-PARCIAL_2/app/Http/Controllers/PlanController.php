@@ -5,13 +5,13 @@ namespace App\Http\Controllers;
 use App\Models\Plan;
 use App\Models\Service;
 use Illuminate\Http\Request;
+use Illuminate\View\View;
 
 
 /** =========================================================
  *          Profe Bruno te dejo los Comentarios
  *          para poder entender este controller xq es muy largo
  * =========================================================
-
  * Controlador de Planes asociados a un Servicio.
  *
  * Cada servicio puede tener un solo modo activo:
@@ -24,7 +24,7 @@ use Illuminate\Http\Request;
  * - Al guardar MENSUAL → se elimina el plan único previo.
  * - Los planes ANUALES nunca se editan, se recalculan automáticamente.
  *
- * Helpers:
+ * Metodos:
  * - deletePlans() → elimina planes según tipo o nombre.
  * - createOrUpdatePlan() → crea o actualiza un plan.
  * - saveUniquePlan() / saveMonthlyPlans() → manejan la lógica de guardado.
@@ -32,6 +32,14 @@ use Illuminate\Http\Request;
  */
 class PlanController extends Controller
 {
+  /**
+   * =========================================================
+   * vista para crear los planes de un servicio
+   * =========================================================
+   *
+   * @param Service $service Servicio del cual cargar los planes
+   * @return View Vista con los datos del servicio y modo del plan elegido único o mensual
+   */
   public function create(Service $service)
   {
     $mode = old('mode', 'unico');
@@ -42,6 +50,16 @@ class PlanController extends Controller
     ]);
   }
 
+
+  /**
+   * =========================================================
+   * Carga los planes de un servicio para edición
+   * =========================================================
+   *
+   * @param Request $request Request object con los datos del formulario
+   * @param Service $service Servicio del cual se guardarán los planes
+   * @return mixed Redirección a la vista de servicios con mensaje de éxito
+   */
   public function store(Request $request, Service $service)
   {
     $validated = $this->validatePlans($request);
@@ -55,12 +73,21 @@ class PlanController extends Controller
       ->with('success', 'Planes creados correctamente.');
   }
 
+  /**
+   * =========================================================
+   * Actualiza los planes existentes de un servicio
+   * =========================================================
+   *
+   * @param Request $request Request object con los datos del formulario
+   * @param Service $service Servicio del cual se actualizarán los planes
+   * @return mixed Redirección a la vista de servicios con mensaje de éxito
+   */
   public function update(Request $request, Service $service)
   {
     $validated = $this->validatePlans($request);
     $mode = $request->input('mode', 'unico');
 
-    // true = es para decirle que estoy editando
+    // true = es para decirle que estoy editando los planes
     $this->savePlans($service, $mode, $validated['plans'] ?? [], true);
 
     return redirect()
@@ -69,25 +96,31 @@ class PlanController extends Controller
   }
 
 
+  /**
+   * =========================================================
+   * Carga los planes de un servicio para edición
+   * =========================================================
+   *
+   * @param Service $service Servicio del cual se cargarán los planes para editar
+   * @return View Vista con los datos del servicio y sus planes
+   */
   public function edit(Service $service)
   {
     $plans = $this->loadPlansForService($service);
 
-    // Combina el servicio + todos los datos de planes en un solo array
+    // array_merge Combina el servicio + todos los datos de planes en un solo array
     return view('admin.plans.edit', array_merge(
       ['service' => $service], $plans));
   }
 
-  /** =========================================================
-   *                     METODOS
-   * =========================================================
-   */
+
   /**
    * =========================================================
    *                   VALIDACIÓN
    * =========================================================
-   * Valida los datos de planes según el modo seleccionado.
-   * Devuelve el array validado.
+   *
+   * @param Request $request Request con los datos del formulario
+   * @return array Array con los datos validados según las reglas definidas
    */
   private function validatePlans(Request $request): array
   {
@@ -153,7 +186,14 @@ class PlanController extends Controller
    *                    GUARDAR PLANES
    * =========================================================
    *  Decide qué tipo de guardado ejecutar según el modo.
+   *
+   * @param Service $service Servicio para el cual se guardarán los planes
+   * @param string $mode Modo del plan ('unico' o 'mensual')
+   * @param array $plansData Datos de los planes a guardar
+   * @param bool $isUpdate Indica si es una actualización (true) o creación (false)
    */
+
+
   private function savePlans(Service $service, string $mode, array $plansData, bool $isUpdate): void
   {
     if ($mode === 'unico') {
@@ -176,6 +216,10 @@ class PlanController extends Controller
    *
    * - Si $isUpdate = false:
    *     - Crea el plan único desde cero
+   *
+   * @param Service $service Servicio para el cual se guardará el plan único
+   * @param array $plansData Array con los datos del plan único ('price' y 'features')
+   * @param bool $isUpdate Indica si es una actualización (true) o creación (false)
    */
   private function saveUniquePlan(Service $service, array $plansData, bool $isUpdate): void
   {
@@ -196,7 +240,7 @@ class PlanController extends Controller
       'único',   // type
       $price,
       $features,
-      null,      // sin descuento por ser unico
+      null,  // sin descuento
       $isUpdate
     );
   }
@@ -214,6 +258,10 @@ class PlanController extends Controller
    *
    * - Si $isUpdate = false:
    *     - Crea desde cero los tiers que tengan precio.
+   *
+   * @param Service $service Servicio para el cual se guardarán los planes mensuales y anuales
+   * @param array $plansData Array con los datos de los planes por cada tier (básico, pro, empresarial)
+   * @param bool $isUpdate Indica si es una actualización (true) o creación (false)
    */
   private function saveMonthlyPlans(Service $service, array $plansData, bool $isUpdate): void
   {
@@ -279,7 +327,13 @@ class PlanController extends Controller
    * - 'name'  => 'Básico'                       // por nombre de tier
    *
    * Si no se pasa ningún filtro -> borra TODOS los planes del servicio.
+   *
+   * @param Service $service Servicio del cual se eliminarán los planes
+   * @param array $filters Array asociativo de filtros para la eliminación:
+   *                      - 'types': array de tipos de plan a eliminar
+   *                      - 'name': nombre específico del plan a eliminar
    */
+
   private function deletePlans(Service $service, array $filters = []): void
   {
     $query = Plan::where('service_id', $service->id);
@@ -289,7 +343,7 @@ class PlanController extends Controller
       $query->whereIn('type', $filters['types']);
     }
 
-    // Filtrar por nombre de plan/tier (Básico, Pro, etc.)
+    // Filtrar por nombre de plan (Básico, Pro, empresarial)
     if (!empty($filters['name'])) {
       $query->where('name', $filters['name']);
     }
@@ -310,13 +364,8 @@ class PlanController extends Controller
    * @param float|null $discount Descuento aplicado (solo anual)
    * @param bool $isUpdate Si true, intenta actualizar en lugar de crear
    */
-  private function createOrUpdatePlan(Service $service,
-                                      string  $name,
-                                      string  $type,
-                                      float   $price,
-                                      array   $features,
-                                      ?float  $discount,
-                                      bool    $isUpdate = false): void
+  private function createOrUpdatePlan(Service $service, string $name, string $type, float $price,
+                                      array   $features, ?float $discount, bool $isUpdate = false): void
   {
     if ($isUpdate) {
       $plan = Plan::where('service_id', $service->id)
@@ -349,6 +398,9 @@ class PlanController extends Controller
    * =========================================================
    * Carga los planes de un servicio para edición
    * =========================================================
+   *
+   * @param Service $service Servicio del cual se cargarán los planes
+   * @return array Array asociativo con todos los datos de los planes
    */
   private function loadPlansForService(Service $service): array
   {
@@ -371,7 +423,7 @@ class PlanController extends Controller
       'unique' => $unique,
       'uniqueFeatures' => $this->featuresToText($unique->features ?? null),
 
-      // Tiers (usamos keyBy para evitar repetir búsquedas)
+      // planes
       'precioBasico' => optional($monthly->get('Básico'))->price,
       'descuentoBasico' => optional($monthly->get('Básico'))->discount,
       'featuresBasico' => $this->featuresToText(optional($monthly->get('Básico'))->features ?? null),
@@ -386,13 +438,14 @@ class PlanController extends Controller
     ];
   }
 
-  /**
-   *=========================================================
+   /**
+   * =========================================================
    *   Convierte texto de características ("a, b, c")
    *   en array ["a", "b", "c"] para guardar como JSON.
-   *=========================================================
+   * =========================================================
+   * @param string $features String con las características separadas por comas
+   * @return array Array de características limpias
    */
-
   private function parseFeatures(string $features): array
   {
     return collect(explode(',', $features))

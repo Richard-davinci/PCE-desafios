@@ -6,4 +6,3 @@
 <link href="{{ asset('css/style.css') }}" rel="stylesheet">
 <link rel="icon" type="image/x-icon" href="{{ asset('img/favicon.ico') }}">
 
-<script src="https://kit.fontawesome.com/0403beff78.js" crossorigin="anonymous"></script>@stack('styles')

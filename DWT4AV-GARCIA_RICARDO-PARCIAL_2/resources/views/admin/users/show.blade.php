@@ -28,8 +28,8 @@
     </div>
   </section>
   <section class="container py-5">
-    {{-- DATOS --}}
 
+    {{-- DATOS --}}
     <div class="card bg-azul text-light border-0 shadow-sm h-100">
       <div class="card-body">
         <h2 class="fs-3 text-turquesa mb-3 font-bankgothic">Información del usuario</h2>
@@ -103,88 +103,147 @@
       </div>
 
     </div>
-    @if($user->role === 'user')
-
+  </section>
+  @if($user->role === 'user')
+    {{--si el usuario es un cliente muestro sus subscripciones--}}
+    <section class="container">
       {{-- LISTADO DE SUSCRIPCIONES --}}
-      <div class="d-flex justify-content-between align-items-end mt-5 mb-3">
+      <div class="d-flex justify-content-between align-items-end mb-3">
         <h2 class="fs-3 font-bankgothic fw-bold mb-0">Suscripciones del usuario</h2>
+      </div>
+      <div class="mb-5 p-3 bg-azul rounded-2">
+        <h3 class="fs-4 font-bankgothic fw-bold">Historial de pagos</h3>
+        <div class="card border-light border-2 ">
+          <div class="table-responsive">
+            <table class="table table-striped align-middle mb-0">
+              <thead>
+              <tr class="table-dark font-bankgothic">
+                <th class="text-center rounded-rounded-tl-lg">Fecha</th>
+                <th>Servicio</th>
+                <th>Plan</th>
+                <th>Tipo</th>
+                <th>Monto</th>
+                <th>Estado</th>
+                <th class="text-center rounded-tr-full">Factura</th>
+              </tr>
+              </thead>
+              <tbody id="paymentsBody">
+              @forelse($subscriptions as $sub)
+                <tr>
+                  <td class="text-center">{{ optional($sub->started_at)->format('d/m/Y') }}</td>
+                  <td>{{ $sub->service->name }}</td>
+                  <td>
+                    @if($sub->plan->name == 'Único')
+                      <span class="badge bg-turquesa">Pago Único</span>
+                    @endif
+                    @if($sub->plan->name == 'Pro')
+                      <span class="badge bg-azul">Profesional</span>
+                    @endif
+                    @if($sub->plan->name == 'Empresarial')
+                      <span class="badge bg-azul-light">Empresarial</span>
+                    @endif
+                    @if($sub->plan->name == 'Básico')
+                      <span class="badge bg-azul">Básico</span>
+                    @endif
+                  </td>
+                  <td class="text-center">
+
+                    @if($sub->plan->type == 'único')
+                      <span class="badge bg-turquesa">Pago único</span>
+                    @endif
+                    @if($sub->plan->type == 'mensual')
+                      <span class="badge bg-azul">Mensual</span>
+                    @endif
+                    @if($sub->plan->type == 'anual')
+                      <span class="badge bg-azul-light">Anual</span>
+                    @endif
+
+                  </td>
+                  <td>${{ number_format($sub->price, 2, ',', '.') }}</td>
+                  <td class="text-center"><span class="badge bg-turquesa">{{ $sub->status }}</span></td>
+                  <td class="text-center"><a class="btn btn-sm btn-azul" href="#"><i class="fas fa-download me-1"></i>Descargar</a>
+                  </td>
+                </tr>
+              @empty
+                <tr>
+                  <td colspan="6" class="text-center text-secondary py-4">No hay pagos registrados</td>
+                </tr>
+              @endforelse
+              </tbody>
+            </table>
+          </div>
+        </div>
       </div>
 
       <div class="row g-4">
         @forelse($subscriptions as $sub)
           <div class="col-md-6 col-lg-4">
-            <div class="card bg-azul text-light border-0 shadow-sm h-100">
-
-              {{-- Imagen del servicio --}}
+            <div class="card bg-azul text-light border-0  h-100">
               <img src="{{ asset('storage/img/services/' . ($sub->service->image ?? 'default.webp')) }}"
-                   class="card-img-top" alt="{{ $sub->service->name ?? 'Servicio' }}">
+                   class="card-img-top" alt="{{ $sub->service->name }}">
 
               <div class="card-body d-flex flex-column">
-                <h3 class="fs-4 text-turquesa font-bankgothic mb-1">
-                  {{ $sub->service->name ?? 'Servicio' }}
-                </h3>
-                <p class="text-balnco mb-2">{{ $sub->service->subtitle ?? '—' }}</p>
+                <h2 class="fs-4 text-turquesa font-bankgothic mb-1">
+                  {{ $sub->service->name }}
+                </h2>
+                <p class="text-blanco small mb-3">{{ $sub->service->subtitle ?? '—' }}</p>
 
-                <ul class="list-unstyled small mb-3">
-                  <li><span class="text-turquesa">Plan:</span> <span
-                      class="text-blanco ms-1">{{ $sub->plan->name ?? '-' }}</span>
-                    <span class="ms-2 text-capitalize">({{ $sub->plan->type ?? '-' }})</span></li>
+                <ul class="list-unstyled  p-0 mb-3">
+                  <li><span class="text-turquesa">Plan:</span>
+                    <span class="text-blanco small">{{ $sub->plan->name }}</span>
+                    ({{ $sub->plan->type }})
+                  </li>
                   <li><span class="text-turquesa">Estado:</span>
-                    <span class="badge bg-success ms-1 text-uppercase">{{ $sub->status ?? 'activa' }}</span></li>
+                    <span class="badge bg-turquesa ms-1 text-uppercase small">{{ $sub->status }}</span>
+                  </li>
                   <li><span class="text-turquesa">Inicio:</span>
-                    <span class="text-blanco ms-1">{{ optional($sub->started_at)->format('d/m/Y') ?? '—' }}</span></li>
+                    {{ optional($sub->started_at)->format('d/m/Y') ?? '—' }}
+                  </li>
                   <li><span class="text-turquesa">Próxima renovación:</span>
-                    <span class="text-blanco ms-1">{{ optional($sub->next_renewal_at)->format('d/m/Y') ?? '—' }}</span>
+                    {{ optional($sub->next_renewal_at)->format('d/m/Y') ?? '—' }}
                   </li>
                   <li><span class="text-turquesa">Precio:</span>
-                    <span
-                      class="text-turquesa fw-bold ms-1">${{ number_format($sub->price ?? ($sub->plan->price ?? 0), 2, ',', '.') }}</span>
+                    <span class="text-light fw-bold small">${{ number_format($sub->price, 2, ',', '.') }}</span>
                   </li>
                 </ul>
 
-                {{-- Características del plan --}}
-                @php
-                  $features = $sub->plan->features ?? [];
-                  if (is_string($features)) {
-                    $decoded = json_decode($features, true);
-                    $features = json_last_error() === JSON_ERROR_NONE ? $decoded : explode(',', $features);
-                  }
-                  if (!is_array($features)) $features = [];
-                @endphp
-
-                @if(!empty($features))
-                  <div class="border-top pt-2">
-                    <p class="small text-turquesa mb-1">Características del plan:</p>
-                    <ul class="mb-0 small">
-                      @foreach($features as $feature)
-                        <li><i class="fa-regular fa-circle-check me-1 text-turquesa"></i>{{ trim($feature) }}</li>
+                @if(!empty($sub->plan->features))
+                  <div class="border-top py-4">
+                    <h3 class="fs-5 font-bankgothic text-turquesa mb-1">Características del plan:</h3>
+                    <ul class="mb-0 p-0 small">
+                      @foreach(($sub->plan->features ?? []) as $feature)
+                        <li><i class="fa-regular fa-circle-check me-1 text-turquesa"></i>{{ $feature }}</li>
                       @endforeach
+
                     </ul>
                   </div>
                 @endif
 
-                {{-- Condiciones --}}
                 @if(!empty($sub->service->conditions))
-                  <div class="border-top mt-2 pt-2">
-                    <p class="small text-turquesa mb-0">Condiciones:</p>
+                  <div class="border-top mt-2 py-4">
+                    <h3 class="fs-5 text-turquesa font-bankgothic mb-0">Condiciones del servicio:</h3>
                     <p class="small text-blanco mb-0">{{ $sub->service->conditions }}</p>
                   </div>
                 @endif
               </div>
             </div>
+
           </div>
         @empty
           <div class="col-12">
-            <div class="alert alert-warning border-0">Este usuario no posee suscripciones.</div>
+            <div class="alert alert-warning border-0">
+              Este usuario no tiene suscripciones activas.
+            </div>
           </div>
         @endforelse
       </div>
+    </section>
 
-      @if(method_exists($subscriptions, 'links'))
-        <div class="mt-3">
-          {{ $subscriptions->links() }}
-        </div>
-      @endif
+    @if(method_exists($subscriptions, 'links'))
+      <div class="mt-3">
+        {{ $subscriptions->links() }}
+      </div>
     @endif
-  </section>
+  @endif
+
 @endsection

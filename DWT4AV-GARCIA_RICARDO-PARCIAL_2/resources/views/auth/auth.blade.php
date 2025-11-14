@@ -7,7 +7,7 @@
     <div class="container" style="max-width:500px">
       <div class="mb-4 text-center">
         <h1 class="fs-2 font-bankgothic fw-bold">Accedé a tu cuenta</h1>
-        <p class="text-secondary mb-0">Iniciá sesión o registrate para gestionar tu suscripción.</p>
+        <p class="text-blanco mb-0">Iniciá sesión o registrate para gestionar tu suscripción.</p>
       </div>
 
       <ul class="nav tabs-underline justify-content-center mb-2" id="authTabs" role="tablist">
@@ -26,15 +26,6 @@
           </button>
         </li>
       </ul>
-      @if($errors->any())
-        <x-alert type="danger" message="las credenciales no coinciden"/>
-      @endif
-
-      @if(session('success'))
-        <div class="alert alert-success">
-          {{ session('success') }}
-        </div>
-      @endif
 
       <div class="tab-content bg-azul text-light border border-light rounded p-5 shadow-sm">
         <div class="tab-pane fade show active" id="login" role="tabpanel" aria-labelledby="login-tab">
@@ -52,11 +43,12 @@
               <label for="passLogin" class="form-label">Contraseña</label>
               <div class="input-group">
                 <input type="password" id="passLogin" class="form-control" name="password">
-                <button type="button" class="btn btn-outline-turquesa"  id="togglePassLogin"
+                <button type="button" class="btn btn-outline-turquesa" id="togglePassLogin"
                         data-target="#passLogin" tabindex="-1">
                   <i class="fa-solid fa-eye"></i>
                 </button>
               </div>
+              <span class="small text-blanco">La contraseña debe tener al menos 6 caracteres</span>
               @error('password')
               <x-alert type="danger" :message="$message" small/>
               @enderror
@@ -77,7 +69,7 @@
             </div>
 
             <div class="col-md-6 ">
-              <a href="{{route('pages.index')}}"  class="btn btn-outline-turquesa font-bankgothic w-100">
+              <a href="{{route('pages.index')}}" class="btn btn-outline-turquesa font-bankgothic w-100">
                 <i class="fa-solid fa-arrow-left me-1"></i> Volver
               </a>
             </div>
@@ -106,7 +98,8 @@
               @enderror
             </div>
 
-            <div class="col-md-6">
+            <div class="col-12">
+
               <label for="passReg" class="form-label">Contraseña</label>
               <div class="input-group">
                 <input type="password" id="passReg" name="password" class="form-control"
@@ -118,9 +111,10 @@
               @error('password')
               <x-alert type="danger" :message="$message" small/>
               @enderror
+              <span class="small text-blanco">La contraseña debe tener al menos 6 caracteres</span>
             </div>
 
-            <div class="col-md-6">
+            <div class="col-12">
               <label for="passReg2" class="form-label">Repetir contraseña</label>
               <div class="input-group">
                 <input type="password" id="passReg2" name="password_confirmation" class="form-control"
@@ -133,6 +127,7 @@
               <x-alert type="danger" :message="$message" small/>
               @enderror
             </div>
+
             <div class="col-md-6">
               <button type="button" class="btn btn-outline-turquesa font-bankgothic w-100 mt-4">
                 <i class="fa-solid fa-arrow-left me-1"></i> Volver
@@ -146,41 +141,4 @@
       </div>
     </div>
   </section>
-  <script>
-    document.addEventListener('DOMContentLoaded', function () {
-      const tabs = {
-        login: document.querySelector('#login-tab'),
-        registro: document.querySelector('#registro-tab'),
-      };
-
-      function activateAuthTab(key) {
-        const trigger = tabs[key];
-        if (!trigger) return;
-
-        const tab = new bootstrap.Tab(trigger);
-        tab.show();
-      }
-
-      // Tab inicial según backend (por defecto login)
-      const initialTab = @json(session('auth_tab', 'login'));
-      activateAuthTab(initialTab);
-
-      document.querySelectorAll('.toggle-password').forEach(btn => {
-        btn.addEventListener('click', () => {
-          const targetId = btn.getAttribute('data-target');
-          const input = document.getElementById(targetId);
-          if (!input) return;
-
-          const isPwd = input.type === 'password';
-          input.type = isPwd ? 'text' : 'password';
-
-          const icon = btn.querySelector('i');
-          if (icon) {
-            icon.classList.toggle('fa-eye', !isPwd);
-            icon.classList.toggle('fa-eye-slash', isPwd);
-          }
-        });
-    });
-  </script>
-
 @endsection

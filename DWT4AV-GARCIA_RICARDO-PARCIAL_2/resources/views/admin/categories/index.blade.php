@@ -8,8 +8,8 @@
       <h1 class="fs-1 font-bankgothic fw-bold mb-1">Categorías</h1>
 
       <div class="my-2 d-flex flex-wrap justify-content-between align-items-center gap-2">
-        <p class="text-secondary mb-0">
-          Listado general de categorías registradas en el sistema.
+        <p class="text-blanco mb-0">
+          Administra las categorías registradas en el sistema.
         </p>
 
         <div class="d-flex gap-2">
@@ -28,7 +28,7 @@
           <x-categoryModal
             id="modalAgregarCategoria"
             title="Agregar Categoría"
-            icon="fa-solid fa-plus-circle"
+            icon="fa-solid fa-plus"
             :action="route('admin.categories.store')"
           />
         </div>
@@ -47,22 +47,15 @@
     />
   </div>
 
-  {{-- Contenido principal --}}
-  <section class="container py-5">
-    {{-- Mensaje de éxito --}}
+  <section class="container mt-3">
     <x-alert type="success" :message="session('success')"/>
     <x-alert type="danger" :message="session('error')"/>
-
-
-    {{-- Errores globales --}}
-    @if($errors->any())
-      <x-alert type="danger" :errors="$errors->all()"/>
-    @endif
 
     <div class="shadow-sm p-3 bg-azul rounded-2">
       <h2 class="font-bankgothic fs-3">Listado de categorias</h2>
       <div class="card border-light border-2 shadow-sm">
         <div class="table-responsive">
+
           <table class="table table-striped align-middle mb-0">
             <thead>
             <tr class="table-dark font-bankgothic">
@@ -73,31 +66,29 @@
               <th class="text-end">Acciones</th>
             </tr>
             </thead>
+
             <tbody>
             @forelse($categories as $category)
               <tr>
                 <td>{{ $category->id }}</td>
-
                 <td class="text-center">
                   {{ $category->updated_at->format('d/m/Y') }}
                 </td>
-
                 <td>{{ $category->name }}</td>
-
                 <td class="text-center">
                   <span class="badge bg-azul">
                     {{ $category->services_count ?? 0 }}
                   </span>
                 </td>
-
                 <td class="text-end">
-                  {{-- Editar categoría --}}
+                  {{-- Editar --}}
                   <a class="btn btn-azul"
-                          data-bs-toggle="modal"
-                          title="Editar"
-                          data-bs-target="#modalEditarCategoria{{ $category->id }}">
+                     data-bs-toggle="modal"
+                     title="Editar"
+                     data-bs-target="#modalEditarCategoria{{ $category->id }}">
                     <i class="fa-solid fa-pen"></i>
                   </a>
+                  {{-- Modal --}}
                   <x-categoryModal
                     :id="'modalEditarCategoria' . $category->id"
                     title="Editar Categoría"
@@ -107,16 +98,14 @@
                     :name="$category->name"
                   />
 
-                  {{-- Eliminar categoría --}}
+                  {{-- Eliminar --}}
                   @if($category->services_count > 0)
                     <button type="button"
                             class="btn btn-secondary"
-                            title="No se puede eliminar: tiene servicios asociados"
-                    >
+                            title="No se puede eliminar: tiene servicios asociados">
                       <i class="fa-solid fa-trash"></i>
                     </button>
                   @else
-                    {{-- Eliminar con SweetAlert --}}
                     <form id="deleteForm{{ $category->id }}"
                           action="{{ route('admin.categories.destroy', $category->id) }}"
                           method="POST"
@@ -147,14 +136,12 @@
       </div>
 
     </div>
-    {{-- Paginación --}}
     <div class="mt-4 d-flex justify-content-end">
       {{ $categories->links('pagination::bootstrap-5') }}
     </div>
   </section>
-  {{-- Modal editar categoría (componente) --}}
 
-  {{-- Confirmación SweetAlert para eliminar --}}
+  {{-- Confirmación para eliminar --}}
   <script>
     function confirmDelete(id) {
       Swal.fire({

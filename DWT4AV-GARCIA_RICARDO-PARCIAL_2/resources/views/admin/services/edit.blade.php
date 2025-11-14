@@ -1,20 +1,16 @@
 @extends('layouts.app')
-
 @section('title', 'Editar servicio')
-
 @section('content')
 
-  {{-- Hero igual que create, pero con texto de edición --}}
   <section class="mt-3 py-5 bg-gradient-dark text-light">
     <div class="container mb-4">
       <h1 id="pageTitle" class="fs-1 font-bankgothic fw-bold mb-1">Editar servicio</h1>
-      <p class="text-secondary mb-0">
+      <p class="text-blanco mb-0">
         Modificá los datos del servicio y actualizá su información general.
       </p>
     </div>
   </section>
 
-  {{-- Breadcrumb igual estructura que create --}}
   <div class="container">
     <x-breadcrumb
       :items="[
@@ -25,7 +21,6 @@
     />
   </div>
 
-  {{-- Formulario principal, misma card/section que create --}}
   <form method="POST"
         action="{{ route('admin.services.update', $service->id) }}"
         enctype="multipart/form-data">
@@ -33,15 +28,9 @@
     @method('PUT')
 
     <section class="my-3 py-4 container bg-azul text-light p-4 rounded-3 shadow-sm">
-
       <h2 id="datosTitle" class="fs-4 font-bankgothic text-turquesa mb-3">
         Datos del servicio
       </h2>
-
-      {{-- Errores globales si querés mostrarlos arriba (opcional) --}}
-      @if($errors->any())
-        <x-alert type="danger" :errors="$errors->all()"/>
-      @endif
 
       <div class="row">
 
@@ -118,7 +107,7 @@
                  id="image"
                  class="form-control @error('image') is-invalid @enderror"
                  accept=".webp,.jpeg,.jpg,.png">
-          <small class="text-secondary d-block">
+          <small class="text-blanco d-block">
             Si no seleccionás ninguna imagen, se mantendrá la actual.
           </small>
           @error('image')
@@ -134,6 +123,7 @@
                class="img-thumbnail"
                style="max-width: 70px;">
         </div>
+
         {{-- Descripción --}}
         <div class="col-12 col-lg-6 mb-3">
           <label for="description" class="form-label">Descripción *</label>
@@ -155,7 +145,7 @@
                     rows="3"
                     class="form-control @error('conditions') is-invalid @enderror"
                     placeholder="Separá cada condición con una coma. Ej: Soporte técnico, Renovación automática, Cancelación gratuita">{{ old('conditions', $service->conditions) }}</textarea>
-          <small class="text-secondary">Separá cada condición con una coma.</small>
+          <small class="text-blanco">Separá cada condición con una coma.</small>
           @error('conditions')
           <x-alert type="danger" :message="$message" small/>
           @enderror

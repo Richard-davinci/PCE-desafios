@@ -42,10 +42,7 @@ class PageController extends Controller
 
     }
 
-    $services = $query
-      ->orderBy('name', 'asc')
-      ->paginate(6)
-      ->withQueryString(); // preserva ?name= en la paginación
+    $services = $query->orderBy('name', 'asc')->paginate(6)->withQueryString();
 
     return view('pages.services', [
       'services' => $services,

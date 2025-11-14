@@ -26,7 +26,7 @@
   <section class="mt-3 py-5 bg-gradient-dark text-light">
     <div class="container">
       <h1 class="fs-1 font-bankgothic fw-bold mb-1">{{ $service->name }}</h1>
-      <p class="text-secondary mb-2">{{ $service->subtitle }}</p>
+      <p class="text-blanco mb-2">{{ $service->subtitle }}</p>
 
       <div class="d-flex flex-wrap align-items-center gap-3">
         @if($service->category)
@@ -36,25 +36,26 @@
         @endif
 
         <span class="badge
-            @if($service->status === 'Activo') bg-success
+            @if($service->status === 'Activo') bg-turquesa
             @elseif($service->status === 'Pausado') bg-warning text-dark
             @else bg-secondary
             @endif">
           {{ $service->status ?? 'Sin estado' }}
         </span>
 
+        <a href="{{ route('pages.services') }}" class="btn btn-turquesa ms-auto mt-3">
+          <i class="bi bi-arrow-left"></i> Volver a servicios
+        </a>
+
       </div>
-      <a href="{{ route('pages.services') }}" class="btn btn-turquesa ms-auto mt-3">
-        <i class="bi bi-arrow-left"></i> Volver a servicios
-      </a>
     </div>
   </section>
 
 
   <section class="container py-5">
-    <div class="row g-4 align-items-start">
+    <div class="row g-4 ">
       <div class="col-lg-4">
-        <div class="card bg-azul border-light shadow-sm mb-3">
+        <div class="card bg-azul border-light shadow-sm mb-3 h-100">
           <div class="card-body">
             @if($service->image)
               <img src="{{ asset('storage/img/services/' . ($service->image ?? 'default.webp')) }}"
@@ -62,28 +63,35 @@
                    class="img-fluid img-thumb mb-3 rounded-3">
             @endif
 
-            <h2 class="fs-5 font-bankgothic text-turquesa mb-2">Descripción</h2>
-            <p class=" mb-2">
-              {{$service->description}}
-            </p>
-
-            @if($service->conditions)
-              <h3 class="fs-6 font-bankgothic text-turquesa mt-3 mb-1">Condiciones</h3>
-              <p class="mb-0">
-                {{$service->conditions}}
-              </p>
-            @endif
+            <h2 class="fs-3 font-bankgothic text-turquesa mb-2">Descripción</h2>
+            <p class="small mb-2"> {{$service->description}} </p>
 
           </div>
         </div>
       </div>
 
       <div class="col-lg-8">
+        <div class="card bg-azul border-light shadow-sm mb-3">
+          <div class="card-body">
+            @if($service->conditions)
+              <h2 class="fs-3 font-bankgothic text-turquesa mt-2 mb-1">Condiciones</h2>
+              <ul class="list-unstyled mb-0">
+                @foreach(array_filter(explode(',', $service->conditions)) as $cond)
+                  <li class="small mb-1">
+                    <i class="fa-solid fa-circle-check text-turquesa me-2"></i>
+                    {{ trim($cond) }}
+                  </li>
+                @endforeach
+              </ul>
+            @endif
+          </div>
+        </div>
+
         @if(!$uniquePlan && !$hasMonthly)
           <div class="card bg-azul border-light shadow-sm">
             <div class="card-body">
-              <h2 class="fs-4 font-bankgothic text-turquesa mb-2">Precio unico</h2>
-              <p class="text-secondary mb-0">
+              <h2 class="fs-3 font-bankgothic text-turquesa mb-2">Planes</h2>
+              <p class="text-blanco mb-0">
                 Este servicio todavía no tiene planes configurados.
               </p>
             </div>
@@ -92,28 +100,25 @@
 
         <!-- PLAN ÚNICO -->
         @if($uniquePlan)
-          <div class="card bg-azul border-light shadow-sm mb-4">
+          <div class="card bg-azul border-light shadow-sm mb-4 ">
             <div class="card-body">
-              <h2 class="fs-4 font-bankgothic text-turquesa mb-2">Precio único</h2>
-              <p class="fs-3 fw-bold mb-1">
-                U$D {{ number_format($uniquePlan->price, 2, ',', '.') }}
-              </p>
-              <p class="small mb-2">
-                Pago único. Ideal si querés resolver todo en una sola inversión.
+              <div class="d-flex justify-content-between gap-2">
+                <h2 class="fs-3 font-bankgothic text-turquesa mb-1">Precio único</h2>
+                <a href="{{ route('checkout.preview', ['service' => $service->id, 'plan' => $uniquePlan->id]) }}"
+                   class="btn btn-turquesa ">Elegir suscripción</a>
+              </div>
+              <p class="fs-4 fw-bold mb-1">
+                U$D {{ number_format($uniquePlan->price, 0, ',', '.') }}
               </p>
 
               @if(!empty($uniquePlan->features))
-                <ul class="small ps-3 mb-3">
+                <ul class="small ps-0 mb-3">
                   @foreach($uniquePlan->features as $f)
-                    <li>{{ trim($f) }}</li>
+                    <li><i class="fa-solid fa-circle-check text-turquesa me-2"></i>{{ trim($f) }}</li>
                   @endforeach
                 </ul>
               @endif
 
-              <div class="d-flex gap-2">
-                <a href="{{ route('checkout.preview', ['service' => $service->id, 'plan' => $uniquePlan->id]) }}"
-                   class="btn btn-turquesa">Elegir suscripción</a>
-              </div>
             </div>
           </div>
         @endif
@@ -123,13 +128,13 @@
             <div class="card-body">
 
               <div class="d-flex flex-column flex-md-row align-items-md-center justify-content-between gap-2 mb-2">
-                <h2 class="fs-4 font-bankgothic text-turquesa mb-0">
+                <h2 class="fs-3 font-bankgothic text-turquesa mb-0">
                   Planes
                 </h2>
 
                 <ul class="nav tabs-underline justify-content-center mb-0" id="planTabs" role="tablist">
                   <li class="nav-item" role="presentation">
-                    <button class="nav-link active font-bankgothic fs-6"
+                    <button class="nav-link active font-bankgothic fs-5"
                             id="mensual-tab"
                             data-bs-toggle="tab"
                             data-bs-target="#mensual"
@@ -141,7 +146,7 @@
                     </button>
                   </li>
                   <li class="nav-item" role="presentation">
-                    <button class="nav-link font-bankgothic fs-6"
+                    <button class="nav-link font-bankgothic fs-5"
                             id="anual-tab"
                             data-bs-toggle="tab"
                             data-bs-target="#anual"
@@ -155,23 +160,34 @@
                 </ul>
               </div>
 
-              <div class="tab-content mt-4" id="planTabsContent">
+              <div class="tab-content" id="planTabsContent">
                 <div class="tab-pane fade show active" id="mensual" role="tabpanel">
                   <div class="row g-3">
                     @foreach($monthlyPlans as $plan)
                       <div class="col-md-4">
                         <div class="card rounded-3 h-100 p-3 border-0 ">
-                          <h3 class="fs-3 font-bankgothic text-turquesa  fw-bold mb-1 ">
+                          <h3 class="fs-4 font-bankgothic fw-bold mb-1  text-turquesa">
                             {{ $plan->name }}
                           </h3>
-
-                          {{--------------------necesito acomodar este texto--------------------------------------}}
-                          {{--<p class="text-secondary small mb-2">
-                            Todo lo que necesitás para empezar
-                          </p>--}}
-
+                          @switch($plan->name)
+                            @case('Básico')
+                              <p class="text-secondary small mb-2">
+                                Ideal para emprendedores
+                              </p>
+                              @break
+                            @case('Pro')
+                              <p class="text-secondary small mb-2">
+                                Todo lo que necesitás para empezar
+                              </p>
+                              @break
+                            @case('Empresarial')
+                              <p class="text-secondary small mb-2">
+                                Más herramientas y potencial
+                              </p>
+                              @break
+                          @endswitch
                           <div class="price">
-                            <p class=" fs-4 mb-2">U$D {{ number_format($plan->price, 2, ',', '.') }}
+                            <p class=" fs-4 mb-2">U$D {{ number_format($plan->price, 0, ',', '.') }}
                               <span class="fs-6 text-secondary">/mes</span></p>
                           </div>
                           @if(!empty($plan->features))
@@ -201,9 +217,26 @@
                       @endphp
                       <div class="col-md-4">
                         <div class="card rounded-3 h-100 p-3 border-0 ">
-                          <h3 class="fs-3 font-bankgothic  fw-bold mb-1 text-turquesa">
+                          <h3 class="fs-4 font-bankgothic  fw-bold mb-1 text-turquesa">
                             {{ $plan->name }}
                           </h3>
+                          @switch($plan->name)
+                            @case('Básico')
+                              <p class="text-secondary small mb-2">
+                                Ideal para emprendedores
+                              </p>
+                              @break
+                            @case('Pro')
+                              <p class="text-secondary small mb-2">
+                                Todo lo que necesitás para empezar
+                              </p>
+                              @break
+                            @case('Empresarial')
+                              <p class="text-secondary small mb-2">
+                                Más herramientas y potencial
+                              </p>
+                              @break
+                          @endswitch
                           <p class="text-light small mb-2 badge bg-azul">
                             Plan anual
                             @if($discount)
@@ -212,15 +245,16 @@
                             @endif
                           </p>
                           <div class="price mb-1">
-                            <p>
-                              U$D {{ number_format($plan->price, 2, ',', '.') }} <span class="fs-6 text-secondary">/año</span>
+                            <p class=" fs-4 mb-2">
+                              U$D {{ number_format($plan->price, 0, ',', '.') }} <span
+                                class="fs-6 text-secondary">/año</span>
                             </p>
                           </div>
 
                           @if($discount && $monthly)
                             <small class="text-success d-block mb-2">
                               En lugar de
-                              U$D {{ number_format($monthly->price * 12, 2, ',', '.') }}
+                              U$D {{ number_format($monthly->price * 12, 0, ',', '.') }}
                               pagando mes a mes.
                             </small>
                           @endif
@@ -235,7 +269,7 @@
 
                           <div class="d-grid mt-auto">
                             <a href="{{ route('checkout.preview', ['service' => $service->id, 'plan' => $plan->id]) }}"
-                               class="btn btn-turquesa">Contratar anual</a>
+                               class="btn btn-turquesa">Elegir plan anual</a>
                           </div>
                         </div>
                       </div>

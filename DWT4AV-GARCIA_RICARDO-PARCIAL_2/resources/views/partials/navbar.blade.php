@@ -84,7 +84,8 @@
           <li class="nav-item dropdown ms-lg-2">
             <a class="nav-link dropdown-toggle d-flex align-items-center gap-2 justify-content-center"
                href="#" data-bs-toggle="dropdown">
-              <img src="storage/{{ $user->profile_photo }}" alt="foto de {{$user->name}}" class="navbar-avatar">
+              <img src="{{'storage/' .  $user->profile_photo }}" alt="foto de ({{$user->name ?? 'sin imagen'}} ) "
+                   class="navbar-avatar">
               <span id="navUserName">Mi cuenta</span>
               <i class="fa-solid fa-caret-down ms-1"></i>
             </a>
@@ -96,11 +97,11 @@
                 </a>
               </li>
               @if ($user->role === 'user')
-              <li>
-                <a class="dropdown-item" href="{{ route('user.subscriptions') }}">
-                  <i class="fa-solid fa-user me-2 text-turquesa"></i> Mis suscripciones
-                </a>
-              </li>
+                <li>
+                  <a class="dropdown-item" href="{{ route('user.subscriptions') }}">
+                    <i class="fa-solid fa-user me-2 text-turquesa"></i> Mis suscripciones
+                  </a>
+                </li>
               @endif
 
               <li>

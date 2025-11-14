@@ -91,8 +91,24 @@ class ServicesController extends Controller
    */
   public function show(Service $service)
   {
+    // Plan único
+    $uniquePlan = $service->plans->firstWhere('type', 'único');
+
+    // Planes mensuales/anuales agrupados por nombre
+    $monthlyPlans = $service->plans
+      ->where('type', 'mensual')
+      ->sortBy('price')
+      ->keyBy('name'); // Básico, Pro, Empresarial
+
+    $annualPlans = $service->plans
+      ->where('type', 'anual')
+      ->sortBy('price')
+      ->keyBy('name');
+
+    $hasMonthly = $monthlyPlans->isNotEmpty();
+
     $service->load('plans', 'category');
-    return view('admin.services.show', compact('service'));
+    return view('admin.services.show', compact('service','uniquePlan','monthlyPlans','annualPlans','hasMonthly'));
   }
 
   /**

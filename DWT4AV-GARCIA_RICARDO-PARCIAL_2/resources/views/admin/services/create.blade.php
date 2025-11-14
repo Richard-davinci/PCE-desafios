@@ -1,13 +1,11 @@
 @extends('layouts.app')
-
 @section('title', 'Crear servicio')
-
 @section('content')
 
   <section class="mt-3 py-5 bg-gradient-dark text-light">
     <div class="container mb-4">
       <h1 id="pageTitle" class="fs-1 font-bankgothic fw-bold mb-1">Crear servicio</h1>
-      <p class="text-secondary mb-0">Completá los datos del servicio y agregá uno o más planes.</p>
+      <p class="text-blanco mb-0">Completá los datos del servicio y agregá uno o más planes.</p>
     </div>
   </section>
   <div class="container">
@@ -19,7 +17,7 @@
         class="">
     @csrf
     <section class="my-3 py-4 container bg-azul text-light p-4 rounded-3 shadow-sm">
-      <h2 id="datosTitle" class="fs-4 font-bankgothic text-turquesa mb-3">Datos del servicio</h2>
+      <h2 id="datosTitle" class="fs-4 font-bankgothic text-turquesa mb-3">Datos</h2>
       <div class="row">
         {{-- Nombre --}}
         <div class="col-sm-6 col-lg-4 mb-3">
@@ -102,7 +100,6 @@
           <label for="conditions" class="form-label">Condiciones</label>
           <textarea name="conditions" id="conditions" rows="3" class="form-control"
                     placeholder="Separá cada condición con una coma. Ej: Soporte técnico, Renovación automática, Cancelación gratuita">{{ old('conditions')}}</textarea>
-          <small class="text-secondary">Separá cada condición con una coma.</small>
           @error('conditions')
           <x-alert type="danger" :message="$message" small/>
           @enderror

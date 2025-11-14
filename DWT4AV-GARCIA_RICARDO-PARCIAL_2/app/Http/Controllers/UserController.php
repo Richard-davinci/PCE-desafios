@@ -58,7 +58,7 @@ class UserController extends Controller
     $data = $request->validate([
       'name' => ['required', 'string', 'max:255'],
       'email' => ['required', 'email', 'max:255', 'unique:users,email'],
-      'role' => ['required', 'in:admin,user'],
+      'role' => ['required'],
       'password' => ['nullable', 'string', 'min:6'],
     ]);
 
@@ -72,7 +72,6 @@ class UserController extends Controller
       'password' => Hash::make($plainPassword),
     ]);
 
-    // Mostrar la contraseña solo una vez al admin
     return redirect()
       ->route('admin.users.index')
       ->with('success', "Usuario creado correctamente. Contraseña: {$plainPassword}");

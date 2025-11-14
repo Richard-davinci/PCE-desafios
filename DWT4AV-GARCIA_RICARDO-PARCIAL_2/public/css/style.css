@@ -204,16 +204,15 @@ main {
 .swal-custom-cancel {
   font-family: 'BankGothic', sans-serif;
   background-color: transparent;
-  color: var(--turquesa);
+  color: white;
   border: 1px solid var(--turquesa);
   border-radius: .4rem;
   transition: all 0.25s ease-in-out;
 }
 
-/* Hover: efecto neón igual que el botón turquesa */
 .btn-outline-turquesa:hover,
 .swal-custom-cancel:hover {
-  background-color: rgba(14, 196, 159, 0.1); /* leve relleno turquesa translúcido */
+  background-color: rgba(14, 196, 159, 0.1);
   color: var(--turquesa);
   box-shadow:
     0 0 8px rgba(14, 196, 159, 0.6),
@@ -223,7 +222,6 @@ main {
   border-color: var(--turquesa);
 }
 
-/* Active: efecto presionado */
 .btn-outline-turquesa:active,
 .swal-custom-cancel:active {
   transform: translateY(0);
